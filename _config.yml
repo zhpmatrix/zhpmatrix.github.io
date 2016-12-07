@@ -1,0 +1,17 @@
+# Site settings
+title: ZHPMATRIX blog
+email: 
+description: "A master in computer science"
+baseurl: ""
+url: "http://zhpmatrix.github.io"
+github_username:  zhpmatrix
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+highlighter: rouge
+kramdown:
+  input: GFM
+  auto_ids: true
+  syntax_highlighter: rouge
