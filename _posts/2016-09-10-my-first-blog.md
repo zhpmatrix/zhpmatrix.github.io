@@ -22,5 +22,7 @@ _"日本民间流传着这样一个故事：在深山里，有一种特别的蛤
 
 这是黑泽明《蛤蟆的油》扉页中的一段文字，黑泽明晚年回首往事的时候，将自己比喻成那只特别的蛤蟆。于己，不用至晚年，现在常常反思自己，做人做事，常有疏漏，然未流出一身油，却把自己吓了一跳。
 
+<iframe src="https://music.daoapp.io/iframe?song=426342137&qssl=1&qlrc=1&qnarrow=0&max_width=50%&autoplay=1" width="80%" frameborder="0"></iframe>
+
 系统不设评论模块，当您读到文章想要与我沟通的时候，可以移步[关于我](https://zhpmatrix.github.io/about/)，那里有我的联系方式。
 

@@ -7,7 +7,6 @@ mathjax: true
 ---
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 
-<iframe src="https://music.daoapp.io/iframe?song=287749&qssl=1&qlrc=1&qnarrow=0&max_width=50%&autoplay=1"></iframe>
 这是利用Python做的第二个实践，第一个实践是2015年暑假在宁波智能制造产业研究院做Intern的时候写过一个八叉树的结构。问题描述如下：
 
 ![P](http://ww4.sinaimg.cn/mw690/aba7d18bjw1faeoh2kq22j20lp0kedl9.jpg)
