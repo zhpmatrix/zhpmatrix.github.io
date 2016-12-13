@@ -9,6 +9,8 @@ mathjax: true
 
 常常感怀的几段文字，就像一味味苦口良药。愿做一头反刍的老牛，常苦常新。
 
+<iframe src="https://music.daoapp.io/iframe?song=426342137&qssl=1&qlrc=1&qnarrow=0&max_width=50%&autoplay=1" width="80%" frameborder="0"></iframe>
+
 这些年我一直提醒自己一件事情，千万不要自己感动自己。大部分人看似的努力，不过是愚蠢导致的。什么熬夜看书到天亮，连续几天只睡几小时，多久没放假了，如果这些东西也值得夸耀，那么富士康流水线上任何一个人都比你努力多了。人难免天生有自怜的情绪，唯有时刻保持清醒，才能看清真正的价值在哪里。
 
                                                 -于宙TEDx演讲：我们这一代人的困惑
@@ -22,7 +24,6 @@ _"日本民间流传着这样一个故事：在深山里，有一种特别的蛤
 
 这是黑泽明《蛤蟆的油》扉页中的一段文字，黑泽明晚年回首往事的时候，将自己比喻成那只特别的蛤蟆。于己，不用至晚年，现在常常反思自己，做人做事，常有疏漏，然未流出一身油，却把自己吓了一跳。
 
-<iframe src="https://music.daoapp.io/iframe?song=426342137&qssl=1&qlrc=1&qnarrow=0&max_width=50%&autoplay=1" width="80%" frameborder="0"></iframe>
 
 系统不设评论模块，当您读到文章想要与我沟通的时候，可以移步[关于我](https://zhpmatrix.github.io/about/)，那里有我的联系方式。
 
