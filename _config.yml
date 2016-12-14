@@ -3,6 +3,9 @@ title: ZHPMATRIX blog
 email: 
 description: "A master in computer science"
 baseurl: ""
+
+lifeurl: "life"
+nav_life: 日常
 url: "http://zhpmatrix.github.io"
 github_username:  zhpmatrix
 
