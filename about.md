@@ -4,14 +4,13 @@ title: 关于我
 permalink: /about/
 ---
     简介
----
+
 
 用VIM写C++/Python的程序员。数学修道者。
 
 ---
 
     经历
----
 
 **2016.10：** 入选篮球院队队员
 
@@ -37,13 +36,12 @@ permalink: /about/
 
 
     联系方式
----
 
-    Mail:zhpmatrix@gmail.com
+Mail:zhpmatrix@gmail.com
 
-    QQ: 1332062790
+QQ: 1332062790
 
-    Weibo:@zhpmatrix
+Weibo:@zhpmatrix
 
 ---
 
