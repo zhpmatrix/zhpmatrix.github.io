@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "[CV]图像处理知识框图"
-excerpt: "敬拜考神，求过。"
-date: 2016-12-21 22:36:00
+excerpt: "马上就是圣诞节了"
+date: 2016-12-22 18:54:00
 mathjax: true
 ---
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
