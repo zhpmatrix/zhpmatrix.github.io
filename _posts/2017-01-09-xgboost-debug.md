@@ -19,7 +19,7 @@ date: 2017-01-09 13:56:00
 
 添加参数**'-g'**:
 
-    export CFLAGS=  -std=c++0x -Wall -Wno-unknown-pragmas -Iinclude $(ADD_CFLAGS) $(PLUGIN_CFLAGS)
+    export CFLAGS=  -std=c++0x -g -Wall -Wno-unknown-pragmas -Iinclude $(ADD_CFLAGS) $(PLUGIN_CFLAGS)
 
 这个步骤的目的是编译时得到可调式版本，默认安装的时候，没有该参数(如果喜欢汇编语言，此步可以略过)。
 
