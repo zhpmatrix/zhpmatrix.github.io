@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "[比赛]天池比赛-口碑商家客流量预测(思路梳理)"
-excerpt: "这是一篇比赛中途的思路梳理，回顾了比赛方案设计，具体包括特征工程，模型融合，代码加速三部分，以期从过去激发新想法"
+excerpt: "这是一篇比赛中途的思路梳理，回顾了比赛方案设计，具体包括特征工程，模型融合，代码加速三部分，以期从过去激发新想法。"
 date: 2017-02-21 15:42:00
 ---
 
@@ -78,7 +78,7 @@ user_pay大小约4G，数据量6000W+，将shop_info和user_pay利用pandas做gr
 
 *1.* [How to Rank 10% in Your First Kaggle Competition](https://dnc1994.com/2016/05/rank-10-percent-in-first-kaggle-competition-en/)
 
-*2.* [Kaggle Ensembling Guide | MLWave](http://mlwave.com/kaggle-ensembling-guide/)
+*2.* [Kaggle Ensembling Guide](http://mlwave.com/kaggle-ensembling-guide/)
 
 *3.* [使用sklearn优雅地进行数据挖掘](http://www.cnblogs.com/jasonfreak/p/5448462.html)
 
