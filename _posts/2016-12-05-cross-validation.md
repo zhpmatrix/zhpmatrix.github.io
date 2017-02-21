@@ -27,6 +27,16 @@ mathjax: true
 
 随着模型复杂度的增加，训练误差(red line)逐渐减小，测试误差(blue line)逐渐减小到一个值之后又逐渐增加（_Breiman的Random Forest没有增加过程_）。换种方式来说，训练过程是偏差逐渐减小的过程，测试过程方差变化先减小后增大的过程。
 
+NIPS 2016上，Andrew Ng水笔白板作报告，又一次谈了他的bias和variance均衡，此处自行脑补bias和variance两条曲线随着模型复杂度变化的X型，通常来说，最佳的模型复杂度在两条曲线的交叉点处取得。模型复杂度太高，导致overfitting，产生variance，训练误差远小于交叉验证误差，也就是上图中右侧的高方差和低偏差的表示（训练误差和交叉验证误差的值相差较多）。反之，较低的模型复杂度，导致underfitting，产生bias，也就是上图右侧的高偏差和低方差的表示(但是训练误差和交叉验证误差的值是接近的)。此外，对于cost function中的正则项系数，系数太小，导致overfitting，反之太大，导致underfitting。至于**训练样本和两类误差的关系**，Ng是这样表述的，underfitting导致的high bias问题，增加训练样本数目不管用！为啥呢？设想你选择了一个不合适的模型。overfitting导致的high variance问题，增加训练样本数目，使得训练误差和交叉验证误差之间的gap变小，从而有助于性能提高。所以，不是所有的问题都可以用**更多的数据**来解决。
+
+此处不合时宜的谈谈二者均衡对我们的指导操作。
+
+* 更多的数据，解决高方差
+* 更小的特征集，解决高方差
+* 更多的特征(例如：多用多项式特征)，解决高偏差
+* 降低正则系数，解决高偏差
+* 增加正则系数，解决高方差
+
 因此，更好的模型要满足有一个合适的模型复杂度。如何选择？
 
 关于选择策略通常有两个，分别是**经验风险最小化**和**结构风险最小化**。前者的具体实施是特定应用情景下的误差函数，基于前者提出的模型如极大似然估计，通常来说，数据越多，效果越好。但是数据较少的情况下，容易出现过拟合，因为模型复杂度过高。为了防止过拟合，提出了结构风险最小化策略，具体实施是正则化。正则化的作用就是选择经验风险和结构风险都尽量小的模型。于是常常看到：
@@ -61,9 +71,11 @@ mathjax: true
 
 2.HoldOut中的scoring是‘accuracy’,可以读源代码。
 
-3.cross_val_score中的scoring可选参数众多，如下：
+3.cross_val_score中的[scoring](http://scikit-learn.org/stable/modules/model_evaluation.html#scoring-parameter)可选参数众多，**scoring是用来定义模型评估准则的**，比如scoring='accuracy'是target预测值和真实值的差度量。具体如下：
 
 [**'accuracy'**, 'adjusted_rand_score', 'average_precision', **'f1'**, 'f1_macro', 'f1_micro', 'f1_samples', 'f1_weighted', **'log_loss'**, **'mean_absolute_error'**, **'mean_squared_error'**, 'median_absolute_error', 'precision', 'precision_macro', 'precision_micro', 'precision_samples', 'precision_weighted', 'r2', **'recall'**, 'recall_macro', 'recall_micro', 'recall_samples', 'recall_weighted', **'roc_auc'**]
+
+在利用交叉验证进行参数选择的时候，结合Ng所谈到的问题，我们只要关心交叉验证误差最小时对应的模型就好，当然，GridSearchCV也是模型参数选择一种合适的方式。
 
 总结：文章从误差谈到模型选择到风险，最终回到正则化和交叉验证的讨论。当然，最爱的还是Coding，文末给出了sklearn中的交叉验证两种方式，可以直接用在工业级数据竞赛。
 
