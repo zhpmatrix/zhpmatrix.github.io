@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "[Python]后知后觉函数式编程"
-excerpt: "文中主要谈了匿名函数,filter,map,reduce等，同时给出了一些短小精美的代码"
+excerpt: "文中主要谈了匿名函数,filter,map,reduce等，同时给出了一些短小精美的代码。"
 date: 2017-02-22 21:00:00
 ---
 
