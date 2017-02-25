@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "[Python]深入理解数据结构"
-excerpt: ""
+excerpt: "python中数据结构的理解和应用。"
 date: 2017-02-24 12:00:00
 ---
 
