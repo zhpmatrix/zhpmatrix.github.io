@@ -75,7 +75,23 @@ SMOTE的缺点是由于它生成样本的方式导致的。此处，提到了一
 
 3.2.4 cost-sensitive neural networks
 
+就神经网络而言，代价敏感方法可以用到四个地方：首先可以应用到概率估计，其次是神经网络的输出，第三是学习率，最后可以用于误差最小化改进。除了应用到决策树和神经网络之外，还有研究者将代价敏感方法引入到贝叶斯分类器，支持向量机等。
+
 3.3 核方法和主动学习
+
+3.3.1 kernel-based learning framework
+
+关于核方法的研究主要集中在统计学习和VC维理论，最具有代表性的学习范式是SVM，但是对于SVM，当面对非平衡数据时，分割超平面的位置会有所偏移，从而导致SVM的性能有所下降。
+
+3.3.2 integration of kernel methods with sampling methods
+
+在学术界，已经有些工作是将采样和集成技术引入SVM，其中具有代表性意义的是GSVM-RU算法。
+
+3.3.3 kernel modification methods for imbalanced learning
+
+除了关注采样和集成技术，还有一些工作关注SVM机制本身，这类方法称为核变方法(kernel modification method),典型的例子包括：基于正交前向搜索和标准正交加权最小平方的核分类构造算法，调整SVM类边界的算法及其变种，模糊SVM核方法，k类最优SVM，支持聚类机。
+
+3.3.4 active learning methods for imbalanced learning
 
 3.4 其他方法
 

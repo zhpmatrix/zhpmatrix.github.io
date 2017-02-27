@@ -84,3 +84,7 @@ user_pay大小约4G，数据量6000W+，将shop_info和user_pay利用pandas做gr
 
 *4.* [Bias v.s. Variance Andrew Ng](http://blog.csdn.net/abcjennifer/article/details/7797502)
 
+*5.* [Complete Guide to Parameter Tuning in Gradient Boosting(GBM) in Python](https://www.analyticsvidhya.com/blog/2016/02/complete-guide-parameter-tuning-gradient-boosting-gbm-python/)
+
+*6.* [jasonfreak博客](http://www.cnblogs.com/jasonfreak/tag/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/)
+
