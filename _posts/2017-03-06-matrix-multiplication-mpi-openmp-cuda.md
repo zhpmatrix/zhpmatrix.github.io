@@ -97,7 +97,7 @@ date: 2017-03-06 12:00:00
 ![3](http://wx2.sinaimg.cn/mw690/aba7d18bgy1fdd0l8s6raj20kw0ckdg9.jpg)
 ![4](http://wx3.sinaimg.cn/mw690/aba7d18bgy1fdd0k4pwufj20kw0ck0t7.jpg)
 
-详细的内容还是要读[代码](https://github.com/zhpmatrix/parallel-computing/tree/master/mpi_mm)。在每个计算节点，可以采用OpenMP或者CUDA继续加速，我们的集群每个计算节点上还有两块K80！这里给出一个CUDA矩阵相乘的测试[代码](https://github.com/zhpmatrix/parallel-computing/blob/master/cuda_mm.cu)。
+详细的内容还是要读[代码](https://github.com/zhpmatrix/parallel-computing/tree/master/matrix_multiplication_with_MPI)。在每个计算节点，可以采用OpenMP或者CUDA继续加速，我们的集群每个计算节点上还有两块K80！这里给出一个CUDA矩阵相乘的测试[代码](https://github.com/zhpmatrix/parallel-computing/tree/master/matrix_multiplication_with_CUDA)。
 
 参考：
 
