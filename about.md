@@ -16,7 +16,6 @@ permalink: /about/
 
 - 用VIM写C++/Python的程序员。
  
-- 数学修道者。
 
 - 崇拜批判精神和独立思考者。
 
