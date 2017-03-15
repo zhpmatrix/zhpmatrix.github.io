@@ -57,6 +57,8 @@ date: 2017-03-14 20:23:00
 
 文章梳理了简单并行化LR的过程，有很多需要进一步优化的地方，同时回顾了踩坑经历。MPI在提供灵活性的同时，也带来了调试问题。并行化一个串行程序，通常要考虑任务并行和数据并行，这个过程考察我们的任务分解能力和数据分解能力，当然，这是需要数据理论证明来提供支持的。并行化调试是一个难点，必要的时候，步步验证。总之，并行化没有绝对完美的方案，需要在多个因素之间做一个trade-off，focus重点。最后给出[代码地址](https://github.com/zhpmatrix/parallel-computing/tree/master/LogisticRegression_with_MPI)，**代码的目的是快速原型呈现**，故有诸多槽点。
 
+在之前的文章中多次提到过李沐，感兴趣可以读读《Scaling Distributed Machine Learning with the Parameter Server》，在写完这篇文章后，我翻了李的论文，同时在参考中给出了一个中文的论文思路。我在做并行化的时候，假设集群拓扑是一个管理节点和四个计算节点，而真实的集群拓扑是多管理节点(server)多计算节点(worker)，在论文中给出了各种设计细节，包括通信格式，异步处理，参数更新设计，容错处理，扩展性考量等。
+
 ##### 参考：
 
 1.[详解并行逻辑回归](http://blog.csdn.net/zhoubl668/article/details/19612215)
@@ -67,7 +69,9 @@ date: 2017-03-14 20:23:00
 
 4.[大数据集群计算利器之MPI/OpenMP---以连通域标记算法并行化为例](大数据集群计算利器之MPI/OpenMP---以连通域标记算法并行化为例)(_个人非常喜欢这篇文章的风格_)
 
+5.[Paxos算法](https://zh.wikipedia.org/wiki/Paxos%E7%AE%97%E6%B3%95)
 
+6.[Parameter Server详解](http://blog.csdn.net/mydear_11000/article/details/54948149)
 
 
 
