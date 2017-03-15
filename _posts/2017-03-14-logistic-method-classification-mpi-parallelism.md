@@ -59,6 +59,7 @@ date: 2017-03-14 20:23:00
 
 在之前的文章中多次提到过李沐，感兴趣可以读读《Scaling Distributed Machine Learning with the Parameter Server》，在写完这篇文章后，我翻了李的论文，同时在参考中给出了一个中文的论文思路。我在做并行化的时候，假设集群拓扑是一个管理节点和四个计算节点，而真实的集群拓扑是多管理节点(server)多计算节点(worker)，在论文中给出了各种设计细节，包括通信格式，异步处理，参数更新设计，容错处理，扩展性考量等。
 
+
 ##### 参考：
 
 1.[详解并行逻辑回归](http://blog.csdn.net/zhoubl668/article/details/19612215)
