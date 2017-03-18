@@ -125,3 +125,7 @@ SMOTE的缺点是由于它生成样本的方式导致的。此处，提到了一
 针对非平衡数据的半监督学习：半监督学习面对的数据是有标签和无标签的数据，该学习重要的想法是利用有标签数据的信息来完善无标签数据的信息(例如标签特征)，典型方法有cotraining, self-training methods, semisupervised support vector machines, graph-based methods and Expectation-Maximization(EM) algorithm with generative mixture models等。具体问题是：我们怎样判别一个无标签数据是来自隐藏的平衡平布还是非平衡分布？在给定有标签的非平衡数据集的前提下，高效找到无标签数据的标签的方法是什么？利用传统的半监督学习方法找到无标签数据的标签，这个过程引入的偏差是什么？
 
 结论：在这篇论文中，我们讨论了知识发现和数据工程领域一个既有挑战性又非常重要的问题-数据不平衡学习。我们希望这些对不平衡学习问题的本质的讨论，用来表述该问题的较好的方法的陈述，检验该问题解决方案好坏的评估技术的整理能够为现在和将来知识发现和数据工程领域的研究者和实践者们提供一份全面的材料。此外，我们希望我们发现的在这个相对较新领域(2009年)的一些机会和挑战能够指引潜在研究者为该领域的未来发展做出更好的贡献。
+
+参考：
+
+1.[How to handle Imbalanced Classification Problems in machine learning?](https://www.analyticsvidhya.com/blog/2017/03/imbalanced-classification-problem/)
