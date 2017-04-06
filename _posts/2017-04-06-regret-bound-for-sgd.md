@@ -39,7 +39,7 @@ $$F(w_{k}) \geq F(w_{*}) + g(w_{\*})^T(w_{k} - w_{\*})$$
 
 注意，此处我们假定了$$g(w_{\*})^T(w_{k} - w{\*}) \geq 0$$
 
-在进行下一步的说明之前，我们进行一个符号的陈述：用\\( f(w_{k};\xi_{k}) \\)和\\( f(w_{\*};\xi_{k}) \\)分别表示\\( F(w_{k}) \\)和\\( F(w_{\*}) \\),用\\( \nabla f(w_{k};\xi_{k}) \\)来表示\\( g(w_{k},\xi_{k}) \\),这里，\\(\xi_{k}\\)表示SGD随机选取的样本。则：
+在进行下一步的说明之前，我们进行一个符号的陈述：用\\( f(w_{k};\xi_{k}) \\)和\\( f(w_{\*};\xi_{k}) \\)分别表示\\( F(w_{k}) \\)和\\( F(w_{*}) \\),用\\( \nabla f(w_{k};\xi_{k}) \\)来表示\\( g(w_{k},\xi_{k}) \\),这里，\\(\xi_{k}\\)表示SGD随机选取的样本。则：
 
 $$
 ||w_{k+1} - w_{\*}||^2 - ||w_{k} - w_{\*}||^2 \leq -2\alpha_{k}(f(w_{k};\xi_{k}) - f(w_{\*};\xi_{k})) + \alpha_{k}^2|| \nabla f(w_{k};\xi_{k}) ||^2 \\ \\ \\ (3)
@@ -53,7 +53,7 @@ $$
 $$
 
 $$
-||w_{k} - w_{\*}||^2 < B \\ \\ \\ (5)
+||w_{k} - w_{*}||^2 < B \\ \\ \\ (5)
 $$
 
 其中(4)和（5）满足：\\(M > 0,B > 0\\) for all k \\( \in \mathbb{N}\\)
@@ -61,22 +61,22 @@ $$
 进而得到:
 
 $$
-\alpha_{k+1}^{-1}||w_{k+1} -w_{\*}||^2 - \alpha_{k}^{-1}||w_{k}-w_{\*}||^2 \leq -2(f(w_{k};\xi_{k})-f(w_{\*};\xi_{k}) + \alpha_{k}M + (\alpha_{k+1}^{-1} - \alpha_{k}^{-1})||w_{k} - w_{\*}||^2
+\alpha_{k+1}^{-1}||w_{k+1} -w_{\*}||^2 - \alpha_{k}^{-1}||w_{k}-w_{\*}||^2 \leq -2(f(w_{k};\xi_{k})-f(w_{\*};\xi_{k}) + \alpha_{k}M + (\alpha_{k+1}^{-1} - \alpha_{k}^{-1})||w_{k} - w_{*}||^2
 $$
 $$
-\leq -2(f(w_{k};\xi_{k})-f(w_{\*};\xi_{k}) + \alpha_{k}M + (\alpha_{k+1}^{-1} - \alpha_{k}^{-1})B
+\leq -2(f(w_{k};\xi_{k})-f(w_{*};\xi_{k}) + \alpha_{k}M + (\alpha_{k+1}^{-1} - \alpha_{k}^{-1})B
 $$
 
 对不等式左右两边求和：其中\\(\alpha_{k} = 1/\sqrt{k}, k={1,2,...,K}\\)有：
 
 $$
-\left(\sum_{k=1}^{K}f(w_{k};\xi_{i})\right) \leq \left(\sum_{k=1}^{K}f(w_{\*};\xi_{i})\right)+M\sqrt{K}+o(\sqrt{K})
+\left(\sum_{k=1}^{K}f(w_{k};\xi_{i})\right) \leq \left(\sum_{k=1}^{K}f(w_{*};\xi_{i})\right)+M\sqrt{K}+o(\sqrt{K})
 $$
 
 更一般的形式：
 
 $$
-\mathbb{E}\left[ \frac{1}{K}\sum_{k=1}^{K}F(w_{k})\right] \leq F_{\*} + O(\frac{1}{\sqrt{K}})
+\mathbb{E}\left[ \frac{1}{K}\sum_{k=1}^{K}F(w_{k})\right] \leq F_{*} + O(\frac{1}{\sqrt{K}})
 $$
 
 
