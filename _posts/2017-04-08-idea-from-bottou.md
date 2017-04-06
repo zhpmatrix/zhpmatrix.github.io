@@ -9,3 +9,4 @@ mathjax: true
 
 
 $$w_{\*}fasdfafw_{\*}$$
+$$f(x, y) = 100 * \lbrace[(x + y) * 3] - 5\rbrace$$
