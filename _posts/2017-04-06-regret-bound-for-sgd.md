@@ -3,6 +3,7 @@ layout: post
 title: "[Optimization]SGD的regret bound分析"
 excerpt: "从一个bound的推导来感受优化中的数学，当然这个bound对于SGD太重要。"
 date: 2017-04-06 20:40:00
+mathjax: true
 ---
 
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
