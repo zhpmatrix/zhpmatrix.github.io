@@ -8,5 +8,5 @@ mathjax: true
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 
 
-$$w_{*}fasdfafw_{*}$$
-$$f(x, y) = 100 * \lbrace[(x + y) * 3] - 5\rbrace$$
+
+
