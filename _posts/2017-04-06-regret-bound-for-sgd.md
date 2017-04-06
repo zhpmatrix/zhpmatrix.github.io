@@ -14,10 +14,13 @@ $$w_{k+1} = w_{k}-\alpha_{k}g(w_{k},\xi_{k})$$
 
 利用regret分析有:
 
-\begin{eqnarray}
-\Vert{w_{k+1} - w_{\*}}\Vert_{2}^{2} - \Vert{w_{k}-w_{\*}}\Vert_{2}^{2} &=& 2(w_{k+1} -w_{k})^{T}(w_{k} - w_{*}) + \Vert{w_{k+1}-w_{k}}\Vert_{2}^2 \\\\
-    &=& -2\alpha_{k}g(w_{k},\xi_{k})^{T}(w_{k}-w_{*}) + \alpha_k^2\Vert{g(w_{k},\xi_k)}\Vert_{2}^{2}  \\ \\ \\ (1)
-\end{eqnarray}
+$$
+\Vert{w_{k+1} - w_{\*}}\Vert_{2}^{2} - \Vert{w_{k}-w_{\*}}\Vert_{2}^{2} = 2(w_{k+1} -w_{k})^{T}(w_{k} - w_{*}) + \Vert{w_{k+1}-w_{k}}\Vert_{2}^2 \\\\
+$$
+
+$$
+= -2\alpha_{k}g(w_{k},\xi_{k})^{T}(w_{k}-w_{*}) + \alpha_k^2\Vert{g(w_{k},\xi_k)}\Vert_{2}^{2}  \\ \\ \\ (1)
+$$
 
 将上式看做一个关于:
 
@@ -44,6 +47,7 @@ $$F(w_{k}) \geq F(w_{*}) + g(w_{\*})^T(w_{k} - w_{\*})$$
 $$
 ||w_{k+1} - w_{\*}||^2 - ||w_{k} - w_{\*}||^2 \leq -2\alpha_{k}(f(w_{k};\xi_{k}) - f(w_{\*};\xi_{k})) + \alpha_{k}^2|| \nabla f(w_{k};\xi_{k}) ||^2 \\ \\ \\ (3)
 $$
+
 (3)很容易由(1)和(2)得到。
 
 为了进一步的推导，我们给出两个非常重要的假设:
@@ -78,8 +82,6 @@ $$
 $$
 \mathbb{E}\left[ \frac{1}{K}\sum_{k=1}^{K}F(w_{k})\right] \leq F_{*} + O(\frac{1}{\sqrt{K}})
 $$
-
-
 
 
 参考:
