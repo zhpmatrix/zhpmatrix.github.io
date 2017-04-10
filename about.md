@@ -59,7 +59,12 @@ permalink: /about/
 ![Richard Stallman](http://ww4.sinaimg.cn/mw690/aba7d18bgw1fbeiathy95j21ai0r4n3l.jpg)
 
 
+
 上述两张照片是二零一五年七月十六日去南京大学听**RiChard Stallman**讲**自由软件**的思想。第一张照片是夕阳下的科学技术楼，第二张照片是**Stallman**本人（_由于去的比较晚，只能坐在过道里拍照_），我喜欢这个老头儿。
+
+![me](http://wx1.sinaimg.cn/mw690/aba7d18bgy1fehv13xowsj20rt11243g.jpg)
+
+这哥们儿我不认识的。
 
 ---
     联系方式
