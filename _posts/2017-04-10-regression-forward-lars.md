@@ -31,19 +31,19 @@ $$J(\theta) = \frac{1}{2}(h_\theta(X) - Y)^T(h_\theta(X) - Y)$$
 
 最小角回归是前向选择回归算法和前向逐段回归算法的结合。这部分内容结合三张图来说明：
 
-#####forward selection:
+**forward selection:**
 
 ![1](http://wx2.sinaimg.cn/mw690/aba7d18bgy1fehtouo56gj20eu07bglt.jpg)
 
 在上图中，\\(X_1,X_2,X_3\\)代表训练样本的一个feature，\\(Y\\)是目标向量，从未被选择的feature集合中，开始选择和Y的距离最近的feature，在选定的feature上做Y的投影向量，然后继续从未被选择过的feature集合中，选择和（Y-Y在选定feature上的投影）向量距离最近的向量，直到所有feature都被选择过或者(Y-Y在选定feature上的投影)为0。这里（Y-Y在选定feature上的投影）代表残差，由于在选择feature的时候，采用比较暴力的方式(投影相比于下个算法的伸缩)，故结果精度较差。
 
-#####forward stagewise:
+**forward stagewise:**
 
 ![2](http://wx2.sinaimg.cn/mw690/aba7d18bgy1fehtophdg0j20db0823yy.jpg)
 
 该算法和上述算法不同的地方在于，每次选择完距离最近的feature向量后，不是做投影，而是沿着选定feature的方向做伸缩后得到一个新的向量，然后重新选择feature向量，这样，已经被选择过的向量可能重新被选择。对于与上述算法，该算法精度较高但是迭代次数较多。
 
-#####lars:
+**lars:**
 
 ![3](http://wx3.sinaimg.cn/mw690/aba7d18bgy1fehts4mgoyj20sg0lc766.jpg)
 
