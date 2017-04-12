@@ -17,7 +17,7 @@ mathjax: true
 
 对比六种优化算法，Adagrad,Adadelta,Rmsprop能够很快的找到minimum，而Momentum和NAG则随之到来，而SGD奔着目标，姗姗来迟。
 
-**鞍点附近情况：**
+** 鞍点附近情况：**
 
 ![saddle point 1](http://wx2.sinaimg.cn/mw690/aba7d18bgy1fehvvz9orng20h80dc1ca.gif)
 
@@ -33,11 +33,11 @@ _下面是一张看起来不那么好的的图_
 
 在利用SGD作优化算法的时候，会面临两个困难：
 
-*1.* ** 怎样选择合适的学习率？**
+*1.* 怎样选择合适的学习率？
 
 相比于BGD，SGD收敛速度快，但是精度略差。如果学习率较小，收敛更慢，反之如果学习率较大，在靠近最小点附近，由于梯度较小，会导致震荡(Rosenbrock函数)以至于发散(步子太大，没有扯着'0'，囧)。针对学习率的选择有一些解决方案，例如模拟退火，不是一味的下降，适当爬山，可能跳出小水沟，找到真正的深井。同时有一些在训练开始前定义的预调度策略，但是采用这种方式不能很好地适应数据集的特性。采用相同的学习率对不同的参数进行更新而不考虑数据和特征也是不合适的。
 
-*2.* ** 鞍点的问题？ **
+*2.* 鞍点的问题？
 
 采用SGD对非凸问题进行优化的时候，会陷入鞍点困境(saddle point)。
 
@@ -96,24 +96,24 @@ $$\theta_{t+1,i}=\theta_{t,i}-\frac{\eta}{\sqrt{G_{t,ii}+\epsilon}}g_{t,i}$$
 
 在Adagrad方法中, \\(G_t\\)中的元素是历史值的平方和，Adadelta对于Adagrad中的改进主要是**采用一个固定窗口内的值的平方和的平均**。第\\(t\\)步对应的值为：
 
-$$E[g^2]\_t=\gamma E[g^2]\_{t-1}+ (1-\gamma)g_t^2 $$
+$$E[g^2]_t=\gamma E[g^2]_{t-1}+ (1-\gamma)g_t^2 $$
 
 同时有：
 
-$$\triangle\theta_t = -\frac{\eta}{\sqrt{E[g^2]_t+\epsilon}}g\_t$$
+$$\triangle\theta_t = -\frac{\eta}{\sqrt{E[g^2]_t+\epsilon}}g_t$$
 
 用新的记号\\(RMS[g]_t\\)来重写上述分母，有：
 
 
-$$\triangle\theta_t = -\frac{\eta}{RMS[g]_t}g\_t$$
+$$\triangle\theta_t = -\frac{\eta}{RMS[g]_t}g_t$$
 
 针对\\(\eta\\)的改进是：
 
-$$\eta = RMS[\triangle\theta]_{t-1}=\sqrt{E[\triangle\theta^2]\_{t-1}+\epsilon}$$
+$$\eta = RMS[\triangle\theta]_{t-1}=\sqrt{E[\triangle\theta^2]_{t-1}+\epsilon}$$
 
 最终的表达式是：
 
-$$\triangle\theta_t = -\frac{RMS[\triangle\theta]\_{t-1}}{RMS[g]_t}g\_t$$
+$$\triangle\theta_t = -\frac{RMS[\triangle\theta]_{t-1}}{RMS[g]_t}g_t$$
 
 $$\theta_{t+1}=\theta_t+\triangle\theta_t$$
 
@@ -128,10 +128,14 @@ RMSprop没有经过正式发表，是Geoffrey Hinton在课上提出的，是Adad
 Adam的全称是Adaptive Moment Estimation,是一种对不同参数更新计算不同学习速率的新方法，同样要维持一个关于梯度的指数衰减平均。更新规则如下：
 
 $$m_t = \beta_1 m_{t-1}+(1-\beta_1)g_t$$
+
 $$\nu_t = \beta_2 \nu_{t-1} + (1-\beta_2)g_t^2$$
-$$\hat{m}\_t=\frac{m\_t}{1-\beta\_1^t}$$
+
+$$\hat{m}_t=\frac{m_t}{1-\beta_1^t}$$
+
 $$\hat \nu_t = \frac{\nu_t}{1-\beta_2^t}$$
-$$\theta_{t+1}=\theta_{t}-\frac{\eta}{\sqrt{\hat{\nu}\_t}+\epsilon}\hat{m}_t$$
+
+$$\theta_{t+1}=\theta_{t}-\frac{\eta}{\sqrt{\hat{\nu}_t}+\epsilon}\hat{m}_t$$
 
 作者给出的参数默认值是\\(\beta_1=0.9,\beta_2=0.999,\epsilon=10^{-8}\\),其中\\(m_t\\)和\\(\nu_t\\)分别是第一动量和第二动量(梯度平方)的估计,\\(\hat{m}\\)和\\(\hat \nu_t\\)是对动量估计的修正方式。
 
