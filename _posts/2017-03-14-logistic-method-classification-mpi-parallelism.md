@@ -74,7 +74,11 @@ date: 2017-03-14 20:23:00
 
 6.[Parameter Server详解](http://blog.csdn.net/mydear_11000/article/details/54948149)
 
+7.[贾扬清谈到的SGD+MPI+Allreduce](https://www.zhihu.com/question/56676679)
 
+8.[Allreduce(or MPI) vs. Parameter server approaches](http://hunch.net/?p=151364)
+
+9.[MPI Reduce and Allreduce](http://mpitutorial.com/tutorials/mpi-reduce-and-allreduce/)
 
 
 
