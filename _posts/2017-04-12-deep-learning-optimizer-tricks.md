@@ -17,7 +17,7 @@ mathjax: true
 
 对比六种优化算法，Adagrad,Adadelta,Rmsprop能够很快的找到minimum，而Momentum和NAG则随之到来，而SGD奔着目标，姗姗来迟。
 
-** 鞍点附近情况：**
+鞍点附近情况:
 
 ![saddle point 1](http://wx2.sinaimg.cn/mw690/aba7d18bgy1fehvvz9orng20h80dc1ca.gif)
 
