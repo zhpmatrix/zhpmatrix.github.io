@@ -60,7 +60,7 @@ $$\theta = \theta - \nu_t$$
 
 自从使用Momentum之后是这个样子的(卖钙片滴)：
 
-![after](https://www.willamette.edu/~gorr/classes/cs449/figs/valley1.gif)
+![after](http://wx2.sinaimg.cn/mw690/aba7d18bgy1fes5em9gurg20be04uwe9.gif)
 
 
 2.Nesterov Accelerated Gradient(NAG)
