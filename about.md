@@ -65,8 +65,8 @@ permalink: /about/
 ![me](http://wx1.sinaimg.cn/mw690/aba7d18bgy1fehv13xowsj20rt11243g.jpg)
 
 这哥们儿我不认识的。
-[tset](Convergence-Analysis.pdf)
-![tset](Convergence-Analysis.pdf)
+[tset](cellar/Convergence-Analysis.pdf)
+![tset](cellar/Convergence-Analysis.pdf)
 ---
     联系方式
 
