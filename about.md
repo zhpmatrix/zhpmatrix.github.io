@@ -55,11 +55,13 @@ permalink: /about/
 ---
 	组会/讲课/TALK
 	
-1.[Introduction to Algorithms](cellar/Algorithm-Framework.pdf)
+1.[组会-学习领域的几个优化问题](cellar/Optimization_Algs_For_Learning.pdf)
 
-2.[DataStructure-LinkList](cellar/DataStructure_Lesson_1.pdf)
+2.[Introduction to Algorithms](cellar/Algorithm-Framework.pdf)
 
-3.[Proof of BST](cellar/二叉树性质证明.pdf)
+3.[DataStructure-LinkList](cellar/DataStructure_Lesson_1.pdf)
+
+4.[Proof of BST](cellar/二叉树性质证明.pdf)
 
 ---
     联系方式
