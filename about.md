@@ -54,16 +54,21 @@ permalink: /about/
 
 ---
 	组会/讲课/TALK
-	
-1.[组会-学习领域的几个优化问题](cellar/Optimization_Algs_For_Learning.pdf)
 
-2.[讲课-Introduction to Algorithms](cellar/Algorithm-Framework.pdf)
+[组会-关于Mobile Learning的想法讨论](cellar/IDEA.pdf)	
 
-3.[讲课-DataStructure-LinkList](cellar/DataStructure_Lesson_1.pdf)
+[组会-从Newton到L-BGFS](cellar/lbfgs.pdf)
 
-4.[讲课-Proof of BST](cellar/二叉树性质证明.pdf)
+[组会-学习领域的几个优化问题](cellar/Optimization_Algs_For_Learning.pdf)
 
-5.[讲课-Struct and Class](cellar/struct-class-slides.pdf)
+[讲课-Introduction to Algorithms](cellar/Algorithm-Framework.pdf)
+
+[讲课-DataStructure-LinkList](cellar/DataStructure_Lesson_1.pdf)
+
+[讲课-Proof of BST](cellar/二叉树性质证明.pdf)
+
+[讲课-Struct and Class](cellar/struct-class-slides.pdf)
+
 
 ---
     联系方式
