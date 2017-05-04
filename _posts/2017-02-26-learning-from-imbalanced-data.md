@@ -131,3 +131,9 @@ SMOTE的缺点是由于它生成样本的方式导致的。此处，提到了一
 参考：
 
 1.[How to handle Imbalanced Classification Problems in machine learning?](https://www.analyticsvidhya.com/blog/2017/03/imbalanced-classification-problem/)
+
+2.[非平衡数据处理--如何评价？](http://mp.weixin.qq.com/s?__biz=MzIzMjU1NTg3Ng==&mid=2247483941&idx=1&sn=e1af212606d49219899d23d561392bb0&chksm=e892562edfe5df3899ab7d611474c65752c1d85a1e60c6c9dadbf15dee4bd6d1e1331c4718ca&mpshare=1&scene=23&srcid=05043a6iFpxDdZMWMAMsWhQX#rd)
+
+3.[非平衡数据处理--如何学习？](http://mp.weixin.qq.com/s?__biz=MzIzMjU1NTg3Ng==&mid=2247483965&idx=1&sn=3774e0ffd067ab37fffe4c39c8e9d7e7&chksm=e8925636dfe5df203c863319876b4550d73f11473e8af0bd11fbd926240addf23a7df8427ac4&mpshare=1&scene=23&srcid=0504L06TqXVyzgtviuhXR5l2#rd)
+
+上述两篇参考是时隔两个月后看到的，估计作者也是读了同样的一篇综述，不过作者自己又补充了一些资料。
