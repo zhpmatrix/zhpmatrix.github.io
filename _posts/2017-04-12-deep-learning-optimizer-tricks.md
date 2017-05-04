@@ -158,3 +158,7 @@ $$\theta_{t+1}=\theta_{t}-\frac{\eta}{\sqrt{\hat{\nu}_t}+\epsilon}\hat{m}_t$$
 2.[算法优化之道：避开鞍点](http://mp.weixin.qq.com/s?__biz=MzAwNDI4ODcxNA==&mid=404482412&idx=1&sn=3fb245d1893487a1beaa6abd56147b30&scene=25#wechat_redirect)
 
 3.[Momentum and Learning Rate Adaptation](https://www.willamette.edu/~gorr/classes/cs449/momrate.html)
+
+4.[迭代优化算法之直观概述](http://mp.weixin.qq.com/s?__biz=MzIzMjU1NTg3Ng==&mid=2247483805&idx=1&sn=83f2e6e1e9f021e9227ef2fbbcefbeda&chksm=e8925596dfe5dc80844b67e5e020ee2e7b79b00bc95184fcb0ab0f08d03793441beea2d2e97c&mpshare=1&scene=23&srcid=0504OdKe8hESi7SWQS9TSL76#rd)
+
+文章中有一张更细致的优化算法关系图，同时对近期的经典优化算法进行了实验上的对比。
