@@ -7,19 +7,19 @@ mathjax: true
 ---
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 
-####问题描述
+#### 问题描述
 
 把n个数分为k个非空子集，有多少种分法?
 
-####思路分析
+#### 思路分析
 
 这里提供基于加法原理的分析，要解决一个原问题，可以把这个原问题**分解成n个独立不相交且完备**的小问题，则原问题的解是小问题解的和。在该问题中，可以依据**第一个集合中放多少个数**将原问题分解成小问题。
 
-####代码实现
+#### 代码实现
 
 <script src="https://gist.github.com/zhpmatrix/c49f76b3d23a7c59ca35bdb8dcb37a3f.js"></script>
 
-####问题分析
+#### 问题分析
 
 1.递归原理
 
