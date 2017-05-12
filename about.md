@@ -69,6 +69,7 @@ permalink: /about/
 
 [讲课-Struct and Class](cellar/struct-class-slides.pdf)
 
+[讲课-Greedy Algorithm](cellar/greedy-alg.pdf)
 
 ---
     联系方式
