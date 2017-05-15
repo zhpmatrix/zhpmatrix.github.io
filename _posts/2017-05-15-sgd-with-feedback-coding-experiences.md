@@ -8,7 +8,7 @@ mathjax: true
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 
 
-####深度学习机
+#### 深度学习机
 
 Down到代码之后，首先保证要能够在本机上run起来。为了可以让代码运行在没有GPU的机器上，我主要做了两件事情：第一是从别的途径快速下载代码，存储在本地，修改keras源代码中的load_data()函数中的路径，避免keras从远程下载(慢);第二是修改由于开源库的更新导致的代码不兼容问题，比如返回值的格式等。但是没有GPU的机器是运行的很慢！第一次接触GPU，是从CUDA编程了解的，直觉上如果是利用GPU，则需要编写一些关于GPU的代码，实则不然。keras作为一个前端，利用Theano或者Tensorflow作为后端，可以直接利用GPU进行加速计算。
 
@@ -16,7 +16,7 @@ Down到代码之后，首先保证要能够在本机上run起来。为了可以�
 
 为了获得一台深度学习机，可以通过Amazon购买计算资源，或者你拥有一台深度学习机。抱了BOSS的大腿，我们实验室拥有一台深度学习机，内置四块Tesla K80。
 
-####代码运行环境
+#### 代码运行环境
 
 Eve的原始代码是基于python3的，故需要一个python3的运行环境，为了不和原始的python2的运行环境发生冲突，可行的一种方式建立虚拟环境。我在Mac上同样存在python2和python3的运行环境，不过Mac上的运行环境搭建是参照参考1中的方式。
 
@@ -32,7 +32,7 @@ Eve的原始代码是基于python3的，故需要一个python3的运行环境，
 
 之前之前已经安装了Keras,Theano,Tensorflow等，故OK！
 
-####GPU监视
+#### GPU监视
 
 nvidia自带显卡监视工具:nvidia-smi,具体使用方式：
 
