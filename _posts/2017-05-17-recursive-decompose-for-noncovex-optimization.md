@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "[Optimization]针对非凸优化的递归分解"
-excerpt: "这是一篇论文笔记(无组织，无纪律)，来自IJCAR2015 BestPaper,Pedro Domingos的作品，《Recursive Decomposition for Nonconvex Optimization》文中提出了RDIS算法。"
+excerpt: "这是一篇论文笔记(无组织，无纪律)，来自IJCAI2015 BestPaper,Pedro Domingos的作品，《Recursive Decomposition for Nonconvex Optimization》文中提出了RDIS算法。"
 date: 2017-05-17 14:59:00
 mathjax: true
 ---
