@@ -59,3 +59,5 @@ nvidia自带显卡监视工具:nvidia-smi,具体使用方式：
 2.[TensorFlow教程：使用pip安装TensorFlow](http://suanfazu.com/t/tensorflow-pip-tensorflow/13401)
 
 3.[用Keras训练一个准确率90%+的Cifar-10预测模型](http://nooverfit.com/wp/%E7%94%A8keras%E8%AE%AD%E7%BB%83%E4%B8%80%E4%B8%AA%E5%87%86%E7%A1%AE%E7%8E%8790%E7%9A%84cifar-10%E9%A2%84%E6%B5%8B%E6%A8%A1%E5%9E%8B/)
+
+4.[nvidia-smi命令解读](http://blog.csdn.net/sallyxyl1993/article/details/62220424)
