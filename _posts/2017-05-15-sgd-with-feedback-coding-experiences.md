@@ -43,6 +43,15 @@ nvidia自带显卡监视工具:nvidia-smi,具体使用方式：
 
 含义：每隔1秒输出一下nvidia-smi的结果。
 
+注意：在使用VNCServer连接远程服务器的时候，需要调整服务器的分辨率。
+
+在终端输入：
+
+    vncserver -geometry 1920x1080 -depth 16
+
+在VNCServer的界面窗口中设置当前分辨率，按照Pixes参数设置和上述相同。
+
+
 参考文献：
 
 1.[MAC OSX 10.11 配置python3及虚拟环境](http://www.jianshu.com/p/0921fd4d4bca)
