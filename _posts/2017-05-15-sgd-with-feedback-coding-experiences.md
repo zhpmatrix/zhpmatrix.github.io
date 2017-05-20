@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "[DL]深度学习Eve折腾记"
-excerpt: "#Eve的想法已经转给实验室小伙伴来做了#本文是围绕Eve的算法实现折腾过程，也是自己跑的第一个深度学习实验。主要是验证自己的一个想法，是对Eve中的Clipping操作的一个替代"
+excerpt: "本文是围绕Eve的算法实现折腾过程，也是自己跑的第一个深度学习实验。主要是验证自己的一个想法，是对Eve中的Clipping操作的一个替代"
 date: 2017-05-15 18:34:00
 mathjax: true
 ---
@@ -51,6 +51,16 @@ nvidia自带显卡监视工具:nvidia-smi,具体使用方式：
 
 在VNCServer的界面窗口中设置当前分辨率，按照Pixes参数设置和上述相同。
 
+#### 遇到问题
+
+1.程序不能运行太多。
+
+cumem参数的设置表示每个程序分到的显存，有时候程序运行到中间的时候，强行crash掉，这个时候进程还在持续进行，怎么办？
+
+    killall -9 python3
+
+否则，当我们重新运行程序的时候，就会报错。
+
 
 参考文献：
 
@@ -61,3 +71,5 @@ nvidia自带显卡监视工具:nvidia-smi,具体使用方式：
 3.[用Keras训练一个准确率90%+的Cifar-10预测模型](http://nooverfit.com/wp/%E7%94%A8keras%E8%AE%AD%E7%BB%83%E4%B8%80%E4%B8%AA%E5%87%86%E7%A1%AE%E7%8E%8790%E7%9A%84cifar-10%E9%A2%84%E6%B5%8B%E6%A8%A1%E5%9E%8B/)
 
 4.[nvidia-smi命令解读](http://blog.csdn.net/sallyxyl1993/article/details/62220424)
+
+5.[深度学习theano/tensorflow多显卡多人使用问题集](https://zhuanlan.zhihu.com/p/23250782)
