@@ -1,53 +1,33 @@
 ---
 layout: post
 title: "[Optimization]针对非凸优化的递归分解"
-excerpt: "这是一篇论文笔记(无组织，无纪律)，来自IJCAI2015 BestPaper,Pedro Domingos的作品，《Recursive Decomposition for Nonconvex Optimization》文中提出了RDIS算法。"
+excerpt: "这是一篇不太详细的论文笔记，来自IJCAI2015 BestPaper,Pedro Domingos的作品，《Recursive Decomposition for Nonconvex Optimization》文中提出了RDIS算法。"
 date: 2017-05-17 14:59:00
 mathjax: true
 ---
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 
-前言：博主列完提纲之后，觉得内容相对较多。故相比于之前的论文笔记，这篇笔记侧重于大框架的梳理，帮助读者建立一个读该论文的初始印象。
+前言：相比于之前的论文笔记，这篇笔记侧重于大框架的梳理，帮助读者建立一个读该论文的初始印象。
+
+#### Intuition&Motivation
+
+AI中有很多问题是非凸的，即使使用**随机启动**和**模拟退火**策略，某些优化算法也容易陷入局部最优。作者观察到某些非凸目标函数的组合结构(递归结构)，想法也就来自组合优化(Divide&Conquer)。自己的理解是作者将超图分割用于目标函数的分割，主要是term之间分割，找到一个优化问题的递归描述，递归求解，也就是作者文章标题递归分解。(_昨天和老板讨论，老板说他当时看这篇文章，也就是看到图分割，就把想法写进基金本子了_)。
+
+#### 伪代码
+
+![rdis](http://wx1.sinaimg.cn/mw690/aba7d18bgy1ffvjj52045j20em0egtbm.jpg)
+
+这是作者给出的伪代码，代码的整体结构上类似我[这篇](https://zhpmatrix.github.io/2017/05/11/adding-grouping-recursive/)文章中提到的。在那篇文章中提到的递归的并行，其实也是适合本文算法的并行化。伪代码中给出了三个子函数，**CHOOSEVARS**用于变量选择能够最大化的分割开目标函数，**SIMPLIFY**是用常数替换掉变量，该常数与term的bound有关，这样待优化的变量个数就减少了。在**SIMPLIFY**之后，**DECOMPOSE**就水到渠成。优化函数是*S*，分解后的问题就可以递归并行求解，子问题求解之后合并结果，也就是第11行代码的表示。第12和13行代码用于记录新的较小的值。分解目标函数的过程如下：
+
+![recursive](http://wx2.sinaimg.cn/mw690/aba7d18bgy1ffvk7kebnyj20gp0aq412.jpg)
 
 #### 基本概念
 
-1.超图(Hypergraph)理论
-
-  超图分割,图分割和简单图分割
-
-3.Fiduccia-Mattheyses算法
-
-4.共指消解(Coreference Resolution)
-
-
-#### 优化算法
-
-1.multi-start 共轭梯度算法
-
-2.Levenberg-Marquardt算法
-
-上述算法是Bundle Adjustment思想的一个应用。
-
-如果下降太快，使用较小的λ，使之更接近高斯牛顿法 
-如果下降太慢，使用较大的λ，使之更接近梯度下降法
-
-3.非线性最小二乘问题
-
-4.Powell函数
-
-Powell算法是求解无约束优化问题的算法，Powell函数具有的特点是**"误差项的平方和"**形式。
-
-下降关系与semiring的关系(SubspaceOptimizer.h)
-
-共轭梯度下降和NRC优化方法(CGDSubspaceOptimizer.h),在代码中NRC优化方法出现的方式是预先编译。
-
-LM算法和box-constrained minimization的关系
-
-5.SubOptimizer
-
-共轭梯度算法和Powell算法
+文章最重要的一个概念是**超图分割**，围绕这个概念，可以考虑的问题有：**什么是超图？**(在PaToH库中的manual中有非常具体的表示，不过这个manual有个小错误，很容易发现)**超图分割的依据是什么？**(与cut-set的cost有关)，**为什么超图分割可以用于非凸目标函数分解？**(个人认为是将目标函数用一个超图来表示，超边权值为1，但是具体的证明还没有读)
 
 #### 代码实现
+
+为了验证实验，我做了一个与粒子群优化(PSO)相关的目标函数，进行分割后，使用RDIS来求最值。下面是实验的过程。
 
 1.多项式展开(matlab实现)
 
@@ -57,7 +37,7 @@ LM算法和box-constrained minimization的关系
 
     ps_new=expand(ps)
 
-直接转换到最简项，这部分主要是关于**符号计算**的内容。
+直接转换到最简项，这部分主要是关于**符号计算**的内容。论文给出的代码，要求代码的输入是化简到最简项的目标函数。
 
 2.依赖库安装
 
@@ -79,7 +59,7 @@ mac下boost 1.55.0的安装可以参考9，默认安装路径/usr/local/include�
 
     find . -name '*.h' | xargs wc -l
 
-rdis的.h和.cpp文件共计16000+行！！！
+**rdis的.h和.cpp文件共计16000+行！！！**RDIS算法的实现文件代码行2000+，每个优化函数的实现平均代码行300+。
 
 4.编译调试
 
@@ -115,6 +95,8 @@ tuple,graph,vector
 8.代码优化
 
 针对Cache的优化作者还没有做。
+
+总结：本以为要Follow这篇文章，可是和老板讨论过后，老板建议去做Powell算法+互信息+图像配准相关，要做到**能用**。这篇论文是当年的最佳论文，最起码从工作量来说，实至名归。代码时间戳表示写了两年，同时文章做了三组实验，都是相对较大的实验。从思想来说，收到的启发还是如何将组合优化的策略和优化问题结合，同时Google了这篇文章其他人的follow，似乎不多呀。❤，❤️，🏀，一周多时间，没有严格意义的产出，淡淡的忧伤。
 
 参考:
 
