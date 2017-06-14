@@ -64,7 +64,7 @@ mathjax: true
 
 从上图可以看出，分为三个阶段(metis的实现中，每个阶段都有相应的多种算法)：
 
-1.coarsening:   直观上的表达是提取图的骨骼，方式是用node表示多个node。典型地如下：
+1.coarsening:   直观上的表达是提取图的骨骼，方式是用一个node表示多个node。典型地如下：
 
 ![coarse](http://wx2.sinaimg.cn/mw690/aba7d18bgy1fgkm800zwhj20gs09xac9.jpg)
 
@@ -112,3 +112,7 @@ This library is unrelated to PyMetis, except that they wrap the same library. Py
 8.[NSGA-II算法实例](https://wenku.baidu.com/view/465404dbe45c3b3567ec8bc8.html)
 
 对多目标优化建立一个直观的认识。
+
+9.[Spectral Clustering](https://wenku.baidu.com/view/e367fb2401f69e31433294b0.html)
+
+谱聚类在三种目标函数下的处理，令人感动的数学。
