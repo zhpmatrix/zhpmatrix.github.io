@@ -22,3 +22,5 @@ mathjax: true
 这是一个系列共7篇文章，从感知器到BP传播算法到CNN，R(ecurrent)NN,LSTM,R(ecursive)NN,讲解简明扼要，但是存在部分小错误。
 
 [谈谈深度学习中的Batch_Size](http://blog.csdn.net/ycheng_sjtu/article/details/49804041),文中讲了需要batch_size的原因,batch_size大小对精度和速度的权衡,同时给出了一个例子LeNet在MNIST上测试结果，很有说服力。同时该作者在知乎相同问题下的回答也是最高票。
+
+[inception模型](http://blog.csdn.net/u014114990/article/details/52583912)给出了一张CNN的结构演化图，同时给出了“网络变大”的三个缺点。
