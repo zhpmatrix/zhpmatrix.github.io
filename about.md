@@ -3,6 +3,10 @@ layout: page
 title: 关于我
 permalink: /about/
 ---
+
+**<p align='center' ><font color='red' size='5' face='arial'>求数据挖掘和机器学习相关实习，联系方式最下。</font></p>**
+
+
     声明
 
 - **不用手机**阅读博文，效果更佳
