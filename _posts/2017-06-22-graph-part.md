@@ -28,11 +28,86 @@ mathjax: true
 
 #### 1. MPI通信
 
+
+1.0 MPI_Barrier
+
+这里有一个[Demo](http://blog.csdn.net/u014247371/article/details/26958469)，我尝试说形象地表达一下。A,B,C三个同学跑5000米，有个教练D，为了保证最终A,B,C的成绩差距不太大，他在1000米处等着，三个同学没有全到达该处时，其他任意一个到的同学要等待其他同学，然后开跑。“在1000米处等”就意味着设置了一个**Barrier**，不管Barrier前各个任务的执行速度，先来的都要等待后到的，在后续的RDPSO的分布式计算中可以使用Barrier实现(粗粒度)同步计算。
+
 1.1 MPI_Send和MPI_Recv，MPI_ISend和MPI_IRecv
+
+Send和Recv是用于**阻塞通信**，而ISend和IRecv用于**非阻塞通信**，通过设置消息缓冲区实现计算和通信的重叠。这里很显然，消息缓冲区的大小会成为一个bottleneck。代码先占坑：
+
+    #include<mpi.h>  
+    #include<stdio.h>  
+
+    int main(int argc ,char * argv[]){  
+    
+        int  s1=5 ,r1=4;  
+        MPI_Status status;  
+        MPI_Request req;  
+  
+        int nprocs,rank;  
+        MPI_Init(&argc, &argv);  
+        MPI_Comm_size(MPI_COMM_WORLD, &nprocs);  
+        MPI_Comm_rank(MPI_COMM_WORLD, &rank);  
+        if(rank==0){  
+                //MPI_Send(&s1,1,MPI_INT,1,1,MPI_COMM_WORLD);  
+                MPI_Isend(&s1, 1, MPI_INT, 1, 1, MPI_COMM_WORLD, &req);  
+                MPI_Wait(&req, &status);
+                printf("rank 0 send!\n");   
+        }  
+        if(rank==1){  
+                //MPI_Recv(&r1,1,MPI_INT,0,1,MPI_COMM_WORLD,&status);  
+                MPI_Irecv(&r1, 1, MPI_INT, 0, 1, MPI_COMM_WORLD, &req);
+                MPI_Wait(&req, &status);  
+                printf("rank 1 recv!\n"); 
+                printf("recv data: %d\n",r1);
+        }
+        MPI_Finalize();  
+        return 0;  
+    }
+
+使用非阻塞通信时，需要显式调用MPI_Wait，为了测试非阻塞效果，可以通过传输大量的数据，来看是否影响程序下一行代码地执行，在测试中开辟了稍微大的空间就会挂掉，难道技能点还没Get到(需要明确应用场景)？
+
+
 
 1.2 集合通信
 
 集合操作的三种类型包括：同步，数据传递(广播，分散，收集等)，规约。具体可以参照这篇[文章](http://blog.csdn.net/miaohongyu1/article/details/21093913)，想来与神威太湖之光也就一墙之隔。
+
+1.3 Allreduce
+
+在之前的文章中多次提到工业界对于SGD的分布式优化通常的思路是MPI+AllReduce+SGD，所以这里着重提一下MPI_Reduce和MPI_Allreduce，下述内容参照该[tutorial](http://mpitutorial.com/tutorials/mpi-reduce-and-allreduce/)，良心文档，安利一发。
+
+![reduce](http://mpitutorial.com/tutorials/mpi-reduce-and-allreduce/mpi_reduce_2.png)
+
+关键代码：
+
+    // Reduce all of the local sums into the global sum
+    float global_sum;
+    MPI_Reduce(&local_sum, &global_sum, 1, MPI_FLOAT, MPI_SUM, 0,
+           MPI_COMM_WORLD);
+
+    // Print the result
+    if (world_rank == 0) {
+    printf("Total sum = %f, avg = %f\n", global_sum,
+         global_sum / (world_size * num_elements_per_proc));
+    }
+
+![allreduce](http://mpitutorial.com/tutorials/mpi-reduce-and-allreduce/mpi_allreduce_1.png)
+
+关键代码：
+
+    // Reduce all of the local sums into the global sum in order to
+    // calculate the mean
+    float global_sum;
+    MPI_Allreduce(&local_sum, &global_sum, 1, MPI_FLOAT, MPI_SUM,
+              MPI_COMM_WORLD);
+    float mean = global_sum / (num_elements_per_proc * world_size);
+
+对比二者的区别：MPI_Allreduce=MPI_Reduce+MPI_Bcast.从代码中可以看到MPI_Reduce之后，global_sum在root process(根节点，主节点，管理节点)被访问，其他（计算）节点不可访问，而MPI_Allreduce则可以在计算节点上访问global_sum。类似的还有MPI_Allgather和MPI_Gather两个操作，MPI_Allgather=MPI_Gather+MPI_Bcast，从操作上来看，**Reduce和Gather有什么区别呢？**
+
+Gather重在数据的收集，对于收发两端的数据起始地址，数据个数和数据类型敏感，Reduce重在数据的处理，故在MPI_Reduce的API中有MPI_Op这个关键的操作参数(MPI_MAX,MPI_SUM,MPI_MAXLOC,MPI_MINLOC等)。
 
 #### 2. 计算实现
 
