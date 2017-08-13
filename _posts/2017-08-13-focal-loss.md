@@ -64,6 +64,8 @@ $$FL(p_{t})=-\alpha_{t}(1-p_{t})^\gamma log(p_{t})$$
 
 2.[何恺明团队提出Focal Loss，目标检测精度打破现有记录](https://baijiahao.baidu.com/s?id=1575357531487121&wfr=spider&for=pc)
 
+3.[知乎关于这篇paper的讨论](https://www.zhihu.com/question/63581984)
+
 
 
 
