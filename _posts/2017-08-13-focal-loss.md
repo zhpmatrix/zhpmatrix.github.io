@@ -58,6 +58,11 @@ $$FL(p_{t})=-\alpha_{t}(1-p_{t})^\gamma log(p_{t})$$
 
 总结：其实，关于不平衡学习的研究成果已经有好多，在我的这篇[博客](https://zhpmatrix.github.io/2017/02/20/learning-from-imbalanced-data/)中，就写了一篇关于不平衡处理的review的论文笔记，在这篇文章中，作者总结提到Cost Sensitive Method即代价敏感方法及其具体例子，在我看来，Focal Loss也是一种具体的代价敏感方法，将正负样本的不均衡性，同时将难易样本的不均衡性引入到目标函数中，并且通过naive的方法进行目标函数的构造。难能可贵的地方在于从解决的具体问题中能够洞察到问题本质，比如观察分析出One-stage Detectors的Accuracy不能提升的原因之一是样本不平衡问题，然后用简单漂亮的方法去解决。关于这个方法能否用到其他的应用场景中，还有待讨论。
 
+同时提供一些别人的讨论：
+
+1.[Focal Loss](http://blog.csdn.net/u014380165/article/details/77019084)
+
+2.[何恺明团队提出Focal Loss，目标检测精度打破现有记录](https://baijiahao.baidu.com/s?id=1575357531487121&wfr=spider&for=pc)
 
 
 
