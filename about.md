@@ -4,7 +4,7 @@ title: 关于我
 permalink: /about/
 ---
 
-
+<p><font size="4" color="red">正在寻找机器学习/数据挖掘实习岗位,请赐予Offer一个吧。</font></p>
 
     声明
 
