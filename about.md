@@ -121,7 +121,7 @@ Mail:zhpmatrix@gmail.com
 
 QQ: 1332062790
 
-Weibo:@zhpmatrix
+Weibo:[@zhpmatrix](http://weibo.com/u/2879902091/home?wvr=5&lf=reg)
 
 ---
 
