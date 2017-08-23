@@ -18,6 +18,7 @@ permalink: /about/
 
 1.[期望最大化（洪亮劼的专栏） 分享技术、管理、团队和业界的思考](http://column.hongliangjie.com/)
 
+2.[李航老师的博客](http://blog.sina.com.cn/s/blog_7ad48fee0102wvgv.html)
 
     简介
 
