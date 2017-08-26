@@ -20,6 +20,8 @@ permalink: /about/
 
 2.[李航老师的博客](http://blog.sina.com.cn/s/blog_7ad48fee0102wvgv.html)
 
+3.[Physcalの大魔導書](http://www.cnblogs.com/neopenx/), 理论非常扎实！
+
     简介
 
 
