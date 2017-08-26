@@ -22,6 +22,9 @@ permalink: /about/
 
 3.[Physcalの大魔導書](http://www.cnblogs.com/neopenx/), 理论非常扎实！
 
+4.[Free Mind](http://freemind.pluskid.org/), pluskid的博客。
+
+
     简介
 
 
