@@ -24,6 +24,7 @@ permalink: /about/
 
 4.[Free Mind](http://freemind.pluskid.org/), pluskid的博客。
 
+5.[zouxy09的专栏](http://blog.csdn.net/zouxy09)
 
     简介
 
