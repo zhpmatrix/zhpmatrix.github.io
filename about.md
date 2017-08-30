@@ -16,6 +16,10 @@ permalink: /about/
 
     推荐博客/微信号等(主要按照个人品味来整理的):
 
+0.[glibc 的 UTF-8 locale 惨剧](http://blog.xen0n.name/2017/08/19/glibc-utf-8-locale-misery/)
+
+上述是我校树莓学院xen0n的一篇技术文章，同时也是理想中技术博客该有的样子。
+
 1.[期望最大化（洪亮劼的专栏） 分享技术、管理、团队和业界的思考](http://column.hongliangjie.com/)
 
 2.[李航老师的博客](http://blog.sina.com.cn/s/blog_7ad48fee0102wvgv.html)
