@@ -30,6 +30,8 @@ permalink: /about/
 
 5.[zouxy09的专栏](http://blog.csdn.net/zouxy09)
 
+6.[李沐的博客](https://mli.github.io/)
+
     简介
 
 
