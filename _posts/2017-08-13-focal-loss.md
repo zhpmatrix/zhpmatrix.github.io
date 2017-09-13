@@ -66,6 +66,10 @@ $$FL(p_{t})=-\alpha_{t}(1-p_{t})^\gamma log(p_{t})$$
 
 3.[知乎关于这篇paper的讨论](https://www.zhihu.com/question/63581984)
 
+4.[CMU研究者探索新卷积方法：在实验中可媲美基准CNN（附实验代码）](https://mp.weixin.qq.com/s?__biz=MzA3MzI4MjgzMw==&mid=2650730755&idx=4&sn=6ad8339fdf1bddaeb9671fb72755e5dc)
+
+这篇博客中，作者利用在交叉熵损失函数中添加新的regularizer，使得学习到列向量正交的filter，方便神经网络的可解释性，同时解决conv靠近顶层时大部分weight为0的情况。
+
 
 
 
