@@ -70,6 +70,10 @@ $$FL(p_{t})=-\alpha_{t}(1-p_{t})^\gamma log(p_{t})$$
 
 这篇博客中，作者利用在交叉熵损失函数中添加新的regularizer，使得学习到列向量正交的filter，方便神经网络的可解释性，同时解决conv靠近顶层时大部分weight为0的情况。
 
+5.[Center Loss from ECCV的blog](https://medium.com/mlreview/experiments-with-a-new-loss-term-added-to-the-standard-cross-entropy-85b080c42446)
+
+按照作者在小规模和大规模数据集上的测试，center loss确实会提高模型的表现(知乎er说不能，真JB扯，参数没有调好？)。
+
 
 
 
