@@ -105,6 +105,19 @@ sorted是一个很丰富的函数，其声明如下:
 
 总结：这篇博客是基于KNN的实现过程中的总结，涉及排序和查找，TopN问题，词频统计等，博客列举问题在面试中也是屡见不鲜，将问题规模推广到大数据场景下，上述问题需要更具深度的思考。
 
+补充一段词频统计的代码（在决策树的实现中，当确定叶子节点的类别时需要由叶子节点样本投票得出）:
+
+    import operator
+    def majorityCnt(classList):
+        classCount = {}
+        for vote in classList:
+            if vote not in classCount.keys():
+                classCount[vote] = 0
+            classCount[vote] += 1
+        sortedClassCount = sorted(classCount.items(),key=operator.itemgetter(1),reverse=True)
+        return sortedClassCount[0][0]
+
+注意：在Python3.7版本中，使用classCount.items();但是在Python2.7版本中，则需要classCount.iteritems()。
 
 
 
