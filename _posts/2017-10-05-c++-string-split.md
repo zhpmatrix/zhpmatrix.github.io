@@ -81,7 +81,9 @@ mathjax: true
 
 实际上，打印出的string::npos的值是一个非常大的数，而且代码在C++11下使用int类型声明idx验证通过。坑在哪里？(难道验证姿势不对？)
 
-在LeetCode中，C++的字符串操作是一种常见类型。涉及函数substr,replace,find,rfind,find_first_of,find_last_of,find_first_not_of,find_last_not_of。
+在LeetCode中，C++的字符串操作是一种常见类型。涉及函数substr, replace, find, rfind,
+
+find\_first\_of, find\_last\_of, find\_first\_not\_of, find\_last\_not\_of。
 
 补充：
 
