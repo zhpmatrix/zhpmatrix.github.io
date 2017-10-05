@@ -83,6 +83,31 @@ mathjax: true
 
 在LeetCode中，C++的字符串操作是一种常见类型。涉及函数substr,replace,find,rfind,find_first_of,find_last_of,find_first_not_of,find_last_not_of。
 
+补充：
+
+[erase指针失效问题](http://www.cppblog.com/Herbert/archive/2008/12/27/70479.html),这篇博客相对较早，给出了两种方案，代码如下：
+
+    for(vector<int>::iterator iter = numbers.begin();iter != numbers.end();){
+        if(*iter == 10){
+            iter = numbers.erase(iter);
+            //Not work!
+            //numbers.erase(iter++);
+        }else{
+            iter++;
+        }
+    }
+
+    iter = numbers.erase(iter);
+
+erase返回被删除元素下一个元素的地址，所以可以使用返回值(iter)来存储下一个元素的指针(地址)。
+
+虽然，
+
+    numbers.erase(iter++)
+
+表示在指针时效前完成计算，但是实验中不OK！个人感觉这种方式仍然没有解决野指针问题。
+
+
 
 
 
