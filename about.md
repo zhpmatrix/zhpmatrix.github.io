@@ -31,6 +31,8 @@ permalink: /about/
 
 6.[李沐的博客](https://mli.github.io/)
 
+7.[我爱计算机](http://www.52cs.org/)名字很朴实，但是内容很干，@龙星镖局组织。
+
     简介
 
 
