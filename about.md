@@ -120,7 +120,7 @@ permalink: /about/
 ---
 	组会/讲课/TALK
 
-9.[组会-Dive into XGBoost](cellar/Dive_inot_XGBoost.pdf)
+9.[组会-Dive into XGBoost](cellar/Dive_into_XGBoost.pdf)
 
 8.[组会-关于Mobile Learning的想法讨论](cellar/IDEA.pdf)	
 
