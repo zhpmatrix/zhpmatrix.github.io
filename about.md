@@ -33,6 +33,8 @@ permalink: /about/
 
 7.[我爱计算机](http://www.52cs.org/)名字很朴实，但是内容很干，@龙星镖局组织。
 
+8.[BreezeDeus](https://breezedeus.github.io/)博客内容很少，干货很多。
+
     简介
 
 
