@@ -6,7 +6,11 @@ date: 2017-10-19 14:12:00
 mathjax: true
 ---
 
-# <center>欢迎来到XGBoost的世界</center>
+前言：这篇博客是从jupyter notebook文档直接转换为markdown得到，相关资源如下。
+
+[本篇博客的在线notebook](https://nbviewer.jupyter.org/github/zhpmatrix/awesome-xgb/blob/master/AwesomeXGBoost.ipynb)
+
+[Github代码地址](https://github.com/zhpmatrix/awesome-xgb)
 
 ## XGBoost基本参数调节
 
