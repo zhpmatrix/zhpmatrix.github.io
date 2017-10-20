@@ -24,6 +24,10 @@ mathjax: true
 
 这篇博客是sklearn API
 
+[Complete Guide to Parameter Tuning in XGBoost(with codes in Python)](https://www.analyticsvidhya.com/blog/2016/03/complete-guide-parameter-tuning-xgboost-with-codes-python/)
+
+这篇博客是sklearn API
+
 ## 使用XGBoost自定义目标函数和评估函数
 
 
