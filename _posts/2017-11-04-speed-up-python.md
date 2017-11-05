@@ -122,6 +122,8 @@ map_async和apply_async的区别在哪里？**传递的参数是否可迭代。*
 
 2.[进程间通信](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/001431927781401bb47ccf187b24c3b955157bb12c5882d000)
 
+3.[Python多进程并行编程实践](https://zhuanlan.zhihu.com/p/24960492)
+
 
 
 
