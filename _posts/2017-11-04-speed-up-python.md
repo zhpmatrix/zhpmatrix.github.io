@@ -110,6 +110,39 @@ if __name__ == '__main__':
 
 map_async和apply_async的区别在哪里？**传递的参数是否可迭代。**这里和函数式编程的思想保持一致。关于上述代码中get的解释可以参照参考1的具体解释。
 
+[补充: 同步和异步的区别]
+
+```python
+
+import os, time
+import multiprocessing
+
+def task(i):
+    time.sleep(10)
+    return i
+
+if __name__ == '__main__':
+    cpu_nums = multiprocessing.cpu_count()
+    pool = multiprocessing.Pool()
+    results = []
+    for i in range(0, cpu_nums):
+        result = pool.apply_async(task, args=(i,))
+        print(result.get())
+        results.append(result)
+    pool.close()
+    pool.join()
+    #for result in results:
+    #    print(result.get())
+
+```
+
+分析上述代码，下述代码：
+
+    print(result.get())
+
+会使得并行任务阻塞进行，所谓阻塞进行，就是同步。get会等待当前任务结束，然后才去执行下一个任务。这显然不是自己想要的，如果要任务并行执行，就是将子进程的结果的获取放在全部任务结束的时候进行，如上述代码的最后两行。这里采用一个list结构进行结果整合，其实更fancy的方式是使用map_async来完成。
+
+
 上述只是谈及了如何发挥多核的优势，在之前的博客中，做了简单的多机分布式计算的尝试。具体细节可以参照这篇[博客](https://zhpmatrix.github.io/2017/02/19/speed-up-distributed/)。
 
 
