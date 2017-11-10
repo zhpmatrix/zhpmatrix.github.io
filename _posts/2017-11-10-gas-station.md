@@ -78,6 +78,31 @@ int canCompleteCircuit(vector<int>& gas, vector<int>& cost){
 
 上述其实是一个程序的正确性证明。上述代码的时间复杂度是线性的。
 
+在上述内容中，问题的矛盾在于整体和局部的关系。如果将gas[i]-cost[i]作为研究对象，可能就不需要考虑局部的问题。在这篇[博客](http://www.jianshu.com/p/64abe526fe91)中谈到了一种"尺取法"，代码如下:
+
+```c++
+int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        vector<int> remainders;
+        for (int i = 0; i < gas.size(); i++) {
+            remainders.push_back(gas[i] - cost[i]);
+        }
+        int stationNums = gas.size();
+        int sum = 0, begin = 0, end = 0;
+        while (begin < stationNums) {
+            while (end < (stationNums + begin) && sum >= 0) {
+                sum += remainders[end % stationNums];
+                end++;
+            }
+            if (sum >= 0) {//到达终点
+                return begin;
+            }
+            //sum<0
+            sum -= remainders[begin++];
+        }
+        return -1;
+    }
+```
+上述代码中有一个有意思的地方在于代码的控制结构，可以参考这篇[blog](http://blog.csdn.net/coofucoo/article/details/489029)来了解语句的执行顺序。使用||和&&时有些语句是不会执行的，所以要仔细考虑while和if的搭配使用。
 
 
 
