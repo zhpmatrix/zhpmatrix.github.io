@@ -40,6 +40,26 @@ mathjax: true
 
 处理**483931个object类型(字符串类型)**，方式一用时330s，方式二用时远远超过330s(为啥没有具体结果，因为没有耐心等到结果出现，逃)。
 
+
+[补充：Pandas大规模值替换的一个例子(200w样本，1s左右)]
+
+    df.col_name = df.col_name.map({value0: new_value0, value1: new_value1})
+
+在IJCAI2017比赛中的特征处理时的一行代码：
+
+    m2Data.loc[:,'dayofweek'] = map(lambda x:x.dayofweek,m2Data['time_stamp'])
+
+
+[补充：现在有一个pandas的Series和一个python的list，想让Series按指定的list进行排序，如何实现？]
+
+reorder\_categories和set\_categories，可以参考[这篇文章](http://www.jianshu.com/p/2d3dd3e30d51)。
+
+看到更简单的代码：
+
+    s = pd.Series([4.5, 2.7, 8.9, -0.4], index = ['d', 'b', 'a', 'c'])
+    
+    s.reindex(['a', 'b', 'c', 'd', 'e'])
+
 关于引用和复制的问题，可能会造成很难发现的错误。也就是数据是"正确"的，运行不出错，但是和期望结果会相差很多，很难发现。一种可能的方式是采用类似"梯度校验"的方式，进行数据验证，但是难免繁琐，所以总结一句，不能轻易放过代码的任何一个warning，因为任何warning都是潜在错误的表现。
 
 

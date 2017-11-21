@@ -40,7 +40,7 @@ awk的名字来源于三位创始人Alfred Aho,Peter Weinberger和Brian Kernigha
 
     awk [options] 'pattern {action}' filename
 
-awk同时支持文件读入和标准输入。工程流程是按行读取输入，对于符合模式pattern的行，执行action。当pattern省略时表示匹配任何字符串；当action省略时表示执行'{print}'；它们不可以同时省略。
+awk同时支持文件读入和标准输入。工作流程是按行读取输入，对于符合模式pattern的行，执行action。当pattern省略时表示匹配任何字符串；当action省略时表示执行'{print}'；它们不可以同时省略。
 
 看下述简单的一条命令：
 
