@@ -126,7 +126,7 @@ permalink: /about/
 ---
 	组会/讲课/TALK
 
-10.[算法编程讨论班-比赛那些事儿](cellar/LeetCode-0.pdf)
+10.[算法编程讨论班-比赛那些事儿](cellar/leetcode_0.pdf)
 
 9.[组会-Dive into XGBoost](cellar/Dive_into_XGBoost.pdf)
 
