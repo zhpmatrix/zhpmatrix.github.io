@@ -17,4 +17,3 @@ kramdown:
   auto_ids: true
   syntax_highlighter: rouge
 
-paginate: 5
