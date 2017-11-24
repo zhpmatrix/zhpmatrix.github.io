@@ -70,7 +70,7 @@ NP包含成千上万的问题，我们是否要研究所有的问题呢？如果
 
 说这些有什么用？算法导论作者给出如下回答。
 
-**To become a good algorithm designer, you must understand the rudiments of the theory of NP-completeness. If you can establish a problem as NP-complete, you provide good evidence for its intractability. As an engineer, you would then do better to spend your time developing an approximation algorithm (see Chapter 35) or solving a tractable special case, rather than searching for a fast algorithm that solves the problem exactly. Moreover, many natural and interesting problems that on the surface seem no harder than sorting, graph searching, or network ﬂow are in fact NP-complete. Therefore, you should become familiar with this remarkable class of problems.**
+**To become a good algorithm designer, you must understand the rudiments of the theory of NP-completeness. If you can establish a problem as NP-complete, you provide good evidence for its intractability. As an engineer, you would then do better to spend your time developing an approximation algorithm or solving a tractable special case, rather than searching for a fast algorithm that solves the problem exactly. Moreover, many natural and interesting problems that on the surface seem no harder than sorting, graph searching, or network ﬂow are in fact NP-complete. Therefore, you should become familiar with this remarkable class of problems.**
 
 总结: 为了成为一个好的算法设计者，你必须懂得NPC理论的入门知识。如果你能证明一个问题是NPC问题，作为一个工程师，你就可以把时间花在开发近似算法和解决该问题在特殊条件下的变种，而不是花费大量精力开发一个快速算法完全地解决该问题。此外，有些问题虽然看起来并不会比排序，图搜索，网络流更难，但是其实是NPC问题，因此，也需要熟悉一些典型的NPC问题(可以规约转化)。总之，我的疑惑还没有解决，囧。
 
