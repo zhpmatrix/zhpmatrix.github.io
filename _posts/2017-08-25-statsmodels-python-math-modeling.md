@@ -104,3 +104,8 @@ statsmodels获取sumamry()结果，参照[这篇文章](http://www.statsmodels.o
 [文章0](https://www.datarobot.com/blog/ordinary-least-squares-in-python/)
 [文章1](https://www.datarobot.com/blog/multiple-regression-using-statsmodels/)
 
+4.[统计检验的一个小例子](http://www.chinadmd.com/file/stoxwtsxrxcwxsisrprxcwap_1.html)
+
+5.[模型性能的比较检验](http://blog.csdn.net/sinat_33761963/article/details/55190474)
+
+通常对于ML/DL中的模型的优劣比较是不通过统计检验的，但是这篇Blog总结了一些统计检验的手段。
