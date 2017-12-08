@@ -126,6 +126,8 @@ permalink: /about/
 ---
 	组会/讲课/TALK
 
+12.[组会-分布式机器学习-同步/异步/拓扑](cellar/distributed.pdf)
+
 11.[算法编程讨论班-第二次讨论(动态规划)](cellar/leetcode_1.pdf)
 
 10.[算法编程讨论班-比赛那些事儿](cellar/leetcode_0.pdf)
