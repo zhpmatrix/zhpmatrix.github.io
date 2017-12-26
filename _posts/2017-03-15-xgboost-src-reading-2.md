@@ -54,6 +54,9 @@ mushroom.conf中是参数设置,具体包括：模型类型，目标函数，学
 
 1.xgboost导读和实战
 
+2.[xgboost安装在visual studio的c++环境下或者eclipse的java环境下
+](http://qsalg.com/?p=388)
+
 
 
 
