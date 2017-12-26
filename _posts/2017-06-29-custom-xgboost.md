@@ -55,3 +55,7 @@ feval的定义是应该预测为正的样本中预测错误的样本占总样本
 1.[携程比赛-客户流失率预测](http://www.cnblogs.com/silence-gtx/p/5812012.html)
 
 [比赛](https://yunhai.ctrip.com/Games/6)中的评估函数相对特别，作者写了自己的feval。在文章中给了一个自定义obj，是对数似然损失没有化简的情形。
+
+2.[XGBoost官方文档中的一个例子](https://github.com/dmlc/xgboost/blob/master/demo/guide-python/custom_objective.py)
+
+3.[Higgs Boson Machine Learning Challenge中陈天奇的讨论](https://www.kaggle.com/c/higgs-boson/discussion/10286)
