@@ -48,6 +48,9 @@ mathjax: true
 
 @废柴大蜗牛的回答，尝试性的解决了上述问题。深度学习社区早期一直在推动的一个事情是“局部最优是全局最优，FAIR的工作证明了不是。可以参考他的年度总结[2017年度总结](https://zhuanlan.zhihu.com/p/32380031)
 
+15.[贝叶斯观点下的拉普拉斯平滑](https://zhuanlan.zhihu.com/p/24291822)
+
+[朴素贝叶斯分类器的应用](http://www.ruanyifeng.com/blog/2013/12/naive_bayes_classifier.html)
 
 
 
