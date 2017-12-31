@@ -49,6 +49,8 @@ Quora针对该问题的[回答](https://www.quora.com/Why-is-a-neural-network-an
 
 作者群在文章中指出：随着网络的加深，Loss Landscape突然从接近凸的状态跳转到混乱的状态，而ResNet中的Skip Connections正是阻止了这种跳转，这也解释了为什么使用Skip Connections可以训练很深的网络结构。
 
+《On Large-Batch Training for Deep Learning:Generalization Gap and Sharp Minima》中讨论了Batch Size和神经网络泛化能力的关系，文章用实验证明：Batch Size越大，越有可能收敛到Sharp minimizer；相反，收敛到Flat minimizer。这是由梯度估计的内在的noise引起的。
+
 
 总结：从低维视角观察到的结论不能直接推广到高维视角，要有选择的推广。比如Bengio的Saddle Point理论。至于Saddle Point是不是真的正确，还需要进一步研究。为什么使用一阶梯度优化方法可以优化一个高度非凸的损失函数且效果不错？网络架构，学习率，Batch Size等参数是如何影响神经网络的训练和泛化性能的？很多问题并没有一个很形式化或者数学上的严格的证明，但是可以看到的是学术界还在以各种方式对这些问题进行探讨。
 
@@ -63,9 +65,7 @@ Quora针对该问题的[回答](https://www.quora.com/Why-is-a-neural-network-an
 
 4.[非齐次线性方程组解的存在性](https://baike.baidu.com/item/%E9%9D%9E%E9%BD%90%E6%AC%A1%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84)
 
-
-
-
+5.[训练神经网络如何确定Batch Size？](https://zhuanlan.zhihu.com/p/27763696)
 
 
 
