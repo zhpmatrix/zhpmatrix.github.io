@@ -14,6 +14,10 @@ mathjax: true
 
 4.[二项分布，信息熵，逻辑回归的Loss函数关系](http://blog.csdn.net/xsqlx/article/details/51120485#t2)
 
+针对二分类问题，假设每个样本符合二项分布B(1,p)，其中p表示该样本是正类的概率，则似然函数就是所有样本的分布的乘积，也就是目标函数。接下来就是最大化似然函数的值了。在逻辑回归中，用Sigmoid函数来表示p，用梯度上升法求解参数的值。
+
+可以参考[LR的推导过程加强理解](http://blog.csdn.net/ligang_csdn/article/details/53838743)，在[Softmax函数与交叉熵](https://zhuanlan.zhihu.com/p/27223959)中提到，对于LR问题，需要最大化似然函数，如果在似然函数前加一个负号作为目标函数，就需要最小化目标函数的值，此时这个目标函数就称为交叉熵损失函数，这种命名似乎在DL中比较常见。同时给出了相对熵(KL散度)和交叉熵的关系。
+
 5.[GBDT和LR在泛函空间的相似性联系](http://blog.csdn.net/xsqlx/article/details/51330627)
 
 6.[Multinomial回归多分类推导](http://blog.csdn.net/xsqlx/article/details/76599171)
@@ -28,11 +32,17 @@ mathjax: true
 
 9.[朴素贝叶斯与单层神经网络关系](https://zhuanlan.zhihu.com/p/30824582)
 
-10.[极大似然估计和贝叶斯估计之间的关系](2017-10-14-relationships-models.md)
+链接中的专栏并没有讲清楚。
+
+10.[极大似然估计和贝叶斯估计之间的关系](http://blog.csdn.net/guohecang/article/details/52313046)
+
+最大似然估计(MLE)只考虑某个模型能产生某个给定观察序列的概率，而不考虑该模型本身的概率，这是与贝叶斯估计的区别。最大后验估计(MAP)融入了估计量的先验分布，从形式上看是贝叶斯估计。[详解MLE，MAP，和贝叶斯公式的理解](http://blog.csdn.net/u011508640/article/details/72815981)对MLE和MAP问题的区别和联系解释的非常棒！
 
 这个Blog和Blog 8结合起来看，可能会更棒。
 
-11.[K-平均算法和其他模型/算法之间的关系](2017-10-14-relationships-models.md)
+11.K-means算法和其他模型/算法之间的关系
+
+高斯混合模型(GMM)是EM算法的特例，而K-means是GMM的一个特例。EM/聚类从解决无监督问题来看是相似的。
 
 12.[传统算法如何转化成神经网络?](http://www.sohu.com/a/210423018_114877)
 
