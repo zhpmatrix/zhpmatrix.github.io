@@ -54,8 +54,11 @@ mathjax: true
 
 16.[LR的生成模型观察](http://www.bilibili.com/video/av10590361/#page=5)
 
-17.[对比散度来近似玻尔兹曼机中难以处理的对数似然梯度]
+17.对比散度来近似玻尔兹曼机中难以处理的对数似然梯度
 
+18.[岭回归(Ridge regression)和主成分分析(PCA)的关系](https://zhuanlan.zhihu.com/p/32500133)
+
+PCA暴力地将奇异值小的维度置为0，其他维度置为1；Ridge regression的惩罚系数对奇异值不同的维度的惩罚力度不同。二者都是通过消除数据的多重共线性来提升线性回归的效果，连接桥梁是SVD分解。
 
 
 
