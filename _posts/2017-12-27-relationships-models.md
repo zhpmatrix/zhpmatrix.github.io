@@ -52,5 +52,10 @@ mathjax: true
 
 [朴素贝叶斯分类器的应用](http://www.ruanyifeng.com/blog/2013/12/naive_bayes_classifier.html)
 
+16.[LR的生成模型观察](http://www.bilibili.com/video/av10590361/#page=5)
+
+17.[对比散度来近似玻尔兹曼机中难以处理的对数似然梯度]
+
+
 
 
