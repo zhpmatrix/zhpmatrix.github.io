@@ -20,9 +20,27 @@ mathjax: true
 
 5.[GBDT和LR在泛函空间的相似性联系](http://blog.csdn.net/xsqlx/article/details/51330627)
 
+Boosting别名：函数空间梯度下降。Boosting的可加性体现在根据决策树模型得到预测值的可加。决策树和线性回归只是相同算法框架下的不同假设，从这个角度来说，回归和分类也是共生于一个通用的算法框架。
+
 6.[Multinomial回归多分类推导](http://blog.csdn.net/xsqlx/article/details/76599171)
 
 7.[Linear SVM和LR的异同](https://www.zhihu.com/question/26768865/answer/247134855)
+
+不同点：
+
+LR不依赖于数据的距离测度；Linear SVM依赖数据的距离测度，需要对数据做Normalization；
+
+LR受所有数据点的影响，要做不平衡处理；Linear SVM不依赖数据分布(假设分类平面确定了，某一类加减一些样本后，分类平面不受影响)；
+
+共同点：
+
+Linear SVM依赖惩罚项的系数；LR依赖L1 regularization；
+
+Linear SVM和LR都对Outlier敏感；
+
+关于为什么要做归一化，这里有个非常棒的[回答](https://www.zhihu.com/question/37129350)。
+
+站在优化的角度，如果不归一化，各维特征跨度很大，目标函数是“扁”的，梯度优化过程会发生震荡；如果归一化，目标函数是“圆”的，每一步梯度的方向都会基本指向最小值，可以大踏步前进，Momentum是从优化方法本身来解决这个问题的。
 
 8.[分类学习算法-一个统一的视角](https://zhuanlan.zhihu.com/p/30745139)
 
