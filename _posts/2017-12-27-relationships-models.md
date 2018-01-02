@@ -76,6 +76,8 @@ Linear SVM和LR都对Outlier敏感；
 
 最大熵和SVM都用到对偶理论。
 
+参考一篇论文《The equivalence of logistic regression and maximum entropy models》
+
 14.L2(Ridge Regression，L2 weight decay)等价于Early Stopping？
 
 [知乎问题-寻找全局最小值和防止过拟合是不是矛盾？](https://www.zhihu.com/question/264607356/answer/283856609)
@@ -86,7 +88,34 @@ Linear SVM和LR都对Outlier敏感；
 
 [朴素贝叶斯分类器的应用](http://www.ruanyifeng.com/blog/2013/12/naive_bayes_classifier.html)
 
-16.[LR的生成模型观察](http://www.bilibili.com/video/av10590361/#page=5)
+这篇文章试图用贝叶斯统计的方法来推导出朴素贝叶斯方法的整个体系，如何推导出拉普拉斯平滑方法用于处理朴素贝叶斯方法中可能出现的零概率问题。
+
+朴素贝叶斯假设特征独立，在计数过程中，发现某个特征从没有出现过，会导致待估计的目标为零。为了解决这种零概率问题(上文引入了一个投硬币的例子)，引入参数的先验概率估计，成为最大后验概率估计问题；当先验概率估计的分布为均匀分布的时候，MAP就是MLE。
+
+假设引入的先验分布使得后验分布和先验分布属于相同的分布族(好处是可以得到解析解)，先验分布则称为共轭先验分布。比如二项分布(二分类问题，相应的多项分布)的共轭是Beta分布。
+
+为了解决零概率问题，引入的平滑贝叶斯方法不仅仅是一个Trick，而是有很深的原理在里面。
+
+关于极大后验和期望后验的讨论在文章中的讨论区，
+
+@Mo.bius说的一段话：选择极大后验和期望后验反映了两种统计思想，选择“众数”和选择平均数，但在贝叶斯学派下统称为贝叶斯解，目的都是为了minimum loss function，统称为贝叶斯解。至于如何选择取决于损失函数的定义，比如说平方损失函数最小时，选择的是期望后验。
+
+
+16.[LR的生成模型观察](http://www.bilibili.com/video/av10590361/#page=11)
+
+LR在NLP领域称为最大熵模型(不严格)，当类标签只有两个的时候，最大熵模型就是LR模型。
+
+从最大熵模型推导到LR模型，参看这个[答案](https://www.zhihu.com/question/24094554)@Semiring，从推导来看，LR处理多分类问题的时候，使用Softmax函数；而最大熵模型在定义的时候，形式和Softmax给出的形式是类似的。
+
+李宏毅的课程对于判别模型和生成模型的对比：
+
+1.通常人们相信判别模型效果更好；
+
+2.生成模型有对概率分布的假设，该假设的存在使得需要更少的训练数据和对噪音更加的鲁棒；priors and class-dependent probabilities can be estimated from different sources;
+
+常见的判别模型：LR模型(对P(Y|X)建模)
+
+常见的生成模型：朴素贝叶斯模型(对P(X,Y)建模)
 
 17.对比散度来近似玻尔兹曼机中难以处理的对数似然梯度
 
