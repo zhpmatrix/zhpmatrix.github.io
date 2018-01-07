@@ -123,5 +123,10 @@ LR在NLP领域称为最大熵模型(不严格)，当类标签只有两个的时�
 
 PCA暴力地将奇异值小的维度置为0，其他维度置为1；Ridge regression的惩罚系数对奇异值不同的维度的惩罚力度不同。二者都是通过消除数据的多重共线性来提升线性回归的效果，连接桥梁是SVD分解。
 
+19.SVD分解本质上与不带激活函数的三层自编码机等价，理解SVD分解，能够为神经网络模型寻求一个合理的概率解释，同时[SVD可以实现自动聚类](http://kexue.fm/archives/4216/)，是通过概率模型，为SVD分解赋予了聚类意义。
+
+20.PCA和SVD以及LSA(LSI)的关系
+
+[文章一](http://www.cnblogs.com/LeftNotEasy/archive/2011/01/19/svd-and-applications.html)，[文章二](http://www.mamicode.com/info-detail-1402028.html)
 
 
