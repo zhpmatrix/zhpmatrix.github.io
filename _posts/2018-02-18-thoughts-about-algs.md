@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[生活]实习碎碎念: 一"
+title: "[生活杂谈]京东实习碎碎念"
 excerpt: "打开京东ME，显示在职天数三十九天。"
 date: 2018-02-18 15:43:00
 mathjax: true
