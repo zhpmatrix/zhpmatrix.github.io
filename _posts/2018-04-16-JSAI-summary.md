@@ -28,7 +28,7 @@ mathjax: true
 
 整个报告听下来最有收获的是厦门大学纪荣嵘教授的报告，提问环节一连提了三个问题，会后也交流了一些问题。报告回顾了DNN面临的一些挑战，例如small training set;biased training distribution;online/incremental learning;un/weak supervised learning;inside DNN Black box;complexity of DNN(large parameters;high flop(floating point operation))，DNN的常用压缩方法：parameter sharing;parameter pruning;matrix decomposition;DNN的常用加速方法：binary network;structured pruning;tensor decomposition;他们组和腾讯优图，滴滴有很多模型压缩和加速方面的工作，具体可以阅读纪教授在人工智能前沿讲习班的文章[深度神经网络压缩及应用](http://mp.weixin.qq.com/s?__biz=MzIzNjc0MTMwMA==&mid=2247483920&idx=1&sn=9963a13afe1214f0b2bf4f520fa27d32&chksm=e8d275cbdfa5fcdd5f49fb186b0cabae7f5733249bc0436a069ad87635cc0445a6169b25dc17&mpshare=1&scene=23&srcid=04138IcRmwd6crwinNQKvU8l#rd)。
 
-总结：两天的报告，第二天早上没有去听。提了大概五六个问题，晚上被老板拉去陪大佬们喝酒，还被几个大佬和同团队的老师夸了一波，嘻嘻。得到的几点认识：第一，搞研究要盯着一个点儿做深做细，从报告老师，从黄博，从我老板等都可以看到，只要做的足够深，足够细，一定可以做出有价值的工作，起码发Paper。第二，要注重原创精神。耿新老师和李凡长老师这些年都是做自己的东西，虽然自己的工作还是要和领域经典工作一块协作，但是做自己的东西很是令人敬佩。第三，部分研究要落地。纪老师的关于模型加速和压缩的工作不但引起了我个人的兴趣，同时也吸引了很多参会老师的兴趣，人气很旺。第四，和第一点相承接，要相信自己做的工作，不一定要赶热潮。比如NMF,比如kernle方法，比如Reduction等，还有很多人在做相关的工作。
+总结：两天的报告，第二天早上没有去听。提了大概五六个问题，晚上被老板拉去陪大佬们喝酒，还被几个大佬和同团队的老师夸了一波，嘻嘻。得到的几点认识：第一，搞研究要盯着一个点儿做深做细，从报告老师，从黄博，从我老板等都可以看到，只要做的足够深，足够细，一定可以做出有价值的工作，起码发Paper。第二，要注重原创精神。耿新老师和李凡长老师这些年都是做自己的东西，虽然自己的工作还是要和领域经典工作一块协作，但是做自己的东西很是令人敬佩。第三，部分研究要落地。纪老师的关于模型加速和压缩的工作不但引起了我个人的兴趣，同时也吸引了很多参会老师的兴趣，人气很旺。第四，和第一点相承接，要相信自己做的工作，不一定要赶热潮。比如NMF,比如kernel方法，比如Reduction等，还有很多人在做相关的工作。
 
 
 
