@@ -154,4 +154,6 @@ CMakeLists.txt中的内容主要包括：项目名称，头文件目录，环境
 
 5.[不同环境变量配置方式的区别](https://www.cnblogs.com/isoftware/p/3778028.html)
 
+6.[一个make编写的demo](http://www.cnblogs.com/hazir/p/linux_make_examples.html)
+
 
