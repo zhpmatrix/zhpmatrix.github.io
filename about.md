@@ -78,9 +78,9 @@ permalink: /about/
 ---
     比赛经历
 
-10.**ECCV2018-Challenge：Object Detection in Images**
+10. **ECCV2018-Challenge：Object Detection in Images**
 
-CV领域首个比赛，个人SOLO，练手，正在进行中，集群挂了。
+    CV领域首个比赛，个人SOLO，练手，正在进行中，集群挂了。
 
 9. **天池比赛：IJCAI-18 阿里妈妈搜索广告转化预测**
 
