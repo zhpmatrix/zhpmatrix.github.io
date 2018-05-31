@@ -80,11 +80,11 @@ permalink: /about/
 
 10. **ECCV2018-Challenge：Object Detection in Images**
 
-    CV领域首个比赛，个人SOLO，练手，正在进行中，集群挂了。
+    CV领域首个比赛，个人SOLO，练手，正在进行。(CV的比赛和DM的比赛感觉很不一样)
 
 9. **天池比赛：IJCAI-18 阿里妈妈搜索广告转化预测**
 
-    复赛进行中。
+    第二赛季排名：231/5204。[团队大腿主页](https://hadxu.github.io/)
 
 8.  **天池精准医疗大赛——人工智能辅助糖尿病遗传风险预测**
 
