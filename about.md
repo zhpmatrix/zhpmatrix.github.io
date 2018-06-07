@@ -142,6 +142,10 @@ permalink: /about/
 ---
 	组会/讲课/TALK
 
+14.[研讨班-高级计算机视觉应用](cellar/Application_Of_Computer_Vision.pdf)
+
+13.[组会-分类指标之间关系讨论](cellar/Metric-4-Classification.pdf)
+
 12.[组会-分布式机器学习-同步/异步/拓扑](cellar/distributed.pdf)
 
 11.[算法编程讨论班-第二次讨论(动态规划)](cellar/leetcode_1.pdf)
