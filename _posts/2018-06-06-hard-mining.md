@@ -32,7 +32,7 @@ CVPR2005的文章《Histograms of Oriented Gradients for Human Detection》中�
 
 CVPR2016一篇文章《Training Region-based Object Detectors with Online Hard Example Mining》中提出了一个概念Online Hard Example Mining，讲过上文中hard example mining的一些想法后，这里要关注的就是online了。
 
-回归多分类问题，与prob强相关的是loss了，因此很自然的一个想法是**能不能通过loss判断样本的hard或者easy？**在这篇文章中，用loss找出hard example，bp的时候只回传这些hard example的weight更新。对于分界面的确定，不是所有样本的贡献都是相同的，有的甚至可能成为noise，通过loss来选择，是很合理的想法。
+回到多分类问题，与prob强相关的是loss了，因此很自然的一个想法是**能不能通过loss判断样本的hard或者easy？**在这篇文章中，用loss找出hard example，bp的时候只回传这些hard example的weight更新。对于分界面的确定，不是所有样本的贡献都是相同的，有的甚至可能成为noise，通过loss来选择，是很合理的想法。
 
 在结构设计上，在Fast R-CNN基础上，将原来的RoI Network变为两个RoI Network，两个Network共享参数，其中一个的输入是image，负责forward操作，用于计算loss，筛hard样本。另一个的输入是hard样本对应的feature(**RoI Pooling Layer**)，负责forward和backward。
 
