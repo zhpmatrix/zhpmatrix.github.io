@@ -17,7 +17,7 @@ deque是双端队列，内部实现是双向链表。注意是数组链表而不
 
 比如，几个典型的时间复杂度：append,appendleft,pop,popleft都是O(1),rotate和remove都是   O(n)等。注意，deque是线程安全的，可以同时从deque集合的左边和右边进行操作而不会有影响。
 
-set的几个操作的时间复杂度通常与集合的长度有关。举个例子，差集操作(set1 - set2), 则时间复杂度为O(len(set1))。
+set的几个操作的时间复杂度通常与集合的长度有关。举个例子，差集操作(set1 - set2), 则时间复杂度为O(len(set1))。set的底层实现和dict相同，都是hash，实现set的方式称为hash set，实现dict的方式称为hash map/table。主要的不同在于hash函数操作的对象，对于dict，hash函数操作的对象为key；对于set，hash函数操作的对象为元素自身。
 
 dict是字典，hash结构的时间复杂度通常是O(1)。和list一样，字典存储的也是对象的引用。
 
