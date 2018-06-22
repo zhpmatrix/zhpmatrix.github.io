@@ -142,6 +142,8 @@ permalink: /about/
 ---
 	组会/讲课/TALK
 
+15.[研讨班-基于NLP的金融营销活动情感分析](cellar/sense-classification.pdf)
+
 14.[研讨班-高级计算机视觉应用](cellar/Application_Of_Computer_Vision.pdf)
 
 13.[组会-分类指标之间关系讨论](cellar/Metric-4-Classification.pdf)
