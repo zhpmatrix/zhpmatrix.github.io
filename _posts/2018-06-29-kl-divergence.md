@@ -48,6 +48,32 @@ kendall在做什么呢？看下图。
 
 总结：这篇博客从直接优化kendall系数出发，提出两种新的建立损失函数的想法。上述想法，从问题出发，从KL损失函数中得到一些启发。虽然不是最适合KL损失函数的应用场景，但是从数值角度上分析，应该是work的。
 
+参考：
+
+1.[概率中的PDF, PMF, CDF](https://blog.csdn.net/wzgbm/article/details/51680540)
+
+为什么需要分布函数？计算连续性随机变量的概率。
+
+2.[Kullback-Leibler Divergence Explained](https://www.countbayesie.com/blog/2017/5/9/kullback-leibler-divergence-explained)
+
+一篇有趣的博客介绍KL散度。
+
+3.[PyTorch中提供的与交叉熵有关的损失函数](https://cloud.tencent.com/developer/article/1126921)
+
+torch.nn.CrossEntropyLoss, torch.nn.KLDivLoss, torch.nn.BCELoss, torch.nn.BCEWithLogitsLoss, torch.nn.MultiLabelSoftMarginLoss
+
+4.[PyTorch中的所有损失函数总结](http://yangli.name/2017/12/25/20171225pytorch2/)
+
+[官方Doc对KLDivLoss的定义](https://pytorch.org/docs/stable/nn.html?highlight=torch%20nn%20kl#torch.nn.KLDivLoss)
+
+5.[非负矩阵分解中的KL散度](https://www.cnblogs.com/xingshansi/p/6672908.html)
+
+建立了非负矩阵分解和KL散度的关系，Taylor近似，泊松分布。重点提示，文中推导出的KL散度的计算和PyTorch中不同，原因未知。
+
+6.[KL散度在推荐系统中的应用](http://chuansong.me/n/2759305)
+
+讨论某个专辑被哪个年龄段的人喜欢，简单讲，需要考虑年龄的分布。
+
 
 
 
