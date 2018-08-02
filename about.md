@@ -78,6 +78,10 @@ permalink: /about/
 ---
     比赛经历
 
+11. **拍拍贷-第三届魔镜杯大赛：问题相似度匹配**
+
+    复赛第六，现场答辩后还是第六。团队大腿们的主页：[Typistzhao](https://typistzhao.github.io/)，[qrfaction](https://qrfaction.github.io/)，[hadxu](https://hadxu.github.io/)
+
 10. **ECCV2018-Challenge：Object Detection in Images**
 
     CV领域首个比赛，个人SOLO，练手，[Github地址](https://github.com/zhpmatrix/VisDrone2018) (CV的比赛和DM的比赛感觉很不一样)
@@ -121,7 +125,9 @@ permalink: /about/
 ---
     实习经历
 
-8.**2018.1~至今:** 京东Y事业部-数据业务创新部（前无界零售实验室），实习(强行入坑CV领域)。
+9.**2018.7~至今:**   [Eigen](https://www.eigentech.ai/)算法部-NLP方向，实习(强行入坑NLP领域)。
+
+8.**2018.1~2018.5:** 京东Y事业部-数据业务创新部（前无界零售实验室），实习(强行入坑CV领域)。
 
 7.**2016.6~2016.9：**[上海合合信息](http://www.intsig.com/zh/)，实习。
 
