@@ -35,6 +35,9 @@ permalink: /about/
 ---
 	组会/讲课/TALK
 
+
+17.[研讨班-中文拼写纠错](cellar/Chinese_Spell_Detection.pdf)
+
 16.[实习组内分享-R-FCN 3000](cellar/rfcn3000.pdf)
 
 15.[研讨班-基于NLP的金融营销活动情感分析](cellar/sense-classification.pdf)
