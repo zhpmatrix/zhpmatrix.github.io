@@ -12,7 +12,6 @@ permalink: /about/
 ---
 
 
----
     联系方式
 
 Github:[@zhpmatrix](https://github.com/zhpmatrix/)
@@ -20,6 +19,7 @@ Github:[@zhpmatrix](https://github.com/zhpmatrix/)
 QQ: 1332062790
 
 Weibo:[@zhpmatrix](http://weibo.com/u/2879902091/home?wvr=5&lf=reg)
+
 ---
 
 
