@@ -116,6 +116,12 @@ mathjax: true
 
 [比赛地址](https://competitions.codalab.org/competitions/17184#phases)
 
+
+#### SemEval-2019
+
+[比赛地址](https://competitions.codalab.org/competitions/20013#results)
+
+
 #### 哈工大发布的阅读理解数据集
 
 #### [第一届“讯飞杯”中文机器阅读理解评测（CMRC2017）](http://www.cips-cl.org/static/CCL2017/iflytek.html)
