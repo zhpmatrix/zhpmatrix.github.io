@@ -102,6 +102,20 @@ mathjax: true
 由Standford发布的Standford Question Answering Dataset.
 
 
+#### CoQA
+
+[数据集地址](https://stanfordnlp.github.io/coqa/)，对话型问答挑战。
+
+
+#### HotpotAQ
+
+[数据集地址](https://hotpotqa.github.io/)，多跳问答，注重推理。
+
+
+#### SemEval-2018
+
+[比赛地址](https://competitions.codalab.org/competitions/17184#phases)
+
 #### 哈工大发布的阅读理解数据集
 
 #### [第一届“讯飞杯”中文机器阅读理解评测（CMRC2017）](http://www.cips-cl.org/static/CCL2017/iflytek.html)
