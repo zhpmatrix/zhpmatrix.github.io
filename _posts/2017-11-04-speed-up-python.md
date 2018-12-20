@@ -157,6 +157,10 @@ if __name__ == '__main__':
 
 3.[Python多进程并行编程实践](https://zhuanlan.zhihu.com/p/24960492)
 
+4.[gensim中的操作](https://zhpmatrix.github.io/2017/11/04/speed-up-python/)
+
+源码中精彩多多！
+
 
 
 
