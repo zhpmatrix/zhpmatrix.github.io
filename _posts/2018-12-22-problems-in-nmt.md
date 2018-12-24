@@ -56,6 +56,12 @@ NMT的出现大大提升了翻译质量，围绕NMT的工作非常多，同时�
 
 注意，上图中给出的最佳句子长度为60左右，是基于subword的统计。理论上，基于word的统计要小于60，不过现在多数seq2seq系统的实现都是支持BPE的，所以句子长度设置的时候，注意一下长度的粒度。虽然在超过最佳句子长度的时候，NMT表现弱与SMT，但是实际上我们看到在NLP的具体问题中，有不同的方式去处理句子长短不一致的问题，因此这并不意味着当句子很长时，SMT就是一个合理的选择。在最佳句子长度之前，NMT随着句子长度的增加，是持续优于SMT的。
 
+Bengio在2014年的一篇文章中[《Overcoming the Curse of Sentence Length for Neural Machine Translation using Automatic Segmentation》](https://arxiv.org/pdf/1409.1257.pdf)针对句子长度对NMT的影响给出的原因如下：
+
+    Training on long sentences is difficult because few available training corpora include sufficiently many long sentences, and because the computational overhead of each update iteration in training is linearly correlated with the length of training sentences.
+
+    Additionally, by the nature of encoding a variablelength sentence into a fixed-size vector representation, the neural network may fail to encode all the important details.
+
 总之，在翻译任务中，句子长度需要合理选择！
 
 #### Word Alignment
@@ -85,7 +91,7 @@ Attention虽然在一定程度上可以实现词对齐，但是二者之间的�
 
     The main cause of deteriorating quality are shorter translations under wider beams.
 
-此处挖坑，具体原因需要后续探讨。
+此处挖坑，具体原因需要后续探讨。直观地思考，Beam Search算法是Greedy Search和Viterbi Search的中间版，更宽的beam size，使得Beam Search的搜索空间更加地接近Viterbi的搜索空间，由于转移概率的值小于1，故越短的序列预期得到更高的分数。
 
 具体实验结果如下：
 
@@ -104,6 +110,8 @@ Attention虽然在一定程度上可以实现词对齐，但是二者之间的�
 总结：围绕**Domain Mismatch**，迁移学习相关的同学讨论的最多。理解这个问题，能够帮助我们更好的去准备训练语料，是选择什么语料的问题？**Amount of Training Data**，是选择多大的语料的问题？这两个都是在准备数据阶段相当重要的问题。**Rare Words**无论在预处理阶段还是在解码阶段都是要去考虑的问题，重视OOV问题就没错了。**句子长度**在NLP的任务中常常是一个超参数，而且是不经常被调节的那个参数，好的句子长度选择或许会带来一定程度的增益。**Word Alignment**在传统SMT中被讨论了很多了，近年来的NLP模型中，Attention已经成为标配组件，虽然Attention能够一定程度上实现词对齐，但是这种实现不是完全等价的，我们需要更好的Attention，比如有一波人是研究稀疏化的Attention。围绕解码算法，beam size也不是越大越好。
 
 对文章的感受是，主要通过对比SMT和NMT，探讨一下我们一直以为的问题是否是一个问题吧。
+
+最后推荐一篇文章《Massive Exploration of Neural Machine Translation Architectures》，对比了NMT中不同组件和模型超参的实验影响。
 
 
 
