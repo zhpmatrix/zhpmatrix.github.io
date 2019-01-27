@@ -8,7 +8,7 @@ mathjax: true
 
 一.Rethink系列-CNN/RNN/GRU/LSTM/BiLSTM
 
-二.Rethink系列-Attention
+二.[Rethink系列-Attention](https://zhpmatrix.github.io/2019/01/27/NLP-rethinking-attention/)
 
 三.Rethink系列-seq2seq
 
