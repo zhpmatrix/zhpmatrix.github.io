@@ -6,7 +6,7 @@ date: 2019-01-27 18:00:00
 mathjax: true
 ---
 
-一.Rethink系列-CNN/RNN/GRU/LSTM/BiLSTM
+一.[Rethink系列-CNN/RNN/GRU/LSTM/BiLSTM](https://zhpmatrix.github.io/2019/01/27/NLP-rethinking-base-blocks/)
 
 二.Rethink系列-Attention
 
