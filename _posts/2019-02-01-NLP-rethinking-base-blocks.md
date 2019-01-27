@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[NLP]Rethink系列-CNN/RNN/GRU/LSTM/BiLSTM"
+title: "[NLP]Rethink系列-CNN/RNN"
 excerpt: "对CNN在NLP中应用的方法，缺点，优点及其目前发展形势做的小思考。"
 date: 2019-01-27 18:00:00
 mathjax: true
