@@ -31,16 +31,16 @@ mathjax: true
 | 序号 | Encoder | Decoder |
 | ------ | ------ | ------ |
 | 0 | CNN | CNN |
-| 1 | CNN | RNN/LSTM/BiLSTM |
+| 1 | CNN | RNN/LSTM/\* |
 | 2 | CNN | Attention |
-| 3 | RNN/LSTM/BiLSTM | RNN/LSTM/BiLSTM |
+| 3 | RNN/LSTM/BiLSTM | RNN/LSTM/\* |
 | 4 | RNN/LSTM/BiLSTM | CNN |
 | 5 | RNN/LSTM/BiLSTM | Attention |
 | 6 | Attention |  Attention|
-| 7 | Attention |  RNN/LSTM/BiLSTM|
+| 7 | Attention |  RNN/LSTM/\*|
 | 8 | Attention |  CNN|
 
-从上表可以看出，共有8种方案。目前来看，方案3和方案6(Transformer为代表)是主流，那么是否意味着其余方案不可行，没有必要呢？恐怕未必。方案3已经有几年的历史了，但是方案6依然年轻，可以挖掘探索的空间还有很大。如果考虑其他组合，可以研究思考的空间又大了许多倍。
+从上表可以看出，共有8种方案(decoder端需要考虑语言模型的限制)。目前来看，方案3和方案6(Transformer为代表)是主流，那么是否意味着其余方案不可行，没有必要呢？恐怕未必。方案3已经有几年的历史了，但是方案6依然年轻，可以挖掘探索的空间还有很大。如果考虑其他组合，可以研究思考的空间又大了许多倍。
 
 在知识的海洋面前，我们都是一群小屁孩儿。人类应知自己的渺小和悲哀，但是又不失对未知的好奇和探索精神。放置宇宙，这种微如尘埃的感受又会被无限放大。
 
