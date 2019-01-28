@@ -48,6 +48,7 @@ encoder以seq2seq中的老大爷RNN/LSTM/BiLSTM为例，也就是方案3。为�
 
 2014年的相关工作中，涉及到的seq2seq框架的组成多是由encoder->中间表示->decoder。中间表示是对输入seq的编码表示，decoder能够使用该编码表示用于解码得到输出seq。中间表示作为两端交互的信息，如何得到呢？RNN每个时间步会得到对应输入对象的HiddenState，该HiddenState作为当前输入对象的量化表示。那么对应的输入seq的量化表示很容易想到最简单的方案。
 
+
 第一，最后一个时间步对应的HiddenState作为整个输入seq的量化表示。因为最后一个时间步含有所有时间步的信息。RNN是一个迭代结构，从第一个时间步开始，信息进行迭代，直到最后一个时间步。但是这里需要考虑的问题是，会不会由于输入seq的过长导致信息的损失和遗忘？
 
 第二，既然有了每个时间步的量化表示，那就全部用上。求和/取平均等操作。
@@ -58,7 +59,9 @@ encoder以seq2seq中的老大爷RNN/LSTM/BiLSTM为例，也就是方案3。为�
 
 上述步骤一到四，能否用一个方案统一起来呢？
 
-由于LSTM和原生RNN的基本组件不同，在具体策略上不会完全相同。比如LSTM中有CellState和HiddenState，而原生RNN只有HiddenState，那么此处更加合理的应用就值得进一步思考。
+这里区分一下原始RNN和LSTM的区别，对于原始RNN而言，InternalState=HiddenState；对于LSTM，InternalState=\[CellState，HiddenState\]
+
+由于LSTM和原生RNN的基本组件不同，在具体策略上不会完全相同。比如LSTM中有CellState和HiddenState，而原生RNN只有HiddenState，因此有时候也用InternalState统一描述。此处更加合理的应用就值得进一步思考。
 
 从上述讨论可以看出，目前encoder端的方案使用的大多数是最容易想到的方案，而encoder端的信息利用实际上还有很大的可以挖掘的空间。
 
