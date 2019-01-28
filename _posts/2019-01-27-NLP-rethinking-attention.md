@@ -10,7 +10,7 @@ mathjax: true
 
 二.Rethink系列-Attention
 
-三.Rethink系列-seq2seq
+三.[Rethink系列-seq2seq](https://zhpmatrix.github.io/2019/01/28/NLP-rethingking-seq2seq/)
 
 
 沿着DL的路线，目前为止，解决NLP问题的主要方式包括CNN，RNN和Attention三种。其中，Attention近年来已经成为了一个明星，以Transformer为代表模型，以致于有些人会去讨论"Transformer能否替代RNN在NLP领域中的地位？"这样的问题。
