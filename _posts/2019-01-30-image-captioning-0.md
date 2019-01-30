@@ -1,15 +1,12 @@
 ---
 layout: post
 title: "[论文阅读]《A Neural Compositional Paradigm for Image Captioning》"
-excerpt: "NIPS2018的文章，整体上没有采用端到端的思路。不过其中的语言生成策略或许有值得借鉴的地方。"
+excerpt: "NIPS2018的文章，用于解决Image Captioning问题，整体上没有采用端到端的思路，不过其中的语言生成策略或许有值得借鉴的地方。"
 date: 2019-01-30 18:00:00
 mathjax: true
 ---
 
-近年来关注度比较高的是神经图片描述(Neural Image Captioning，简称NIC)。从模型架构上，是一个encoder-decoder框架，如下：
-![NIC](https://upload-images.jianshu.io/upload_images/2730963-796002eba6570cea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
-
-encoder端利用一个大的网络结构对图片进行编码，得到图片的表示向量。然后将该图片向量作为decoder端的第一个时间步的输入，从第二个时间步开始，decoder端的输入变成caption文本。
+近年来关注度比较高的是神经图片描述(Neural Image Captioning，简称NIC)。从模型架构上，是一个encoder-decoder框架，encoder端利用一个大的网络结构对图片进行编码，得到图片的表示向量。然后将该图片向量作为decoder端的第一个时间步的输入，从第二个时间步开始，decoder端的输入变成caption文本。
 
 这篇文章从整体上没有采用端到端的思路，而是将caption过程分为两个阶段。
 
