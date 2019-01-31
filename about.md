@@ -7,7 +7,7 @@ permalink: /about/
     简介
 
 
-- 用VIM写Python的程序员。
+- NLP算法工程师
  
 ---
 
