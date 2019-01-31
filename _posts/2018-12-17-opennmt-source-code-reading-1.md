@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[OpenNMT源码]训练模块代码剖析"
+title: "[OpenNMT]训练模块源码剖析"
 excerpt: "讨论训练模块的相关设计"
 date: 2018-12-17 18:43:00
 mathjax: true

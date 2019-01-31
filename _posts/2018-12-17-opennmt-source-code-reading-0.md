@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[OpenNMT源码]预处理模块代码剖析"
+title: "[OpenNMT]预处理模块源码剖析"
 excerpt: "讨论预处理模块的相关设计"
 date: 2018-12-17 18:43:00
 mathjax: true
