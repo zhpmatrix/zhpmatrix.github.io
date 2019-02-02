@@ -1,0 +1,83 @@
+---
+layout: post
+title: "[NLG]论文阅读-文本风格迁移"
+excerpt: "慢慢地需要从自然语言理解过渡到自然语言生成，生成的应用场景较广，值得关注。这篇博客是最近读的几篇文章的一个论文笔记，主要目的是帮助自己建立一个对风格迁移任务的印象。"
+date: 2019-02-02 18:00:00
+mathjax: true
+---
+
+文本生成在模型上的变化主要包括生成对抗网络(GAN)系，自编码(AE)系，增强学习(RL)系和其他系。整体上的思路发展和CV保持一致，但是CV中的流(Flow)系目前还没有看到在NLP领域中的相关工作，值得密切关注。这篇文章，主要围绕文本风格迁移读一些论文。
+
+1.《Dear Sir or Madam, May I Introduce the GYAFC Dataset:Corpus, Benchmarks and Metrics for Formality Style Transfer》
+
+这篇文章主要针对文本风格迁移任务，构建了一个数据集，提供了五个benchmark，做了一些度量。这里的风格迁移是正式文本和非正式文本的双向迁移，这是的正式是指"是不是正式的说话"，数据集来源为Yahoo Answers问答论坛。
+
+没有仔细看平行语料的构造方式，这里想一下方案。正常情况下可以是给定一句话，如果这句话是正式的，写出对应的不正式的表达；如果是非正式的，写出对应的正式的表达。关于正式和非正式应该是可以训练一个分类器，这样在构建新的平行语料的时候，可以免去判断正式和非正式的繁琐过程。
+
+benchmark主要包括三类：基于规则的方法，基于按照短语进行机器翻译的方法，基于神经机器翻译的方法。
+
+这篇文章的数据集是做正式和非正式文本的双向迁移，实际上迁移的内容包括：礼貌和非礼貌，有想象力和没有想象力等。理论上，只要构建基于某个表达维度的平行语料，这个任务就可以做。类似文章如2所示。
+
+2.《Shakespearizing Modern Language Using Copy-Enriched Sequence-to-Sequence Models》
+
+这篇文章任务上实现现代英语到莎士比亚英语的风格转换，模型上使用带有copy机制的seq2seq思路。由于在这种任务场景的设定下，冗余存在OOV问题，因此使用上述解决思路也是讲的通的。除此之外，还有散文风格迁移的数据集，如3所示。
+
+3.《Evaluating Prose Style Transfer With The Bible》
+
+这篇文章构建数据集的方式很有意思。拿到Bible的几个版本的数据，就可以得到多组平行语料了。
+
+从上述三篇文章来看，文本风格转换的问题在于平行语料的获取难度较高。一旦有了语料，从模型上，可以按照经典的seq2seq相关技术解决此类问题。但是，风格是一个比较抽象的概念，由此导致任务本身可能难度较高。因此，通过无监督的方式来做此类任务是一个理想的途径。
+
+4.《Evaluating Style Modification in Text》
+
+NLG的问题，难免要去讨论评估的问题。上述这篇文章主要阐述三个方面的评估。具体如下：
+
+第一，style transfer intensity. 具体来说，可以通过训练一个分类器，判断是转换前的文本还是转换后的风格文本，将分类概率作为intensity的度量；
+
+第二，content preservation. 具体来说，就是常见的基于n-gram的BLEU指标，用来评估生成文本和目标文本的相似度；
+
+第三，naturalness. 这类指标的实现需要人工评估，具体包括fluency/readability, grammaticality,naturalness等；
+
+和之前读过的文章相比，第二和第三的两套指标作为实验评估的手段比较常见，但是第一种不是很常见。由于第一种需要重新训练一个分类器，而该分类器的训练数据正是生成的数据，因此使用的时候可能会存在一些问题，同时评估成本较高也是显而易见的。
+
+CV中的风格迁移取得了很不错的效果，但是NLP领域的风格迁移要落后于CV，主要原因应该包括两个方面：NLP中缺少平行数据和没有可靠的评估指标。因此，有很多工作想尝试没有并行数据的情况下来解决该问题。
+
+5.《Style Transfer in Text: Exploration and Evaluation》
+
+这篇文章使用adversarial networks学习各自的content representation和style representation从而能够利用non-parallel的数据。为了解决缺乏可靠评估方法的问题，提出了两种新的评估方法，分别是transfer strength和content preservation。同时在两个任务上测试了模型和评估方法的效果，分别是paper-news title transfer和positive-negative review transfer。这篇文章的两个评估指标在文献4中也有重点提到，但是这里使用的评估方式不代表确定方法，而是评估的两个方面。
+
+比如文章中针对style representation还是通过训练一个分类器的方式，针对content preservation是利用source端和target端关于embedding的统计指标的的相似性，最后对两个方面的指标进行加权平均。
+
+adversarial network已经被成功的应用到domain separation problems，比如学习domain-invariant特征，获取多任务框架中每个句子的share和private表示等，而style transfer也是包含了两个方面content和style，因此当将adversarial network应用于style transfer中，关键的问题是如何学习到content和style？为此，作者提出两个模型，分别是multi-decoder和style-embedding，具体细节可以参照论文。
+
+由这篇文章也可以看到，直接将其他任务中的好用的模型或者框架引入到一个新的任务中，看似没有原创有水分，但是如果能够抓住问题的本质，合理地针对任务本身做设计，也确实是一个创新的方法。这篇文章是AAAI2018的，个人认为文章写作上也是很好的。
+
+6.《Multiple-Attributes Text Rewriting》
+
+通过对抗的方式获得disentangled representation已经是style transfer任务的通用方式。但是，这篇文章作者认为并不是必须的，提出基于去噪自编码的改进工作使得能够用于多个属性的文本重写，多个属性包括性别，情感，产品类型等。文章中的两个数据集值得关注，分别是[Yelp](https://www.yelp.com/dataset/challenge) Reviews和Amazon Reviews关于餐馆，产品等的评论数据。
+
+7.《Style Transfer Through Back-Translation》
+
+ACL2018的文章。这篇文章首先通过一个语言翻译模型学习输入句子的latent representation，目的是在风格化文本的同时能够保持句子的含义不变，这个过程就可以使用back-translation，然后通过adversarial generation技术使得输出能够match到期望的风格。无论是back-translation还是第二个阶段的adversarial generation技术都是在style transfer任务中比较常见的技术。但是这篇文章能够做到SOTA，还是很强。此外，这篇文章的实现是基于opennmt-py，值得后续跟进学习。
+
+总结：关于风格迁移，style transfer，style modification，controlled text generation等是常见的术语。这个任务可以采用seq2seq的方法，基于encoder-decoder框架来做。既然是文本生成，自然在学术界中GAN，AE等相关方法也有采用。由于该任务下平行文本预料获取的困难，因此针对非平行文本的研究相当的多。此外，要结合任务本身去思考，将通用架构设计地更加的符合style transfer任务本身的需求，适合多个transfer设定才是这个任务本身的特色之处。从应用上，可以用于各种改写任务，而改写任务的场景较多，同时便于和上游任务结合使用，从而完成更加高级的任务。比如data2text->style transfer，或者translation->style transfer等，甚至更深的级联深度。
+
+
+参考：
+
+1.[GAN和文本生成](https://zhuanlan.zhihu.com/p/36880287)
+
+2.[文本风格迁移论文列表](https://github.com/fuzhenxin/Style-Transfer-in-Text)
+
+
+
+
+
+
+
+
+
+
+
+
+
