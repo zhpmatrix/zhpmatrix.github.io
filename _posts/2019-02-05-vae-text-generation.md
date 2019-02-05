@@ -19,7 +19,7 @@ $$q(x)=\int q(x,z)dz=\int q(x|z)q(z)dz$$
 
 $$KL(p(x,z)|q(x,z))=\iint p(x,z)ln\frac{p(x,z)}{q(x,z)}dzdx$$
 
-由于p(x,z)=p(x)p(z|x)，则上式可以展开得到，
+由于p(x,z)=p(x)p(z\|x)，则上式可以展开得到，
 
 $$KL(p(x,z)|q(x,z))=\int p(x) \left[ \int p(z|x)ln\frac{p(x)p(z|x)}{q(x,z)}dz \right] dx=E_{x \sim p(x)} \left[ \int p(z|x)ln\frac{p(x)p(z|x)}{q(x,z)}dz \right] $$
 
