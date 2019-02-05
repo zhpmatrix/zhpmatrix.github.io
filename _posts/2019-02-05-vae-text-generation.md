@@ -8,7 +8,7 @@ mathjax: true
 
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 
-这篇文章是首次讨论VAE用于文本生成任务，从目前发展的结果来看，GAN在CV领域的生成效果好于VAE，因为VAE的生成图片比较模糊。但是在文本生成任务中，VAE的效果应该要好于GAN的使用。参考5和参考6中给出了一种从贝叶斯角度得到VAE的损失函数的方法，值得品味一番。
+这篇文章是首次讨论VAE用于文本生成任务，从目前发展的结果来看，GAN在CV领域的生成效果好于VAE，因为VAE的生成图片比较模糊。但是在文本生成任务中，VAE的效果应该要好于GAN的使用。参考5和参考6中给出了一种从贝叶斯角度得到VAE的损失函数的方法，值得品味一番。在很久之前的对[NLG的一个调研](https://zhpmatrix.github.io/2018/08/26/NLG/)也可以参考一下。
 
 假设数据x的真实分布为p(x)，由于p(x)在DL的方法框架下不可知，因此，想要通过一个q(x)来近似p(x)，理想情况下，希望p(x)=q(x)。在这里，不加解释的直接引入隐变量z用于建模q(x)，如下：
 
