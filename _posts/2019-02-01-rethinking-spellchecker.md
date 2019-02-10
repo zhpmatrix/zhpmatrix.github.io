@@ -112,6 +112,8 @@ for text in text_list:
 
 5.[调用百度自然语言处理API](https://blog.csdn.net/yang_daxia/article/details/86028619)
 
+6.[告诉你一个写外语避免常见错误的使用技巧](https://liweinlp.com/?p=5000)
+
 
 
 
