@@ -87,6 +87,10 @@ e.End-2-End的DL⽅法的确是很棒的，省去了很多细节上的考察和�
 ![结果评估](http://wx1.sinaimg.cn/mw690/aba7d18bly1fy9lezbxxqj20o70h6din.jpg)
 
 
+### 四.基于百度文本纠错的API的思路
+
+该思路在单独一篇博客中讲到，参看这篇[文章](https://zhpmatrix.github.io/2019/02/01/rethinking-spellchecker/)。
+
 总结：从自己构建的数据集测试结果来看，基于生成的思路效果最好，同时可以完成检错和纠错；基于传统统计的方法，检错和纠错需要分开做，需要考虑的细节问题较多，该问题值得继续深入研究。
 
 
