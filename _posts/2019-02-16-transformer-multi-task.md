@@ -100,6 +100,8 @@ GPT-2(1.5B parameter Transformer)，即使这样，模型仍然没有过拟合We
 
 5.《Multi-Task Deep Neural Networks for Natural Language Understanding》
 
+6.[量子位的报道](https://mp.weixin.qq.com/s/Viyc66ywVBsrnQUdYvK8ow)
+
 
 
 
