@@ -101,6 +101,27 @@ GPT-2(1.5B parameter Transformer)，即使这样，模型仍然没有过拟合We
 
 第六：GPT-1是预训练+Fine Tuning的两个阶段任务；GPT-2没有Fine Tuning的过程，直接用训练得到的语言模型用于下游文本生成任务(借助引导符完成)。具体是如何做的，需要进一步思考。
 
+#### 实验结果(117M的小模型)
+
+##### 无条件样本生成的两个例子：
+
+<script src="https://gist.github.com/zhpmatrix/17e2459875833242ce75b3cd98dca3f8.js"></script>
+
+<script src="https://gist.github.com/zhpmatrix/0e76545415b0130b2785fe4dc572c90c.js"></script>
+
+##### 有条件样本生成的两个例子：
+
+
+<script src="https://gist.github.com/zhpmatrix/940abd7ad28f67c18a805011e0d4a6b5.js"></script>
+
+上述这个例子有点代码生成的感觉了，可以看到正确的函数声明已经实现。个人比较好奇的是这些代码片段是不是直接从原始数据集中extractive/copy的？由于没有原始数据集，因此暂时无法验证。
+
+<script src="https://gist.github.com/zhpmatrix/3940b0db085643b9c5956e34a80a102d.js"></script>
+
+
+
+
+
 
 参考文献：
 
