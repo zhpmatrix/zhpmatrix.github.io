@@ -60,6 +60,16 @@ adversarial network已经被成功的应用到domain separation problems，比�
 
 ACL2018的文章。这篇文章首先通过一个语言翻译模型学习输入句子的latent representation，目的是在风格化文本的同时能够保持句子的含义不变，这个过程就可以使用back-translation，然后通过adversarial generation技术使得输出能够match到期望的风格。无论是back-translation还是第二个阶段的adversarial generation技术都是在style transfer任务中比较常见的技术。但是这篇文章能够做到SOTA，还是很强。此外，这篇文章的实现是基于opennmt-py，值得后续跟进学习。
 
+8.《Style Transfer from Non-Parallel Text by Cross-Alignment》
+
+[代码这里](https://github.com/shentianxiao/language-style-transfer)
+
+9.《Toward Controlled Generation of Text》
+
+[代码这里](https://github.com/asyml/texar/tree/master/examples/text_style_transfer)
+
+万小军老师在一次报告中提到：**"我想强调的是，基于神经网络模型的NLG并不成功，虽然我们做了很多学术研究，发表了很多学术论文，但很多任务上只要性能提高1%-2%，都可以发论文，但是从实用性角度来看，这些技术很难达到理想的满意程度，所以我们还需要进一步在数据与模型上不断完善。"**
+
 总结：关于风格迁移，style transfer，style modification，controlled text generation等是常见的术语。这个任务可以采用seq2seq的方法，基于encoder-decoder框架来做。既然是文本生成，自然在学术界中GAN，AE等相关方法也有采用。由于该任务下平行文本预料获取的困难，因此针对非平行文本的研究相当的多。此外，要结合任务本身去思考，将通用架构设计地更加的符合style transfer任务本身的需求，适合多个transfer设定才是这个任务本身的特色之处。从应用上，可以用于各种改写任务，而改写任务的场景较多，同时便于和上游任务结合使用，从而完成更加高级的任务。比如data2text->style transfer，或者translation->style transfer等，甚至更深的级联深度。从另一方面来看，style transfer属于小众研究领域，看了多篇文章开源的代码，更加印证了这个想法，不过这个任务本身还是非常棒的。
 
 
