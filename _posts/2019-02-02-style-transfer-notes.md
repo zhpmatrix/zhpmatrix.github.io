@@ -62,11 +62,23 @@ ACL2018的文章。这篇文章首先通过一个语言翻译模型学习输入�
 
 8.《Style Transfer from Non-Parallel Text by Cross-Alignment》
 
-[代码这里](https://github.com/shentianxiao/language-style-transfer)
+[代码这里](https://github.com/shentianxiao/language-style-transfer)，其中模型的总体架构如下：
+
+![img1](http://wx1.sinaimg.cn/mw690/aba7d18bgy1g0bndtoy35j20yp0cgq69.jpg)
+
+这篇文章主要提出了两个AE的变种，分别是aligned ae和cross-aligned ae。在三个任务上进行了实验，分别是sentiment modification，decipherment of word substitution ciphers和recovery of word order。我个人比较关注的是第一个任务上的结果。在和Zhiting Hu的工作对比时，结果虽然在量化指标上(accuracy)比Hu的工作稍差，但是实际生成结果来看要好一些。如下：
+
+![img2](http://wx2.sinaimg.cn/mw690/aba7d18bgy1g0bmbr68xdj20nz0n5wil.jpg)
+
+上图中每组例子第一行是输入文本，第二行是Hu的结果，第三行是这篇文章的结果。可以看到，Hu的工作在content preserving方面弱于本文。这里可以展开讨论的一点是，对于任务输入和输出的定义。在中文检纠错任务中，可以只输出错误的地方(错误类型标注)；也可以输出修改后的整体的句子(句子改写)。选择什么样的技术方案，需要考虑到什么样的输出对于该任务是合适的。同时，从这组实验结果来看，对于生成的评估需要持续思考。不仅要思考general的评估指标，同时结合任务本身做特殊评估指标设计。值得一提的是，模型中针对discrete和non-differentiable的问题，作者的解决方法是gumbel-softmax(_和Hu的工作一样_)和Professor Forcing两种方式。
 
 9.《Toward Controlled Generation of Text》
 
-[代码这里](https://github.com/asyml/texar/tree/master/examples/text_style_transfer)
+[代码这里](https://github.com/asyml/texar/tree/master/examples/text_style_transfer)，其中，还是基于VAE的工作，模型的总体架构如下：
+
+![img3](http://wx1.sinaimg.cn/mw690/aba7d18bgy1g0bndpbrzyj20q40e3q4p.jpg)
+
+这篇就是上文提到的Zhiting Hu的工作，属于较早期的工作，后续又出现了很多相关文章。这里值得一提的是，模型会遇到discrete和non-differentiable的问题，作者的解决方法是gumbel-softmax。
 
 万小军老师在一次报告中提到：**"我想强调的是，基于神经网络模型的NLG并不成功，虽然我们做了很多学术研究，发表了很多学术论文，但很多任务上只要性能提高1%-2%，都可以发论文，但是从实用性角度来看，这些技术很难达到理想的满意程度，所以我们还需要进一步在数据与模型上不断完善。"**
 
