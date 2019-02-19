@@ -8,9 +8,13 @@ mathjax: true
 
 一.[Rethink系列-CNN/RNN/GRU/LSTM/BiLSTM](https://zhpmatrix.github.io/2019/01/27/NLP-rethinking-base-blocks/)
 
-二.Rethink系列-Attention
+二.[Rethink系列-Attention](https://zhpmatrix.github.io/2019/01/27/NLP-rethinking-attention/)
 
 三.[Rethink系列-seq2seq](https://zhpmatrix.github.io/2019/01/28/NLP-rethingking-seq2seq/)
+
+四.[Rethink系列-copy和coverage机制](https://zhpmatrix.github.io/2019/01/29/NLP-rethinking-copy-and-coverage/)
+
+五.[Rethink系列-词法/句法/语义](https://zhpmatrix.github.io/2019/01/31/NLP-rethinking-basic-techniques/)
 
 
 沿着DL的路线，目前为止，解决NLP问题的主要方式包括CNN，RNN和Attention三种。其中，Attention近年来已经成为了一个明星，以Transformer为代表模型，以致于有些人会去讨论"Transformer能否替代RNN在NLP领域中的地位？"这样的问题。
