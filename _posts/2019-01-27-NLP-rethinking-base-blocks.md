@@ -6,11 +6,15 @@ date: 2019-01-27 18:00:00
 mathjax: true
 ---
 
-一.[Rethink系列-CNN/RNN/GRU/LSTM/BiLSTM]
+一.[Rethink系列-CNN/RNN/GRU/LSTM/BiLSTM](https://zhpmatrix.github.io/2019/01/27/NLP-rethinking-base-blocks/)
 
 二.[Rethink系列-Attention](https://zhpmatrix.github.io/2019/01/27/NLP-rethinking-attention/)
 
 三.[Rethink系列-seq2seq](https://zhpmatrix.github.io/2019/01/28/NLP-rethingking-seq2seq/)
+
+四.[Rethink系列-copy和coverage机制](https://zhpmatrix.github.io/2019/01/29/NLP-rethinking-copy-and-coverage/)
+
+五.[Rethink系列-词法/句法/语义](https://zhpmatrix.github.io/2019/01/31/NLP-rethinking-basic-techniques/)
 
 沿着DL的路线，目前为止，解决NLP问题的主要方式包括CNN，RNN和Attention三种。这里的R是循环的意思而非递归，虽然递归神经网络(RNN)在NLP领域也有重要用途，但是从近期相关文献来看，关注度并不高，因此本文并不准备讨论相关问题。传统观点认为RNN天然适合处理序列结构，因此，在相当长的一段NLP历史时期，研究的焦点都在RNN，因此也有部分不严格的观点认为"做NLP的同学就是搞RNN的"。虽然也存在"做CV的同学就是搞CNN的"的逻辑，但是RNN和CNN的应用并非只能限制在特定领域，RNN可以用在CV领域，同理CNN也可以用在NLP领域。除二者之外，Attention近年来已经成为了一个明星，以Transformer为代表模型，以致于有些人会去讨论"Transformer能否替代RNN在NLP领域中的地位？"这样的问题。
 
