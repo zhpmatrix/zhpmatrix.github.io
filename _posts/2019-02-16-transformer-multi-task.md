@@ -141,6 +141,8 @@ GPT-2(1.5B parameter Transformer)，即使这样，模型仍然没有过拟合We
 
 8.[张俊林的解读](https://zhuanlan.zhihu.com/p/56865533)
 
+9.[虚假新闻检测的调研](https://mp.weixin.qq.com/s?__biz=MzIwMTc4ODE0Mw==&mid=2247495009&idx=1&sn=786d5297ba95117e72cb2e46a22d2935&chksm=96ea32e1a19dbbf7c9653338be329c2a78b21b7660f4696b13812512cac7c647f7c132d14309&mpshare=1&scene=23&srcid=%23rd)
+
 
 
 
