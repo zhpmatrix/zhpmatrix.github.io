@@ -6,6 +6,16 @@ date: 2019-01-29 10:26:00
 mathjax: true
 ---
 
+一.[Rethink系列-CNN/RNN/GRU/LSTM/BiLSTM](https://zhpmatrix.github.io/2019/01/27/NLP-rethinking-base-blocks/)
+
+二.[Rethink系列-Attention](https://zhpmatrix.github.io/2019/01/27/NLP-rethinking-attention/)
+
+三.[Rethink系列-seq2seq](https://zhpmatrix.github.io/2019/01/28/NLP-rethingking-seq2seq/)
+
+四.[Rethink系列-copy和coverage机制](https://zhpmatrix.github.io/2019/01/29/NLP-rethinking-copy-and-coverage/)
+
+五.[Rethink系列-词法/句法/语义](https://zhpmatrix.github.io/2019/01/31/NLP-rethinking-basic-techniques/)
+
 机器翻译和文本摘要是NLP中的经典任务，seq2seq的很多研究工作一般都会在机器翻译上首先尝试。同时由于文本摘要和机器翻译在任务上的相似性，在机器翻译任务中有效的工作一般也可以用于文本摘要的任务，基于两个任务的相关研究工作互相借鉴，共同发展。一个不严格的感受是机器翻译的进展要快于文本摘要。
 
 传统意义上的机器翻译是语言翻译，输入和输出域不同。例如输入是英语域，输出是中文域。文本摘要的输入和输出域相同，通常是根据中文文章输出中文摘要。注意，这里的域是指通俗意义上的领域，比如语种差异。
