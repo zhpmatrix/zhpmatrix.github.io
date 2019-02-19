@@ -6,6 +6,16 @@ date: 2019-01-31 18:43:00
 mathjax: true
 ---
 
+一.[Rethink系列-CNN/RNN/GRU/LSTM/BiLSTM](https://zhpmatrix.github.io/2019/01/27/NLP-rethinking-base-blocks/)
+
+二.[Rethink系列-Attention](https://zhpmatrix.github.io/2019/01/27/NLP-rethinking-attention/)
+
+三.[Rethink系列-seq2seq](https://zhpmatrix.github.io/2019/01/28/NLP-rethingking-seq2seq/)
+
+四.[Rethink系列-copy和coverage机制](https://zhpmatrix.github.io/2019/01/29/NLP-rethinking-copy-and-coverage/)
+
+五.[Rethink系列-词法/句法/语义](https://zhpmatrix.github.io/2019/01/31/NLP-rethinking-basic-techniques/)
+
 ### 词法
 
 #### 分词
@@ -79,6 +89,8 @@ mathjax: true
 4.[自然语言理解太难了！系列](https://github.com/fighting41love/hardNLP)
 
 5.[解密英语语法-王垠](https://blog.csdn.net/zhenyu5211314/article/details/85304247)
+
+
 
 
 
