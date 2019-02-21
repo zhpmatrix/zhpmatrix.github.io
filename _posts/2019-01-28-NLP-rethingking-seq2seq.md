@@ -110,6 +110,8 @@ encoder以seq2seq中的老大爷RNN/LSTM/BiLSTM为例，也就是方案3。为�
 
 5.[漫谈四种神经网络序列解码模型](http://jacoxu.com/encoder_decoder/)
 
+6.Transformer的一些改进工作：EMNLP2018《Exploiting Deep Representations for Neural Machine Translation》
+
 
 
 
