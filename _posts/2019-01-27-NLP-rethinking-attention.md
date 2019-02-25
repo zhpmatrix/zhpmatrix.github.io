@@ -86,6 +86,8 @@ BERT较小程度地改造了Transformer的encoder端，通过特殊设计的任�
 
 5.《BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding》
 
+6.《Hierarchical Attention Networks for Document Classification》，首次将Attention引入文本分类任务的工作
+
 
 
 
