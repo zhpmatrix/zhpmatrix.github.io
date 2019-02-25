@@ -14,6 +14,8 @@ permalink: /about/
 
     联系方式
 
+![wechat](http://wx2.sinaimg.cn/mw690/aba7d18bgy1g0il1pggysj20e80e8wfx.jpg)
+
 Github:[@zhpmatrix](https://github.com/zhpmatrix/)
 
 QQ: 1332062790
