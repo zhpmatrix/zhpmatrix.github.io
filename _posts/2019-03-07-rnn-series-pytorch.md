@@ -12,7 +12,7 @@ mathjax: true
 
 GRU的Cell结构如下，
 
-![img1](http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-var-GRU.png)
+![img1](http://wx4.sinaimg.cn/mw690/aba7d18bgy1g0uet6s5t8j20kd06jgmj.jpg)
 
 PyTorch中对应的类是**torch.nn.GRU**。其中参数如下：
 
@@ -66,7 +66,7 @@ output, hn = gru(input, h0)
 
 上述描述的所有内容，目的都是搭建一个类似于下图的结构，
 
-![img2](http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-chain.png)
+![img2](http://wx1.sinaimg.cn/mw690/aba7d18bgy1g0uer231rej20k807u75t.jpg)
 
 这也是多数情况下，我们对RNN系的使用场景。但是，PyTorch为我们提供了更加灵活的Cell的定义。有了Cell，可以使用for-loop实现一个上述的结构。具体参数不再赘述，一个使用例子如下：
 
