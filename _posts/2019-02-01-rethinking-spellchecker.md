@@ -114,6 +114,8 @@ for text in text_list:
 
 6.[告诉你一个写外语避免常见错误的使用技巧](https://liweinlp.com/?p=5000)
 
+7.[百度中文文本纠错技术](https://mp.weixin.qq.com/s?__biz=MzU1NTMyOTI4Mw==&mid=2247488610&idx=1&sn=c8793392f789ba5c39a9e8a4d7c6beac&chksm=fbd4a60ecca32f184b19aac505aeb10b282cb12ff6b84b712e4038d856ed21d4cb6064546a9e&mpshare=1&scene=23&srcid=03064sSimcEBAnYxk9ZsG5By%23rd)
+
 
 
 
