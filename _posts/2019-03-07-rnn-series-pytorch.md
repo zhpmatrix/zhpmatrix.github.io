@@ -40,11 +40,11 @@ h_0: 如上图所示，在第一个时间步，需要一个初始化的隐藏层
 
 有了上述参数，模型已经可以执行forward函数了。那么，输出是怎么样呢？
 
-output: 最后一层GRU，最后一个时间步的隐藏层向量。格式为(seq\_len, batch, num\_directions\*hidden\_size)，显然,
+output: 最后一层GRU，所有时间步的隐藏层向量。格式为(seq\_len, batch, num\_directions\*hidden\_size)，显然,
 
 output.view(seq\_len, batch, num\_directions, hidden\_size)有时是很有用的。
 
-通常来说，output是我们在使用RNN时比较关注的，但是在seq2seq框架下，我们希望得到所有层，所有时间步的隐藏层向量，此处应用场景很多，不做过多阐述。
+通常来说，output是我们在使用RNN时比较关注的，但是在seq2seq框架下，我们希望得到最后一层，所有时间步的隐藏层向量，此处应用场景很多，不做过多阐述。
 
 h\_n: (num\_layers\*num\_directions, batch, hidden\_size)，类比上述output，可以有：
 
@@ -62,7 +62,7 @@ output, hn = gru(input, h0)
 
 完事儿，对一个函数的认识基本结束了。
 
-沿着这种思路，类比可以快速Get到原生的RNN和LSTM的相关参数和注意细节。这里需要提示的是，PyTorch对原生RNN的参数说明中暴露了非线性函数的选择，可以使用tanh或者relu；LSTM相对于GRU，input中需要对记忆状态(cell\_state)初始化，同时output中有所有层，所有时间步对应的记忆状态。在seq2seq框架中，LSTM将隐藏层状态hidden\_state和记忆状态cell\_state共同作为encoder端的输入的表示传递给decoder作为初始化向量。
+沿着这种思路，类比可以快速Get到原生的RNN和LSTM的相关参数和注意细节。这里需要提示的是，PyTorch对原生RNN的参数说明中暴露了非线性函数的选择，可以使用tanh或者relu；LSTM相对于GRU，input中需要对记忆状态(cell\_state)初始化，同时output中有最后一层，所有时间步对应的记忆状态。在seq2seq框架中，LSTM将隐藏层状态hidden\_state和记忆状态cell\_state共同作为encoder端的输入的表示传递给decoder作为初始化向量。
 
 上述描述的所有内容，目的都是搭建一个类似于下图的结构，
 
