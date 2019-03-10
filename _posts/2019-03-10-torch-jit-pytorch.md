@@ -189,7 +189,7 @@ save方式是torch.jit.ScriptModule的内置方法，并行于Tracing和Script�
 
 3.[PyTorch的C++前端和OpenCV混合编译](https://zhuanlan.zhihu.com/p/52154049)
 
-
+4.Christian S.Perone《PyTorch under the hood: A guide to understand PyTorch internals》
 
 
 
