@@ -102,6 +102,8 @@ $$z=均值+\epsilon*方差，\epsilon \sim N(0,I)$$
 
 7.[变分自编码器系列四](https://spaces.ac.cn/archives/5887)
 
+8.[VAE和CVAE的一个实现](https://github.com/GauravBh1010tt/DL-Seq2Seq)
+
 
 
 
