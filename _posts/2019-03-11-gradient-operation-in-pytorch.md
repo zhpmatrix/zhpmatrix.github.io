@@ -111,6 +111,20 @@ class MyModel(torch.nn.Module):
 
 ```
 
+在NLP中，围绕权值共享也有一些工作。主要是将Embedding层的权值共享到其他地方去。举两个典型的场景：
+
+第一：语言模型。编码器可以是一个Embedding层，解码器是一个线性层，那么二者的词向量权重可以共享；代码如下(具体代码可以参看[这里](https://github.com/pytorch/examples/blob/master/word_language_model/model.py))：
+
+```
+self.encoder = torch.nn.Embedding(vocab_size, embed_dim)
+self.decoder = torch.nn.Linear(embed_dim, vocab_size)
+self.decoder.weight = self.encoder.weight
+```
+
+注意，在PyTorch中，self.decoder.weight的shape是(vocab\_size, embed\_dim)，和输入接口的定义相反，但是self.encoder.weight的shape和输入接口保持一致。
+
+第二： Transformer。可以在源端(encoder)，目标端和生成器端(decoder)三个地方共享词典的权值向量。
+
 参考:
 
 1.["让Keras更酷一些！":分层的学习率和自由的梯度](https://spaces.ac.cn/archives/6418)
