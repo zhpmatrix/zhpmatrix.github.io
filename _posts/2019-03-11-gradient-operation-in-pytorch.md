@@ -96,11 +96,28 @@ tensor([0.3000， 0.4000])
 
 由于可以访问x.grad，那么这自然为后续灵活的操作梯度提供了极大的便利。近两年的一些工作也是围绕梯度来进行的，通过直接对梯度进行操作实现某些优化目的，提升性能，因此后续实现一些模型或者策略的时候可能需要注意这个地方。
 
+### 模型中的权值共享
+
+这是一个很经典的场景，比如支持多任务的模型。给定两个输入A和B，要求模型的前三层共享相同的权值，后两层针对不同的输入进行参数更新，也就是权值不共享。示例代码如下：
+
+```
+class MyModel(torch.nn.Module): 
+    def __init__(self):
+        self.base = ...
+        self.head_A = ...
+        self.head_B = ...
+    def forward(self, input1, inptu2):
+        return self.head_A(self.base(inptu1)), self.head_B(self.base(input2))
+
+```
+
 参考:
 
 1.["让Keras更酷一些！":分层的学习率和自由的梯度](https://spaces.ac.cn/archives/6418)
 
 2.[torch.nn](https://pytorch.org/docs/stable/nn.html)
+
+3.[How to create model with sharing weight?](https://discuss.pytorch.org/t/how-to-create-model-with-sharing-weight/398/2)
 
 
 
