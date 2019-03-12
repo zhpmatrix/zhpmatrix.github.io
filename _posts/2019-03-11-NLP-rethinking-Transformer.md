@@ -2,7 +2,7 @@
 layout: post
 title: "[NLP]Rethink系列-Transformer"
 excerpt: "梳理一下Transformer实现时的一些基础问题。"
-date: 2019-03-12 18:43:00
+date: 2019-03-11 18:43:00
 mathjax: true
 ---
 
