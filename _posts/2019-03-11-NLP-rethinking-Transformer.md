@@ -50,6 +50,14 @@ RNN系的三个问题：序列模式导致难以并行；长期依赖的问题�
 
 在Transformer中，Encoder和Decoder的Embedding层的权重是共享的，同时在Decoder端的Softmax层前的线性层也和前两个部分共享权重。
 
+### Mask矩阵
+
+Mask矩阵的两个使用场景分别是：处理不定长输入和在LM中防止未来信息的泄露。一般来说，对PAD的符号也需要做Embedding，但是这些PAD的符号本身来说意义不大，那么参与到训练过程中就可能对模型的性能优化有损伤。那么一种解决问题的思路是用标志位表示出哪些位置是PAD的，哪些不是PAD的，通过在梯度反传过程中过滤掉PAD位的信号就OK。还有一个形式上更加漂亮的Mask矩阵就是对角矩阵，该矩阵可以用于语言模型中的Decoder端，防止由于Attention机制的使用导致未来信息的泄露。
+
+### 参数初始化(初始化为0或者初始化为任意随机数)
+
+初始化为0和均匀初始化以及其他各种初始化方式。在PAD后的序列中，PAD位的初始化通过Mask操作后，对损失函数的影响就会被过滤掉。在PyTorch的已经实现的层中，可以看到大部分的初始化都是按照均匀分布初始化，但是PyTorch同时给与了我们选择初始化方式的接口，可以自己定义各种初始化方式。
+
 ### 新工作
 
 除了《Attention is all you need》这篇文章，还有Universal Transformer，后续的Transformer-XL, Star-Transformer, BERT，GPT-2等工作。相信在后续会有更多的新的工作出现，这篇博客将持续更新。
@@ -68,6 +76,8 @@ RNN系的三个问题：序列模式导致难以并行；长期依赖的问题�
 3.[The Illustrated Transformer](http://jalammar.github.io/illustrated-transformer/)
 
 这篇博客用可视化的方式，通过非常具体的画图方式讲解了Transformer的细节问题。虽然Transformer的原始论文已经写得比较清晰了，但是读了这篇博客，对Transformer的理解又会加深许多。
+
+4.[Mask矩阵在深度学习中有哪些应用场景](https://www.zhihu.com/question/305508138)
 
 
 
