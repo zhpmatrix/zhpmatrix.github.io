@@ -60,7 +60,7 @@ Mask矩阵的两个使用场景分别是：处理不定长输入和在LM中防�
 
 ### 新工作
 
-除了《Attention is all you need》这篇文章，还有Universal Transformer，后续的Transformer-XL, Star-Transformer, BERT，GPT-2等工作。相信在后续会有更多的新的工作出现，这篇博客将持续更新。
+除了《Attention is all you need》这篇文章，还有Universal Transformer，后续的The evolved transformer,Transformer-XL, Star-Transformer, BERT，GPT-2等工作。相信在后续会有更多的新的工作出现，这篇博客将持续更新。
 
 
 参考:
