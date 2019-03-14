@@ -16,6 +16,8 @@ mathjax: true
 
 五.[Rethink系列-词法/句法/语义](https://zhpmatrix.github.io/2019/01/31/NLP-rethinking-basic-techniques/)
 
+六.[Rethink系列-Transformer](https://zhpmatrix.github.io/2019/03/13/NLP-rethinking-Transformer/)
+
 个人认为，seq2seq是NLP相关技术的核心。2014年开始，seq2seq和attention成为超强CP，活跃在各个任务中。单纯从字面意思来理解，seq2seq的命令只是定义了模型的输入和输出都是seq，这是一个相对空洞的命名。背后则是encoder-decoder的框架，在本系列的第二篇博客[Rethink系列-Attention](https://zhpmatrix.github.io/2019/01/27/NLP-rethinking-attention/)中已经讨论了一部分相关内容。
 
 跳出来，从第一性原理出发，如果拿到一个seq2seq的任务，怎么做？

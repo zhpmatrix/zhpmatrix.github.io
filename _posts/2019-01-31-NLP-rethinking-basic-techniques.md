@@ -16,6 +16,8 @@ mathjax: true
 
 五.[Rethink系列-词法/句法/语义](https://zhpmatrix.github.io/2019/01/31/NLP-rethinking-basic-techniques/)
 
+六.[Rethink系列-Transformer](https://zhpmatrix.github.io/2019/03/13/NLP-rethinking-Transformer/)
+
 ### 词法
 
 #### 分词
