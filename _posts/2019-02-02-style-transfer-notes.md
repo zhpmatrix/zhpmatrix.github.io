@@ -92,7 +92,7 @@ ACL2018的文章。这篇文章首先通过一个语言翻译模型学习输入�
 
 3.[万小军老师关于NLG的想法](https://mp.weixin.qq.com/s?__biz=MzAxMzA2MDYxMw==&mid=2651567544&idx=1&sn=df1375d7f3eb737ca548eafb3fa48395&chksm=80574ad2b720c3c48a7339137128c21248709b7f69f887c443cae8bb171b2e55517e6523f967&mpshare=1&scene=23&srcid=%2523rd)
 
-
+4.[宗成庆老师-机器翻译的梦想与现实](http://share.gmw.cn/news/2019-03/16/content_32646723.htm?from=timeline&isappinstalled=0)
 
 
 
