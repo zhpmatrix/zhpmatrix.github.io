@@ -114,6 +114,10 @@ encoder以seq2seq中的老大爷RNN/LSTM/BiLSTM为例，也就是方案3。为�
 
 6.Transformer的一些改进工作：EMNLP2018《Exploiting Deep Representations for Neural Machine Translation》
 
+7.[机器学习中的编码器-解码器结构哲学](https://mp.weixin.qq.com/s?__biz=MzIzNjc0MTMwMA==&mid=2247487935&idx=1&sn=e1c372bb09b5027fc89b5af25d264f70&chksm=e8d26664dfa5ef72dcf092a712c6fbf5346a50c9c53c5d08213fd92ba0ee5b987469b45ce189&mpshare=1&scene=23&srcid=%23rd)
+
+这篇文章分析了机器学习中的一些编码器-解码器结构，包括传统机器学习中的PCA，深度学习早期的自编码器和变分自编码器，计算机视觉中的全卷积网络(卷积和反卷积)，自然语言处理中的seq2seq等。
+
 
 
 
