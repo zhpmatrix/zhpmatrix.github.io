@@ -121,6 +121,8 @@ mathjax: true
 
 1.《EDA: Easy Data Augmentation Techniques for Boosting Performance on Text Classification Tasks》
 
+2.[中文对比英文自然语言处理NLP的区别综述](https://zhuanlan.zhihu.com/p/59838270)
+
 
 
 
