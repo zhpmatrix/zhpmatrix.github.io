@@ -104,6 +104,10 @@ $$z=均值+\epsilon*方差，\epsilon \sim N(0,I)$$
 
 8.[VAE和CVAE的一个实现](https://github.com/GauravBh1010tt/DL-Seq2Seq)
 
+9.[机器学习中的编码器-解码器结构哲学](https://mp.weixin.qq.com/s?__biz=MzIzNjc0MTMwMA==&mid=2247487935&idx=1&sn=e1c372bb09b5027fc89b5af25d264f70&chksm=e8d26664dfa5ef72dcf092a712c6fbf5346a50c9c53c5d08213fd92ba0ee5b987469b45ce189&mpshare=1&scene=23&srcid=%23rd)
+
+这篇文章中有两张VAE的训练和解码的图，非常清晰。
+
 
 
 
