@@ -99,6 +99,14 @@ for text in text_list:
 
 总结：写这样的博客也算是换个脑子，换个视角，个人感觉还挺有意思的。
 
+补充：
+
+1.百家号的语句纠错
+
+![img](http://wx1.sinaimg.cn/mw690/aba7d18bly1g1ak929kjgj21400u04qq.jpg)
+
+2.[阿里将纠错用于OCR任务中-单证业务](https://102.alibaba.com/detail?id=223)
+
 
 主要参考：
 
