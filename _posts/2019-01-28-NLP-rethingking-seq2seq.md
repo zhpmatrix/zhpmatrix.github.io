@@ -128,6 +128,10 @@ encoder以seq2seq中的老大爷RNN/LSTM/BiLSTM为例，也就是方案3。为�
 
 此外讨论了很多关于文本生成关键技术的研究，例如CNN, BeamSearch，强化学习等。
 
+9.[针对商品标题冗长问题，阿里工程师怎么解决？](https://102.alibaba.com/detail?id=173)
+
+AAAI2018的工作，基于seq2seq，使用Pointer机制，提出了多任务训练的方式，共享Encoder。
+
 
 
 
