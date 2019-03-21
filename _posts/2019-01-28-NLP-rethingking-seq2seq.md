@@ -118,6 +118,16 @@ encoder以seq2seq中的老大爷RNN/LSTM/BiLSTM为例，也就是方案3。为�
 
 这篇文章分析了机器学习中的一些编码器-解码器结构，包括传统机器学习中的PCA，深度学习早期的自编码器和变分自编码器，计算机视觉中的全卷积网络(卷积和反卷积)，自然语言处理中的seq2seq等。
 
+8.[阿里智能写手](https://mp.weixin.qq.com/s?__biz=MzIzOTU0NTQ0MA==&mid=2247486823&idx=1&sn=b4a9985020470b5afc21ed397fce1e1e&chksm=e9293068de5eb97e9e37116dee4ed69419a85c2a6105013094ecccef7c6b2d98a13348873113&scene=21#wechat_redirect)
+
+智能写手：短文案生成，标题生成，商品推荐理由生成，图文型内容(清单)生成。其中，生成模型的构建中的Context Gate很有意思，如下：
+
+![img2](https://mmbiz.qpic.cn/mmbiz_png/Z6bicxIx5naLnaoibIr0R7pNQSerWFjCOVswYFIWDDQtqcsFgrlrR6xTscSzhOKNmYX5ZFB2RnbWAsHvZZ3Y3wvw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+基于RNN的seq2seq架构中，在decoder端，需要包括三个输入，分别是encoder的输入，当前decoder的输入和上一个时间步的输入。那么，如何评估encoder的输入和前一个时间步的权重贡献呢？在上述模型中则引入了Context Gate机制，用来对不同的输入进行加权。
+
+此外讨论了很多关于文本生成关键技术的研究，例如CNN, BeamSearch，强化学习等。
+
 
 
 
