@@ -132,8 +132,9 @@ encoder以seq2seq中的老大爷RNN/LSTM/BiLSTM为例，也就是方案3。为�
 
 AAAI2018的工作，基于seq2seq，使用Pointer机制，提出了多任务训练的方式，共享Encoder。
 
+10.[商品标题这么长长长长长，阿里工程师如何解决？](https://102.alibaba.com/detail?id=264)
 
-
+基于Pointer机制的seq2seq，其中提到了一些关于seq2seq的改进工作很有意思。
 
 
 
