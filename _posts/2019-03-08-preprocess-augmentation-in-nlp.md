@@ -123,7 +123,9 @@ mathjax: true
 
 2.[中文对比英文自然语言处理NLP的区别综述](https://zhuanlan.zhihu.com/p/59838270)
 
+3.[《Low Resource Text Classification with ULMFit and Backtranslation》](https://arxiv.org/abs/1903.09244)
 
+在情感分类任务上，比较了两种数据增强技术，分别是Random Token Perturbations和Backtranslation，证明了Backtranslation的有效性。
 
 
 
