@@ -6,7 +6,10 @@ date: 2019-04-04 18:43:00
 mathjax: true
 ---
 
+## 1.前言
 [pycorrector](https://github.com/shibing624/pycorrector)主要用于中文纠错技术，该实现包含两大类思路。分别是规则模型和深度模型，在该项目中，将统计语言模型包括在规则模型中。代码模块之间的独立性很高，因此可以将自己感兴趣的部分抽取出来。下述是一个单独将统计语言模型独立抽取出来的代码结构。
+
+## 2.代码结构
 
 ```
 
@@ -40,6 +43,8 @@ mathjax: true
  pip install https://github.com/kpu/kenlm/archive/master.zip
 ```
 
+## 3.文件分析
+
 接下来，读一读代码，理一理逻辑。
 
 ### test.py
@@ -64,6 +69,8 @@ mathjax: true
 
 该目录中包含一些常见的辅助功能实现，具体包括繁简转换(langconv.py&zh_wiki.py)，编辑距离的计算，字符串处理等(math
 \_utils.py)，io处理，包括logging，load/dump等(io_utils.py)，判断unicode类型，全半角转换等(text_utils.py)，
+
+## 4.核心逻辑梳理及优化想法
 
 
 
