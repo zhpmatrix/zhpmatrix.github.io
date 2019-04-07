@@ -59,6 +59,10 @@ Graph Embedding+Skip-Gram
 
 6.[推荐系统召回四模型之：全能的FM模型](https://zhuanlan.zhihu.com/p/58160982)
 
+7.[FM, FFM, DeepFM](https://zhuanlan.zhihu.com/p/61096338?utm_source=qq&utm_medium=social&utm_oi=52727124066304)
+
+DeepFM的结构和Wide&Deep的结构相似，主要区别在于FM层和线性层的区别。三者关注在稀疏场景下的特征交叉的学习。
+
 
 
 
