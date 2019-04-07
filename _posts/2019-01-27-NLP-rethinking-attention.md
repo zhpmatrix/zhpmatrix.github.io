@@ -90,6 +90,10 @@ BERT较小程度地改造了Transformer的encoder端，通过特殊设计的任�
 
 6.《Hierarchical Attention Networks for Document Classification》，首次将Attention引入文本分类任务的工作
 
+7.[深度学习中attention机制的详细介绍：原理，分类和应用](https://zhuanlan.zhihu.com/p/57501837?utm_source=qq&utm_medium=social&utm_oi=52727124066304)
+
+整理比较系统的文章。　
+
 
 
 
