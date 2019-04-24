@@ -143,6 +143,9 @@ tensortensor2tensor/tensor2tensor/layers/common\_hparams.py中存放了该参数
       # results in a very long batch-shuffling queue.
 ```
 
+### 四.重要文章
+
+《Training Tips for the Transformer Model》,[阅读笔记这里](https://github.com/zhpmatrix/reading-notes/blob/master/论文.md)
 
 
 
