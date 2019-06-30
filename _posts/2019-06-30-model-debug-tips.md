@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "[NLP]模型实现中的Debug问题"
-excerpt: "Troubleshooting Deep Neural Networks-A Field Guide to Fixing Your Model》的tutorial笔记"
+excerpt: "《Troubleshooting Deep Neural Networks-A Field Guide to Fixing Your Model》的tutorial笔记"
 date: 2019-06-30 18:43:00
 mathjax: true
 ---
