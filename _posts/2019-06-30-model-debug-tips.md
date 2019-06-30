@@ -98,6 +98,15 @@ mathjax: true
 总结：从个人的经历来看，作者总结还是非常接地气的，当然有一些自己目前并不能完全认同的做法，在后期的实践中会更多地思考。
 
 
+参考（基本上个人认为的三篇非常棒的总结）：
+
+1.[A Recipe for Training Neural Networks](https://karpathy.github.io/2019/04/25/recipe/)
+
+2.《Troubleshooting Deep Neural Networks》
+
+3.[《writing code for nlp research》](https://github.com/allenai/writing-code-for-nlp-research-emnlp2018/blob/master/writing_code_for_nlp_research.pdf), allennlp
+
+
 
 
 
