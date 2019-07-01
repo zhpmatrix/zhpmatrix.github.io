@@ -8,6 +8,8 @@ mathjax: true
 
 这篇博客是在**pytorch中基于apex使用混合精度加速**的一个偏工程的描述，原理层面的解释并不是这篇博客的目的，不过在参考部分提供了非常有价值的资料，可以进一步研究。
 
+**一个关键原则：“仅仅在权重更新的时候使用fp32，耗时的前向和后向运算都使用fp16”。**其中的一个技巧是：**在反向计算开始前，将dloss乘上一个scale，人为变大；权重更新前，除去scale，恢复正常值。**目的是为了减小激活gradient下溢出的风险。
+
 [apex](https://github.com/NVIDIA/apex)是nvidia的一个pytorch扩展，用于支持混合精度训练和分布式训练。在之前的博客中，[神经网络的Low-Memory技术](https://zhpmatrix.github.io/2019/05/06/low-memory-for-nn/)梳理了一些low-memory技术，其中提到半精度，比如fp16。apex中混合精度训练可以通过简单的方式开启自动化实现，组里同学交流的结果是：**一般情况下**，自动混合精度训练的效果不如手动修改。分布式训练中，有社区同学心心念念的syncbn的支持。关于syncbn，在去年做CV的时候，我们就有一些来自民间的尝试，不过具体提升还是要考虑具体任务场景。
 
 **那么问题来了，如何在pytorch中使用fp16混合精度训练呢？**
@@ -92,6 +94,14 @@ if args.fp16:
      optimizer.zero_grad()
 ```
 
+根据参考3，值得重述一些重要结论：
+
+**（1）深度学习训练使用16bit表示/运算正逐渐成为主流。**
+
+**（2）低精度带来了性能、功耗优势，但需要解决量化误差（溢出、舍入）。**
+
+**（3）常见的避免量化误差的方法：为权重保持高精度（fp32)备份；损失放大，避免梯度的下溢出；一些特殊层（如BatchNorm）仍使用fp32运算。**
+
 参考资料：
 
 1.[nv官方repo给了一些基于pytorch的apex加速的实现](https://github.com/NVIDIA/DeepLearningExamples)
@@ -104,6 +114,8 @@ if args.fp16:
 
 3.[低精度表示用于深度学习
 训练与推断](http://market.itcgb.com/Contents/Intel/OR_AI_BJ/images/Brian_DeepLearning_LowNumericalPrecision.pdf)
+
+
 
 感谢团队同学推荐。
 
