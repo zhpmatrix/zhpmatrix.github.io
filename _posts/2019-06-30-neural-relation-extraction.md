@@ -158,6 +158,8 @@ mathjax: true
 
 1.[自然语言处理与信息抽取](https://mp.weixin.qq.com/s?__biz=MzIyODExNDgxOA==&mid=402669092&idx=1&sn=b91c2c413b74e27ecbbbd72109e064c4&chksm=75a276c942d5ffdf4f1f22fe4843ac4066d56df3388cdb4ccfdc32dd59e516d97b2fab06d7e8&mpshare=1&scene=23&srcid=0612H0vYaFGB77kJZOQ3PZ0K%23rd)
 
+2.[相关开源实现](https://github.com/yuanxiaosc/Multiple-Relations-Extraction-Only-Look-Once)
+
 
 
 
