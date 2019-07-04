@@ -64,7 +64,10 @@ mul, **div**, pow, sqrt, round, **argmax**, sigmoid, tanh, abs, ceil, **clamp**
 
 torch.cat: 合并多个tensor
 
-torch.chunk：等分一个tensor；等等，还有一个切分函数torch.split，该函数是沿着某一个dim按照index选择，如下：
+torch.chunk：等分一个tensor；等等，还有一个切分函数torch.split，可以实现tensor的不等分。
+
+此外，index
+\_select也是一个非常有用的函数，该函数是沿着某一个dim按照index选择，如下：
 
 ```
 torch.index_select(torch.randn(3,4),0,torch.tensor([0,2]))
