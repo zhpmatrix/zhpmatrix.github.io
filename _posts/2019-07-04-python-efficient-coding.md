@@ -28,7 +28,7 @@ mathjax: true
 
 (1)itertools的使用
 
-在NER任务中，当得到pos对应的lable之后，需要进一步得到entity，这个时候就可以使用itertools中的groupby来实现。如下：
+在NER任务中，当得到pos对应的label之后，需要进一步得到entity，这个时候就可以使用itertools中的groupby来实现。如下：
 
 ```
 label = [(0,'B-PER'),(1,'I-PER'),(2,'I-PER'),(3,'B-ORG')]
