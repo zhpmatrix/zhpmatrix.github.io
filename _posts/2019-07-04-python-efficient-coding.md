@@ -122,6 +122,12 @@ tracemalloc
 
 总结：比起用Python做后台研发，算法方面对Python的特性需求感觉并不是很高。这应该与两个不同工种的工作流有关。多数情况下，模型代码往往有几个文件组成，即使是框架，也并不需要相对复杂的语言特性。但是对特性的了解，可以帮助我们写出更fancy，更pythonic的code吧。
 
+其他的高效方法：
+
+1.[Python 3 Quick Tip: The easy way to deal with file paths on Windows, Mac and Linux](https://medium.com/@ageitgey/python-3-quick-tip-the-easy-way-to-deal-with-file-paths-on-windows-mac-and-linux-11a072b58d5f)
+
+os.path.join是最好的路径拼接的方法吗，不是的，**pathlib**。
+
 
 
 
