@@ -126,6 +126,10 @@ for text in text_list:
 
 8.[2018-新媒体纠错指南](https://mp.weixin.qq.com/s?__biz=MzU3NzUzNjg2MA==&mid=2247483741&idx=2&sn=6fc2b06fca519bcd127eb4938388c6ef&chksm=fd02576eca75de780d2e3cd3a59c39b257eccf85525da83febbab7fe239461da2c6ce7a9615e&mpshare=1&scene=23&srcid=0428Dfx3CtCUMe21q1GyyKTl%23rd)
 
+9.[微软Bing的spellchecker](https://azure.microsoft.com/zh-cn/services/cognitive-services/spell-check/)
+
+描述了spellchecker的具体内容。
+
 
 
 
