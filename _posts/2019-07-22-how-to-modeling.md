@@ -8,9 +8,9 @@ mathjax: true
 
 截止写这篇博客时，距离比赛的数据公布还有不到两周的时间，这是[比赛地址](https://zhejianglab.aliyun.com/entrance/231731/information)。评论文本和标签如下所示：
 
-![img1](https://tianchi-public.oss-cn-hangzhou.aliyuncs.com/public/files/forum/156320461354316671563204611469.png)
+![img1](http://wx4.sinaimg.cn/mw690/aba7d18bgy1g58qhhmkgoj20vy0ckq6p.jpg)
 
-![img2](https://tianchi-public.oss-cn-hangzhou.aliyuncs.com/public/files/forum/156320463397160801563204632380.png)
+![img2](http://wx2.sinaimg.cn/mw690/aba7d18bgy1g58qhdo9qzj20vo0a2n0n.jpg)
 
 乍一看，感觉这是一个情感分析的常规任务，其实不然。再一看，是一个面向切面的情感分析，不完全正确。这是一个什么任务，与建模的方式有关。头脑风暴后，能够想到的比赛有：
 
