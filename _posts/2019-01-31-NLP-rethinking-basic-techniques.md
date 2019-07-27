@@ -18,6 +18,10 @@ mathjax: true
 
 六.[Rethink系列-Transformer](https://zhpmatrix.github.io/2019/03/13/NLP-rethinking-Transformer/)
 
+一张分析层面的工作的图(图片来自网络，但是记不得出自哪里了。)：
+
+![imgx](http://wx2.sinaimg.cn/mw690/aba7d18bly1g5euouuxvdj21700ko78f.jpg)
+
 ### 词法
 
 #### 分词
