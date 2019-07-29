@@ -183,3 +183,7 @@ gradient checkpoint的原始论文，38页。
 8.[Training Large Model: introduction, tools and examples](https://huggingface.co/pytorch-transformers/examples.html#introduction)
 
 huggingface出品的pytorch-transformer中讨论的关于大模型的训练。
+
+9.[9 Tips For Training Lightning-Fast Neural Networks In Pytorch](https://towardsdatascience.com/9-tips-for-training-lightning-fast-neural-networks-in-pytorch-8e63a502f565)
+
+和博客中的有重叠，不过有新的内容，很实用。
