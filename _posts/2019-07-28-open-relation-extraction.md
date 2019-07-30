@@ -123,6 +123,8 @@ mathjax: true
 输出：
 
 	<arg1>deep learning </arg1> <rel> is a subfield of </rel> <arg2> machine learning </arg2>
+	
+相关文章，《Extracting Relational Facts by an End-to-End Neural Model with Copy Mechanism》,ACL2018
 
 
 6.《Open Information Extraction from Question-Answer Pairs》
