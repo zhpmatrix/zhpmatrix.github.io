@@ -127,16 +127,8 @@ mathjax: true
 
 在情感分类任务上，比较了两种数据增强技术，分别是Random Token Perturbations和Backtranslation，证明了Backtranslation的有效性。
 
+4.[《Learning to Ask Unanswerable Questions for Machine Reading Comprehension》](https://arxiv.org/pdf/1906.06045.pdf)
 
+SQuAD2.0生成不相关的问题。该问题与文章相关，但是在文章中找不到答案。因为SQuAD2.0添加了一类新的问题，该问题的是“no answer”的。
 
-
-
-
-
-
-
-
-
-
-
-
+5.[《Data Noising as Smoothing in Neural Network Language Models》](https://arxiv.org/abs/1703.02573)
