@@ -130,6 +130,10 @@ for text in text_list:
 
 描述了spellchecker的具体内容。
 
+10.《Corpora Generation for Grammatical Error Correction》
+
+给出了两种用seq2seq思路解决语法错误纠正问题的数据平行语料构建方法，分别是利用wiki的编辑历史和借助于中间语言的互相翻译。
+
 
 
 
