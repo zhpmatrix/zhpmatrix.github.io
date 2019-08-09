@@ -132,3 +132,5 @@ mathjax: true
 SQuAD2.0生成不相关的问题。该问题与文章相关，但是在文章中找不到答案。因为SQuAD2.0添加了一类新的问题，该问题的是“no answer”的。
 
 5.[《Data Noising as Smoothing in Neural Network Language Models》](https://arxiv.org/abs/1703.02573)
+
+6.[相对全面的总结](https://zhuanlan.zhihu.com/p/75207641)
