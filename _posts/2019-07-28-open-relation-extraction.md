@@ -141,6 +141,8 @@ mathjax: true
 
 最后，周六愉快！我刷剧去了，《琅琊榜》是有点好看啊，逃。
 
+8.[Knowledge Graphs in Natural Language Processing@ACL2019](https://medium.com/@mgalkin/knowledge-graphs-in-natural-language-processing-acl-2019-7a14eb20fce8)
+
 
 
 
