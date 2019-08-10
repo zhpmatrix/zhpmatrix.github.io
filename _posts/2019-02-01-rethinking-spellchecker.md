@@ -134,6 +134,10 @@ for text in text_list:
 
 给出了两种用seq2seq思路解决语法错误纠正问题的数据平行语料构建方法，分别是利用wiki的编辑历史和借助于中间语言的互相翻译。
 
+11.《Misspelling Oblivious Word Embeddings》,NAACL2019
+
+基于word embedding的解决方案。
+
 
 
 
