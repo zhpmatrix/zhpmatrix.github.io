@@ -85,6 +85,16 @@ sparsity-inducing技术：L0正则化和变分dropout；
 
 总结：有很多很fancy的工作，但是实际在解决问题的时候还是要做trade off，包括应用相关技术的成本也要考虑在内，在deadline的压力之下，学习成本是不可忽视的代价。来到工业界更是见证了“暴力”的美学特性，大数据，大模型，大计算带来的收益往往会有客观的产出。为了减少“一顿操作猛如虎，一看收益0.5”情况的发生，小心取舍似乎更加重要吧。虽然实际上是这样，但是还是期待更多fancy工作的出现给自己，给社区带来hope。不知道我司同学在翻译模型的压缩上进展如何了？
 
+相关材料：
+
+1.[Compressing BERT for faster prediction](https://blog.rasa.com/compressing-bert-for-faster-prediction-2/)
+
+TFLite做quantization，pseudo quantization的思路和韩松在ICLR的deep compression的工作思路类似。
+
+2.[模型压缩资源总结](https://blog.csdn.net/w285868925/article/details/81284936)
+
+学界和工业界的一些开源工作。
+
 
 
 
