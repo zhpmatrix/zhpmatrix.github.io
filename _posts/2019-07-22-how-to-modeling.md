@@ -6,6 +6,13 @@ date: 2019-07-22 15:48:00
 mathjax: true
 ---
 
+个人比较喜欢的建模方式：
+
+（1）通过设计schema，用一个sequence labeling的模型来搞定，可以看下文的思路二；
+
+（2）《BERT for Joint Intent Classification and Slot Filling》，整体上还是一个sequence labeling的模型，不过添加了一个分类任务，通过joint的方式来做；
+
+
 截止写这篇博客时，距离比赛的数据公布还有不到两周的时间，这是[比赛地址](https://zhejianglab.aliyun.com/entrance/231731/information)。评论文本和标签如下所示：
 
 ![img1](http://wx4.sinaimg.cn/mw690/aba7d18bgy1g58qhhmkgoj20vy0ckq6p.jpg)
