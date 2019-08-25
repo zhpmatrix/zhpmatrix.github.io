@@ -22,30 +22,20 @@ mathjax: true
 
 #### 第一：framework层的四个核心类分别是model，trainer，loss和optimizer相关。
 
-onmt.models.NMTModel(encoder, decoder)
+onmt.models.NMTModel(encoder, decoder): 继承自torch.nn.modules，是seq2seq的统一接口，包括encoder和decoder。在forward操作时，输入src，tgt，lengths，返回decoder的output，同时返回attention的结果，类型为[tgt\_len，batch，src\_len]。
 
->继承自torch.nn.modules，是seq2seq的统一接口，包括encoder和decoder。在forward操作时，输入src，tgt，lengths，返回decoder的output，同时返回attention的结果，类型为[tgt\_len，batch，src\_len]。
-
-onmt.Trainer: 
-
->用于整个训练过程控制的类。onmt.utils.Statistics用于计算与Trainer相关的统计量。
+onmt.Trainer: 用于整个训练过程控制的类。onmt.utils.Statistics用于计算与Trainer相关的统计量。
 
 
-onmt.utils.loss.LossComputeBase:
+onmt.utils.loss.LossComputeBase: 继承自torch.nn.modules，用于损失计算的策略类。
 
->继承自torch.nn.modules，用于损失计算的策略类。
-
-onmt.utils.Optimizer:
-
->用于优化的控制类。多数时候是对optim的薄薄的一层封装。可以通过继承该类实现grad accu。
+onmt.utils.Optimizer: 用于优化的控制类。多数时候是对optim的薄薄的一层封装。可以通过继承该类实现grad accu。
 
 #### 第二：DataLoader相关的类。
 
->onmt.inputters.DataReaderBase是数据读取的基类，onmt.inputters.TextDataReader/ImageDataReader/AudioDataReader分别实现文本，图片和声音的读取。
+onmt.inputters.DataReaderBase是数据读取的基类，onmt.inputters.TextDataReader/ImageDataReader/AudioDataReader分别实现文本，图片和声音的读取。
 
-onmt.inputters.Dataset
-
->继承自torchtext.data.dataset.Dataset，实现从raw数据到tensor数据，最后batch化的工作。在google-bert，pytorch-transformer等框架的实现都可以看到类似的封装，是一个标准过程。
+onmt.inputters.Dataset: 继承自torchtext.data.dataset.Dataset，实现从raw数据到tensor数据，最后batch化的工作。在google-bert，pytorch-transformer等框架的实现都可以看到类似的封装，是一个标准过程。
 
 #### 第三：基础模块类
 
