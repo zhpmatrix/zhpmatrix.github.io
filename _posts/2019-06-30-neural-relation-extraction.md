@@ -160,6 +160,9 @@ mathjax: true
 
 2.[相关开源实现](https://github.com/yuanxiaosc/Multiple-Relations-Extraction-Only-Look-Once)
 
+3.[Enriching Pre-trained Lanuage Model with Entity Information for Relation Classification](https://arxiv.org/pdf/1905.08284.pdf)
+
+阿里巴巴的文章，属于应用上的工作。基本没有太大的创新，不过算是博客中讨论内容的一个补充。
 
 
 
