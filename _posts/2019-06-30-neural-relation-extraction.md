@@ -164,6 +164,9 @@ mathjax: true
 
 阿里巴巴的文章，属于应用上的工作。基本没有太大的创新，不过算是博客中讨论内容的一个补充。
 
+4.[中文神经关系综述](https://blog.csdn.net/Kaiyuan_sjtu/article/details/90071703)
+
+相对系统的梳理了一些关系抽取的文章。
 
 
 
