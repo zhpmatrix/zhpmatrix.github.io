@@ -108,6 +108,8 @@ $$z=均值+\epsilon*方差，\epsilon \sim N(0,I)$$
 
 这篇文章中有两张VAE的训练和解码的图，非常清晰。
 
+10.[KL vanishing problem解决的两个方向](http://www.sohu.com/a/216987798_297288)
+
 
 
 
