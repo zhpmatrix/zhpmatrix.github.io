@@ -104,3 +104,19 @@ def get_labels(self):
 基于这种思路，基于pytorch-transformer实现了一个[参考方案](https://github.com/zhpmatrix/pytorch-transformers/tree/zhijiang)。
 
 
+相关赛题：
+
+1.[汽车行业用户观点及情感识别](https://www.datafountain.cn/competitions/310/datasets)
+
+2.[汽车论坛消费者用车体验内容的判别与标注](https://www.datafountain.cn/competitions/365)
+
+3.[基于视角的领域情感分析](https://www.datafountain.cn/competitions/237/datasets)
+
+这三道赛题都是关于汽车领域的，类似任务在电商评论领域也较多。如4所示，
+
+4.[基于主题的文本情感分析](https://www.datafountain.cn/competitions/268/datasets)
+
+5.[基于机构实体的智能摘要和风险等级识别](https://www.datafountain.cn/competitions/269/ranking)
+
+和上述领域不同，但是非常有意思，最后也是一个分类问题。
+
