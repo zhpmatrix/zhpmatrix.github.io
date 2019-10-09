@@ -138,7 +138,9 @@ for text in text_list:
 
 基于word embedding的解决方案。
 
+12.《Review of Real-word Error Detection and Correction Methods in Text Documents》
 
+2018年的Review文章
 
 
 
