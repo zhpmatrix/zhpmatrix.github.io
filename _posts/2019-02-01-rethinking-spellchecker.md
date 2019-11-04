@@ -142,6 +142,8 @@ for text in text_list:
 
 2018年的Review文章
 
+13.[庖丁科技的纠错技术用于金融](https://mp.weixin.qq.com/s/58ZsOjX-nGfFK-2Thq_0ng)
+
 
 
 
