@@ -120,3 +120,5 @@ def get_labels(self):
 
 和上述领域不同，但是非常有意思，最后也是一个分类问题。
 
+6.《Exploiting BERT for End-to-End Aspect-based Sentiment Analysis》，达摩院
+
