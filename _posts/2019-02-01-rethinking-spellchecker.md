@@ -144,8 +144,9 @@ for text in text_list:
 
 13.[庖丁科技的纠错技术用于金融](https://mp.weixin.qq.com/s/58ZsOjX-nGfFK-2Thq_0ng)
 
+14.[中文纠错到底走多远了？](https://cloud.tencent.com/developer/article/1435917)
 
-
+2019年5月份的一个review类博客
 
 
 
