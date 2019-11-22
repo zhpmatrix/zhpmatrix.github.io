@@ -136,7 +136,9 @@ AAAI2018的工作，基于seq2seq，使用Pointer机制，提出了多任务训�
 
 基于Pointer机制的seq2seq，其中提到了一些关于seq2seq的改进工作很有意思。
 
+11.[深度生成模型的notes](https://deepgenerativemodels.github.io/notes/index.html)
 
+包括GAN,VAE,seq2seq和正则化流。
 
 
 
