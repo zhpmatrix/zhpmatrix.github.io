@@ -134,3 +134,5 @@ SQuAD2.0生成不相关的问题。该问题与文章相关，但是在文章中
 5.[《Data Noising as Smoothing in Neural Network Language Models》](https://arxiv.org/abs/1703.02573)
 
 6.[相对全面的总结](https://zhuanlan.zhihu.com/p/75207641)
+
+7.[思考为什么要做预处理，预处理做到什么程度的文章，非常棒。](https://zhuanlan.zhihu.com/p/76957566?utm_source=qq&utm_medium=social&utm_oi=52727124066304)
