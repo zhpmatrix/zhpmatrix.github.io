@@ -136,3 +136,7 @@ SQuAD2.0生成不相关的问题。该问题与文章相关，但是在文章中
 6.[相对全面的总结](https://zhuanlan.zhihu.com/p/75207641)
 
 7.[思考为什么要做预处理，预处理做到什么程度的文章，非常棒。](https://zhuanlan.zhihu.com/p/76957566?utm_source=qq&utm_medium=social&utm_oi=52727124066304)
+
+8.[去除停用词对情感分类的影响](https://towardsdatascience.com/why-you-should-avoid-removing-stopwords-aa7a353d2a52)
+
+如非必要，不要做过多的数据预处理。因为无论是对于任务本身，还是对于后续的生产部署，都是坑。
