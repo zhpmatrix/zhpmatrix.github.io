@@ -140,3 +140,5 @@ SQuAD2.0生成不相关的问题。该问题与文章相关，但是在文章中
 8.[去除停用词对情感分类的影响](https://towardsdatascience.com/why-you-should-avoid-removing-stopwords-aa7a353d2a52)
 
 如非必要，不要做过多的数据预处理。因为无论是对于任务本身，还是对于后续的生产部署，都是坑。
+
+9.[NLP中的数据增强总结，包括多个NLP的具体任务](https://github.com/quincyliang/nlp-data-augmentation)
