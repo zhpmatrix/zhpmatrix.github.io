@@ -23,6 +23,8 @@ Github:[@zhpmatrix](https://github.com/zhpmatrix/)，Weibo:[@zhpmatrix](http://w
 
 ![微信支付](https://wx3.sinaimg.cn/mw690/aba7d18bly1gacwebuhv3j207v07n3zv.jpg)
 
+（**为什么开通了打赏方式？**用劳动赚钱，不丢人。为知识买账，理不亏。）
+
 ---
 
 
