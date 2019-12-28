@@ -19,9 +19,7 @@ permalink: /about/
 Github:[@zhpmatrix](https://github.com/zhpmatrix/)，Weibo:[@zhpmatrix](http://weibo.com/u/2879902091/home?wvr=5&lf=reg)
 
 ---
-    
-
-   打赏方式
+    打赏方式
 
 ![微信支付](https://wx3.sinaimg.cn/mw690/aba7d18bly1gacwebuhv3j207v07n3zv.jpg)
 
