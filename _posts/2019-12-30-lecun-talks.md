@@ -38,7 +38,7 @@ mathjax: true
 + Cloze-Driven Auto-Encoder
 + 等等
 
-从反馈强度上看，LuCun认为增强学习，监督学习和自监督学习的排序为：
+从反馈强度上看，LeCun认为增强学习，监督学习和自监督学习的排序为：
 
 自监督学习 > 监督学习 > 强化学习
 
