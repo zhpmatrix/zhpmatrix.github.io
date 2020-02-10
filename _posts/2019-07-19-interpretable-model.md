@@ -99,3 +99,4 @@ prototype是数据中最具有代表性的样本，criticism是数据中最不�
 
 开源图书，同时有售卖。整体上的一个感受是，内容组织上有些乱，不过算是相对全面的该方向上的总结。
 
+2.[用Attention机制作为解释性的手段](http://www.heatmapping.org/slides/2017_GCPR.pdf)
