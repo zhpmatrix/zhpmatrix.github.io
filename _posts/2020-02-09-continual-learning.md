@@ -153,3 +153,5 @@ mathjax: true
 > 保留少量代表性的样本来解决Catastrophic Forgetting应该是一个很有意义的方向，但是这个方法仍然做出了太多过强的假设，应当后续有不少发展和改进的空间。
 
 围绕该问题的研究从[1989年](https://www.sciencedirect.com/science/article/pii/S0079742108605368)就开始啦。
+
+5.[Introduction to Pseudo-Labelling : A Semi-Supervised learning technique](https://www.analyticsvidhya.com/blog/2017/09/pseudo-labelling-semi-supervised-learning-technique/)
