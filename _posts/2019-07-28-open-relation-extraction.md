@@ -143,7 +143,7 @@ mathjax: true
 
 8.[Knowledge Graphs in Natural Language Processing@ACL2019](https://medium.com/@mgalkin/knowledge-graphs-in-natural-language-processing-acl-2019-7a14eb20fce8)
 
-
+9.[开放信息抽取的工作总结](https://github.com/gkiril/oie-resources#oie-systems-for-chinese-language)(非常全面的文献)
 
 
 
