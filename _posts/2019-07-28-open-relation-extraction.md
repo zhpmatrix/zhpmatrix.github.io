@@ -139,8 +139,6 @@ mathjax: true
 
 对relation进行clustering。
 
-最后，周六愉快！我刷剧去了，《琅琊榜》是有点好看啊，逃。
-
 8.[Knowledge Graphs in Natural Language Processing@ACL2019](https://medium.com/@mgalkin/knowledge-graphs-in-natural-language-processing-acl-2019-7a14eb20fce8)
 
 9.[开放信息抽取的工作总结](https://github.com/gkiril/oie-resources#oie-systems-for-chinese-language)(非常全面的文献)
