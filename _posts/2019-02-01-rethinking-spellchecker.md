@@ -152,3 +152,5 @@ for text in text_list:
 
 
 16.[平安寿险的总结](https://zhuanlan.zhihu.com/p/82807092)
+
+17.[元音拼写检查器](https://leetcode-cn.com/problems/vowel-spellchecker/solution/yuan-yin-pin-xie-jian-cha-qi-by-leetcode/)
