@@ -135,6 +135,10 @@ subword sampling和基于unigram的language model算法都是kudo在一篇文章
 模型类型，从上述表格也可以看出，总共有四种，分别是默认的基于unigram的，bpe，char和word，当指定word类型时，必须提前做分词，此时就需要考虑分词器的效果。针对上述四种模型类型，代码组织层是通过factory来实现的，[具体代码地址这里](https://github.com/google/sentencepiece/tree/master/src)。word类型是通过whitespace进行tokenize，char类型是直接将序列变为char序列。
 
 在tensor2tensor中，subword的生成过程是不同于上述的，简单而言是通过对序列的所有词组合进行排列组合，然后通过词频过滤掉一部分不常见的词。并且tensor2tensor中，并没有采用第三方的subword生成工具，而是自己实现了自己的逻辑。
+
+补充材料：
+
+[Tokenizer: How machines read](https://blog.floydhub.com/tokenization-nlp/)
 	
 
 
