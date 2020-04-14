@@ -154,3 +154,5 @@ for text in text_list:
 16.[平安寿险的总结](https://zhuanlan.zhihu.com/p/82807092)
 
 17.[元音拼写检查器](https://leetcode-cn.com/problems/vowel-spellchecker/solution/yuan-yin-pin-xie-jian-cha-qi-by-leetcode/)
+
+18.[飞鹰系统，哈工大的文章](https://mp.weixin.qq.com/s?__biz=MzU2NDQ3MTQ0MA==&mid=2247485374&idx=1&sn=f85097d0c9d0d725f5e314041dfa4e3d&chksm=fc4b3441cb3cbd5701f79375f948f73bae60138ecb61d5851e4506c833b59ea5c22b0fb403a5&mpshare=1&scene=23&srcid&sharer_sharetime=1586748490212&sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd)
