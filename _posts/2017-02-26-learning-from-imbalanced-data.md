@@ -137,3 +137,5 @@ SMOTE的缺点是由于它生成样本的方式导致的。此处，提到了一
 3.[非平衡数据处理--如何学习？](http://mp.weixin.qq.com/s?__biz=MzIzMjU1NTg3Ng==&mid=2247483965&idx=1&sn=3774e0ffd067ab37fffe4c39c8e9d7e7&chksm=e8925636dfe5df203c863319876b4550d73f11473e8af0bd11fbd926240addf23a7df8427ac4&mpshare=1&scene=23&srcid=0504L06TqXVyzgtviuhXR5l2#rd)
 
 上述两篇参考是时隔两个月后看到的，估计作者也是读了同样的一篇综述，不过作者自己又补充了一些资料。
+
+4.[分类机器学习中，某一标签占比太大（标签稀疏），如何学习？](https://www.zhihu.com/question/372186043/answer/1089033462?utm_source=qq&utm_medium=social&utm_oi=52727124066304)
