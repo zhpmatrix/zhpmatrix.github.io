@@ -155,3 +155,5 @@ mathjax: true
 围绕该问题的研究从[1989年](https://www.sciencedirect.com/science/article/pii/S0079742108605368)就开始啦。
 
 5.[Introduction to Pseudo-Labelling : A Semi-Supervised learning technique](https://www.analyticsvidhya.com/blog/2017/09/pseudo-labelling-semi-supervised-learning-technique/)
+
+6.《One Model to Recognize Them All: Marginal Distillation from NER Models with Different Tag Sets》
