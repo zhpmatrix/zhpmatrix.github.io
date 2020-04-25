@@ -140,8 +140,7 @@ subword sampling和基于unigram的language model算法都是kudo在一篇文章
 
 [Tokenizer: How machines read](https://blog.floydhub.com/tokenization-nlp/)
 	
-
-
+[NLP Subword三大算法原理：BPE, Wordpiece, ULM](https://mp.weixin.qq.com/s?__biz=MzIwNzc2NTk0NQ==&mid=2247485705&idx=2&sn=383b7ca2db3b3a635b26de835f3661ea&chksm=970c21dfa07ba8c95513bfbe8c9041d64a1ebfddece4bb8409289565c92504288447e7e2616c&mpshare=1&scene=23&srcid=0425Vgrv7zQo3ryUJ5iIkRzm&sharer_sharetime=1587800482089&sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd)
 
 
 
