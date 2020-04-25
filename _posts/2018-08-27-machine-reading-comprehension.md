@@ -161,6 +161,10 @@ _近期任务较多，跑通Pipeline后，就一直拖着没有去调试模型�
 
 4.[question answering with tensorflow](https://www.oreilly.com/ideas/question-answering-with-tensorflow)
 
+5.[NLP领域的阅读理解模型实际上是语义匹配还是词与词之间的匹配？](https://www.zhihu.com/question/389751777/answer/1178900681)
+
+6.[样本构造中的偏置问题](https://zhpmatrix.github.io/2020/04/04/sample-bias/)
+
 
 
 
