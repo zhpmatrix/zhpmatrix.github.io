@@ -139,3 +139,9 @@ badcase中可以反馈模型的多方面的问题，从不同角度看badcase，
 太阳底下没有新鲜事，这些问题本质上就是机器学习的基本原理。训练和测试的一致性，正负例，正确的类别的设计方式等。所谓基本原理，就是体现在多个问题和场景下，需要理论和实践相结合，实事求是......（别跑题，不是政治课）。另外，对细节的极致追求，比如论文中一笔带过的：需要添加"No Relation"，需要添加负例等，这些正是模型OK的基本且重要的条件。
 
 说了这么多，该翻车的还是会翻车......Anyway，翻两次就正了。
+
+补充：
+
+1.《Enriched Pre-trained Transformers for Joint Slot Filling and Intent Detection》
+
+讨论了QA中position bias。
