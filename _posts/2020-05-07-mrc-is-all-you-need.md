@@ -44,7 +44,7 @@ query如何构造？这篇文章提供了三种方式：
 
 《A Uniﬁed MRC Framework for Named Entity Recognition》
 
-传统的序列标注模型适合处理flat ner问题，但是对于nested ner问题处理较差（一个token对应多个标签，也可以通多multi-label解决），采用MRC的方式适合处理nested ner的问题。
+传统的序列标注模型适合处理flat ner问题，但是对于nested ner问题处理较差（一个token对应多个标签，也可以通过multi-label解决），采用MRC的方式适合处理nested ner的问题。
 
 思路同上，对每种标注类别，构建Query，和Context共同作为模型的input，预测该Query对应的实体位置。比如，对于LOC类别，可以构建的Query如：“请标注出文本中的地点，位置等词。”，同样Query的构建方式比较灵活，比如直接按照标注指南中的描述等。
 
@@ -101,7 +101,7 @@ Query2：老张为哪个公司工作？结果：京东
 
 ### 为啥非要用MRC的方式？传统的方式不香吗？
 
-（1）构建的Query其实引入了一种先验，包含我们想要抽取的或者分类的信息。按照相关工作作者的观点，其实一种hard attention。当然在有些任务上，我们可以用其他方式来表达相同的含义，比如某种embedding，但是这种方式终究之能满足区分意图的目的，不能满足引入先验的目的。
+（1）构建的Query其实引入了一种先验，包含我们想要抽取的或者分类的信息。按照相关工作作者的观点，其实一种hard attention。当然在有些任务上，我们可以用其他方式来表达相同的含义，比如某种embedding，但是这种方式终究只能满足区分意图的目的，不能满足引入先验的目的。
 
 （2）domain adaptation/zero-shot learning
 
