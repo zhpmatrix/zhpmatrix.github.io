@@ -89,7 +89,11 @@ Query2：老张为哪个公司工作？结果：京东
 
 除此之外，比较相关的两个工作（对怎样解决多次inference有启发）：
 
-[LIC2019-第一名](http://tcci.ccf.org.cn/summit/2019/dlinfo/1104-ljq.pdf)，[LIC2019-第七名](https://kexue.fm/archives/6671)
+[LIC2019-第一名](http://tcci.ccf.org.cn/summit/2019/dlinfo/1104-ljq.pdf)
+
+基本思路：第一步做多分类，找出文本中包含的所有关系；第二步合并关系三元组的Schema和文本作为输入，输出S和O。
+
+[LIC2019-第七名](https://kexue.fm/archives/6671)
 
 ### 指代消解
 
