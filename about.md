@@ -15,4 +15,4 @@ permalink: /about/
     联系方式
 
 
-Github:[@zhpmatrix](https://github.com/zhpmatrix/)，Weibo:[@zhpmatrix](http://weibo.com/u/2879902091/home?wvr=5&lf=reg)
+Github:[@zhpmatrix](https://github.com/zhpmatrix/)
