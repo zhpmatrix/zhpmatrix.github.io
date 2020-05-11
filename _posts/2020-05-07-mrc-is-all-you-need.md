@@ -97,6 +97,8 @@ Query2：老张为哪个公司工作？结果：京东
 
 基本思路：P(S,P,O) = P(S)P(O|S)P(P|S,O)（怎么具体实现是一个有意思的课题。）
 
+[“之江杯”-电商评论观点挖掘第二名](https://zhuanlan.zhihu.com/p/115851256)
+
 ### 指代消解
 
 《Coreference Resolution as Query-based Span Prediction》，ACL2020
