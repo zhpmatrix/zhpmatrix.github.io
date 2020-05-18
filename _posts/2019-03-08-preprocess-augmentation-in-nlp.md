@@ -148,3 +148,7 @@ SQuAD2.0生成不相关的问题。该问题与文章相关，但是在文章中
 文章比较了基于自编码(BERT)，预训练语言模型(GPT-2)，和预训练seq2seq(BART/T5)的三种模型用于数据增强的效果。具体的，比如对于一个情感分类任务，三种方式都可以做，哪种好一些？文章的结论是：考虑到标签保持的能力和多样性，seq2seq整体上较好。 在具体数据增强的方法上，文章也有一些阐述。整体上文章解决的问题实用性较强，既可以作为一篇Review，也可以作为一篇技术报告来看。此外，文中的一些方法虽然是放在数据增强的角度来考察的，但是理论上应该也可以推广到其他Task上，例如情感迁移等。
 
 11.[SCIR-深度学习领域的数据增强](https://mp.weixin.qq.com/s?__biz=MzI4MDYzNzg4Mw==&mid=2247492349&idx=5&sn=c4c7180ea455310ff1b6539fa7168599&chksm=ebb7da29dcc0533fe6bb348788b66246395110c2c1a606e41edfc7b37a5b66643d6736eed487&scene=0&xtrack=1&key=615298b6af513962a2ccd0616eac026eddcbf12936b0b0ef1ee1609eef767b638d63c184ace6204ea701057c1c49124510e951b47ce95f72e2d6d1355b0475c05a1e0109af3c4bbf8de8a219cb70a8e6&ascene=0&uin=MTg2NTIxNzUxNw%3D%3D&devicetype=iMac+MacBookAir7%2C2+OSX+OSX+10.15.2+build(19C57)&version=11020201&lang=zh_CN&exportkey=AyGPkP9lEsk1LxHnwqlXLfU%3D&pass_ticket=L5m3u%2FRnPtgczNrYDLg8yofoGvrUzX%2B1RWX2pbEdauEOQpSI1cCTiC71mkYWrSX%2B)
+
+12.[A Visual Survey of Data Augmentation in NLP](https://amitness.com/2020/05/data-augmentation-for-nlp/)
+
+总结的非常全面的NLP中的数据增强方法。
