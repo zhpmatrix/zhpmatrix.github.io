@@ -138,7 +138,7 @@ struct Net : torch::nn::Module {
 
 5.[Deploying a Seq2Seq Model with the Hybrid Frontend](https://pytorch.org/tutorials/beginner/deploy_seq2seq_hybrid_frontend_tutorial.html#)
 
-
+6.[Accelerate your NLP pipelines using Hugging Face Transformers and ONNX Runtime](https://medium.com/microsoftazure/accelerate-your-nlp-pipelines-using-hugging-face-transformers-and-onnx-runtime-2443578f4333)
 
 
 
