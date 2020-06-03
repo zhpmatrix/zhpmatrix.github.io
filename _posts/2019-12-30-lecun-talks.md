@@ -77,7 +77,9 @@ Talk给出了七种策略去学习一个能量函数，而这些目前并不准�
 
 2.[From System 1 Deep Learning to System 2 Deep Learning，Bengio, NeurIPS20](https://www.bilibili.com/video/av79356369)
 
+3.[Self Supervised Representation Learning in NLP](https://amitness.com/2020/05/self-supervised-learning-nlp/)
 
+用可视化的方式讲解了SSL在NLP中的几种范式。
 
 
 
