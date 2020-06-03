@@ -152,3 +152,7 @@ SQuAD2.0生成不相关的问题。该问题与文章相关，但是在文章中
 12.[A Visual Survey of Data Augmentation in NLP](https://amitness.com/2020/05/data-augmentation-for-nlp/)
 
 总结的非常全面的NLP中的数据增强方法。
+
+13.[Why is data augmentation classified as a type of regularization?](https://stats.stackexchange.com/questions/295383/why-is-data-augmentation-classified-as-a-type-of-regularization)
+
+数据增强作为一种正则化的观点。
