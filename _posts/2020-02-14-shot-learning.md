@@ -62,3 +62,7 @@ Memory Argumented Model将训练数据当成sequence，来进行学习，是一�
 3.[阿里小蜜的意图分类平台的应用](https://mp.weixin.qq.com/s?__biz=MzI0NTE4NjA0OQ==&mid=2658360388&idx=2&sn=cf49a5d9810687eab3f6f7f8341dd6eb)，这篇文章梳理了几个工作，虽然文章提到是用于自学习平台上的一个挑战，但是似乎并没有提到很多关于相关工作在平台上的实际运行的效果。
 
 4.《A Survey of Zero-Shot Learning: Settings, Methods, and Applications》
+
+5.[Zero-Shot Learning in Modern NLP](https://joeddav.github.io/blog/2020/05/29/ZSL.html)
+
+非常棒的总结，同时算是对文本分类任务在modeling方式上的一个探讨。当然可以用完形填空的方式做文本分类的任务。
