@@ -66,3 +66,7 @@ Memory Argumented Model将训练数据当成sequence，来进行学习，是一�
 5.[Zero-Shot Learning in Modern NLP](https://joeddav.github.io/blog/2020/05/29/ZSL.html)
 
 非常棒的总结，同时算是对文本分类任务在modeling方式上的一个探讨。当然可以用完形填空的方式做文本分类的任务。
+
+6.[Meta-Learning is All you need](https://medium.com/@james_aka_yale?source=post_page-----3bd0bafdf289----------------------)
+
+系统梳理了meta-learning的formula。
