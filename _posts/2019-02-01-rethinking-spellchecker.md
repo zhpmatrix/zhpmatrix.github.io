@@ -156,3 +156,5 @@ for text in text_list:
 17.[元音拼写检查器](https://leetcode-cn.com/problems/vowel-spellchecker/solution/yuan-yin-pin-xie-jian-cha-qi-by-leetcode/)
 
 18.[飞鹰系统，哈工大的文章](https://mp.weixin.qq.com/s?__biz=MzU2NDQ3MTQ0MA==&mid=2247485374&idx=1&sn=f85097d0c9d0d725f5e314041dfa4e3d&chksm=fc4b3441cb3cbd5701f79375f948f73bae60138ecb61d5851e4506c833b59ea5c22b0fb403a5&mpshare=1&scene=23&srcid&sharer_sharetime=1586748490212&sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd)
+
+19.[丁香园的一个工作](https://mp.weixin.qq.com/s?__biz=MzUyMDY0OTg3Nw==&mid=2247484225&idx=1&sn=6435258fb1aeb27dab441f4ecd66a502&chksm=f9e66ebbce91e7add59f4cb15c4f366409c937d5a4e8af9d27ae77e9bea0d7279baeb893956b&mpshare=1&scene=23&srcid&sharer_sharetime=1591590014192&sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd)
