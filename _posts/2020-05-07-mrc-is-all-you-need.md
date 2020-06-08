@@ -25,7 +25,7 @@ MRC是一个非常general的框架，多个NLP领域的经典任务都可以用M
 
 ### 文本分类
 
-[《Description Based Text Classification with Reinforcement Learning》](https://arxiv.org/pdf/2002.03067.pdf)
+[《Description Based Text Classification with Reinforcement Learning》](https://arxiv.org/pdf/2002.03067.pdf),[ICML2020，竟然中了？](https://mp.weixin.qq.com/s?__biz=MzUzODcyNjY5Ng==&mid=2247485727&idx=1&sn=a6f4d590d763f67a2492cdcb32230151&chksm=fad21158cda5984e9182ed0ce471f5086150c1022aa50bcfbc5216a9c3161f39b3ed7a1b54a6&xtrack=1&scene=90&subscene=93&sessionid=1591590405&clicktime=1591590411&enterid=1591590411%23rd)
 
 给定一个文本，进行多分类。如何改造成用MRC的方式做呢？对于每个类别，构造针对该类别的描述作为query，原始待分类文本作为context，联合query和context作为input，做二分类。
 
