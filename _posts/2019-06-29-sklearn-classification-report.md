@@ -114,6 +114,8 @@ weighted avg       0.73      0.50      0.48         8
 
 2.[给出了具体的计算方式](https://www.cnblogs.com/techengin/p/8962024.html)
 
+3.[多分类问题Accuracy, Precision, Recall和F1-score的超级无敌深入探讨](https://zhuanlan.zhihu.com/p/147663370?utm_source=qq&utm_medium=social&utm_oi=52727124066304)
+
 
 
 
