@@ -81,6 +81,6 @@ Talk给出了七种策略去学习一个能量函数，而这些目前并不准�
 
 用可视化的方式讲解了SSL在NLP中的几种范式。
 
-
+4.[Self-Supervised Representation Learning](https://lilianweng.github.io/lil-log/2019/11/10/self-supervised-learning.html)
 
 
