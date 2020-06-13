@@ -84,7 +84,6 @@ BLEU的出现极大地推动了机器翻译的进展。但是对于一些任务�
 
 1.[毛利率低，难以形成通用解决方案，难以形成技术壁垒](https://mp.weixin.qq.com/s?__biz=MzIzNjc1NzUzMw==&mid=2247538571&idx=4&sn=fa3df61e7fb319a1d5e6ce9bc8f85faa&chksm=e8d0e0f9dfa769ef85ffece00308bb31b9cab11bb169d9a40a57efc19776c729ed0e95d1e608&mpshare=1&scene=23&srcid&sharer_sharetime=1583812320502&sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd)
 
+2.[推荐系统的天时地利](https://zhuanlan.zhihu.com/p/147943017?utm_source=qq&utm_medium=social&utm_oi=52727124066304)
 
-
-
-
+为啥算法能够在推荐系统领域发挥作用的一个总结。
