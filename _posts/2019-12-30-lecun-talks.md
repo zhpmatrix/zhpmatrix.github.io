@@ -83,4 +83,6 @@ Talk给出了七种策略去学习一个能量函数，而这些目前并不准�
 
 4.[Self-Supervised Representation Learning](https://lilianweng.github.io/lil-log/2019/11/10/self-supervised-learning.html)
 
+5.[自监督在NLP领域中的应用](https://www.zhihu.com/question/380119832?utm_source=qq&utm_medium=social&utm_oi=52727124066304)
+
 
