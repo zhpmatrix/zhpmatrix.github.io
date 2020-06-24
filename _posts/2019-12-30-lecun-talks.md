@@ -85,4 +85,13 @@ Talk给出了七种策略去学习一个能量函数，而这些目前并不准�
 
 5.[自监督在NLP领域中的应用](https://www.zhihu.com/question/380119832?utm_source=qq&utm_medium=social&utm_oi=52727124066304)
 
+6.[自监督学习的一些思考](https://zhuanlan.zhihu.com/p/150224914?utm_source=qq&utm_medium=social&utm_oi=52727124066304)
+
+讨论自监督学习在CV上的应用，讨论了关于SSL的几个关键问题：
+
+（1）如何定义自监督学习（没有标注数据；通过proxy task希望学到一些能够泛化的feature）
+
+（2）为什么自监督学习能够学到信息？（先验；连贯；数据内部结构）
+
+（3）设计一个自监督学习任务还需要考虑什么？（shortcut；歧义；任务难度）
 
