@@ -70,3 +70,55 @@ Memory Argumented Model将训练数据当成sequence，来进行学习，是一�
 6.[Meta-Learning is All you need](https://medium.com/@james_aka_yale?source=post_page-----3bd0bafdf289----------------------)
 
 系统梳理了meta-learning的formula。
+
+#### 对话系统场景下，针对FSL，需要思考的问题
+
+第一：训练领域的domain/意图类别/语义槽类别三者和测试领域的对比
+
+第二：FSL单指测试领域的样本量只有很少吗？很少是多少？训练领域比测试领域的样本多，是多多少？（理论上的界）
+
+第三：如何保证测试领域得到的模型保持在训练领域的预测能力？（连续学习，灾难性遗忘，模型不退化）
+
+第四：FSL是必须的方式吗？比如在分类场景下：直接多分类或者采用语义匹配的方式解决。对基于距离的FSL的一种可能的理解方式是：用分类的方式训练一个语义匹配器。在具体使用的时候，考虑两种情况：
+
+（1）Encoder提前对新类的样本进行编码后得到类别表示存储，在实际inference的时候，对每个新样本编码，计算与类别表示之间的距离作为分类依据
+
+（2）实际inference的时候，新类的表示和新样本同时编码（考虑变长对齐的问题：一种简单的方式是复制新样本）。
+
+[半监督和数据增强的方式，OK吗？](https://mp.weixin.qq.com/s?__biz=MzA5ODEzMjIyMA==&mid=2247505980&idx=2&sn=8a419929d8a59b8d1383b189f38aa35c&chksm=9094d1afa7e358b9ab67e4e5010409b475075cf701b94eae9612a59dee3faa2b1f0416177939&mpshare=1&scene=23&srcid&sharer_sharetime=1592333453643&sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd)统一的Low Resource解决方案可以融合文本增强、半监督学习、迁移学习、主动学习、少样本学习。
+
+第五：应用场景是什么？如何实现高效的inference？能不能和BERT结合？
+
++ 意图识别的冷启动问题
+
+	大量平台用户在创建一个新对话任务时，并没有大量标注数据，每个意图往往只有几个或十几个样本，那如何使用现有的少量样本构建意图分类模型呢？
+	
++ 弱监督的一种实现（给新样本打标签）
+
++ 数据增强（给新样本打标签） 
+
+第六：模型的退化问题（降低在训练集中的类别的预测能力）
+
+相关比赛：
+
+1.[SMP2020中文人机对话技术评测（ECDT）任务一：小样本对话语言理解技术评测](https://smp2020.aconf.cn/smp.html#3)
+
+![1_1](https://file.aconf.org/conf/hz/2020/03/174917/images/007S8ZIlly1gehkxmifxkj319g0gsk3n.jpg)
+
+相关实现：
+
+（1）《Induction Networks for Few-Shot Text Classification》
+
+1.https://github.com/gump1368/induction-network（PyTorch）
+
+2.https://github.com/wuzhiye7/Induction-Network-on-FewRel（TensorFlow）
+
+3.https://github.com/zychn/few-shot-learning（PyTorch）
+
+（2）《Few Shot Text Classification with a Human in the Loop》
+
+https://github.com/katbailey/few-shot-text-classification
+
+相关参考：
+
+（1）[如何解决少样本和多分类的问题？](https://www.zhihu.com/question/389155523)
