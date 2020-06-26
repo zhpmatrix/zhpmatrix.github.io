@@ -95,3 +95,6 @@ Talk给出了七种策略去学习一个能量函数，而这些目前并不准�
 
 （3）设计一个自监督学习任务还需要考虑什么？（shortcut；歧义；任务难度）
 
+7.[Self-supervised Learning 再次入门](https://zhuanlan.zhihu.com/p/108906502?utm_source=qq&utm_medium=social&utm_oi=52727124066304)
+
+提出一个核心问题：如何将SSL和特定任务结合是一个有价值的方向。
