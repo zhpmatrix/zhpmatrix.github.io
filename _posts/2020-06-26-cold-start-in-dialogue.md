@@ -58,6 +58,13 @@ distance.edit_distance('中国的首都', '中国的首都在哪')
 请问[DATE][LOC]天气怎么样
 ```
 
+补充：
+
+1.[聊天机器人中对话模板的高效匹配方法](https://blog.csdn.net/malefactor/article/details/52166235)，总结了三种规则范式，同时给出了一个加速模板检索的方案（基于倒排索引的方案）。
+
+2.[知乎：目前，人工智能机器人能够在多大程度上代替企业客服？](https://www.zhihu.com/question/42988490/answer/153685380?utm_source=wechat_session&utm_medium=social&s_s_i=T8t%2BkZBClNuN%2FxlGmH%2FFbC1oUw6vIlOGjjPwhUdG7QA%3D&s_r=1&from=singlemessage)，郑一轩同学关于长短期记忆那块内容。
+
+
 #### 多轮对话中的用户模拟器
 
 在多轮对话系统中，拿到多轮对话的真实数据是一件成本巨高的事情。因此，可以借助用户模拟器在冷启动阶段产生训练数据，基于该训练数据得到相关模型之后，就可以得到一个基本的具有和人类进行对话能力的机器人，继而拿到人类的真实数据。混合机器和人类数据之后，重新训练优化相关模型。至于在线优化，是一个完全基于真实对话数据的优化过程。
