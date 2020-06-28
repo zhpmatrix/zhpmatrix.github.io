@@ -65,6 +65,7 @@ distance.edit_distance('中国的首都', '中国的首都在哪')
 2.[知乎：目前，人工智能机器人能够在多大程度上代替企业客服？](https://www.zhihu.com/question/42988490/answer/153685380?utm_source=wechat_session&utm_medium=social&s_s_i=T8t%2BkZBClNuN%2FxlGmH%2FFbC1oUw6vIlOGjjPwhUdG7QA%3D&s_r=1&from=singlemessage)，郑一轩同学关于长短期记忆那块内容。
 
 
+
 #### 多轮对话中的用户模拟器
 
 在多轮对话系统中，拿到多轮对话的真实数据是一件成本巨高的事情。因此，可以借助用户模拟器在冷启动阶段产生训练数据，基于该训练数据得到相关模型之后，就可以得到一个基本的具有和人类进行对话能力的机器人，继而拿到人类的真实数据。混合机器和人类数据之后，重新训练优化相关模型。至于在线优化，是一个完全基于真实对话数据的优化过程。
@@ -76,6 +77,8 @@ distance.edit_distance('中国的首都', '中国的首都在哪')
 上述讨论的问题是没有样本，这里讨论的问题是有一些样本，但是这些样本不足以训练一些对话系统中需要的模型，因此FSL就是一种解决问题的可能的方案。可以参考之前的文章[Few/Zero Shot Learning简单梳理](https://zhpmatrix.github.io/2020/02/14/shot-learning/)。
 
 当然，FSL并非是解决少样本的唯一方法。数据少，那就搞更多的数据。[⽂本增强、半监督学习， 谁才是 NLP 少样本困境问题更优的解决⽅案？](https://cloud.tencent.com/developer/article/1648459)
+
+除此之外，[平安科技的数据增强技术用于冷启动问题。](https://zhuanlan.zhihu.com/p/112877845)
 
 参考:
 
