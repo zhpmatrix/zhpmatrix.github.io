@@ -64,6 +64,9 @@ distance.edit_distance('中国的首都', '中国的首都在哪')
 
 2.[知乎：目前，人工智能机器人能够在多大程度上代替企业客服？](https://www.zhihu.com/question/42988490/answer/153685380?utm_source=wechat_session&utm_medium=social&s_s_i=T8t%2BkZBClNuN%2FxlGmH%2FFbC1oUw6vIlOGjjPwhUdG7QA%3D&s_r=1&from=singlemessage)，郑一轩同学关于长短期记忆那块内容。
 
+3.[小爱的单轮/多轮判不停策略](https://mp.weixin.qq.com/s?__biz=MzU2ODY2MTUwNQ==&mid=2247484059&idx=1&sn=f10fd8232df41452e17a749ac0e13ecb&chksm=fc8bc1f5cbfc48e36426ed593e6ee834f5793898d968e2a02a0f86b16af5f60f74c9085bc021&mpshare=1&scene=23&srcid&sharer_sharetime=1593437525269&sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd)
+
+4.[基于词性的序列匹配](https://blog.csdn.net/weixin_34292287/article/details/91882974)
 
 
 #### 多轮对话中的用户模拟器
