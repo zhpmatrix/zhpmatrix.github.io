@@ -158,3 +158,11 @@ for text in text_list:
 18.[飞鹰系统，哈工大的文章](https://mp.weixin.qq.com/s?__biz=MzU2NDQ3MTQ0MA==&mid=2247485374&idx=1&sn=f85097d0c9d0d725f5e314041dfa4e3d&chksm=fc4b3441cb3cbd5701f79375f948f73bae60138ecb61d5851e4506c833b59ea5c22b0fb403a5&mpshare=1&scene=23&srcid&sharer_sharetime=1586748490212&sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd)
 
 19.[丁香园的一个工作](https://mp.weixin.qq.com/s?__biz=MzUyMDY0OTg3Nw==&mid=2247484225&idx=1&sn=6435258fb1aeb27dab441f4ecd66a502&chksm=f9e66ebbce91e7add59f4cb15c4f366409c937d5a4e8af9d27ae77e9bea0d7279baeb893956b&mpshare=1&scene=23&srcid&sharer_sharetime=1591590014192&sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd)
+
+20.2020年的三个工作：
+
+[平安寿险](https://mp.weixin.qq.com/s?__biz=MzU2MDkwMzEzNQ==&mid=2247485798&idx=2&sn=122b00674bfb7033d8b6875f1d6a9360&chksm=fc01afd6cb7626c07b2100bff92bec050c26e44e00e9cce7462e63510f0003ae0fbda030cdf1&mpshare=1&scene=23&srcid=0710wsa99Uc4PRvInfR38Ftx&sharer_sharetime=1595072313431&sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd)
+
+[丁香园](https://mp.weixin.qq.com/s?__biz=MzUyMDY0OTg3Nw==&mid=2247484261&idx=2&sn=fde09bfd7ae6482e24e0bf1d63c24ff1&chksm=f9e66e9fce91e7893fee5105335343df5871ff7af42e83edfc1ca5bae679117f86a97b3e93ee&mpshare=1&scene=23&srcid=0708kNf3341o19wYigMEddZr&sharer_sharetime=1595072323410&sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd)
+
+[小米](https://mp.weixin.qq.com/s?__biz=MzU1NTMyOTI4Mw==&mid=2247503412&idx=1&sn=75ef312902713d3766a43a6c71e1024e&chksm=fbd77c58cca0f54e3a9ffbe9ec075a144e8b16a171287367173d4a0d69f511106335c7b05298&mpshare=1&scene=23&srcid=0715O91EigE98rTxYGPFAhTG&sharer_sharetime=1594786619222&sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd)
