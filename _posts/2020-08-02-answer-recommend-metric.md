@@ -120,7 +120,7 @@ IDCG（你们家发货有点慢啊） = （2^5-1）/log2(2)+(2^3-1)/log2(3)+(2^0
 
 综上，针对答案推荐，指标选择如下：业务侧采用采纳率；模型侧采用MAP。还有其他的一些想法吗？
 
-
+参考:[怎么理解推荐系统中的NDCG？](http://sofasofa.io/forum_main_post.php?postid=1002561)，[信息检索中的评价指标](https://www.cnblogs.com/ywl925/archive/2013/08/16/3262209.html),[怎么评估工业级推荐系统的效果？](https://www.infoq.cn/article/Hz_w4DA4RdeBvdBVVfbX)
 
 
 
