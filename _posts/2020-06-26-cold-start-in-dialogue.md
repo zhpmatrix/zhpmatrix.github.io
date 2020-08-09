@@ -88,3 +88,5 @@ distance.edit_distance('中国的首都', '中国的首都在哪')
 1.[Lambda，柯里化与聊天机器人](https://zhuanlan.zhihu.com/p/100084125)
 
 2.阿⾥云⼩蜜对话机器⼈背后的核⼼算法
+
+3.《Generalizing from a Few Examples：A Survey on Few-Shot Learning》，最近比较新的综述文章
