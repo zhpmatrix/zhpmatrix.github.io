@@ -166,3 +166,5 @@ for text in text_list:
 [丁香园](https://mp.weixin.qq.com/s?__biz=MzUyMDY0OTg3Nw==&mid=2247484261&idx=2&sn=fde09bfd7ae6482e24e0bf1d63c24ff1&chksm=f9e66e9fce91e7893fee5105335343df5871ff7af42e83edfc1ca5bae679117f86a97b3e93ee&mpshare=1&scene=23&srcid=0708kNf3341o19wYigMEddZr&sharer_sharetime=1595072323410&sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd)
 
 [小米](https://mp.weixin.qq.com/s?__biz=MzU1NTMyOTI4Mw==&mid=2247503412&idx=1&sn=75ef312902713d3766a43a6c71e1024e&chksm=fbd77c58cca0f54e3a9ffbe9ec075a144e8b16a171287367173d4a0d69f511106335c7b05298&mpshare=1&scene=23&srcid=0715O91EigE98rTxYGPFAhTG&sharer_sharetime=1594786619222&sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd)
+
+21.[针对OCR的NLP纠错](2019-02-01-rethinking-spellchecker.md)
