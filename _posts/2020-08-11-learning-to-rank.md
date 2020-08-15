@@ -58,4 +58,8 @@ https://www.cnblogs.com/wowarsenal/p/3900359.html
 
 https://www.cnblogs.com/wowarsenal/p/3906081.html
 
+[lambdaMART在RankLib中的实现流程](https://blog.csdn.net/huagong_adu/article/details/40710305)
+
+[一个具体例子讲解MART](https://zhuanlan.zhihu.com/p/81016622)
+
 4.[ES中的_score得分计算](https://blog.csdn.net/paditang/article/details/79098830)
