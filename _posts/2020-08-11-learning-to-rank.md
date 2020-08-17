@@ -63,3 +63,7 @@ https://www.cnblogs.com/wowarsenal/p/3906081.html
 [一个具体例子讲解MART](https://zhuanlan.zhihu.com/p/81016622)
 
 4.[ES中的_score得分计算](https://blog.csdn.net/paditang/article/details/79098830)
+
+5.[投资知道：基于BERT的中文问答匹配检测](https://blog.csdn.net/zp563987805/article/details/104350670)
+
+6.[投资知道：基于BERT的中文最佳答案推荐](https://blog.csdn.net/zp563987805/article/details/104406026)
