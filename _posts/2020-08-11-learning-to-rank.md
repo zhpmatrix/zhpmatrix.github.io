@@ -6,6 +6,12 @@ date: 2020-08-02 15:09:00
 mathjax: true
 ---
 
+"TopN推荐"是一个经典课题。一般来说，有三种经典的研究范式：
+
++ 回归建模。也就是给每个推荐品打个分。
++ 分类建模。针对二分类，预测推荐品用户是否喜欢；多分类，类别个数就是推荐品的个数，一种场景是根据用户的历史行为预测喜欢的物品[YouTube2016年的工作]。
++ 排序学习。
+
 （1）point-wise/pair-wise/list-wise
 
 在Ranking中，分类等价于point-wise。pair-wise的样本是由一个正样本+一组负样本构成，这里有两个样本的概念上的区别。list-wise是由一组有序样本构成。对于不同的问题，可以有不同的理解，在[文章](http://kubicode.me/2016/02/15/Machine%20Learning/Learning-To-Rank-Base-Knowledge/)中给出了一种针对给定Query下的三种方式解释。
