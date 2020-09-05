@@ -60,6 +60,8 @@ mathjax: true
 
 #### 相关文章评论
 
+14.[chatopera的聊天机器人汇总](https://github.com/chatopera/chatbot.catalog.customer-service)，比较新的资料汇总。
+
 13.[解密 chatbot 人工智能聊天机器人 技术沙龙](https://mp.weixin.qq.com/s/r7vPOSdH7XK_3jc1WLqr2Q)
 
 在自然语言理解的难点总结上比较到位：
@@ -147,3 +149,4 @@ Duplex是语音机器人，文章中列举了具体的人机交互的语音片�
 0.[阿里小蜜-电商领域的智能助理技术实践,阿里巴巴-智能服务事业部-小蜜机器人X-Lab ——张佶(吉仁)](http://bos.itdks.com/79928a1b774c4d88a0c1b171d990263e.pdf)
 
 微软和剑桥基于RL的工作用于多轮增强式导购。相关工作：[蚂蚁金服-温祖杰的分享](https://yq.aliyun.com/live/2446)。基于强化学习的交互式澄清，基于强化学习的交互式文本推荐，基于强化学习的客户路由三个工作。
+
