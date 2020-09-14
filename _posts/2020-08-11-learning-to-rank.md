@@ -54,7 +54,7 @@ mathjax: true
 
 《RankQA: Neural Question Answering with Answer Re-Ranking》，ACL2019的工作，在该工作中，给出了一些关于特征构造的启发。
 
-![img_feature](https://wx4.sinaimg.cn/mw690/aba7d18bly1giq4oyfyawj20kh0gqjuy.jpg)
+![img_feature](https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/feature.jpg?raw=true)
 
 参考：
 
