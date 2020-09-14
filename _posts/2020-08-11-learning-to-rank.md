@@ -79,3 +79,11 @@ https://www.cnblogs.com/wowarsenal/p/3906081.html
 5.[投资知道：基于BERT的中文问答匹配检测](https://blog.csdn.net/zp563987805/article/details/104350670)
 
 6.[投资知道：基于BERT的中文最佳答案推荐](https://blog.csdn.net/zp563987805/article/details/104406026)
+
+7.《Dynamic Updating of the Knowledge Base for a Large-Scale Question Answering System》
+
+主要内容：自动化问答库构建（主要是QA匹配的工作讨论）
+
+作者：晓多科技（智能客服赛道的大玩家），江岭
+
+亮点：有真实线上数据反馈
