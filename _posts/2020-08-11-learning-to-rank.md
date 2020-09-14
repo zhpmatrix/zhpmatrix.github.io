@@ -50,6 +50,12 @@ mathjax: true
 
 ![img_](https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/%E7%AD%94%E6%A1%88%E6%8E%A8%E8%8D%90(L2R).png?raw=true)
 
+补充：
+
+《RankQA: Neural Question Answering with Answer Re-Ranking》，ACL2019的工作，在该工作中，给出了一些关于特征构造的启发。
+
+![img_feature](https://wx4.sinaimg.cn/mw690/aba7d18bly1giq4oyfyawj20kh0gqjuy.jpg)
+
 参考：
 
 1.[Learning to Rank学习基础](http://kubicode.me/2016/02/15/Machine%20Learning/Learning-To-Rank-Base-Knowledge/)
