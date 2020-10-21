@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "[NLP]兜底哲学：规则引擎方法论"
-excerpt: "啥？不会写规则，你是假的算法工程师吧。"
+excerpt: "秋水共长天一色，模型与规则齐飞。"
 date: 2020-10-21 17:58:00
 mathjax: true
 ---
@@ -149,3 +149,5 @@ A:哥，我不敢认识<PersonName>.Value啊。
 2.[关于规则引擎](https://zhuanlan.zhihu.com/p/54133598)，总结了规则引擎的几个开源实现
 
 3.[复杂风控场景下，如何打造一款高效的规则引擎](https://zhuanlan.zhihu.com/p/140916822)
+
+4.[Should I use a Rules Engine?](https://martinfowler.com/bliki/RulesEngine.html)
