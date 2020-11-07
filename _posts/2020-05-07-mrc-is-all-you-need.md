@@ -132,3 +132,7 @@ Query2：老张为哪个公司工作？结果：京东
 非常棒的总结，同时算是对文本分类任务在modeling方式上的一个探讨。当然可以用完形填空的方式做文本分类的任务。
 
 重要文献：《The Natural Language Decathlon: Multitask Learning as Question Answering》
+
+补充：
+
+1.《LANGUAGE MODEL IS ALL YOU NEED: NATURAL LANGUAGE UNDERSTANDING AS QUESTION ANSWERING》
