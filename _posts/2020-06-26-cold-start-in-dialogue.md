@@ -90,3 +90,5 @@ distance.edit_distance('中国的首都', '中国的首都在哪')
 2.阿⾥云⼩蜜对话机器⼈背后的核⼼算法
 
 3.《Generalizing from a Few Examples：A Survey on Few-Shot Learning》，最近比较新的综述文章
+
+4.[柔性多模正则匹配引擎](https://mp.weixin.qq.com/s?__biz=MzU1NTMyOTI4Mw==&mid=2247507605&idx=2&sn=d4cfd8834f03a77936300536f4667769&chksm=fbd76cf9cca0e5effd671ebcf1bbde3bca4e141ef9ed42cd3723d094b65e6d5f227e1f1e8dd5&mpshare=1&scene=23&srcid=1129HUwTr4VcmjhR0aMPfwJ9&sharer_sharetime=1606586665741&sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd)
