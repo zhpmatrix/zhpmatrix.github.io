@@ -90,6 +90,8 @@ mathjax: true
 
 比如，模型在一个NLP算法工程师的日常中，占的比重真的不高。分析各种问题，解决各种可能是来自数据，模型，工程上的各种问题。必要时，给产品同学科普算法能力，销售算法能力。
 
+时隔好久，看到凯飞的一篇[文章](https://mp.weixin.qq.com/s?__biz=MzU1NTMyOTI4Mw==&mid=2247501830&idx=1&sn=70809ee69329f38f33f6f3a8162e179c&chksm=fbd77a6acca0f37c4d9516f2a8e820e0f18a9e13dad0dc3fc41829f41bab02842bd0d98e9a9a&mpshare=1&scene=23&srcid=1129PWSSuY2GE2aUmsRoSrXF&sharer_sharetime=1606587573322&sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd)，颇有感触，以飨读者。
+
 
 
 
