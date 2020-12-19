@@ -7,10 +7,10 @@ mathjax: true
 ---
 
 对于知识图谱的构建，从非结构化数据中构建，知识的价值更高，但是对信息抽取能力的要求也更高；从结构化数据中构建，可以弱化对信息抽取能力的要求，转而将重心放在应用层，这对于一个有大量结构化数据积累的团队而言，是非常有吸引力的。
-![img_1](https://wx2.sinaimg.cn/mw690/aba7d18bly1glt6n0o589j20zk0k0my7.jpg)
+![img_1](https://tva1.sinaimg.cn/mw690/aba7d18bly1glt6n0o589j20zk0k0my7.jpg)
 ![img_2](https://wx1.sinaimg.cn/mw690/aba7d18bly1glt6n5eo5zj20zk0k0jso.jpg)
 为了讲清楚图数据库和传统关系型数据库有啥区别？从一个具体例子出发。
-![img_3](https://wx4.sinaimg.cn/mw690/aba7d18bly1glt6n91ik4j20zk0k00ux.jpg)
+![img_3](https://tva4.sinaimg.cn/mw690/aba7d18bly1glt6n91ik4j20zk0k00ux.jpg)
 ![img_4](https://wx1.sinaimg.cn/mw690/aba7d18bly1glt6nckrxjj20zk0k0mzj.jpg)
 ![img_5](https://wx2.sinaimg.cn/mw690/aba7d18bly1glt6nituwjj20zk0k0767.jpg)
 ![img_6](https://wx1.sinaimg.cn/mw690/aba7d18bly1glt6ozp1fhj20zk0k0432.jpg)
