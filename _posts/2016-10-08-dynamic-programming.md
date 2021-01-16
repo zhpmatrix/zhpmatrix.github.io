@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[ACM]再聊动态规划"
+title: "[LeetCode]再聊动态规划"
 excerpt: "从问题中验证思想"
 data: 2016-10-08 08:58
 mathjax: true
