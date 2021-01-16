@@ -38,6 +38,14 @@ mathjax: true
 
 10.[从最优装载看贪心](https://zhpmatrix.github.io/2016/11/10/optimal-load-problem/)
 
+11.[有趣的数据结构](https://zhpmatrix.github.io/2020/01/22/ds-in-lc/)
+
+12.[系统设计题](https://zhpmatrix.github.io/2020/01/21/system-design/)
+
+13.[字符串](https://zhpmatrix.github.io/2020/01/21/string/)
+
+14.[Hash,值得拥有](https://zhpmatrix.github.io/2020/01/21/hash-tricks/)
+
 ####1.LRU（系统设计题）
 
 ```
