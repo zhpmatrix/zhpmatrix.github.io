@@ -16,6 +16,28 @@ mathjax: true
 
 （4）代码题真的很能考验思维能力，有些题目也的确是非常的有意思，值得好好思考。
 
+### 相关博客
+
+1.[LC100:相约新年伊始](https://zhpmatrix.github.io/2020/01/22/LC-100/)
+
+2.[为什么要LC，从树开始](https://zhpmatrix.github.io/2020/01/21/tree/)
+
+3.[重说：递归](https://zhpmatrix.github.io/2019/01/01/recursive-ideas/)
+
+4.[重说：动态规划](https://zhpmatrix.github.io/2019/01/01/dp-ideas/)
+
+5.[关于Gas Station的思考](https://zhpmatrix.github.io/2017/11/10/gas-station/)
+
+6.[浅聊算法思想和策略](https://zhpmatrix.github.io/2016/10/07/algorithm-review/)
+
+7.[再聊动态规划](https://zhpmatrix.github.io/2016/10/08/dynamic-programming/)
+
+8.[两个Tricks](https://zhpmatrix.github.io/2016/10/11/code-tricks/)
+
+9.[NP问题和近似算法](https://zhpmatrix.github.io/2016/10/28/np-problem/)
+
+10.[从最优装载看贪心](https://zhpmatrix.github.io/2016/11/10/optimal-load-problem/)
+
 ####1.LRU（系统设计题）
 
 ```
@@ -505,4 +527,37 @@ class Solution:
                 else:
                     dp[i][j] = 1 + min(dp[i-1][j-1], dp[i][j-1], dp[i-1][j])#修改，增加和删除
         return dp[m-1][n-1]
+```
+
+#### 21.最长不含重复字符的子字符串
+
+```
+#滑动窗口
+def lengthOfLongestSubstring(s: str)->int：
+	head=tail=0
+	ans = 1
+	if len(s) < 2: return len(s)
+	while tail < len(s) - 1:
+		tail += 1
+		if s[tail] not in s[head:tail]:
+			ans = max(tail-head+1, ans)
+		else:
+			while s[tail] in s[head:tail]:
+				head += 1
+	return ans
+```
+
+#### 22.最长上升子序列
+
+```
+#状态转移方程：dp[i] = max(dp[j]) + 1，其中0 <= j < i 且nums[j] < nums[i]
+#结果：max(dp[i])，其中0 <= i < n
+def lengthOfLIS(nums)->int:
+	if not nums: return 0
+	dp = [1 for _ in len(nums)]
+	for i in range(len(nums)):
+		for j in range(i):
+			if nums[i] > nums[j]:
+				dp[i] = max(dp[j]+1, dp[i])
+	return max(dp)
 ```
