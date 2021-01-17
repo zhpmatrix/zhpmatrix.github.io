@@ -145,6 +145,38 @@ class BinaryTree:
 		return root
 ```
 
+#### 3.1删除二叉搜索树中的节点
+
+```
+class Solution:
+	def successor(self, root):
+		root = root.right
+		while root.left:
+			root = root.left
+		return root
+	def predecessor(self, root):
+		root = root.left
+		while root.right:
+			root = root.right
+		return root
+	def deleteNode(self, root, key):
+		if not root: return None
+		if key > root.val:
+			root.right = self.deleteNode(root.right, key)
+		elif key < root.val:
+			root.left = self.deleteNode(root.left, key)
+		else:
+			if not root.left and not root.right:
+				root = None
+			elif root.right:#后继节点的值替代当前节点，删除后继节点
+				root.val = self.successor(root)
+				root.right = self.deleteNode(root.right, root.val)
+			else:
+				root.val = self.predecessor(root)#前继节点的值替代当前节点，删除前继节点
+				root.left = self.deleteNode(root.left, root.val)
+		return root
+```
+
 #### 4.二叉树的遍历
 
 ```
@@ -160,6 +192,11 @@ def in_order(root):
 		in_order(root.left)
 		print(root.val)
 		in_order(root.right)
+		
+#另外的写法
+def in_order(root):
+	return in_order(root.left) + [root.val] + in_order(root.right) if root else []
+
 def post_order(root):
 	if root:
 		post_order(root.left)
@@ -174,6 +211,8 @@ def layer_order(root):
 		if node.left:queue.append(node.left)
 		if node.right:queue.append(node.right)
 ```
+
+TIPS：实现层次遍历二叉树，奇数层从左向右遍历，偶数层从右向左遍历
 
 #### 4.1N叉树的前序遍历
 
@@ -343,6 +382,8 @@ def permutations(nums, start, end):
 			nums[i], nums[start] = nums[start], nums[i]
 ```
 
+TIPS：组合问题呢？
+
 #### 12.斐波那契数列和爬楼梯
 
 ```
@@ -458,6 +499,25 @@ def findKthLargest(nums, k)->int:
 	return -1 * heapq.heappop(nums)
 ```
 
+#### 16.1.数组中前K个高频元素
+
+```
+def topKFrequent(nums, k):
+	return [e[0] for e in collections.Counter(nums).most_common(k)]
+```
+
+```
+def topKFrequent(nums, k):
+	dic = collections.Counter(nums)
+	heap, ans = [], []
+	for i in dic:
+		heapq.heappush(heap, (-dic[i],i))
+	for _ in range(k):
+		ans.append(heapq.heappop(heap)[1])
+	return ans
+```
+
+
 #### 17.最长公共子串
 
 ```
@@ -568,4 +628,100 @@ def lengthOfLIS(nums)->int:
 			if nums[i] > nums[j]:
 				dp[i] = max(dp[j]+1, dp[i])
 	return max(dp)
+```
+#### 23.验证是否是二叉搜索树
+
+```
+def isValidBST(root):
+	def dfs(node, min_val, max_val):
+		if not node: return True
+		if not min_val < node.val < max_val:
+			return False
+		return dfs(node.left, min_val, node.val) and dfs(node.right, node.val, max_val)
+	return dfs(root, float("-inf"), float("inf"))
+```
+
+#### 24.两数相加（链表）
+
+```
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        # 创建一个结点值为 None 的头结点, dummy 和 p 指向头结点, dummy 用来最后返回, p 用来遍历
+        dummy = p = ListNode(None)          
+        s = 0               # 初始化进位 s 为 0
+        while l1 or l2 or s:
+            # 如果 l1 或 l2 存在, 则取l1的值 + l2的值 + s(s初始为0, 如果下面有进位1, 下次加上)
+            s += (l1.val if l1 else 0) + (l2.val if l2 else 0)  
+            p.next = ListNode(s % 10)       # p.next 指向新链表, 用来创建一个新的链表
+            p = p.next                      # p 向后遍历
+            s //= 10                        # 有进位情况则取模, eg. s = 18, 18 // 10 = 1
+            l1 = l1.next if l1 else None    # 如果l1存在, 则向后遍历, 否则为 None
+            l2 = l2.next if l2 else None    # 如果l2存在, 则向后遍历, 否则为 None
+        return dummy.next   # 返回 dummy 的下一个节点, 因为 dummy 指向的是空的头结点, 下一个节点才是新建链表的后序节点
+```
+
+#### 25.对称二叉树
+
+```
+def isSymmetric(root):
+	if not root: return True
+	def isSym(root1, root2):
+		#和判断两棵树是否相同的逻辑类似，区别在于递归部分代码
+		if not root1 and not root2:
+			return True
+		if root1 and root2 and root1.val == root2.val:
+			return isSym(root1.left, root2.right) and isSym(root1.right, root2.left)
+		return False
+		
+	return isSym(root.left, root.right)
+```
+
+#### 25.翻转二叉树
+
+```
+def invertTree(root):
+	if not root: return root
+	left = invertTree(root.left)
+	right = invertTree(root.right)
+	root.left, root.right = right, left
+	return root
+```
+
+TIPS：分析树递归的好题目
+
+#### 26.搜索旋转排序数组
+
+```
+def search(nums, target):
+	if not nums: return -1
+	l, r = 0, len(nums)-1
+	while l <= r:
+		mid = (l+r)//2
+		if nums[mid] == target:
+			return mid
+		if nums[0] <= nums[mid]:
+			if nums[0] <= target < nums[mid]:
+				r = mid - 1
+			else:
+				l = mid  + 1
+		else:
+			if nums[mid] < target <= nums[len(nums)-1]:
+				l = mid + 1
+			else:
+				r = mid -1
+	return -1
+```
+
+#### 27.最长公共前缀
+
+```
+def longestCommonPrefix(strs):
+	res = ""
+	for tmp in zip(*strs):
+		tmp_set = set(tmp)
+		if len(tmp_set) == 1:
+			res += tmp[0]
+		else:
+			break
+	return res
 ```
