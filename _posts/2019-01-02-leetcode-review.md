@@ -725,3 +725,17 @@ def longestCommonPrefix(strs):
 			break
 	return res
 ```
+
+#### 28.一棵树是否是另一棵树的子树
+
+```
+def isSubtree(s, t):
+	if not s and not t: return True
+	if not s or not t: return False
+	retrun self.isSameTree(s,t) or isSubtree(s.left, t) or isSubtree(s.right, t)
+def isSameTree(s,t):
+	#判断两棵树是否相同
+	if not s and not t: return True
+	if not s or not t: return False
+	return s.val == t.val and isSameTree(s.left, t.left) and isSameTree(s.right, t.right)
+```
