@@ -739,3 +739,82 @@ def isSameTree(s,t):
 	if not s or not t: return False
 	return s.val == t.val and isSameTree(s.left, t.left) and isSameTree(s.right, t.right)
 ```
+
+#### 29.[单调栈相关](https://blog.csdn.net/qq_17550379/article/details/86519771)
+
+```
+#下一个更大的元素
+def nextGreaterElement(nums):
+	stack = []
+	res = [-1] * len(nums)
+	for i, n in enumerate(nums):
+		while stack and nums[stack[-1]] < n:
+			res[stack.pop()] = n
+		stack.append(i)
+	return res
+#前一个更大的元素
+def preGreaterElement(nums):
+	stack = []
+	res = [-1] * len(nums)
+	for i, n in enumerate(nums):
+		while stack and nums[stack[-1]] < n:
+			stack.pop()
+		if stack:
+			res[i] = nums[stack[-1]]
+		stack.append(i)
+	return res
+#下一个更小的元素
+def nextSmallerElement(nums):
+	stack = []
+	res = [-1] * len(nums)
+	for i, n in enumerate(nums):
+		while stack and nums[stack[-1]] > n:
+			res[stack.pop()] = n
+		stack.append(i)
+	return res
+#前一个更小的元素
+def preSmallerElement(nums):
+	stack = []
+	res = [-1] * len(nums)
+	for i, n in enumerate(nums):
+		while stack and nums[stack[-1]] > n:
+			stack.pop()
+		if stack:
+			res[i] = nums[stack[-1]]
+		stack.append(i)
+	return res
+```
+
+#### 30.大数加法/相乘
+
+```
+#大数相加
+def addStrings(num1: str, num2: str)->str:
+	s1 = list(num1)[::-1]
+	s2 = list(num2)[::-1]
+	carry = 0
+	res = []
+	i = 0
+	while i < len(s1) or i < len(s2) or carry:
+		n1 = int(s1[i]) if i < len(s1) else 0
+		n2 = int(s2[i]) if i < len(s2) else 0
+		#返回商和余数
+		carry,n = divmod(n1+n2+carry,10)
+		res.append(str(n))
+		i += 1
+	return "".join(res[::-1])
+
+#大数相乘
+def multiply(num1: str, num2: str)->str:
+	if num1 == "0" or num2 == "0":
+		return "0"
+	result = 0
+	num1 = num1[::-1]
+	num2 = num2[::-1]
+	for i, x in enumerate(num1):
+		tmp = 0
+		for j, y in enumerate(num2):
+			tmp += int(x) * int(y) * 10 ** j
+		result += tmp * 10 ** i
+	return str(result)
+```
