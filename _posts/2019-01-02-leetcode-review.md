@@ -818,3 +818,44 @@ def multiply(num1: str, num2: str)->str:
 		result += tmp * 10 ** i
 	return str(result)
 ```
+
+#### 31.驼峰命名法转下划线
+
+```
+def get_trans_name(text):
+    length=len(text)
+    lst=[]
+    for i in range(length):
+        # 前一个字母大写，后一个字母小写，将该字母从大写转换成小写
+        if i+1<length and  text[i].isupper() and not text[i+1].isupper():
+            lst.append(text[i].lower())
+        else:
+            lst.append(text[i])
+        # 前一个字母是小写，后一个字母是大写的情景
+        if not text[i].isupper() and i+1<length and text[i+1].isupper():
+            lst.append("_")
+        # 前两个字母是大写，后一个字母是小写的情景
+        if text[i].isupper() and i+2<length and text[i+1].isupper() and not text[i+2].isupper():
+            lst.append("_")
+    return "".join(lst) 
+```
+
+#### 32.移除K位数字
+
+```
+def removeKdigits(num, k):
+	stack = []
+	remain = len(num)-k
+	for digit in num:
+		while k and stack and stack[-1] > digit:
+			stack.pop()
+			k -= 1
+		stack.append(digit)
+	return "".join(stack[:remain]).lstrip("0")#合法的数字要去掉之前的“0”
+```
+
+TIPS：[单调栈问题](https://leetcode-cn.com/problems/remove-duplicate-letters/solution/yi-zhao-chi-bian-li-kou-si-dao-ti-ma-ma-zai-ye-b-4/)
+
+#### 33.[双指针的基础经典题](https://hackerxiaobai.github.io/2020/10/30/%E5%8F%8C%E6%8C%87%E9%92%88%E5%B0%BD%E9%87%8FO-n-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%A7%A3%E9%A2%98/#more)
+
+TIPS: 以单链表为主的快慢指针问题+以二分查找为主的左右指针
