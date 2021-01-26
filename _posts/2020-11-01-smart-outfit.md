@@ -124,3 +124,7 @@ Graph结构是一种通用的数据组织方式，适用于图片和文本，在
 
 6.极睿科技
 
+7.[《Aesthetics, Personalization and Recommendation: A survey
+on Deep Learning in Fashion》](https://arxiv.org/pdf/2101.08301.pdf)
+
+最新的一篇综述文章。
