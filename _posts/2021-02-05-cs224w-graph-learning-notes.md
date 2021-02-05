@@ -105,5 +105,10 @@ subject：
 具体哪种路线，需要深入结合业务场景，有的放矢。
 
 
+补充相关文章：
 
+（1）[GNN的天花板在哪里？](https://towardsdatascience.com/limitations-of-graph-neural-networks-2412fffe677)
 
+（2）[我们真的需要图神经网络吗？](https://towardsdatascience.com/do-we-need-deep-graph-neural-networks-be62d3ec5c59towardsdatascience.com)
+
+（3）[图神经网络是没啥屌用的？](https://www.singlelunch.com/2020/12/28/why-im-lukewarm-on-graph-neural-networks/)
