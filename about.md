@@ -29,3 +29,5 @@ Github:[@zhpmatrix](https://github.com/zhpmatrix/)
     打赏方式（如果博客的有些文章能够在某个方面帮到了您，那就请喝咖啡吧，可乐也行，要不棒冰？）
 
 ![pay](https://ftp.bmp.ovh/imgs/2021/02/481e447cd8e12df5.png)
+
+TIPs:打赏可以在备注中说明联系方式(博客地址，微信号或者其他，方便我们后续进一步互相了解和学习。)
