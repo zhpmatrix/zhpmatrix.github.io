@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "[LeetCode]设计题目"
-excerpt: ""
+excerpt: "传统算法中的系统设计类题目汇总列表，不包含思路"
 date: 2020-01-21 18:53:00
 mathjax: true
 ---
