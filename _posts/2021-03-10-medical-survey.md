@@ -107,7 +107,7 @@ mathjax: true
 
 好了，有几个故事想讲给你听，见参考（5）。
 
-但是，别忘了，投资50亿的IBM医疗裁员70%这样的新闻，可能的风险点在哪里？在接下来的博客中会单独分析这个事情。
+但是，别忘了，投资50亿的IBM医疗裁员70%这样的新闻，可能的风险点在哪里？可以参考（6）。
 
 **参考文献和部分数据来源：**
 
@@ -120,3 +120,5 @@ mathjax: true
 (4)腾讯天衍实验室：https://jarvislab.tencent.com/
 
 (5)故事：http://share.591adb.com/sharearticle/article/article_id/3524764/app_key/e70891ddafa5e012828c143390cdad9e
+
+(6)IBM医疗的问题：https://spectrum.ieee.org/biomedical/diagnostics/how-ibm-watson-overpromised-and-underdelivered-on-ai-health-care
