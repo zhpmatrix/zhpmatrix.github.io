@@ -181,3 +181,38 @@ Topic->weather
 3.[复杂风控场景下，如何打造一款高效的规则引擎](https://zhuanlan.zhihu.com/p/140916822)
 
 4.[Should I use a Rules Engine?](https://martinfowler.com/bliki/RulesEngine.html)
+
+5.[Stanford RegexNER](https://nlp.stanford.edu/software/regexner.html)，支持多种自定义NER的后处理规则（百度的LAC也同样支持，但是功能不如RegexNER），如下：
+
+第一种（直接标注实体）：
+
+```
+Bachelor of Arts	DEGREE
+Bachelor of Laws	DEGREE
+```
+
+第二种（或关系标注）：
+
+```
+Bachelor of (Arts|Laws|Science|Engineering|Divinity)	DEGREE
+```
+
+第三种（多标签标注）：
+
+```
+Bachelor of (Arts|Laws|Science|Engineering|Divinity)	DEGREE
+Lalor	LOCATION	PERSON
+Labor	ORGANIZATION
+```
+
+第四种（规则优先级）
+
+```
+Bachelor of (Arts|Laws|Science|Engineering|Divinity)	DEGREE		2.0
+Lalor	LOCATION	PERSON
+Labor ORGANIZATION
+Bachelor of Arts	EASY_DEGREE
+Bachelor of Laws	HARD_DEGREE		3.0
+```
+
+6.[Stanford TokensRegex](https://nlp.stanford.edu/software/tokensregex.html#TokensRegexPatterns)，是RegexNER更底层的实现，更加灵活的同时，也更加的复杂。
