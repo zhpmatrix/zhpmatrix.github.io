@@ -72,6 +72,9 @@ mathjax: true
 
 ![img6](https://ftp.bmp.ovh/imgs/2021/03/84312cb964b1fbe4.png)
 
+补充一个类似的工作：
+
+[商品标题归集](https://tianchi.aliyun.com/competition/entrance/231629/information)
 
 #### 三.链接预测
 
