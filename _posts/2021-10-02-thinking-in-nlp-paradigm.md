@@ -9,8 +9,11 @@ mathjax: true
 NLP的主流范式约有七种，包括分类，匹配，序列标注，阅读理解等，而在解决具体问题时，可以从一种范式转移到另外一种范式，甚至多种范式的综合使用，这称之为NLP的范式转移。具体如下：
 
 ---
+
 ![](https://s3.bmp.ovh/imgs/2021/10/54cae8f24fd05f34.png)
+
 ---
+
 
 上图来自文章Xuanjing Huang组的《Paradigm Shift in Natural Language Processing》，其中的（f），全称为sequence-to-action-sequence，形式的表达为：
 
@@ -21,7 +24,9 @@ NLP的主流范式约有七种，包括分类，匹配，序列标注，阅读�
 既然有了这些范式，那么范式之间是如何转移的呢？具体如下(图片来自[这里](https://txsun1997.github.io/nlp-paradigm-shift/))：
 
 ---
-![](https://txsun1997.github.io/nlp-paradigm-shift/paradigm_shift.png)
+
+![](https://s3.bmp.ovh/imgs/2021/10/7f0942a3f685efb4.png)
+
 ---
 
 以文本分类为例，传统的文本分类采用Class范式，该范式分为one-hot和multi-hot两种，对于multi-hot的问题，Class范式是一种次优范式。而通过将Class转化为Seq2Seq范式，有效利用label之间的交互信息。此外，label本身的语义信息在Class范式中也并未被充分的利用，而通过将Class范式转化为Matching范式,可以充分利用label中的先验信息,尤其是在数据资源较少的前提下。在预训练任务流行的现在，将Class范式转化为（M）LM的方式，可以充分利用预训练语言模型本身的能力。
