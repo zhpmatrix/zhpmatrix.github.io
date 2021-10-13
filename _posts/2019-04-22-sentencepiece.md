@@ -146,6 +146,8 @@ subword sampling和基于unigram的language model算法都是kudo在一篇文章
 
 补充：Huggingface也写了一个分词器，有同学实测比Transformers内置的要快。
 
+补充：《Fast WordPiece Tokenization》,EMNLP2021的工作，“8.2x faster than HuggingFace Tokenizers and 5.1x faster than TensorFlow Text on average for general text tokenization.“
+
 
 
 
