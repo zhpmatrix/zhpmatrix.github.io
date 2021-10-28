@@ -20,6 +20,4 @@ Github:[@zhpmatrix](https://github.com/zhpmatrix/)
 
 微博:[@zhpmatrix](https://www.weibo.com/u/2879902091/home)
 
-微信:
 
-![me](https://ftp.bmp.ovh/imgs/2021/07/3f7f4a1c0d933e08.png)
