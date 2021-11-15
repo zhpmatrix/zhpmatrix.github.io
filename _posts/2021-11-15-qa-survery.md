@@ -67,36 +67,9 @@ mathjax: true
 |是否有问答匹配环节|通常有的环节是QQ匹配，但是QA匹配有独特的价值，相似而非相关||
 |主动学习|人机协同完成系统优化||
 
-整个探索中，最具争议性的内容就存在与此。基于上述文字稿数据库和定义的维度体系，我们做了一个基本的结构化数据库，如下：
+整个探索中，最具争议性的内容就存在与此。基于上述文字稿数据库和定义的维度体系，我们做了一个基本的结构化数据库，截图如下：
 
-|产品名称|研发主体|是否应用BERT|是否采用用户画像|用户问题自动补全|会话过程中的问题澄清|情绪识别能力|重要评价指标|[个性化答案](https://mp.weixin.qq.com/s/d6ie_Q-NyMh4Sp4mXWqpyQ)|基于LTR的排序|策略排序|对话开发平台|是否有问答匹配环节|主动学习|年份|
-|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|
-|智齿客服|智齿科技||是|是||||||||||
-|[云小微](https://mp.weixin.qq.com/s/2ynGDUmxtjOlOktxagivUg)|腾讯|是||||||||||||
-|[YiBot](https://mp.weixin.qq.com/s/9-HUoePmGvv40JVWcPtHew)|追一|||||是||||||||
-|[七鱼](https://www.toutiao.com/a6491864897222083085/?timestamp=1572194640&app=news_article&group_id=6491864897222083085&req_id=2019102800440001001404115117B2ADF3&wid=1635681797986)|网易|||||||||||||
-|支付宝客服系统|蚂蚁金服||||是|||是|||||||
-|[Dr.Cleaner的客服系统](https://mp.weixin.qq.com/s/zjlFTc6tPVXyOYo2d4GVbQ)|趋势科技||||||||||||
-|小i机器人（[银行端智能文本客服的垄断方](https://mp.weixin.qq.com/s/UX_JABQ7YlhSKbDCPF4fyw)）||||||||||||||
-|问财|同花顺|||||||||||||
-|JIMI|京东||是||||[问题预判准确率/问题识别率/答案满意度/24小时未转人工率/客户满意度/交互轮次](https://mp.weixin.qq.com/s/n-uicubtTFyOH00HAvRgMQ)|||||||
-|[智慧客服/AI助理/慧小安](https://mp.weixin.qq.com/s/bzGBKGSHuiUaMD1SV7xsAg)|平安寿险|是|||||||是|是||||
-|阿里小蜜|阿里|||||[是](https://mp.weixin.qq.com/s?__biz=MzU1NTMyOTI4Mw==&mid=2247490526&idx=1&sn=4012fe053aeff0cd76b1aaa95421d06b&chksm=fbd4a9b2cca320a4018ed35b6b2f0a0cb21669198f28776cbb9cf4239eb6b86974a647643f4d&scene=21#wechat_redirect)|||||是|||
-|[聊天机器人](https://mp.weixin.qq.com/s/d3eOEmcLGSWQaYE1R47tQA)|闲鱼|||||||||||||
-|[酒店售后客服系统](https://mp.weixin.qq.com/s/6dKticG2I2zqlxnZ3W0ZgQ)|携程||是|是||||||||||
-|[网易严选的智能客服](https://mp.weixin.qq.com/s/SPtNy_1_6fiFXKukMmVPlA)|网易|是||||||||是||是||
-|贝壳智能客服系统|贝壳||||||线上咨询问题比例/智能场景解决问题比例/智能场景转人工率|||||||
-|[苏宁智能问答系统](https://www.infoq.cn/article/74fj3C98uSHC5yKNZb9z)|苏宁|||||||||||||
-|[小冰](https://mp.weixin.qq.com/s/xiJMT5MNYPJhyGQA5BDdNw)|微软|||||是|||||是|||
-|[对话机器人](https://mp.weixin.qq.com/s/X6S-7tdJxj0c7lv2i6Hm2Q)|瓜子|||||||||||||
-|[滴滴对话系统](https://mp.weixin.qq.com/s/MSy8OHzR3avObmOq9uSSFQ)|滴滴||||是||||||||是|
-|[对话理解](https://mp.weixin.qq.com/s?__biz=MzU1NTMyOTI4Mw==&mid=2247490791&idx=1&sn=a29c66fab4bb2d9aa6d8ec3cb14925e6&chksm=fbd4ae8bcca3279dc3e7c01140a1d18f4d32bd2a5ff0f2b0a60b83fcd7969e61c03f3aeba8f1&scene=21#wechat_redirect)|美团|||||是||||||||
-|[帮帮](https://mp.weixin.qq.com/s/5ewD2xD8J08W89-Rwixw4Q)|58同城|||||||||||||
-|[COTA](https://mp.weixin.qq.com/s?__biz=MzI1NjQ0Mzc1Mw==&mid=2247497514&idx=1&sn=4bf105bcd0e8a115172968c65f40b43e&source=41#wechat_redirect)|Uber|||||||||||||
-|[机票客服](https://mp.weixin.qq.com/s/V6sXtL22q3fV2U_6BvVxfQ)|去哪儿|是||||||||||||
-|[图灵机器人](http://www.turingapi.com/)|图灵机器人|||||||||||||
-|[FAQ](https://www.jiqizhixin.com/articles/2018-10-23-15)|云之声|||||||||||||
-|[微信AI](https://mp.weixin.qq.com/s/r7vPOSdH7XK_3jc1WLqr2Q)|腾讯||||||||||是|||
+![](https://s3.bmp.ovh/imgs/2021/11/642c74263c06cea1.png)
 
 整体事情仍在进行中，尚未取得最终结果。但是，通过这次脑洞实验，加深了对结构化进一步的理解。到底什么场景需要结构化？什么是结构化？为什么要做结构化？结构化什么内容？从信息提供的粒度大小来看，文字稿提供了最为丰富的粒度，最为细节的刻画，结构化其实淡化了这种表达。但是结构化，通过对核心要素的抽取，勾画了一个完整事件的全貌。能够提供我们获取有效信息的效率。此外，结构化对于统计场景下的问题，有巨大的价值。所谓，从N=1来看，一无是处，从N=无穷大来看，价值无限。
 
