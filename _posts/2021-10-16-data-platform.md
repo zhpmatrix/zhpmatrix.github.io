@@ -67,3 +67,7 @@ mathjax: true
 + 《大数据之路：阿里巴巴大数据实践》
 
 + [《数据资产管理白皮书4.0》](http://www.caict.ac.cn/kxyj/qwfb/bps/201906/P020190604471240563279.pdf)
+
++ [《数据质量漫谈》](https://mp.weixin.qq.com/s?__biz=MzIzOTU0NTQ0MA==&mid=2247506718&idx=1&sn=dd437ac302c2cad743dbfe611b7df917&chksm=e92ae611de5d6f07600d21d447a341d76462f25a095228f2a9d5d052eea4f17b42923d487dca&mpshare=1&scene=23&srcid=1227St8iO16IxvK0HMrn4ISB&sharer_sharetime=1640565716101&sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd)
+
++ [基础概念：维表与事实表](https://blog.csdn.net/qq_28666081/article/details/104686822)
