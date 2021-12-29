@@ -39,6 +39,8 @@ mathjax: true
 
 从任务体验上来讲，和CCKS2020的[基于商品标题的大规模商品实体检索](https://finance.sina.com.cn/tech/2020-11-15/doc-iiznctke1534222.shtml)有类似之处。
 
+补充新的工作，[《筛选风险词，用实体类型推断发现限售商品》](https://mp.weixin.qq.com/s?__biz=MzA3MzI4MjgzMw==&mid=2650834657&idx=5&sn=b63bd09562cb6bacbc6527748c90802d&chksm=84e5429fb392cb8944769909e1f899f054ac823d4fed58c50fa27353b9966bb320d1794b893a&mpshare=1&scene=23&srcid=1229pRcHlYxrtbrdQtR15rWw&sharer_sharetime=1640753050038&sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd)，基于通用百科数据，共计54种实体类型，60万训练数据。关键亮点是：如何基于没有标注的数据构建有标签的数据。
+
 
 #### 二.概念的上下位关系预测
 
