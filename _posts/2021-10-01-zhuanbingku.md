@@ -89,3 +89,4 @@ HIS系统已经有很多结构化的数据了，为什么要把专病库独立�
 
 + [为什么机器学习解决网络安全问题总是失败：脆弱的系统工程](https://toooold.com/2021/10/11/why_ml_fails_security_frag_cn.html?continueFlag=62d1da86451009ef8438afd8fdcffa07)
 + [森亿+同济医院的专病库解决方案](https://mp.weixin.qq.com/s/mc-H1BP3ZguiMYy1lG7txA)
++ [一个肺癌专病库的构建](https://mp.weixin.qq.com/s/OGSt19oO9eUa2oLpl657iQ)
