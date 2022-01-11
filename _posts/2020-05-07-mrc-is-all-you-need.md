@@ -138,3 +138,5 @@ Query2：老张为哪个公司工作？结果：京东
 1.《LANGUAGE MODEL IS ALL YOU NEED: NATURAL LANGUAGE UNDERSTANDING AS QUESTION ANSWERING》
 
 2.《Enhanced Language Representation with Label Knowledge for Span Extraction》，针对MRC的方案在解决inference时O(N)复杂度的问题。
+
+3.《Named Entity Recognition as Dependency Parsing》，针对MRC的方案在解决inference时O(N)复杂度的问题。
