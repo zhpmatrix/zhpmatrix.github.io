@@ -2,8 +2,5 @@
 
 You can communicate with me as following:
 
-- Gmail: zhpmatrix@gmail.com
-- Weibo: @zhpmatrix
-- Weixin: @zhpmatrix
-- Zhihu: @zhpmatrix
+- 微信公众号：《KBQA沉思录》，有惊喜～
 
