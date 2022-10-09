@@ -1,7 +1,7 @@
 #Site settings
 title: ZHPMATRIX blog
 email: 
-description: "A master in computer science"
+description: "致力于算法，数据和工程的全链路打通"
 baseurl: ""
 
 url: "http://zhpmatrix.github.io"
