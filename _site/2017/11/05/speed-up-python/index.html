@@ -1,0 +1,295 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[Python]用进程池Pool进行代码加速</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2017/11/05/speed-up-python/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[Python]用进程池Pool进行代码加速</h1>
+    <p class="meta">Nov 5, 2017</p>
+  </header>
+
+  <article class="post-content">
+  <p>商场中精确定位商铺所在位置比赛中遇到的一个问题是，测试集样本有483931个，由于建模过程是建立97个商场模型，故需要针对每个测试样本，先判断样本所属商场，然后调用对应模型进行预测。</p>
+
+<p>很显然，这样的执行效率很低，需要遍历并预测每一个样本。所以，可以先按照每个样本所属的商场分组，然后对每个分组的样本批量预测。这样虽然不需要一个个预测，但是为了完成分组任务，仍然需要遍历每一个样本，由于遍历的过程是独立的，故这个任务可以并行执行。</p>
+
+<p>当然483931个样本，内存能不能吃下，仍然是一个大的问题。</p>
+
+<p>为了解决上述所描述的<strong>计算慢，存储要求高</strong>的两个问题，一种可能的思路是对数据分段，并行完成计算，这样，可以同时解决这两个问题。</p>
+
+<p>假设按照60000个样本作为一个任务，则可以分为9个任务执行，当然可以这样做。手动开启9个进程并发执行这些任务。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kn">from</span> <span class="nn">optparse</span> <span class="kn">import</span> <span class="n">OptionParser</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">OptionParser</span><span class="p">()</span>
+    <span class="n">parser</span><span class="p">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">'-s'</span><span class="p">,</span><span class="s">'--start'</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s">'start'</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="s">'0'</span><span class="p">)</span>
+    <span class="n">parser</span><span class="p">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">'-e'</span><span class="p">,</span><span class="s">'--end'</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s">'end'</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="s">'60000'</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">=</span> <span class="n">parser</span><span class="p">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">start</span><span class="p">)</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">end</span><span class="p">)</span>
+    <span class="n">do</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">e</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>运行脚本如下:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 task.py -s 60000 -e 120000
+</code></pre></div></div>
+
+<p>上述脚本执行的是60000-120000这个任务，其他任务类似。但是这种方式很繁琐，要手动开启9个任务，当然可以通过写shell脚本来完成这个任务，但是要写一个shell，同样增加了工作量，尤其是对shell脚本不熟悉的同学，比如说我。</p>
+
+<p>其实<strong>上述是最原始的多进程方案</strong>。一定有更优雅的解决方案是不是？在给出更优雅的解决方案前，回顾一下python中多线程和多进程的区别，为啥很多人说python中的多线程很鸡肋？</p>
+
+<p>鸡肋的关键在于：<strong>python的多线程无法利用cpu的多个核心</strong>。</p>
+
+<p>啥？<em>多线程竟然不能使用多个核心，那还有个毛用？</em></p>
+
+<p>python的官方解释器是Cython，该解释器在执行代码的时候要使用GIL(Global Interpreter Lock)锁。<strong>任何线程执行前，要获得该锁。</strong>到这里就很明白了，因为这个锁是全局的，只有一个，故一把锁不能在同一时刻被两个线程拥有。解释器周期性释放该锁，多个线程分时使用该锁，一个时间只有一个线程拥有该锁，假设每个线程分布在每个核心上，每个时刻只有一个核心被激活。</p>
+
+<p>虽然不能多线程，但是可以多进程使用多核。<strong>因为每个进程可以拥有一个GIL呀</strong>。</p>
+
+<p>使用多进程最原始的方式如上所述，但是当进程非常多的时候，想象一下开200个terminal的场景，管理就成为一个大问题，有一个非常优雅的方式来解决这个问题。</p>
+
+<p><strong>进程池Pool。</strong></p>
+
+<p>代码如下：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">Pool</span><span class="p">()</span>
+    <span class="n">total_start</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">total_end</span> <span class="o">=</span> <span class="mi">483931</span>
+    <span class="n">step</span> <span class="o">=</span> <span class="mi">60000</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">total_end</span><span class="o">/</span><span class="mi">60000</span><span class="p">)):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">60000</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
+            <span class="n">e</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">63931</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">e</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">60000</span>
+        <span class="n">p</span><span class="p">.</span><span class="n">apply_async</span><span class="p">(</span><span class="n">do</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="p">,))</span>
+    <span class="n">p</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">p</span><span class="p">.</span><span class="n">join</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'Done!'</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>其中apply_async是采用异步方式调用任务do，s和e是do的两个参数，含义同上。该API意味着可以连续的提交任务。一般来说，并行任务数和cpu核心数保持一致，这样保证每个核心执行一个任务。当并行任务数大于cpu核心数的时候，由于一个核心执行多个任务，就存在进行切换的开销了。close函数表示不再添加任务，join表示全部子进程执行完毕后执行下一行语句print(这是一个同步操作)。</p>
+
+<p>有了Pool，一行脚本就可以构建任意多个进程，由于进程是独立的，故一个进程挂了，不会影响到别的进程。比起线程来说，一个线程挂了，整个进程就挂了。</p>
+
+<p>感受一把，如下。</p>
+
+<p><img src="http://wx2.sinaimg.cn/mw690/aba7d18bgy1fl7fhavm0ej20hy0djjsf.jpg" alt="pool" /></p>
+
+<p>我的mac是双核四个逻辑核，Pool默认使用四个核心完成任务。蓝色线框中是多进程执行任务的状态。</p>
+
+<p>注意上述是解决进程不返回结果的过程，与之相反的进程返回结果的处理在参考1中给出。关键是正确使用get方法，防止破坏多进程的异步处理状态。此外，进程间的通信在参考2中给出，关键可以使用Queue通信。</p>
+
+<p>下述代码给出了一种返回结构的示例，同时给出了一种新的并行任务执行的方式，map执行。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    
+    <span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
+
+    <span class="k">def</span> <span class="nf">do</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">data</span>
+
+    <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">idata</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">Pool</span><span class="p">()</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">map_async</span><span class="p">(</span><span class="n">do</span><span class="p">,</span> <span class="n">idata</span><span class="p">))</span>
+        <span class="n">p</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">p</span><span class="p">.</span><span class="n">join</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">results</span><span class="p">.</span><span class="n">get</span><span class="p">())</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'Done!'</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>map_async和apply_async的区别在哪里？<strong>传递的参数是否可迭代。</strong>这里和函数式编程的思想保持一致。关于上述代码中get的解释可以参照参考1的具体解释。</p>
+
+<p>[补充: 同步和异步的区别]</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kn">import</span> <span class="nn">os</span><span class="p">,</span> <span class="n">time</span>
+<span class="kn">import</span> <span class="nn">multiprocessing</span>
+
+<span class="k">def</span> <span class="nf">task</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">i</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">cpu_nums</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="p">.</span><span class="n">cpu_count</span><span class="p">()</span>
+    <span class="n">pool</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="p">.</span><span class="n">Pool</span><span class="p">()</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">cpu_nums</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">pool</span><span class="p">.</span><span class="n">apply_async</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">i</span><span class="p">,))</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">get</span><span class="p">())</span>
+        <span class="n">results</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="n">pool</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">pool</span><span class="p">.</span><span class="n">join</span><span class="p">()</span>
+    <span class="c1">#for result in results:
+</span>    <span class="c1">#    print(result.get())
+</span>
+</code></pre></div></div>
+
+<p>分析上述代码，下述代码：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>print(result.get())
+</code></pre></div></div>
+
+<p>会使得并行任务阻塞进行，所谓阻塞进行，就是同步。get会等待当前任务结束，然后才去执行下一个任务。这显然不是自己想要的，如果要任务并行执行，就是将子进程的结果的获取放在全部任务结束的时候进行，如上述代码的最后两行。这里采用一个list结构进行结果整合，其实更fancy的方式是使用map_async来完成。</p>
+
+<p>上述只是谈及了如何发挥多核的优势，在之前的博客中，做了简单的多机分布式计算的尝试。具体细节可以参照这篇<a href="https://zhpmatrix.github.io/2017/02/19/speed-up-distributed/">博客</a>。</p>
+
+<p>总结：在比赛所需要的加速技巧中，Pool的使用简单又实用。目前还没有遇到多进程通信，进程结果返回，分布式计算的具体问题，故暂时不做深入讨论。在廖雪峰的教程中，提到发挥多核cpu的一个最好的办法是多进程+协程。协程的实现主要基于yield关键字，该关键字提供了一种中断机制。所以，<strong>如果有一个集群，要发挥集群的算力，怎么搞？分布式进程进行任务分配+单机多核多进程+单核协程(仿多线程)</strong>。直觉上，如果要做到这种程度，自己就转spark去了，逃。</p>
+
+<p>参考:</p>
+
+<p>1.<a href="https://jingsam.github.io/2015/12/31/multiprocessing.html">正确使用MultiProcessing的姿势</a></p>
+
+<p>2.<a href="https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/001431927781401bb47ccf187b24c3b955157bb12c5882d000">进程间通信</a></p>
+
+<p>3.<a href="https://zhuanlan.zhihu.com/p/24960492">Python多进程并行编程实践</a></p>
+
+<p>4.<a href="https://zhpmatrix.github.io/2017/11/04/speed-up-python/">gensim中的操作</a></p>
+
+<p>源码中精彩多多！</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

@@ -1,0 +1,263 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[PyTorch]默参都是全局的，局部学习率调度和局部梯度Clipping，咋搞？</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/03/12/gradient-operation-in-pytorch/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[PyTorch]默参都是全局的，局部学习率调度和局部梯度Clipping，咋搞？</h1>
+    <p class="meta">Mar 12, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<p>这两天浏览到苏神的文章，也就是参考1中的博客，讨论了Keras的分层学习率设置和梯度操作问题。最近刚好在重刷PyTorch1.0的文档，顺道关注了一下这两个需求在PyTorch中的实现。</p>
+
+<h3 id="模型分层设置学习率">模型分层设置学习率</h3>
+
+<p>近些年来围绕学习率改进的工作较多，同样在实际使用中，有时候会要求不同层有不同的学习率。比如，典型的fine-tuning的过程；比如使用可变卷积的时候(通过设置该模块自己的学习率，使得模型更加容易训练。)；</p>
+
+<p>PyTorch中给出了非常优雅的方式，实现该目的。示例代码如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+torch.optim.SGD([{'params':model.base.parameters()},{'params':model.classifier.parameters(),'lr':1e-3}], lr=1e-2, momentum=0.9)
+
+</code></pre></div></div>
+
+<p>上述代码的含义是model的classifier使用的学习率是1e-3，除此之外，其他所有组件使用相同的学习率1e-2，momentum的值是0.9。优化器的第一个参数是参数列表，常见的情况是直接传入model.parameters()。必要的时候也可以使用如下方式：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>torch.optim.SGD([val0,val1],lr=1e-2)
+</code></pre></div></div>
+
+<p>而上述代码的风格就和这种方式类似。除此之外，需要关注参数列表中的值，通过显式给组件命名的方式，比如命名为base&amp;classifier，从而实现方便的调用。</p>
+
+<p>但是，对于二阶优化算法，比如LBFGS，暂不支持上述学习率操作方式。DL的场景下，目前主要还是使用一阶优化算法。官方提示如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>This optimizer doesn’t support per-parameter options and parameter groups (there can be only one).
+</code></pre></div></div>
+
+<p>这里面有两个重要的概念，分别是per-parameter options和parameter groups。在上述代码中model.base和model.classifier分别是两个group，每个group的参数可以有自己的options。</p>
+
+<h3 id="分epoch设置学习率">分Epoch设置学习率</h3>
+
+<p>除了模型分层设置不同学习率，更为常见的一种情况是分Epoch设置学习率。相关的学习率策略较多，主要思想是模型训练的后期，参数接近最优，就得小心翼翼的探索了，学习率小一些，但是前期属于优化过程的蛮荒时代，大步快走。这样的一个组件称之为Scheduler，但是Scheduler在训练过程中并不是必须的，但是很多时候可以作为一个Trick出现，有奇效。PyTorch内置的实现可以分类三类来看。</p>
+
+<h4 id="初级版scheduler">初级版Scheduler</h4>
+
+<p>按照固定的范式随着Step/Epoch更新学习率，例如学习率的指数衰减等。包括函数torch.optim.lr_scheduler.StepLR，torch.optim.lr_scheduler.MultiStepLR，torch.optim.lr_scheduler.ExponentialLR，torch.optim.lr_scheduler.CosineAnnealingLR。</p>
+
+<h4 id="中级版scheduler">中级版Scheduler</h4>
+
+<p>torch.optim.lr_scheduler.LambdaLR接口给与了我们更大的Scheduler定制能力，如果说初级版Scheduler是按照某种固定范式实现调度，那么该接口可以让我们定义这个范式。比如代码如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lambda1 = lambda epoch: epoch // 30
+
+lambda2 = lambda epoch: 0.95 ** epoch
+
+scheduler = torch.optim.lr_scheduler.LambdaLR(optimzier, lr_lamdba=[lambda1, lambda2])
+
+for epoch in range(100):
+    scheduler.step()
+    train(...)
+    validate(...)
+
+</code></pre></div></div>
+
+<h4 id="高级版scheduler">高级版Scheduler</h4>
+
+<p>在调参阶段，调整学习率的目的是在验证集上获得更好的指标，比如验证集的损失函数小或者准确率高；如果将验证集的度量指标当做学习率调度的反馈信号，那么就直接抵达目标了。PyTorch已经帮我们实现了一个函数torch.optim.lr_scheduler.ReduceLROnPlateau。比如可以实现这样的目的：</p>
+
+<p>当连续10个Step发现验证集的损失函数不变小之后，那么自动将学习率变小。</p>
+
+<p>早停的策略与之类似，不过早停就是停下来了防止Overfitting。而高级版Scheduler是通过自动将学习率变小，进一步优化过程。从另外一个角度来看，更像将交叉验证中对学习率的参数选择单独给了一个实现。不过对DL的模型做CV显然不太现实，因此这个接口的实现其实很有必要，我喜欢这个接口。</p>
+
+<h3 id="灵活的梯度操作">灵活的梯度操作</h3>
+
+<p>PyTorch中为了防止梯度消失和爆炸，实现了两个接口用于控制梯度。分别是torch.nn.utils.clip_grad_norm_和torch.nn.utils.clip_grad_value_。但是这两个接口的问题在于是对全局的grad进行操作，比如计算grad_norm的时候，是将全局所有的参数concat成一个向量，然后计算norm。但是一个很显然的需求就像上述的模型分层设置学习率一样，只希望部分梯度参与clip操作。比如代码如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x = torch.tensor([1., 2.]) #此时，x.grad=None
+
+x.grad = torch.tensor([0.3, 1.]) #可以显式的操作x.grad，那么可以为所欲为了。
+
+torch.nn.utils.clip_grad_value_(x, clip_value=0.4)
+
+print(x.grad)
+
+</code></pre></div></div>
+
+<p>结果为：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tensor([0.3000， 0.4000])
+</code></pre></div></div>
+
+<p>由于可以访问x.grad，那么这自然为后续灵活的操作梯度提供了极大的便利。近两年的一些工作也是围绕梯度来进行的，通过直接对梯度进行操作实现某些优化目的，提升性能，因此后续实现一些模型或者策略的时候可能需要注意这个地方。</p>
+
+<h3 id="模型中的权值共享">模型中的权值共享</h3>
+
+<p>这是一个很经典的场景，比如支持多任务的模型。给定两个输入A和B，要求模型的前三层共享相同的权值，后两层针对不同的输入进行参数更新，也就是权值不共享。示例代码如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class MyModel(torch.nn.Module): 
+    def __init__(self):
+        self.base = ...
+        self.head_A = ...
+        self.head_B = ...
+    def forward(self, input1, inptu2):
+        return self.head_A(self.base(inptu1)), self.head_B(self.base(input2))
+
+</code></pre></div></div>
+
+<p>在NLP中，围绕权值共享也有一些工作。主要是将Embedding层的权值共享到其他地方去。举两个典型的场景：</p>
+
+<p>第一：语言模型。编码器可以是一个Embedding层，解码器是一个线性层，那么二者的词向量权重可以共享；代码如下(具体代码可以参看<a href="https://github.com/pytorch/examples/blob/master/word_language_model/model.py">这里</a>)：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>self.encoder = torch.nn.Embedding(vocab_size, embed_dim)
+self.decoder = torch.nn.Linear(embed_dim, vocab_size)
+self.decoder.weight = self.encoder.weight
+</code></pre></div></div>
+
+<p>注意，在PyTorch中，self.decoder.weight的shape是(vocab_size, embed_dim)，和输入接口的定义相反，但是self.encoder.weight的shape和输入接口保持一致。</p>
+
+<p>第二： Transformer。可以在源端(encoder)，目标端和生成器端(decoder)三个地方共享词典的权值向量。</p>
+
+<p>参考:</p>
+
+<p>1.<a href="https://spaces.ac.cn/archives/6418">“让Keras更酷一些！”:分层的学习率和自由的梯度</a></p>
+
+<p>2.<a href="https://pytorch.org/docs/stable/nn.html">torch.nn</a></p>
+
+<p>3.<a href="https://discuss.pytorch.org/t/how-to-create-model-with-sharing-weight/398/2">How to create model with sharing weight?</a></p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

@@ -6,6 +6,7 @@ permalink: /about/
 
     简介
 
+- 中文医疗大模型应用和模型开发，进行中
 - NLP算法工程师，知识图谱和问答系统相关
 - 目前专注在医疗NLP方向
 - 致力于数据，算法和工程的全链路打通
@@ -23,6 +24,4 @@ Github:[@zhpmatrix](https://github.com/zhpmatrix/)
 
 
 微博:[@zhpmatrix](https://www.weibo.com/u/2879902091/home)
-
-
 

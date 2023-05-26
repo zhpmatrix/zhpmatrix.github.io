@@ -1,0 +1,276 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]Few/Zero Shot Learning简单梳理</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2020/02/14/shot-learning/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]Few/Zero Shot Learning简单梳理</h1>
+    <p class="meta">Feb 14, 2020</p>
+  </header>
+
+  <article class="post-content">
+  <p>实际场景下的一个问题：比如在多分类问题中，某些类别的样本，特别少，但是仍旧要保持不错的效果。直觉上，这和DL方法论下的一般理解似乎不同，缺少数据，搞个锤子？这里有一个回答，<a href="https://www.zhihu.com/question/325125054">FSL满足PAC吗？</a>此外，该方向上的工作，也可以作为AutoML的一个子分支。</p>
+
+<p>整体上，不像Continual Learning，FSL/ZSL在NLP领域中的工作还是相对较多的。例如，FewRel数据集上的SOTA， ACL2019的工作，《Matching the Blanks: Distributional Similarity for Relation Learning》等。</p>
+
+<p><a href="https://www.kaggle.com/c/humpback-whale-identification/discussion/82366">Humpback Whale Identification第一名的解决方案</a></p>
+
+<p>经典FSL建模的设定是什么？</p>
+
+<p>怎么使用？</p>
+
+<h4 id="基于度量的方法最主要">基于度量的方法（最主要）</h4>
+
+<p>一般认为，FSL场景下，以DL模型为代表的参数化模型容易overfitting，因此，理想情况下需要一个非参数化的模型，代表如最近邻，K-近邻，K-means等。其实这些也是Metric Learning问题中经常讨论的方法。应用层上，人脸识别领域的工作较多。</p>
+
+<ul>
+  <li>《Siamese Neural Networks for One-shot Image Recognition》</li>
+</ul>
+
+<p>假设有N个类别，那么，首先可以构建Nx(N-1)类输入做负样本，也就是说，每次模型的输入是一个Pair，来自不同类，而正样本来自相同的类，作二分类任务。可以从几个角度思考：</p>
+
+<p>第一：缺乏数据。假设N很大，同时每类样本很少，那么训练一个模型就很困难。这个时候，上述样本构造方式其实增加了样本量。</p>
+
+<p>第二：简单模型。假设数据不缺乏的前提下，可以训练一个多分类模型，分类层会很重。现在用一个小模型，分类层很轻。也就是整体上，扩充了数据，减少了模型，最终得到的是一个特征抽取器。</p>
+
+<p>那么，这个特征抽取器怎么用呢？</p>
+
+<p>第一：抽取样本的特征，也即是一个多维向量，后接一个普通的分类器。一种理解是该特征抽取器压缩且抽取了原始样本的重要特征为一个多维向量。 这个时候再去训练一个分类器比原始样本直接开始训练要相对容易。</p>
+
+<p>第二：任给一个样本，判断类别。本质上还是抽取特征，不过在预测类别的时候，需要该样本的特征和训练集中的样本的特征做对比，选择最相似的，这是一种离线的表达。操作上，可以是在线的待预测样本和训练集中样本进网络，判断相似度。</p>
+
+<ul>
+  <li>
+    <p><a href="https://arxiv.org/abs/1606.04080">《Matching Network for One Shot Leanring》</a>,DeepMind</p>
+  </li>
+  <li>
+    <p>《Prototypical Networks for Few-shot Learning》</p>
+  </li>
+  <li>
+    <p>《Learning to Compare: Relation Network for Few-Shot Learning》</p>
+  </li>
+  <li>
+    <p>《Induction Networks for Few-Shot Text Classification》</p>
+  </li>
+  <li>
+    <p>《A Closer Look at Few-Shot Classification》，ICLR2019</p>
+  </li>
+</ul>
+
+<h4 id="基于优化的方法">基于优化的方法</h4>
+
+<p>主要的观点认为：普通的梯度下降算法无法很好的处理FSL场景下的问题。</p>
+
+<h4 id="基于模型的方法">基于模型的方法</h4>
+
+<p>Memory Argumented Model将训练数据当成sequence，来进行学习，是一个新奇的想法。</p>
+
+<p>相关参考：</p>
+
+<p>1.<a href="https://data4thought.com/fewshot_learning_nlp.html">Few-shot learning in NLP: many-classes classification from few examples</a></p>
+
+<p>2.<a href="http://www.zmonster.me/2019/12/08/few-shot-learning.html">论文笔记：Few-Shot Learning</a>，总结的非常全面的一篇论文，讲清楚了基本概念。</p>
+
+<p>3.<a href="https://mp.weixin.qq.com/s?__biz=MzI0NTE4NjA0OQ==&amp;mid=2658360388&amp;idx=2&amp;sn=cf49a5d9810687eab3f6f7f8341dd6eb">阿里小蜜的意图分类平台的应用</a>，这篇文章梳理了几个工作，虽然文章提到是用于自学习平台上的一个挑战，但是似乎并没有提到很多关于相关工作在平台上的实际运行的效果。</p>
+
+<p>4.《A Survey of Zero-Shot Learning: Settings, Methods, and Applications》</p>
+
+<p>5.<a href="https://joeddav.github.io/blog/2020/05/29/ZSL.html">Zero-Shot Learning in Modern NLP</a></p>
+
+<p>非常棒的总结，同时算是对文本分类任务在modeling方式上的一个探讨。当然可以用完形填空的方式做文本分类的任务。</p>
+
+<p>6.<a href="https://medium.com/@james_aka_yale?source=post_page-----3bd0bafdf289----------------------">Meta-Learning is All you need</a></p>
+
+<p>系统梳理了meta-learning的formula。</p>
+
+<h4 id="对话系统场景下针对fsl需要思考的问题">对话系统场景下，针对FSL，需要思考的问题</h4>
+
+<p>第一：训练领域的domain/意图类别/语义槽类别三者和测试领域的对比</p>
+
+<p>第二：FSL单指测试领域的样本量只有很少吗？很少是多少？训练领域比测试领域的样本多，是多多少？（理论上的界）</p>
+
+<p>第三：如何保证测试领域得到的模型保持在训练领域的预测能力？（连续学习，灾难性遗忘，模型不退化）</p>
+
+<p>第四：FSL是必须的方式吗？比如在分类场景下：直接多分类或者采用语义匹配的方式解决。对基于距离的FSL的一种可能的理解方式是：用分类的方式训练一个语义匹配器。在具体使用的时候，考虑两种情况：</p>
+
+<p>（1）Encoder提前对新类的样本进行编码后得到类别表示存储，在实际inference的时候，对每个新样本编码，计算与类别表示之间的距离作为分类依据</p>
+
+<p>（2）实际inference的时候，新类的表示和新样本同时编码（考虑变长对齐的问题：一种简单的方式是复制新样本）。</p>
+
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzA5ODEzMjIyMA==&amp;mid=2247505980&amp;idx=2&amp;sn=8a419929d8a59b8d1383b189f38aa35c&amp;chksm=9094d1afa7e358b9ab67e4e5010409b475075cf701b94eae9612a59dee3faa2b1f0416177939&amp;mpshare=1&amp;scene=23&amp;srcid&amp;sharer_sharetime=1592333453643&amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd">半监督和数据增强的方式，OK吗？</a>统一的Low Resource解决方案可以融合文本增强、半监督学习、迁移学习、主动学习、少样本学习。</p>
+
+<p>第五：应用场景是什么？如何实现高效的inference？能不能和BERT结合？</p>
+
+<ul>
+  <li>
+    <p>意图识别的冷启动问题</p>
+
+    <p>大量平台用户在创建一个新对话任务时，并没有大量标注数据，每个意图往往只有几个或十几个样本，那如何使用现有的少量样本构建意图分类模型呢？</p>
+  </li>
+  <li>
+    <p>弱监督的一种实现（给新样本打标签）</p>
+  </li>
+  <li>
+    <p>数据增强（给新样本打标签）</p>
+  </li>
+</ul>
+
+<p>第六：模型的退化问题（降低在训练集中的类别的预测能力）</p>
+
+<p>相关比赛：</p>
+
+<p>1.<a href="https://smp2020.aconf.cn/smp.html#3">SMP2020中文人机对话技术评测（ECDT）任务一：小样本对话语言理解技术评测</a></p>
+
+<p><img src="https://file.aconf.org/conf/hz/2020/03/174917/images/007S8ZIlly1gehkxmifxkj319g0gsk3n.jpg" alt="1_1" /></p>
+
+<p>相关实现：</p>
+
+<p>（1）《Induction Networks for Few-Shot Text Classification》</p>
+
+<p>1.https://github.com/gump1368/induction-network（PyTorch）</p>
+
+<p>2.https://github.com/wuzhiye7/Induction-Network-on-FewRel（TensorFlow）</p>
+
+<p>3.https://github.com/zychn/few-shot-learning（PyTorch）</p>
+
+<p>（2）《Few Shot Text Classification with a Human in the Loop》</p>
+
+<p>https://github.com/katbailey/few-shot-text-classification</p>
+
+<p>相关参考：</p>
+
+<p>（1）<a href="https://www.zhihu.com/question/389155523">如何解决少样本和多分类的问题？</a></p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

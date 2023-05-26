@@ -1,0 +1,439 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]从一个例子谈DL论文的复现问题</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2018/12/15/paper-reproductivity/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]从一个例子谈DL论文的复现问题</h1>
+    <p class="meta">Dec 15, 2018</p>
+  </header>
+
+  <article class="post-content">
+  <p>这两天读到的一篇文章EMNLP2018的来自PKU的《An Auto-Encoder Matching Model for Learning Utterance-Level Semantic Dependency in Dialogue Generation》，<a href="https://arxiv.org/abs/1808.08795v1">文章地址</a>，模型结构如下：</p>
+
+<p><img src="http://wx2.sinaimg.cn/mw690/aba7d18bgy1fy693onzqwj20gv0izmzo.jpg" alt="模型结构" /></p>
+
+<p>该模型用于对话生成，基准数据集是DailyDialog，Encoder端和Decoder端都是Auto-Encoder，中间的Mapping Module使用多层感知机，目的是两个端的中间表示尽可能接近。训练损失包含四项，分别是两个端的损失，中间Mapping的损失，整体的端到端的损失。测试的时候，数据从模型的左上角出发，经中间层，到右下角。</p>
+
+<p>受文章所提结构的优雅简单吸引，决定跑一下实验。这里是<a href="https://github.com/lancopku/AMM">代码地址</a>，针对该代码遇到的问题如下：</p>
+
+<p><strong>第一. 超参数设置。</strong>代码中给定了超参数，同论文中设置。Epoch=25，在文章中没有提到。</p>
+
+<p><strong>第二. 数据集划分。</strong>文章中的表达是将数据分为训练，验证和测试，利用验证集选择超参，然后合并训练集和验证集，基于选定超参在测试集上的结果。代码中显示的训练，测试集划分比例为0.8，没有基于验证集的模型选择相关代码。</p>
+
+<p>为了尽可能还原实验结果，除了按照代码的README下载数据并放置到指定目录下，没有做任何代码上的修改。同时，将实验过程对照文章描述，尽最大可能保证实验过程的规范性，下面记录了实验过程结果和自己的一些想法。</p>
+
+<p>原始论文结果(表1)：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Models</th>
+      <th>BLEU-1</th>
+      <th>BLEU-2</th>
+      <th>BLEU-3</th>
+      <th>BLEU-4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Seq2Seq</td>
+      <td>12.43</td>
+      <td>4.57</td>
+      <td>2.69</td>
+      <td>1.84</td>
+    </tr>
+    <tr>
+      <td>AEM</td>
+      <td>13.55</td>
+      <td>4.89</td>
+      <td>3.04</td>
+      <td>2.16</td>
+    </tr>
+    <tr>
+      <td>Seq2Seq+Attention</td>
+      <td>13.63</td>
+      <td>4.99</td>
+      <td>3.05</td>
+      <td>2.13</td>
+    </tr>
+    <tr>
+      <td>AEM+Attention</td>
+      <td>14.17</td>
+      <td>5.69</td>
+      <td>3.78</td>
+      <td>2.84</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>文章中称以BLEU-4作为主要的评估指标。针对上表，文章的分析结论是：</p>
+
+<p><em>The proposed AEM model <strong>signiﬁcantly outperforms</strong> the Seq2Seq model. It demonstrates the effectiveness of utterance-level dependency on improving the quality of generated text. Furthermore, <strong>we ﬁnd that the utterance-level dependency also beneﬁts the learning of word-level dependency.</strong> The improvement from the AEM model to the AEM+Attention model is 0.68 BLEU-4 point. It is much more obvious than the improvement from the Seq2Seq model to the Seq2Seq+Attention, which is 0.29 BLEU-4 point.</em></p>
+
+<p>核心观点是说，从表格前两行看，BLEU-4的得分，AEM比Seq2Seq高了(2.16-1.84)=0.32。作者用<strong>显著优于</strong>来表达0.32个点的提升的含义。从表格第二行和第四行对比来看，AEM+Attention比AEM提升了0.68个点，而第一行和第三行对比，提升为0.29个点，按照作者对<strong>显著优于</strong>的认识，这个应该是<strong>非常显著优于</strong>的水平。针对于这个对比，作者的结论是，<strong>句子级的依赖约束有助于单词级依赖的学习。</strong>我对该实验条件以及得出的结论表示质疑，质疑理由是非严格对照组实验。按照作者的意思，AEM表示句子级依赖约束，Attention是单词级依赖的表示。但是AEM是包含句子级约束的完整模型，只有Mapping Module可以建模句子级约束，更重要的是Encoder和Decoder端都是Auto-Encoder，这显著区别于传统的Seq2Seq。不过从上表可以看出的是，<strong>增加Attention之后，BLEU-4进一步提升，并且AEM提升显著多于Seq2Seq。</strong>但是句子级依赖约束是否有助于单词级依赖的学习，结论应该不能直接得出。单词级依赖的学习不能有助于句子级依赖约束的加强吗？</p>
+
+<p>暂且抛开上述结论的得出是否正确，作者想要通过实验表明的有两点，分别记为G1和G2：</p>
+
+<p>G1：第二行(AEM)的BLEU-4比第一行(Seq2Seq)要高，并且当高于0.32个点的时候，可认为是<strong>显著</strong>；</p>
+
+<p>G2：第四行(AEM+Attention)的BLEU-4 与第二行(AEM)的差要高于第三行(Seq2Seq+Attention)和第一行(Seq2Seq)的差；</p>
+
+<p>Epoch=25的结果(表2)：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Models</th>
+      <th>BLEU-1</th>
+      <th>BLEU-2</th>
+      <th>BLEU-3</th>
+      <th>BLEU-4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Seq2Seq</td>
+      <td>13.69(+1.26)</td>
+      <td>4.95(+0.38)</td>
+      <td>3.00(+0.31)</td>
+      <td>2.19(+0.35)</td>
+    </tr>
+    <tr>
+      <td>AEM</td>
+      <td>13.02(-0.53)</td>
+      <td>4.66(-0.23)</td>
+      <td>3.78(+0.74)</td>
+      <td>1.91(-0.25)</td>
+    </tr>
+    <tr>
+      <td>Seq2Seq+Attention</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>AEM+Attention</td>
+      <td>13.02(-1.15)</td>
+      <td>4.46(-1.23)</td>
+      <td>2.65(-1.13)</td>
+      <td>1.83(-1.01)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>从上表可以得出：</p>
+
+<ol>
+  <li>
+    <p><strong>G1不成立</strong>;</p>
+  </li>
+  <li>
+    <p>从绝对指标值上看，<strong>绝对误差的方差非常大</strong>；</p>
+  </li>
+</ol>
+
+<p>原始代码未动，重新跑一遍得出的结果：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Models</th>
+      <th>BLEU-1</th>
+      <th>BLEU-2</th>
+      <th>BLEU-3</th>
+      <th>BLEU-4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>AEM+Attention</td>
+      <td>12.94(-1.23)</td>
+      <td>4.55(-1.14)</td>
+      <td>2.69(-1.09)</td>
+      <td>1.84(-1.00)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>显然代码未进行有效的种子设定</strong>，但是<strong>浮动范围姑且能够接受</strong>吧。</p>
+
+<p>从表2看出，结论G1不成立，为了进一步验证文章中所提模型的有效性，继续实验Epoch=40的结果：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Models</th>
+      <th>BLEU-1</th>
+      <th>BLEU-2</th>
+      <th>BLEU-3</th>
+      <th>BLEU-4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Seq2Seq</td>
+      <td>13.37</td>
+      <td>4.47</td>
+      <td>2.87</td>
+      <td>2.00</td>
+    </tr>
+    <tr>
+      <td>AEM</td>
+      <td>13.39</td>
+      <td>4.87</td>
+      <td>2.99</td>
+      <td>2.12</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>从上表看出，确实有提升了。并且从结果上看，和文章中的比较接近了。</p>
+
+<p>继续实验…</p>
+
+<p>Epoch=60的结果(表3，括号中给出了相对于原始论文中的差值)：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Models</th>
+      <th>BLEU-1</th>
+      <th>BLEU-2</th>
+      <th>BLEU-3</th>
+      <th>BLEU-4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Seq2Seq</td>
+      <td>13.40(+0.97)</td>
+      <td>4.66(+0.09)</td>
+      <td>2.80(+0.11)</td>
+      <td>1.97(+0.13)</td>
+    </tr>
+    <tr>
+      <td>AEM</td>
+      <td>13.58(+0.03)</td>
+      <td>5.06(+0.17)</td>
+      <td>3.27(+0.23)</td>
+      <td>2.41(+0.25)</td>
+    </tr>
+    <tr>
+      <td>Seq2Seq+Attention</td>
+      <td>15.04(+1.41)</td>
+      <td>6.64(+1.65)</td>
+      <td>4.83(+1.78)</td>
+      <td>3.92(+1.79)</td>
+    </tr>
+    <tr>
+      <td>AEM+Attention</td>
+      <td>14.04(-0.13)</td>
+      <td>5.57(+0.08)</td>
+      <td>3.73(-0.05)</td>
+      <td>2.85(+0.01)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>从Epoch=60的表结果来看，可以得出：</p>
+
+<ol>
+  <li>
+    <p>从相对指标值上看，<strong>G1成立</strong>，并且接近<strong>非常显著优于</strong>的标准；</p>
+  </li>
+  <li>
+    <p>从绝对指标值上看，<strong>绝对误差的方差非常大</strong>；</p>
+  </li>
+  <li>
+    <p>从相对指标值上看，<strong>G2显著不成立</strong>；这可能与第三行的绝对指标值绝对误差过大有关；</p>
+  </li>
+</ol>
+
+<p>此外，对比表2，表3中Seq2Seq过拟合；对比表3， 表2中AEM和AEM+Attention都欠拟合。</p>
+
+<p>Epoch=90的结果如下：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Models</th>
+      <th>BLEU-1</th>
+      <th>BLEU-2</th>
+      <th>BLEU-3</th>
+      <th>BLEU-4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>AEM</td>
+      <td>13.77</td>
+      <td>5.25</td>
+      <td>3.46</td>
+      <td>2.60</td>
+    </tr>
+    <tr>
+      <td>AEM+Attention</td>
+      <td>13.88</td>
+      <td>5.34</td>
+      <td>3.55</td>
+      <td>3.69</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>对比表3，AEM+Attention从前三个指标来看，过拟合；但是<strong>BLEU-4提升有0.84之多</strong>。再看，AEM的各项指标均有提升。可以得出什么结论呢？</p>
+
+<p>我已经不想继续做实验了，从上述可以得出一些初步的结论：</p>
+
+<p>第一. Attention是有效的。</p>
+
+<p>第二. AMM大概率是有效的，但是这个结论的置信度较低。</p>
+
+<p>回顾上述实验过程，由此有一些想法：</p>
+
+<p>第一. 固定种子，保证实验的可复现性，无论对自己还是对源码开放者都是重要的。从实验室周围人的经历来看，会经常遇到开源代码种子不固定导致实验不能复现的尴尬，对自己的启发是，看到不固定种子的代码，首先要去质疑作者是不是_耍流氓_，既然为了造福社区放了代码，就不要让别人吐口水，或者好好写一写README文件。</p>
+
+<p>第二. 对待结果不是显著提升的文章要格外小心，在实验控制不严格的条件下，可能怎样的故事都可以讲出来。读文章，还是要好好看实验条件和实验结果。</p>
+
+<p>第三. 比较模型或者组件的优劣，实验到底怎么做值得深入思考，固定相同Epoch还是直到模型过拟合，无论是为了文章本身，还是为了防止后续研究者灌水扯淡都有好处。</p>
+
+<p>参考：</p>
+
+<p><a href="https://www.zhihu.com/question/276744581">知乎关于商汤某篇CVPR论文的讨论</a></p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

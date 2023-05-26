@@ -1,0 +1,226 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[DM]IJCAI 2018阿里妈妈搜索广告转化预测</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2018/06/18/alimama-ctr/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[DM]IJCAI 2018阿里妈妈搜索广告转化预测</h1>
+    <p class="meta">Jun 18, 2018</p>
+  </header>
+
+  <article class="post-content">
+  <p>端午节，阳光正好，坐在窗户旁边，隔窗正是小蠡湖，波光粼粼，荡漾起伏。刚刚研讨班上一块做了比赛复盘，重新梳理了比赛方案，思考后续改进的地方，通过讨论冠亚军方案，得到新的启发。遂写此文，记之。</p>
+
+<h3 id="task">Task</h3>
+
+<h4 id="赛题内容">赛题内容</h4>
+
+<p>给定广告点击相关的用户（user），广告商品（ad），检索词（query），上下文内容（context）和商店（shop）信息的条件下预测广告产生购买行为的概率（pCVR），形式化定义如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pCVR = P(conversion=1|user, ad, query, context, shop)
+</code></pre></div></div>
+
+<p>挑战的难点有两个：第一是日常的转化率预估；第二是特殊日期的转化率预估。挑战的来源在于电商平台中的用户行为偏好，商品长尾分布和热点事件营销等。</p>
+
+<h4 id="评估指标">评估指标</h4>
+
+<p>直接使用二分类问题的log loss作为评估指标。</p>
+
+<h4 id="数据说明">数据说明</h4>
+
+<p>结合淘宝平台的业务场景，举一个例子。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>用户光头强进入漫威开的淘宝店，淘宝店一侧是广告栏，广告栏中是一些广告商品，比如浩克的底裤，雷神的锤子等。由于广告商品众多，不同的淘宝店的页面会放置不同的广告商品，比如第一页是浩克的底裤，雷神的锤子放在淘宝店铺的最后一页。
+
+任务就是预测光头强点击底裤或者锤子广告的概率。
+</code></pre></div></div>
+
+<p>点击概率与什么有关呢？光头强本人的信息有关，比如他是一个漫威迷，但是只喜欢雷神。光头强是男性，喜欢雷神的可能性就比他媳妇儿高很多。白天伐树，晚上看漫威电影，买漫威IP的可能性就很大；与广告商品有关，比如店铺的不同页面，都会有锤子的展示，接受的信息量就要远比底裤多很多；类似的，一些上下文信息，比如广告商品的展示时间，广告商品在店铺的页面编号等；除此之外，当然与店铺本身有关了，漫威的店如果在评价，好评，物流，客服等角度做的比漫威A和漫威B等其他同质店铺要好，可以引来更大的流量，同样的广告商品可以引来更大的点击量。</p>
+
+<p>分析完上述场景，建模方案很显然。这是一个很多特征可以抽取的二分类问题。具体的数据表的字段可以查看<a href="https://tianchi.aliyun.com/competition/information.htm?spm=5176.11165320.5678.2.327b6602oVPrkn&amp;raceId=231647">天池平台该比赛的数据说明</a></p>
+
+<h3 id="action">Action</h3>
+
+<p>最重要的Action应该围绕特征来进行。<strong>浏览完数据表的每个字段后，针对关键字段的问题如下。</strong></p>
+
+<p>对<strong>广告商品信息表</strong>：</p>
+
+<p><strong>item_category_list</strong>是广告商品的类目列表，类目的组织是树形结构，如何量化这个特征？对于该属性值分析后，值的取值范围固定且数值较小，因此可以直接使用OneHot编码。</p>
+
+<p><strong>item_brand_id</strong>和<strong>item_city_id</strong>是广告商品的品牌编号和城市编号，如何量化这个特征？如果One-Hot编码，会产生大量稀疏特征，能否以Embedding的方式构建特征？对该特征的处理采用Label Encoder，使得对应属性值连续。Label Encoder构建了一个属性所有值的字典，每个属性值对应一个字典编号，处理之后的属性值连续。</p>
+
+<p>对<strong>上下文信息表</strong>：</p>
+
+<p><strong>context_timestamp</strong>是广告商品的展示时间，含义是什么？如何对这个特征进行充分的挖掘？该特征的实际含义是用户点击广告的具体时间。</p>
+
+<p><strong>context_page_id</strong>是广告商品的展示页面编号，如何挖掘？回归值。</p>
+
+<p><strong>predict_category_property</strong>是查询词预测的类目属性列表，含义是什么？如何有效挖掘这个特征？比赛中这个特征比较复杂，比如值的分布情况差异较大。另外对该特征的理解不到位，因此，比赛中没有处理这个特征。赛后，有人说这个特征的重要性比较高。给定一个上下文，用户输入关键词，进入店家，然后看到广告，点击或者不点击。直观上分析，关键词对于最终的点击会有关系，但是考虑到更为直接的关系可能是用户和广告的交互行为，因此对这个特征没有处理。</p>
+
+<p><strong>店铺信息表</strong>是实体表，需要对店铺的连续性特征进行量化。</p>
+
+<p><strong>用户信息表</strong>是用户本身的信息。</p>
+
+<p><strong>基础数据表</strong>是关系表。</p>
+
+<p>在对上述特征进行充分挖掘之后，就是模型选择和模型融合等常见的比赛套路了，在之前的博客中多次谈到过这样的问题，在此不再赘述。</p>
+
+<p><strong>脱敏数据对于特征构建的影响？</strong>对特征的理解不到位。比如说，用户年龄。给定一个很大的值，但是给出了值的含义，值越大说明用户年龄越大，因此，可以通过对某个数取余数，获取一个相对可信的年龄值。</p>
+
+<p><strong>遇到的困难？</strong>数据量大是遇到的最大的困难。</p>
+
+<p>从数据规模来看，初赛的训练数据有48万，测试数据集有6万；复赛的训练数据集有1000万，测试数据集有173万。复赛的原始训练数据有20G，考虑到样本不平衡问题，对负样本降采样，保证正负样本的比例在1:20，最终需要处理的数据在2G左右。</p>
+
+<p>另外一个更为重要的处理方法是数据类型的转换，比如从float64转换到float32等。在比赛复盘阶段，讨论到稀疏矩阵同样可能是一个不错的处理方式。</p>
+
+<p>从数据类型上来看，数据的具体时间范围？比赛的难点是<strong>如何利用常规日期的消费习惯预测购物节？</strong></p>
+
+<p>比赛给了前七天，预测第八天。由于比赛是脱敏数据，猜测第八天可能是双十一当天的消费数据。</p>
+
+<h3 id="results">Results</h3>
+
+<p>第一赛季排名355/5204，第二赛季排名231/5204。</p>
+
+<h3 id="总结与反思">总结与反思</h3>
+
+<p>冠军方案的思路是采用迁移学习，模型使用LightGBM单模型，参考四类特征，包括统计特征（浏览商品数等用户行为特征），时差特征（用户两次购物行为之间的时长），排序特征（用户和商品的交互次数），表征特征（更高层级的特征）。采用前七天的数据训练一个LightGBM模型A，将第八天上午的数据喂给模型A，拿到特征A，将特征A喂给一个新的LightGBM模型B，用模型B去预测第八天下午的数据。</p>
+
+<p>这种思路对于CV的同学，可能比较熟悉。区别在于没有fine-tuning的过程。实际上fine-tuning也是不合理的。因为前七天和第八天的数据分布差异很大，因此对冠军抽取的特征也保持怀疑态度。</p>
+
+<p>亚军的思路是用模型A预测第八天上午的数据，得到的概率作为特征，重新训练一个模型。</p>
+
+<p>复盘时，钱师弟提到一个半监督的想法，在数据量不够的时候，用训练的模型去预测测试集，将结果置信度比较高的测试样本放到训练集中重新训练。结合比赛，数据量已经很多了，不过可以做为一个下次尝试的思路。</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

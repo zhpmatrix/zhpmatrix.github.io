@@ -1,0 +1,343 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[Caffe]Caffe修改源码支持多标签输入</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2018/04/23/caffe-multi-label/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[Caffe]Caffe修改源码支持多标签输入</h1>
+    <p class="meta">Apr 23, 2018</p>
+  </header>
+
+  <article class="post-content">
+  <h3 id="caffe的源码调试">Caffe的源码调试</h3>
+
+<p>针对Caffe的改源码的需要主要体现在支持多种数据输入格式，也就是数据层的源码修改；各种新的神经网络层的添加；各种Loss函数的添加等。一般修改源码后者添加新的层需要分别完成CPU和GPU端的代码编写，分别对应.cpp和.cu文件，当然需要.hpp和其他文件的相应支持。随着Caffe的发展，将各个Layer分开，单独形成一个文件，无论从编译还是代码维护等方面都很方便。</p>
+
+<p>改源码需要调试，问了周围一些同事，他们使用printf这个万能调试语句。使用printf的优点是使用简单，缺点是灵活性差，需要反复编译。个人更喜欢gdb和cuda-gdb调试。如何做呢？</p>
+
+<p>在编译Caffe源代码的时候，首先开启Debug模式。打开根目录下的Makefile.config文件，取消DEBUG := 1的注释。背后的原理是这样的，打开同目录下的Makefile文件，看到首行：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CONFIG_FILE := Makefile.config
+</code></pre></div></div>
+
+<p>也是说Makefile.config是针对Makefile文件，方便配置单独拉出来的文件。当设置DEBUG := 1的时候，看到Makefile文件中的下述代码：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ifeq($(DEBUG), 1)
+	COMMON_FLAGS += -DDEBUG -g -O0
+	NVCCFLAGS += -G
+else
+	COMMON_FLAGS += -dedebug -O2
+endif
+</code></pre></div></div>
+
+<p>其中的-O0表示不进行编译优化；-O2进行编译优化；编译优化可以读一读下列的参考资料。</p>
+
+<p>完整的编译参数在下行代码中体现：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NVCCFLAGS += -ccbin=$(CXXFLAGS) -Xcompiler -fPIC $(COMMON_FLAGS)
+</code></pre></div></div>
+
+<p>所有，如果需要更改优化等级也是在这里。</p>
+
+<p>开始调试过程，给出两篇参考文档。<a href="https://cloud.tencent.com/developer/article/1008732">调试CPU版本Caffe</a>, <a href="https://blog.csdn.net/u010158659/article/details/78418701">调试GPU版本Caffe</a>。这里对调试过程简单梳理。</p>
+
+<p>CPU调试：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gdb --args ./build/tools/caffe train --solver=...
+
+b base_conv_layer.cpp:117
+
+r
+
+p variable
+</code></pre></div></div>
+
+<p>GPU调试：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cuda-gdb --args ./build/tools/caffe train --solver=... --gpu 0
+
+start
+
+b pooling_layer.cu:26
+
+c
+
+p variable
+</code></pre></div></div>
+
+<p>需要提示的是，设置源码行的断点时，直接写layers文件夹中的layer名称就可以，不需要完整路径。</p>
+
+<p>可以进行源码调试了，就可以做任何想做的事情了。有点令人激动。</p>
+
+<h3 id="caffe支持多标签输入">Caffe支持多标签输入</h3>
+
+<p>多标签问题的应用场景是验证码识别，车牌识别等。对于每一个样本，也就是一张图片，对应多个标签，常见的是数字和26个英文字母的大小写，总共62个标签。原生Caffe是不支持多标签数据读入的，在这种场景下，可以怎么做呢？</p>
+
+<p>以mnist这个example分析，输入是一张图片对应一个标签。也就是说如果能够将验证码的输入转化为和mnist的输入格式一致，问题就解决了。能够做到吗？</p>
+
+<p>不要太简单。把每个验证码进行分割，得到62个标签。或者将车牌中的字符分割出来。这样做的问题是什么？</p>
+
+<p>分割的速度和精度。要保证能够很好的将字符分割出来，同时要保证分割的速度。因为不仅要考虑模型训练，同时要考虑到模型部署，原问题的读入是一张完整的验证码图片，需要先分割，然后做推断。</p>
+
+<p>这种方案是OK的。如果不想做分割，直接将识别做到一个完整的Pipeline呢？这就需要Caffe支持多标签读入。类似数据格式如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>data/train/1.jpg A 0 z 5
+data/train/2.jpg 2 B c q
+data/train/3.jpg 0 W 9 Z
+</code></pre></div></div>
+
+<p>假设数据读入格式是多标签的，如何去做训练呢？首先数据读入层要修改；模型结构要修改吗？Loss函数要修改吗？Metric方式要改变吗？</p>
+
+<p>读取多个标签，需要标签个数的信息，且这个信息会在多个地方用到，首先声明这个参数。</p>
+
+<p>在src/caffe/proto/caffe.proto中的message ImageDataParameter中添加标签个数信息。如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>optional unint32 label_dim = 13 [default = 1]
+</code></pre></div></div>
+
+<p>caffe.proto是Google Protocol Buffers中的消息格式文件定义。注意，label_dim的值要保证和该message中的其他值不同，个人猜测，和proto的后续文件生成机制有关。caffe.proto提供了模型结构定义文件中每个层中可以使用的参数。也就是说，在这里定义label_dim后，可以在模型结构定义文件中显式声明这个值。如果不显式声明，默认值为1，和原始版本兼容。所以，这是非常棒的一种方式。</p>
+
+<p>接下来，需要修改读取的源代码了。假设这里先考虑直接读取原始图片文件的方式，也就是不考虑LMDB生成等方式。Caffe源码支持读取一个标签，那现在读取label_dim个标签，由读取一个值，变成读取多个值。数据结构上，可能需要一个标签数组。查一下原始代码，在include/caffe/layers/image_data_layer.hpp中，看到这行代码：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vector&lt;std::pair&lt;std::string, int&gt;&gt; lines_;
+</code></pre></div></div>
+
+<p>其中string应该就是图片路径，int是标签值。显然，先修改这行代码：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vector&lt;std::pair&lt;std::string, int*&gt;&gt; lines_;
+</code></pre></div></div>
+
+<p>接下来自然要回到.cpp文件中，修改读取标签数组的逻辑。对应的image_data_layer.cpp中的函数很少，可以很容易定位到读取数据的逻辑。原始逻辑如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>std::ifstream infile(source.c_str());
+string line;
+size_t pos;
+int label;
+while(std::getline(infile, line)){
+		pos = line.find_last_of(' ');
+		//...
+}
+</code></pre></div></div>
+
+<p>修改为：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>std::ifstream infile(source.c_str());
+string filename;
+int lable_dim = this-&gt;layer_param_.image_data_param().label_dim();
+while(infile &gt;&gt; filename){
+	int* labels = new int[label_dim];
+	for(int i = 0;i &lt; label_dim;++i){
+		infile &gt;&gt; labels[i];
+		}
+	lines_.push_back(std::pair(filename, labels));
+}
+</code></pre></div></div>
+
+<p>关键代码如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int lable_dim = this-&gt;layer_param_.image_data_param().label_dim();
+</code></pre></div></div>
+
+<p>label_dim()就是proto生成的函数，上述过程中定义的新的变量。同时该行体现了一种调用层次和结构。</p>
+
+<p>沿着读取逻辑向下看，看到这行代码：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vector&lt;int&gt; label_shape(1, batch_size);
+</code></pre></div></div>
+
+<p>也就是说读入一个batch_size行，1列的标签数据；对应修改如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vector&lt;int&gt; label_shape(2);
+label_shape[0] = batch_size;
+label_shape[1] = label_dim;
+</code></pre></div></div>
+
+<p>上述两处修改发生在DataLayerSetup函数中，在load_batch中，看到这行代码：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>prefetch_label[item_id] = lines_[lines_id_].second;
+</code></pre></div></div>
+
+<p>也要修改为读取一个标签数组，修改如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int label_dim = this-&gt;layer_param_.image_data_param().label_dim();
+for(int i = 0;i &lt; label_dim;++i){
+	prefectch_label[item_id * lable_dim + 1] = lines_[lines_id_].second(i);
+}
+</code></pre></div></div>
+
+<p>.cpp文件应该已经修改完了，此时，可以重新编译源码。关键的问题来了，多标签数据可以直接读取了，如何训练呢？</p>
+
+<p>读入的数据文件最好是标签数值化的，做一个字典映射就OK，如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>data/train/1.jpg 1 23 45 13
+data/train/2.jpg 2 21 22 34
+data/train/3.jpg 0 2 9 35
+</code></pre></div></div>
+
+<p>在博客一开始，提到一种不改变源代码的前提下的一种解决方案，就是将一张图片分割成多张图片。延续这个思路，一种网络结构定义的方式是，将读入的多个标签，也就是bottom数据，分割成多个top数据，分别优化。这也实现了博客一开始定下的目标，将分割集成进入一个统一的Pipeline中。考虑到自己整理的验证码的数据集的标签是4个，结构上是这样的。读取多标签数据，进入网络结构，分割(Slice)成四个子分支，每个分支单独进行Backbone的特征提取，Loss计算，Acc计算等。其实这也是多任务的一种典型Pipeline，如果多个任务可以进行特征迁移，可以进行任务特征的融合，也就是分支之间的运算。想想，这个地方应该会有很多有意思的idea可以去做。</p>
+
+<p>给一段迭代最后的日志：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>I0423 13:45:19.216933  7692 solver.cpp:351] Iteration 10000, Testing net (#0)
+I0423 13:45:22.252681  7692 solver.cpp:418]     Test net output #0: accuracy_four = 1
+I0423 13:45:22.252704  7692 solver.cpp:418]     Test net output #1: accuracy_one = 1
+I0423 13:45:22.252710  7692 solver.cpp:418]     Test net output #2: accuracy_three = 1
+I0423 13:45:22.252715  7692 solver.cpp:418]     Test net output #3: accuracy_two = 0
+I0423 13:45:22.252722  7692 solver.cpp:418]     Test net output #4: loss_four = 0.0574376 (* 0.5 = 0.0287188 loss)
+I0423 13:45:22.252732  7692 solver.cpp:418]     Test net output #5: loss_one = 0.0573275 (* 0.5 = 0.0286638 loss)
+I0423 13:45:22.252737  7692 solver.cpp:418]     Test net output #6: loss_three = 0.0573351 (* 0.5 = 0.0286676 loss)
+I0423 13:45:22.252743  7692 solver.cpp:418]     Test net output #7: loss_two = 4.91332 (* 0.5 = 2.45666 loss)
+I0423 13:45:22.252750  7692 solver.cpp:336] Optimization Done.
+I0423 13:45:22.334941  7692 caffe.cpp:250] Optimization Done.
+</code></pre></div></div>
+
+<p>数据和代码参考我的Github:<a href="https://github.com/zhpmatrix/Caffe_Multi_Label">Caffe多标签读入源码修改</a></p>
+
+<p>参考:</p>
+
+<p>1.<a href="https://www.zhihu.com/question/27090458">GCC中-O1, -O2, -O3优化的原理是什么</a></p>
+
+<p>2.<a href="http://www.cnblogs.com/21207-iHome/p/5384376.html">GCC编译器代码优化</a></p>
+
+<p>针对编译优化，开发时不要优化，发布时要优化；优化要在编译速度，代码大小，执行速度之间达到一个平衡；</p>
+
+<p>3.<a href="https://blog.csdn.net/litdaguang/article/details/50462325">CUDA调试的各种方法总结</a></p>
+
+<p>4.<a href="http://www.cnblogs.com/royenhome/archive/2010/10/29/1864860.html">Google Protocol Buffers的一个例子</a></p>
+
+<p>消息通信协议，写.prototxt文件，调用proto，生成.h和.cc文件，文件中包含get和set函数。</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

@@ -1,0 +1,254 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[Python]利用statsmodels做数学建模比赛</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2017/08/25/statsmodels-python-math-modeling/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[Python]利用statsmodels做数学建模比赛</h1>
+    <p class="meta">Aug 25, 2017</p>
+  </header>
+
+  <article class="post-content">
+  <p>声明：数据挖掘和机器学习的背景并不是做数学建模的优势，数据挖掘和统计分析不同，统计分析有自己的一套方法论，诸如方差分析，相关分析，回归分析等。在工业界的数据挖掘比赛中，statsmodels可以用来做时间序列预测。</p>
+
+<h4 id="一-基本概念">一. 基本概念</h4>
+
+<p>1.某些分析的前提假设是数据服从正态分布，峰度和偏度是两个衡量指标，但是对峰度和偏度的使用要持批判态度。这两个概念读<a href="http://blog.sciencenet.cn/blog-1148346-786610.html">这篇文章</a>就可以。</p>
+
+<p>2.统计分析的内容补充。<a href="http://www.toutiao.com/i6445836069198889485/">想要学人工智能，你必须得先懂点统计学</a>, 这是一个短文系列，回顾了统计分析的基本概念，简单扼要，链接给出的是回归系数的显著性检验部分。</p>
+
+<h4 id="二-基本目标">二. 基本目标</h4>
+
+<ol>
+  <li>通过评估模型的拟合程度，判断模型对因变量的解释能力。</li>
+  <li>模型预测因变量变化的显著性。</li>
+  <li>自变量预测因变量变化的显著性。</li>
+</ol>
+
+<p>对应的方法分别是<strong>R^2，F检验，t检验</strong>，相关重要指标是<strong>p-Value</strong>，QQ图。</p>
+
+<h4 id="三-statsmodels的api">三. statsmodels的API</h4>
+
+<p>1.statsmodels.api:              基本API</p>
+
+<p>2.statsmodels.formula.api:      公式API（支持用户自定义函数）</p>
+
+<p>3.statsmodels.graphics.api:     图形界面API</p>
+
+<h4 id="四-统计分析思路敲黑板">四. 统计分析思路(敲黑板！)</h4>
+
+<p>1.数据预处理：例如16年B题，按照碱基对的频率对碱基对编码数字化。</p>
+
+<p>2.模型选择：基本没啥大的选择空间。分析清楚两点，第一，数据的假设分布是正态分布吗？LR的假设分布不是正态分布，但是线性回归要求是正态分布。第二，是分类还是回归，偶尔还要考虑一下因变量是离散类型还是连续类型。</p>
+
+<p>3.分析summary中的关键指标：</p>
+
+<p>R^2, p值(选择p值小的因变量)。辅助看一下t检验和F检验。</p>
+
+<hr />
+<p>老司机分界线：</p>
+
+<ol>
+  <li>好的线性回归理论上残差分布理论上应该符合正态分布(原假设)，要进行检验。</li>
+</ol>
+
+<p>检验方法A：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from scipy import stats
+z, p = stats.normaltest(logit.resid.values)
+</code></pre></div></div>
+
+<p>如果p值很小，拒绝原假设，即残差不服从正态分布，也就意味着并不是一个好的拟合，当然这个结论和R^2互相印证。</p>
+
+<p>检验方法B：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>smg.qqplot(logit.resid)
+</code></pre></div></div>
+
+<p>如果数据基本分布在对角线上，则残差符合正态分布。</p>
+
+<hr />
+
+<h4 id="五-参数解释">五. 参数解释</h4>
+
+<p>线性回归的系数解释比较直观，但是由于Logit对线性组合做了映射，对系数解释没有很直观。在statsmodels中，通过边际效能函数<strong>get_margeff()</strong>来进行评估，边际效能函数是宏观经济学中的专有名词，数学意义就是导数了，或者说变化率。</p>
+
+<p>statsmodels获取sumamry()结果，参照<a href="http://www.statsmodels.org/dev/generated/statsmodels.regression.linear_model.RegressionResults.html">这篇文章</a>。一种具体的应用场景是，在进行变量选择的时候，获取所有变量的p值，然后作图或者排序。</p>
+
+<h4 id="六-赛题思路">六. 赛题思路</h4>
+
+<p>回到赛题：考虑到本文主要服务于团队小伙伴们，故不对赛题背景进行说明。</p>
+
+<p>寻找与是否患病相关的位点，可以基于模型，也可以基于检验。考虑到样本容量是1000, 样本维度是9445, 如果使用回归分析，维度添加一维(bias=1.0)，<strong>样本矩阵奇异</strong>。关于奇异，存在一个疑问？statsmodels中Logit模型默认Optimzer是Newton-Raphson方法(数值解)，不是解线性方程组(解析解或者闭式解),为什么还会出现Singular Matrix的问题？</p>
+
+<p>自己Coding中采取了基于检验的方法，<strong>X^2检验</strong>。关于这种方法，参考<a href="http://www.cnblogs.com/emanlee/archive/2008/10/25/1319569.html">这篇文章</a>，简单来说就是做统计，算期望。考虑到和机器学习的关系，这道题的这个小问可以归于变量(特征)选择。关于机器学习中的变量选择，这是目前自己看到的一个比较完整的<a href="http://www.cnblogs.com/jasonfreak/p/5448385.html">文章</a>。检验方法如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from sklearn.feature_selection import SelectKBest
+from sklearn.feature_selection import chi2
+
+#选择k(=2)个最好的特征，返回选择特征后的数据
+SelectKBest(chi2, k=2).fit_transform(X,Y)
+</code></pre></div></div>
+
+<p>分析基因(每个基因包含数目不等的位点)与是否患病的关系时，可以采取的一种思路是：针对每个基因进行分析，建立Logit模型，共300个Logit模型，Logit模型的输入是1000个样本，样本维度为该基因对应的位点。最后对300个模型进行<strong>t检验</strong>，按照p值进行基因选择。t检验评估的是模型对因变量的解释能力，解释能力强的模型(p值小)也意味着该基因与是否患病相关。</p>
+
+<p>分析10个性状和是否患病的关系，思路同上。</p>
+
+<p>从整体上感受这道题目：位点检测可以使用F检验+p值讨论，数据维度多，基因检测可以使用t检验+p值讨论，在数据子空间进行讨论(转换问题分析视角，降维)，性状分析和上述问题同质，数据量大。当然还有其他方法，限于时间关系，自己也没有去深入研究，比如讨论了位点的关系，可以直接利用位点的p值去讨论基因的p值，但是问题的关键是做检验。(<em>如何做检验，从这道题目来看，感觉自己刚上车呀。</em>)</p>
+
+<p>具体代码(不完整)：移步我的Github, <a href="https://github.com/zhpmatrix/math-modeling-statsmodel">点我读代码呀！</a></p>
+
+<p>欢迎开启数学建模之旅…🌹🌹🌹！！！</p>
+
+<p>参考：</p>
+
+<p>1.<a href="http://www.cnblogs.com/NaughtyBaby/p/5603309.html">线性模型学习笔记</a></p>
+
+<p>主要学习用statsmodels模块进行线性回归、逻辑回归和时间序列分析。新手入门，快速数学建模比赛，这篇文章OK！如果想进一步深入理解一些概念，最好读一读统计学的相关教材。</p>
+
+<p>2.<a href="http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.SelectKBest.html">SelectKBest</a></p>
+
+<p>3.两篇没有来得及读的文章</p>
+
+<p><a href="https://www.datarobot.com/blog/ordinary-least-squares-in-python/">文章0</a>
+<a href="https://www.datarobot.com/blog/multiple-regression-using-statsmodels/">文章1</a></p>
+
+<p>4.<a href="http://www.chinadmd.com/file/stoxwtsxrxcwxsisrprxcwap_1.html">统计检验的一个小例子</a></p>
+
+<p>5.<a href="http://blog.csdn.net/sinat_33761963/article/details/55190474">模型性能的比较检验</a></p>
+
+<p>通常对于ML/DL中的模型的优劣比较是不通过统计检验的，但是这篇Blog总结了一些统计检验的手段。</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

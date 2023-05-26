@@ -1,0 +1,307 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[思考]Think in Dialogue System</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2020/08/02/think-in-dialogue-system/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[思考]Think in Dialogue System</h1>
+    <p class="meta">Aug 2, 2020</p>
+  </header>
+
+  <article class="post-content">
+  <p>相对认同的一个观点：在今天，几乎所有人都知道一个好的对话系统是怎样的，但是相关技术的发展不足以支撑这样的系统，也就意味着大众预期走在了技术发展之前。这样带来的问题是，用户需求永远不会得到满足，从业人员将一直苦逼。</p>
+
+<h4 id="什么是对话">什么是对话</h4>
+
+<p>对话的目的是同步思维，对话是思维从高维到低维的投影，由此带来的挑战是：用低维表达高维</p>
+
+<h4 id="基本总结看了很多工业界产品">基本总结（看了很多工业界产品）</h4>
+
+<ul>
+  <li>产品交互设计范式同质</li>
+  <li>技术思路同质</li>
+  <li>场景是差异化的主要来源</li>
+</ul>
+
+<h4 id="关键技术学术工业">关键技术（学术/工业）</h4>
+
+<ul>
+  <li>
+    <p>标注数据少：少样本学习问题</p>
+  </li>
+  <li>
+    <p>可拓展性问题：变化的意图，变化的槽位和槽值，变化的系统动作</p>
+  </li>
+  <li>
+    <p>训练效率问题：RL</p>
+  </li>
+  <li>
+    <p>鲁棒和条件问题</p>
+  </li>
+</ul>
+
+<h4 id="对话范式">对话范式</h4>
+
+<ul>
+  <li>一问一答（问答系统多是这种了）</li>
+  <li>多问一答（可以放在多轮对话中，多轮维度的考察可以放在问答中，也可以放在任务型中）</li>
+  <li>多问多答（标准的任务型）</li>
+  <li>抢答（增加系统的humanity）</li>
+  <li>主动提问（话题控制）</li>
+</ul>
+
+<p>上述五点总结，可以包括很多目前的工作了。对话系统的两端是人和机器，站在问的角度，希望人的角色更多的被机器替代（极端条件下，人不说一句话，机器知道我想问啥）；站在答的角度，希望机器的角色有更多人的特点；两条线的某个中间状态，就会带来最大的产品价值，也是现在多数工作的北极星。</p>
+
+<h4 id="知识在哪里一种观察角度">知识在哪里（一种观察角度）</h4>
+
+<p>于一个完整的对话系统架构，一种观察的角度是：知识在哪里。</p>
+
+<ul>
+  <li>
+    <p>FAQ线的知识在问答库</p>
+  </li>
+  <li>
+    <p>KBQA的知识在图谱中（表）</p>
+  </li>
+  <li>
+    <p>MRC的知识在非结构化文档中</p>
+  </li>
+  <li>
+    <p>检索式Chatbot的知识在历史对话数据中</p>
+  </li>
+  <li>
+    <p>生成式Chatbot的知识在模型参数中</p>
+  </li>
+  <li>
+    <p>至于Taskbot，那是通往这些知识的控制路由，是过程，不是结果</p>
+  </li>
+</ul>
+
+<p>成长中的对话系统在做纵向，相对成熟的对话系统在做横向，所谓横向，比如小冰添加了数羊，猜谜，看图说话等功能（正交可扩展）。较高成熟度的系统可能类似于现在的一些图像应用，来来来，快手又上线了新的美颜功能1，美颜功能2，美颜功能3……假设有天对话系统能够有较高的成熟度，对于做NLP的同学未尝不是一件好事。</p>
+
+<h4 id="相关文章评论">相关文章评论</h4>
+
+<p>14.<a href="https://github.com/chatopera/chatbot.catalog.customer-service">chatopera的聊天机器人汇总</a>，比较新的资料汇总。</p>
+
+<p>13.<a href="https://mp.weixin.qq.com/s/r7vPOSdH7XK_3jc1WLqr2Q">解密 chatbot 人工智能聊天机器人 技术沙龙</a></p>
+
+<p>在自然语言理解的难点总结上比较到位：</p>
+
+<p>（1）多样性</p>
+
+<p>（2）歧义性</p>
+
+<p>（3）鲁棒性</p>
+
+<p>（4）上下文</p>
+
+<p>（5）知识依赖</p>
+
+<p>12.<a href="https://mp.weixin.qq.com/s/FBynWU8BLyJcUomO3Y8mSg">周明的分享</a></p>
+
+<p>比较系统的分享了微软在聊天机器人中的尝试：包括常见的FAQ，TaskBot，Chatbot，包括DocBot，TableBot等。</p>
+
+<p>其中总结了对话系统的一些挑战：</p>
+
+<p>（1）用户画像和个性化</p>
+
+<p>（2）情感</p>
+
+<p>（3）深度聊天（技术硬实力）</p>
+
+<p>（4）知识挖掘（问答体系等）</p>
+
+<p>（5）多种对话范式融合（对话路由）</p>
+
+<p>（6）多轮对话和上下文模型</p>
+
+<p>（7）多模态（完整的系统：语音，文本和图像，目前大多都是文本机器人）</p>
+
+<p>（8）自定义/配置化（现在很多业界的平台在做）</p>
+
+<p>（9）人机协同</p>
+
+<p>11.<a href="https://mp.weixin.qq.com/s/n-uicubtTFyOH00HAvRgMQ">不是所有的智能机器人都能做好客服——浅谈智能客服机器人评价指标新趋势</a></p>
+
+<p>比较全面的智能客服评价体系。</p>
+
+<p>补充：<a href="https://mp.weixin.qq.com/s/Xj2QMbZXPLigiFhsT33k_A">追一的评价体系</a></p>
+
+<p>10.<a href="https://mp.weixin.qq.com/s/d6ie_Q-NyMh4Sp4mXWqpyQ">如何让智能客服更有温度？</a></p>
+
+<p>问题：目前的智能客服大多是采用配置的答案，这就导致了千人一面的现象。不同的用户询问一样的问题得到的答案是一样的，然后现实情况是很多问题由于用户的信息不一样，答案也是不一样的。</p>
+
+<p>解决方案：</p>
+
+<p>（1）多级置信</p>
+
+<p>当置信度达到一定时，我们认为结果完全正确，那么我们就直接给出结果。当置信值低于这个阈值，但是又不至于过低时，机器人则可以将解析结果进行反问，询问用户是否询问该问题。如果置信值低于一定时，机器人认为用户说的话无意义，机器人反问用户：“您说的话我没有理解，您可以简单重新描述下您的问题”。</p>
+
+<p>（2）推荐</p>
+
+<p>相关性推荐；预测推荐；生成推荐；提醒</p>
+
+<p>9.<a href="https://github.com/ricsinaruto/Seq2seqChatbots/wiki/Chatbot-and-Related-Research-Paper-Notes-with-Images#kaisheng-yao-baolin-peng-geoffrey-zweig-kam-fai-wong">Chatbot and Related Research Paper Notes with Images</a></p>
+
+<p>列举了一些比较早期的对话系统相关的文章，以生成式对话系统为主，同时列举了具体的文章的知识点和相关的图片。</p>
+
+<p>8.<a href="https://mp.weixin.qq.com/s/Tq61UOry2mnFaMSOIeV1wg">商用对话机器人技术及挑战</a></p>
+
+<p>简单描述了爱因互动的机器人技术，这家主要是给大B做机器人。CTO之前是在世纪佳缘做Bot的（<strong>单身狗，划重点了</strong>）。</p>
+
+<p>7.<a href="https://ai.googleblog.com/2018/05/duplex-ai-system-for-natural-conversation.html">Google Duplex(用于Google的Assistant)</a></p>
+
+<p>Duplex是语音机器人，文章中列举了具体的人机交互的语音片段，同时分享了一张Duplex的Lead和工程manager用Duplex订餐，并合影的图片，才是最酷的。</p>
+
+<p>6.<a href="https://mp.weixin.qq.com/s?__biz=MzIzNzY5NDM2Nw==&amp;mid=2247484049&amp;idx=1&amp;sn=d1d100abb898663900ccc2aa78aea0ad&amp;chksm=e8c5fe61dfb2777732b9eada85bdde26c6cdd6b2c707ccf14f8c8d3dedb2bd7128c38bfc2bce&amp;scene=21#wechat_redirect">你问我答之「智能客服评价体系全解读」</a></p>
+
+<p>客服系统评价体系：用户角度（提升满意度），运营角度（提高拦截率，少写正则，逃），技术角度（技术指标要高）</p>
+
+<p>5.<a href="https://mp.weixin.qq.com/s/o7x1BigfIMJIJEGxlFlLow">58智能客服QABot问答机器人算法实践</a></p>
+
+<p>4.<a href="https://github.com/lizhe2004/chatbot-list">行业内关于智能客服、聊天机器人的应用和架构、算法分享和介绍</a></p>
+
+<p>3.<a href="https://github.com/BDBC-KG-NLP/QA-Survey">北航大数据高精尖中心研究团队对问答系统的调研</a></p>
+
+<p>2.<a href="https://mp.weixin.qq.com/s/9-HUoePmGvv40JVWcPtHew">Yibot-知识体系运营</a></p>
+
+<p>1.<a href="https://mp.weixin.qq.com/s/b-Y8LUlKt8WOHtJG-HHFGA">贝壳找房的客服系统</a></p>
+
+<p>0.<a href="http://bos.itdks.com/79928a1b774c4d88a0c1b171d990263e.pdf">阿里小蜜-电商领域的智能助理技术实践,阿里巴巴-智能服务事业部-小蜜机器人X-Lab ——张佶(吉仁)</a></p>
+
+<p>微软和剑桥基于RL的工作用于多轮增强式导购。相关工作：<a href="https://yq.aliyun.com/live/2446">蚂蚁金服-温祖杰的分享</a>。基于强化学习的交互式澄清，基于强化学习的交互式文本推荐，基于强化学习的客户路由三个工作。</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

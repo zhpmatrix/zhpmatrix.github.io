@@ -1,0 +1,365 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[DM]《推荐系统实践》读书笔记</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2018/06/25/recsys-rethinking/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[DM]《推荐系统实践》读书笔记</h1>
+    <p class="meta">Jun 25, 2018</p>
+  </header>
+
+  <article class="post-content">
+  <h3 id="总结">总结</h3>
+
+<p>花了一下午和一个晚上读了项亮的《推荐系统实践》这本书，边读边做笔记，因此这篇博客其实是一个读书笔记。看到扉页上写道二零一二年六月第一版，距离现在已经差不多六年了。书中几乎没有谈任何深度学习的一些东西，实际上深度学习也已经在推荐系统中发挥作用了。回顾近年，似乎机器学习算法在搜索，广告，推荐领域的变现能力比其他领域好很多。</p>
+
+<p>书中大多举了Amazon和Twitter的一些经典Case，但是其实国内今日头条的推荐系统自己从用户体验上来说感觉也很好。这本书带我我的感觉和读深度学习之前的一些计算机视觉的工作类似，很简单但是在给定数据集上很有效的数学技巧，令人印象深刻。最重要的是全书一直在强调推荐结果的可解释性。总体上的一个认识是推荐系统需要好的特征工程，需要好的工程化。</p>
+
+<h3 id="理论轮廓">理论轮廓</h3>
+
+<p>《推荐系统实践》序二中，陈义谈到“可能因为是数据资源的限制，大多数学术论文都把推荐问题看做评分预测问题，而实际应用中最常见的是TopN推荐。虽然TopN推荐问题可以归纳成评分问题，但并不是每种评分预测算法都能直接来解决TopN推荐问题。”</p>
+
+<p>推荐系统可以按照数据分为协同过滤，内容过滤，社会化过滤；按照算法分为基于邻域的算法，基于图的算法和基于矩阵分解或者概率模型的算法。在业界得到最广泛应用的算法是基于邻域的方法，基于邻域的方法主要包含两种算法，基于用户的协同过滤算法和基于物品的协同过滤算法。</p>
+
+<h3 id="上线步骤">上线步骤</h3>
+
+<p>一个新的推荐算法最终上线，通常需要完成三个实验。</p>
+
+<p>第一，通过离线实验证明它在很多离线指标上优于现有的算法；</p>
+
+<p>第二，通过用户调查确定它的用户满意度不低于现有的算法；</p>
+
+<p>第三，通过在线的AB测试确定它在我们关心的指标上优于现有的算法；（补充：使用<a href="https://zhuanlan.zhihu.com/p/21388070">bandit算法</a>，会获得更快的测试结果。比如给某个用户推荐多个商品，每个商品可以维护一个beta分布。在推荐的时候，每个分布产生一个随机数，排序后选择TopN随机数对应的商品推荐给用户，如果用户点击了推荐商品，对应商品的beta分布的下界加一，否则上界加一。）</p>
+
+<h3 id="评测标准">评测标准</h3>
+
+<p>结合实际情况，大多数科研成果集中在离线实验。项亮在书中谈到，用一个数学公式表达，离线实验的优化目标是：</p>
+
+<p>最大化预测准确度</p>
+
+<p>使得，覆盖率 &gt; A
+     多样性 &gt; B
+     新颖性 &gt; C</p>
+
+<h3 id="usercfitemcf">UserCF&amp;ItemCF</h3>
+
+<p>简单场景下的UserCF中，</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>计算用户UserA对物品ItemB的感兴趣程度 = UserA和UserC之间的相似程度 x UserC对ItemB的感兴趣程度
+</code></pre></div></div>
+
+<p>针对简单版本UserCF的一个重要改进是，如何判断两个用户之间的相似程度？一个重要的启发是两个用户对冷门物品采取过同样的行为更能说明他们兴趣的相似程度。也就是说要从余弦距离中消除二者对热门物品的感兴趣程度。</p>
+
+<p>简单场景下的ItemCF算法并不利用物品的内容属性计算物品之间的相似度，而是通过分析用户的行为记录计算物品之间的相似度。物品A和和物品B具有很大的相似性是因为喜欢物品A的用户大都也喜欢物品B。因此，这也导致了ItemCF的一个优势是可以提供推荐解释，利用用户历史上喜欢的物品为现在的推荐结果进行解释。</p>
+
+<p>同样的一个改进工作类似于UserCF，该工作认为活跃用户对物品相似度的贡献应该小于不活跃的用户。</p>
+
+<p>围绕该工作，一个重要的数学技巧是对物品相似度进行归一化。优点不仅仅在于增加推荐的准确度，还可以提高推荐的覆盖率和多样性。</p>
+
+<p>关于二者的比较，项书中给出了很好的总结。UserCF的推荐结果着重于反映和用户兴趣相似的小群体的热点，而ItemCF的推荐结果着重于维系用户的历史兴趣。换句话说，UserCF的推荐更加的社会化，反映了用户所在的小型兴趣群体中物品的热门程度，而ItemCF的推荐更加的个性化，反映了用户自己的兴趣传承。</p>
+
+<p>此外，从工程角度来看，维护User相似度矩阵和Item相似度矩阵的代价不同。</p>
+
+<p>以上，例如爱艺奇动漫，豆瓣，网易云音乐之类的适合ItemCF，微博，社交平台等适合UserCF。</p>
+
+<p>这里，思考一个问题，物品A和和物品B具有很大的相似性是因为喜欢物品A的用户大都也喜欢物品B的想法没有错，但是也不是绝对的，能不能回到对物品A和物品B本身相似性的理解上？这样，我们得到的启发是，</p>
+
+<p>由于物品A和物品B相似，所以喜欢物品A的用户大都喜欢物品B。和原始观点因果倒置！实际上，更应该关注相关而不是因果。</p>
+
+<p>除了上述经典的两种方法，还有基于隐语义模型和基于图的方法。</p>
+
+<p>隐语义模型的核心思想是通过隐含特征联系用户和商品，下文中的ALS可以认为是隐语义模型的一种方法。和基于统计的方法相比，隐语义模型离线计算的空间复杂度更低，时间复杂度相似，不能支持在线实时推荐，同时不具备良好的推荐解释性。</p>
+
+<p>基于图的方法也是一个很自然的思路。用户和物品之间的关系是多对多的，这种关系恰巧对应着二分图。完成了这种转化之后，就可以从图论的一些角度讨论相似性的问题。</p>
+
+<p>直觉上看，隐语义模型和图方法理论上应该都很漂亮，但是具体的应用情况如何，还不太清楚。</p>
+
+<h3 id="als">ALS</h3>
+
+<p>任务描述如下，给定一个表格，表格的行表示用户，表格的列表示商品，表格中的数据表示用户对商品的打分，商品可以是电影，文学作品，美食等。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">item0</th>
+      <th style="text-align: left">item1</th>
+      <th style="text-align: left">item2</th>
+      <th style="text-align: left">item3</th>
+      <th style="text-align: left">item4</th>
+      <th style="text-align: left">item5</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">user0</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">3</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">5</td>
+      <td style="text-align: left"> </td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">user1</td>
+      <td style="text-align: left">8</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">2</td>
+      <td style="text-align: left"> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">user2</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">3</td>
+      <td style="text-align: left">9</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">user3</td>
+      <td style="text-align: left">1</td>
+      <td style="text-align: left">3</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">4</td>
+      <td style="text-align: left"> </td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">user4</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">2</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>观察上述数据，存在数据为空。真实场景下，这个表格会非常大，因此在一定程度上可以假设表格对应矩阵是稀疏低秩的。所以，假设该矩阵为A(mxn)，该矩阵可以分解为A(mxn)=U(mxk)V(kxn)。</p>
+
+<p>其中，U可以认为是对用户偏好特征的嵌入表示，V是商品特征的嵌入表示，则用户i对商品j的偏好可以表示为u(i)^Tv(j)。这里问题的关键是计算U和V，如何计算？</p>
+
+<p>因为A=UV，显然可以使用A-UV的损失作为优化目标。这里既可以认为是最小二乘法思想的使用，也可以认为是使用Frobenius范数来量化重构U和V产生的误差。</p>
+
+<p>从数学角度讲，上述问题是矩阵分解，相关工作非常丰富。但是从工程上讲，A过大，直接的矩阵分解对存储和计算都是巨大的问题，因此采用迭代求解的方式，寻找数值解而不是解析解。</p>
+
+<p>如何求解？考虑到U和V的耦合关系，可以使用<a href="https://www.cnblogs.com/flyfatty/p/6684305.html">坐标下降</a>求解，给一个名字叫做交替最小二乘算法。</p>
+
+<p>在Spark的MLlib中有对应的<a href="https://www.cnblogs.com/mstk/p/7208674.html">ALS实现</a>，</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import org.apache.spark.mllib.recommendation.ALS
+</code></pre></div></div>
+
+<p>站在协同过滤的角度来说，ALS算法属于User-Item CF，同时考虑了User和Item的信息。缺点在于，U和V是假设不变的。一旦U和V发生变化，需要重新计算，这也是真实场景下的问题。从这个角度讲，这也是一个离线算法。</p>
+
+<p>分解出U和V之后，可以利用U和V计算用户和商品的相似度。这是一个非常重要且有趣的应用，原始空间相似的用户或者商品在映射到新空间之后，仍然距离最近。因此，这里再次印证了可以从Embedding角度看待这个问题。</p>
+
+<h3 id="冷启动问题">”冷启动“问题</h3>
+
+<p>冷启动问题主要分为三类：用户冷启动，物品冷启动和系统冷启动。</p>
+
+<p>具体的解决方案有：</p>
+
+<p>1.给新用户推荐热门排行榜，等用户数据收集到一定时候，切换为个性化推荐。</p>
+
+<p>2.利用用户注册时的人口统计学信息，粗粒度推荐。</p>
+
+<p>3.利用用户的社交网络账号登录信息。</p>
+
+<p>4.要求用户在登录时对一些物品信息进行反馈。</p>
+
+<p>5.新加入的物品，按照物品内容相似性，进行推荐。</p>
+
+<p>6.针对系统冷启动，引入专家知识，迅速建立物品的相关度表。</p>
+
+<h3 id="利用用户标签数据">利用用户标签数据</h3>
+
+<p>标签系统中的推荐问题主要有以下两个：</p>
+
+<p>1.如何利用用户打标签的行为为其推荐物品？（基于标签的推荐）</p>
+
+<p>2.如何在用户给物品打标签时为其推荐适合该物品的标签？（标签推荐）</p>
+
+<p>同样可以用图的语言重新描述上述问题，构建用户-物品-标签图。</p>
+
+<h3 id="利用上下文信息">利用上下文信息</h3>
+
+<p>典型的上下文信息包括时间和地点。针对于时间，问题的关键在于如何在不损失精度的情况下提高推荐结果的时间多样性？</p>
+
+<p>首先，保证推荐系统能够在用户有新的行为后及时调整推荐结果。</p>
+
+<p>其次，保证推荐系统在用户没有新的行为时也能够经常变化一下结果。</p>
+
+<h3 id="利用社交网络数据">利用社交网络数据</h3>
+
+<p>六度原理是这样的，</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>社会中任意两个人都可以通过不超过六个人的路径相互认识。也就是社交网络图的直径为6.
+</code></pre></div></div>
+
+<p>社交网络研究的数学工具是随机图理论。研究工作中两个最重要的问题：第一个是如何度量人的重要性，也就是社交网络顶点的中心度。第二个问题是如何度量社交网络中人和人之间的关系，也就是链接预测。</p>
+
+<h3 id="推荐引擎设计">推荐引擎设计</h3>
+
+<p>对于一个基于特征的推荐系统架构，推荐引擎根据用户信息(用户属性，用户历史行为)生成用户特征向量，根据候选物品集合，构建特征-物品相关推荐，形成初始推荐结果。这个阶段称为召回。然后对初始推荐结果进行过滤，排名，形成推荐解释，生成最终的推荐结果。这个阶段称为排序。</p>
+
+<p>从存储角度，数据来源可以是数据库，缓存，分布式存储文件等，而且多数场景下，推荐引擎的设计是可插拔式的。</p>
+
+<h3 id="经典回顾-评分预测模型">经典回顾-评分预测模型</h3>
+
+<p>潜语义模型和矩阵分解模型说的是一回事，就是如何通过降维的方法将评分矩阵补全？</p>
+
+<p>传统的SVD分解在存储和计算上不可行。空值填充之后会使得稀疏矩阵变为稠密矩阵。</p>
+
+<p>改进版的Funk-SVD用更简单的思路解决了这样的问题，其实就是上文提到的ALS。如果你对名词感到困惑，不要太纠结，注意形式化表达和求解过程。</p>
+
+<p>在评分预测模型中，同样需要加入时间信息，一种是将时间信息加入到基于邻域的模型中，另一种是将时间信息应用到矩阵分解模型中。</p>
+
+<p>在推荐相关的比赛中，常用的模型融合方式包括模型级联融合（和Stacking，Adaboost等思路类似）和模型加权融合。</p>
+
+<p>相关论文：</p>
+
+<p>1.《Large Scale Parallel Collaborative Filtering For The Netflix Prize》</p>
+
+<p>2.《Collaborative Filtering For Implicit Feedback Datasets》</p>
+
+<p>3.《Matrix Factorization Techniques For Recommender Systems》</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

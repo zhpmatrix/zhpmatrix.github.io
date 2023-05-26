@@ -1,0 +1,290 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]论文阅读-《Language Models are Unsupervised Multitask Learners》</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/02/17/transformer-multi-task/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]论文阅读-《Language Models are Unsupervised Multitask Learners》</h1>
+    <p class="meta">Feb 17, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<h4 id="前言">前言</h4>
+
+<p>这里的多任务可能会让人误解，文章中更多地想要表现一种观点。Transformer+多任务，感觉可以去看微软那篇文章，见参考5，前些日子在GLUE上屠了Transformer的那篇，中规中矩。</p>
+
+<h4 id="什么样的数据集">什么样的数据集？</h4>
+
+<p>WebText(millions of webpages，40GB of text)，来自Reddit。</p>
+
+<h4 id="多大的模型">多大的模型？</h4>
+
+<p>GPT-2在GPT的基础上做了微小的修改，其中包括：</p>
+
+<p>第一：LayerNorm的移动和添加；</p>
+
+<p>第二：修改后的残差层的权重初始化策略(每层的初始化权重随层数加深而变小)；</p>
+
+<p>第三：扩大词表；</p>
+
+<p>第四：增加context size和batch size；</p>
+
+<p>GPT-2(1.5B parameter Transformer)，即使这样，模型仍然没有过拟合WebText，意味着模型的参数可以更多，迁移任务的性能可以进一步提升。对于模型容量的认识，给一个表格：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>BERT</th>
+      <th>VGG-16</th>
+      <th>VGG-19</th>
+      <th>ResNet-101</th>
+      <th>GPT-2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>3.3亿</td>
+      <td>1.38亿</td>
+      <td>1.44亿</td>
+      <td>0.10亿</td>
+      <td>15.00亿</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="任务设定是啥">任务设定是啥？</h4>
+
+<p>给定一个文本中前面的所有单词，预测下一个单词。</p>
+
+<h4 id="有效吗">有效吗？</h4>
+
+<p>不需要显式的监督学习，模型就可以用于非常多的任务(例外下谈，实际上这些例外很重要)且取得SOTA结果！</p>
+
+<h4 id="有效性的来源">有效性的来源？</h4>
+
+<p>语言模型+数据集(规模巨大，多样性巨高)</p>
+
+<h4 id="缺点是啥">缺点是啥？</h4>
+
+<p>比之BERT，GPT有的问题，GPT-2都会继承。无监督的通病，收敛慢。问答，阅读理解，翻译和摘要任务成绩一般(语言建模任务成绩优秀)。相关结果如下：</p>
+
+<h5 id="自然问答">自然问答</h5>
+
+<p><img src="http://wx1.sinaimg.cn/mw690/aba7d18bgy1g07sgevxwrj20kf0bqt9f.jpg" alt="自然问答" /></p>
+
+<h5 id="摘要">摘要</h5>
+
+<p><img src="http://wx4.sinaimg.cn/mw690/aba7d18bgy1g07sfsqhw6j20ke0boab5.jpg" alt="摘要" /></p>
+
+<h5 id="阅读理解">阅读理解</h5>
+
+<p><img src="http://wx3.sinaimg.cn/mw690/aba7d18bgy1g07sfoj7sqj20kj0bwwfk.jpg" alt="阅读理解" /></p>
+
+<h5 id="机器翻译">机器翻译</h5>
+
+<p><img src="http://wx3.sinaimg.cn/mw690/aba7d18bgy1g07sfjrjoej20ki0c0ab6.jpg" alt="机器翻译" /></p>
+
+<h5 id="常识推理-代词消解">常识推理-代词消解</h5>
+
+<p><img src="http://wx2.sinaimg.cn/mw690/aba7d18bgy1g07sl38ae7j20kf0byjsd.jpg" alt="常识推理-代词消解" /></p>
+
+<h5 id="语言建模">语言建模</h5>
+
+<p><img src="http://wx1.sinaimg.cn/mw690/aba7d18bgy1g07sff2nsbj20kl0bx3zf.jpg" alt="语言建模" /></p>
+
+<p>从上述结果来看，印证了文章所说，在语言建模任务上成绩优秀(常识推理-代词消解，语言建模)，其余表现一般(CoQA表现尚且可以)。</p>
+
+<h4 id="结论是啥">结论是啥？</h4>
+
+<p>传统的经验认为性能提升来自：大规模的数据集+大容量的模型+监督学习。而这篇文章则用实验证明了在NLP领域中，性能提升可以来自：大规模的数据集+大容量的模型+无监督学习(语言模型)。对于NLP而言，无标注的数据量非常大，因此挖掘出无监督学习的能力则成为了一个重要命题。传统解决NLP问题的方式是针对一个任务，构造一个数据集，训练一个模型。而GPT-2的出现，证明一个数据集，一个模型，可以很好地解决多个任务。</p>
+
+<h4 id="几点思考">几点思考？</h4>
+
+<p>第一：复现实验的成本极高，几乎意味着不可能；因此期望作者放出预训练的模型，但是作者目前并没有相关意愿，实际上基于多种语言的预训练模型实用价值更大，在该问题上，BERT做的非常出色，因此可以看到围绕BERT的后续工作也相当的丰富。</p>
+
+<p>作者认为放出预训练模型，会使得模型用于不该使用的地方，比如假新闻的产生等。该理由略显牵强，不做过多讨论，实际上由此引发的一个问题是虚假新闻检测的任务，是一个值得深入挖掘的方向。在CV领域，围绕同质问题的研究已经很丰富了，比如围绕活体检测的一些工作。</p>
+
+<p>不过，作者还是放出了一个<a href="https://github.com/openai/gpt-2">117M大小的模型</a>，也就是文章中四个模型中最小的。GPT-2大模型和小模型的效果对比参考7。</p>
+
+<p>第二：适用于基于语言模型的文本生成任务。比如写作助手，围绕该任务，可以基于字，词，句子，甚至段落等粒度。个人认为，当模型用于该任务时，主要得益于数据集(WebText)和大模型(15亿)带来的增益。除此之外，包括对话生成，无监督的机器翻译等。</p>
+
+<p>第三：上文可以看到，常识推理任务表现优秀。或许可以在Kaggle最新的一个比赛<a href="https://www.kaggle.com/c/gendered-pronoun-resolution">Gendered Pronoun Resolution</a>上尝试。</p>
+
+<p>第四：从务实角度出发，个人认为文章的主要贡献在于训练了一个超大容量的语言模型。从务虚角度出发，文章进一步表明，语言模型和无监督学习在NLP领域的潜力，一个模型解决多个NLP任务是可行的，期待后续相关工作的出现和完善。从写作上来看，文章的系统性也是非常值得学习的。比如实验的设计，记忆和泛化的分析方法(<em>通过暴力方式记忆近似全集，如果可以有效解决问题，未尝不可？</em>)等。</p>
+
+<p>第五：GPT-2是一个基于语言建模的文本生成器，由于语言建模本身的通用性，因此它可以提升多个任务。但是从目前的实验结果来看，有效提升任务类型并不包括诸如机器翻译，文本摘要等任务。大的数据集和大的模型，由经验结果得到，理应有好的性能提升。这一方面解释了为什么认为媒体对该工作过誉了，另一方面解释了实验结果，它本应如此。</p>
+
+<p>第六：GPT-1是预训练+Fine Tuning的两个阶段任务；GPT-2没有Fine Tuning的过程，直接用训练得到的语言模型用于下游文本生成任务(借助引导符完成)。具体是如何做的，需要进一步思考。关于引导符的使用，可以参考<a href="https://zhuanlan.zhihu.com/p/56865533">我在知乎和知友的讨论</a>，观点在评论区。</p>
+
+<h4 id="实验结果117m的小模型">实验结果(117M的小模型)</h4>
+
+<h5 id="无条件样本生成的两个例子">无条件样本生成的两个例子：</h5>
+
+<script src="https://gist.github.com/zhpmatrix/17e2459875833242ce75b3cd98dca3f8.js"></script>
+
+<script src="https://gist.github.com/zhpmatrix/0e76545415b0130b2785fe4dc572c90c.js"></script>
+
+<h5 id="有条件样本生成的两个例子">有条件样本生成的两个例子：</h5>
+
+<script src="https://gist.github.com/zhpmatrix/940abd7ad28f67c18a805011e0d4a6b5.js"></script>
+
+<p>上述这个例子有点代码生成的感觉了，可以看到正确的函数声明已经实现。个人比较好奇的是这些代码片段是不是直接从原始数据集中extractive/copy的？由于没有原始数据集，因此暂时无法验证。</p>
+
+<script src="https://gist.github.com/zhpmatrix/3940b0db085643b9c5956e34a80a102d.js"></script>
+
+<p>参考文献：</p>
+
+<p>1.<a href="https://zhuanlan.zhihu.com/p/56798510?utm_source=qq&amp;utm_medium=social&amp;utm_oi=52727124066304">DeepTech报道</a></p>
+
+<p>2.<a href="https://blog.openai.com/better-language-models/">Better Language Models and Their Implications</a></p>
+
+<p>3.<a href="https://mp.weixin.qq.com/s?__biz=MzA3MzI4MjgzMw==&amp;mid=2650757118&amp;idx=1&amp;sn=a777dabb78f055fbfb451f2e75d5a7d5&amp;chksm=871a9380b06d1a9639351bc4352a897104dcca16883c02aa5301e61da149845fdc09ac4bbfb3&amp;mpshare=1&amp;scene=23&amp;srcid=%23rd">机器之心的报道</a></p>
+
+<p>4.<a href="https://mp.weixin.qq.com/s?__biz=MzI3MTA0MTk1MA==&amp;mid=2652038485&amp;idx=1&amp;sn=e5623e1df705fca9cd72679a5210f094&amp;chksm=f12191a4c65618b22662101f3c33aacb7ba308dde8041b41599163305e02bae5afd7094ba4b8&amp;mpshare=1&amp;scene=23&amp;srcid=%23rd">新智元的报道</a></p>
+
+<p>5.《Multi-Task Deep Neural Networks for Natural Language Understanding》</p>
+
+<p>6.<a href="https://mp.weixin.qq.com/s/Viyc66ywVBsrnQUdYvK8ow">量子位的报道</a></p>
+
+<p>7.<a href="https://mp.weixin.qq.com/s?__biz=MzIzNjc1NzUzMw==&amp;mid=2247514504&amp;idx=2&amp;sn=736c42eb98712fa918371b59a3e55db1&amp;chksm=e8d00efadfa787ece0622ef8f6abec918f1d91c64c8e056d9c0d0542cb136c1fddd85298f922&amp;mpshare=1&amp;scene=23&amp;srcid=%23rd">GPT-2大模型和小模型的效果对比</a></p>
+
+<p>8.<a href="https://zhuanlan.zhihu.com/p/56865533">张俊林的解读</a></p>
+
+<p>9.<a href="https://mp.weixin.qq.com/s?__biz=MzIwMTc4ODE0Mw==&amp;mid=2247495009&amp;idx=1&amp;sn=786d5297ba95117e72cb2e46a22d2935&amp;chksm=96ea32e1a19dbbf7c9653338be329c2a78b21b7660f4696b13812512cac7c647f7c132d14309&amp;mpshare=1&amp;scene=23&amp;srcid=%23rd">虚假新闻检测的调研</a></p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

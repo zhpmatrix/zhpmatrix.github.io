@@ -1,0 +1,233 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLG]论文阅读-文本风格迁移</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/02/03/style-transfer-notes/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLG]论文阅读-文本风格迁移</h1>
+    <p class="meta">Feb 3, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <p>文本生成在模型上的变化主要包括生成对抗网络(GAN)系，自编码(AE)系，增强学习(RL)系和其他系。整体上的思路发展和CV保持一致，但是CV中的流(Flow)系目前还没有看到在NLP领域中的相关工作，值得密切关注。这篇文章，主要围绕文本风格迁移读一些论文。</p>
+
+<p>1.《Dear Sir or Madam, May I Introduce the GYAFC Dataset:Corpus, Benchmarks and Metrics for Formality Style Transfer》</p>
+
+<p>这篇文章主要针对文本风格迁移任务，构建了一个数据集，提供了五个benchmark，做了一些度量。这里的风格迁移是正式文本和非正式文本的双向迁移，这是的正式是指”是不是正式的说话”，数据集来源为Yahoo Answers问答论坛。</p>
+
+<p>没有仔细看平行语料的构造方式，这里想一下方案。正常情况下可以是给定一句话，如果这句话是正式的，写出对应的不正式的表达；如果是非正式的，写出对应的正式的表达。关于正式和非正式应该是可以训练一个分类器，这样在构建新的平行语料的时候，可以免去判断正式和非正式的繁琐过程。</p>
+
+<p>benchmark主要包括三类：基于规则的方法，基于按照短语进行机器翻译的方法，基于神经机器翻译的方法。</p>
+
+<p>这篇文章的数据集是做正式和非正式文本的双向迁移，实际上迁移的内容包括：礼貌和非礼貌，有想象力和没有想象力等。理论上，只要构建基于某个表达维度的平行语料，这个任务就可以做。类似文章如2所示。</p>
+
+<p>2.《Shakespearizing Modern Language Using Copy-Enriched Sequence-to-Sequence Models》</p>
+
+<p>这篇文章任务上实现现代英语到莎士比亚英语的风格转换，模型上使用带有copy机制的seq2seq思路。由于在这种任务场景的设定下，冗余存在OOV问题，因此使用上述解决思路也是讲的通的。除此之外，还有散文风格迁移的数据集，如3所示。</p>
+
+<p>3.《Evaluating Prose Style Transfer With The Bible》</p>
+
+<p>这篇文章构建数据集的方式很有意思。拿到Bible的几个版本的数据，就可以得到多组平行语料了。</p>
+
+<p>从上述三篇文章来看，文本风格转换的问题在于平行语料的获取难度较高。一旦有了语料，从模型上，可以按照经典的seq2seq相关技术解决此类问题。但是，风格是一个比较抽象的概念，由此导致任务本身可能难度较高。因此，通过无监督的方式来做此类任务是一个理想的途径。</p>
+
+<p>4.《Evaluating Style Modification in Text》</p>
+
+<p>NLG的问题，难免要去讨论评估的问题。上述这篇文章主要阐述三个方面的评估。具体如下：</p>
+
+<p>第一，style transfer intensity. 具体来说，可以通过训练一个分类器，判断是转换前的文本还是转换后的风格文本，将分类概率作为intensity的度量；</p>
+
+<p>第二，content preservation. 具体来说，就是常见的基于n-gram的BLEU指标，用来评估生成文本和目标文本的相似度；</p>
+
+<p>第三，naturalness. 这类指标的实现需要人工评估，具体包括fluency/readability, grammaticality,naturalness等；</p>
+
+<p>和之前读过的文章相比，第二和第三的两套指标作为实验评估的手段比较常见，但是第一种不是很常见。由于第一种需要重新训练一个分类器，而该分类器的训练数据正是生成的数据，因此使用的时候可能会存在一些问题，同时评估成本较高也是显而易见的。</p>
+
+<p>CV中的风格迁移取得了很不错的效果，但是NLP领域的风格迁移要落后于CV，主要原因应该包括两个方面：NLP中缺少平行数据和没有可靠的评估指标。因此，有很多工作想尝试没有并行数据的情况下来解决该问题。</p>
+
+<p>5.《Style Transfer in Text: Exploration and Evaluation》</p>
+
+<p>这篇文章使用adversarial networks学习各自的content representation和style representation从而能够利用non-parallel的数据。为了解决缺乏可靠评估方法的问题，提出了两种新的评估方法，分别是transfer strength和content preservation。同时在两个任务上测试了模型和评估方法的效果，分别是paper-news title transfer和positive-negative review transfer。这篇文章的两个评估指标在文献4中也有重点提到，但是这里使用的评估方式不代表确定方法，而是评估的两个方面。</p>
+
+<p>比如文章中针对style representation还是通过训练一个分类器的方式，针对content preservation是利用source端和target端关于embedding的统计指标的的相似性，最后对两个方面的指标进行加权平均。</p>
+
+<p>adversarial network已经被成功的应用到domain separation problems，比如学习domain-invariant特征，获取多任务框架中每个句子的share和private表示等，而style transfer也是包含了两个方面content和style，因此当将adversarial network应用于style transfer中，关键的问题是如何学习到content和style？为此，作者提出两个模型，分别是multi-decoder和style-embedding，具体细节可以参照论文。</p>
+
+<p>由这篇文章也可以看到，直接将其他任务中的好用的模型或者框架引入到一个新的任务中，看似没有原创有水分，但是如果能够抓住问题的本质，合理地针对任务本身做设计，也确实是一个创新的方法。这篇文章是AAAI2018的，个人认为文章写作上也是很好的。</p>
+
+<p>6.《Multiple-Attributes Text Rewriting》</p>
+
+<p>通过对抗的方式获得disentangled representation已经是style transfer任务的通用方式。但是，这篇文章作者认为并不是必须的，提出基于去噪自编码的改进工作使得能够用于多个属性的文本重写，多个属性包括性别，情感，产品类型等。文章中的两个数据集值得关注，分别是<a href="https://www.yelp.com/dataset/challenge">Yelp</a> Reviews和Amazon Reviews关于餐馆，产品等的评论数据。</p>
+
+<p>7.《Style Transfer Through Back-Translation》</p>
+
+<p>ACL2018的文章。这篇文章首先通过一个语言翻译模型学习输入句子的latent representation，目的是在风格化文本的同时能够保持句子的含义不变，这个过程就可以使用back-translation，然后通过adversarial generation技术使得输出能够match到期望的风格。无论是back-translation还是第二个阶段的adversarial generation技术都是在style transfer任务中比较常见的技术。但是这篇文章能够做到SOTA，还是很强。此外，这篇文章的实现是基于opennmt-py，值得后续跟进学习。</p>
+
+<p>8.《Style Transfer from Non-Parallel Text by Cross-Alignment》</p>
+
+<p><a href="https://github.com/shentianxiao/language-style-transfer">代码这里</a>，其中模型的总体架构如下：</p>
+
+<p><img src="http://wx1.sinaimg.cn/mw690/aba7d18bgy1g0bndtoy35j20yp0cgq69.jpg" alt="img1" /></p>
+
+<p>这篇文章主要提出了两个AE的变种，分别是aligned ae和cross-aligned ae。在三个任务上进行了实验，分别是sentiment modification，decipherment of word substitution ciphers和recovery of word order。我个人比较关注的是第一个任务上的结果。在和Zhiting Hu的工作对比时，结果虽然在量化指标上(accuracy)比Hu的工作稍差，但是实际生成结果来看要好一些。如下：</p>
+
+<p><img src="http://wx2.sinaimg.cn/mw690/aba7d18bgy1g0bmbr68xdj20nz0n5wil.jpg" alt="img2" /></p>
+
+<p>上图中每组例子第一行是输入文本，第二行是Hu的结果，第三行是这篇文章的结果。可以看到，Hu的工作在content preserving方面弱于本文。这里可以展开讨论的一点是，对于任务输入和输出的定义。在中文检纠错任务中，可以只输出错误的地方(错误类型标注)；也可以输出修改后的整体的句子(句子改写)。选择什么样的技术方案，需要考虑到什么样的输出对于该任务是合适的。同时，从这组实验结果来看，对于生成的评估需要持续思考。不仅要思考general的评估指标，同时结合任务本身做特殊评估指标设计。值得一提的是，模型中针对discrete和non-differentiable的问题，作者的解决方法是gumbel-softmax(<em>和Hu的工作一样</em>)和Professor Forcing两种方式。</p>
+
+<p>9.《Toward Controlled Generation of Text》</p>
+
+<p><a href="https://github.com/asyml/texar/tree/master/examples/text_style_transfer">代码这里</a>，其中，还是基于VAE的工作，模型的总体架构如下：</p>
+
+<p><img src="http://wx1.sinaimg.cn/mw690/aba7d18bgy1g0bndpbrzyj20q40e3q4p.jpg" alt="img3" /></p>
+
+<p>这篇就是上文提到的Zhiting Hu的工作，属于较早期的工作，后续又出现了很多相关文章。这里值得一提的是，模型会遇到discrete和non-differentiable的问题，作者的解决方法是gumbel-softmax。</p>
+
+<p>万小军老师在一次报告中提到：<strong>“我想强调的是，基于神经网络模型的NLG并不成功，虽然我们做了很多学术研究，发表了很多学术论文，但很多任务上只要性能提高1%-2%，都可以发论文，但是从实用性角度来看，这些技术很难达到理想的满意程度，所以我们还需要进一步在数据与模型上不断完善。”</strong></p>
+
+<p>总结：关于风格迁移，style transfer，style modification，controlled text generation等是常见的术语。这个任务可以采用seq2seq的方法，基于encoder-decoder框架来做。既然是文本生成，自然在学术界中GAN，AE等相关方法也有采用。由于该任务下平行文本预料获取的困难，因此针对非平行文本的研究相当的多。此外，要结合任务本身去思考，将通用架构设计地更加的符合style transfer任务本身的需求，适合多个transfer设定才是这个任务本身的特色之处。从应用上，可以用于各种改写任务，而改写任务的场景较多，同时便于和上游任务结合使用，从而完成更加高级的任务。比如data2text-&gt;style transfer，或者translation-&gt;style transfer等，甚至更深的级联深度。从另一方面来看，style transfer属于小众研究领域，看了多篇文章开源的代码，更加印证了这个想法，不过这个任务本身还是非常棒的。</p>
+
+<p>主要参考：</p>
+
+<p>1.<a href="https://zhuanlan.zhihu.com/p/36880287">GAN和文本生成</a></p>
+
+<p>2.<a href="https://github.com/fuzhenxin/Style-Transfer-in-Text">文本风格迁移论文列表</a></p>
+
+<p>3.<a href="https://mp.weixin.qq.com/s?__biz=MzAxMzA2MDYxMw==&amp;mid=2651567544&amp;idx=1&amp;sn=df1375d7f3eb737ca548eafb3fa48395&amp;chksm=80574ad2b720c3c48a7339137128c21248709b7f69f887c443cae8bb171b2e55517e6523f967&amp;mpshare=1&amp;scene=23&amp;srcid=%2523rd">万小军老师关于NLG的想法</a></p>
+
+<p>4.<a href="http://share.gmw.cn/news/2019-03/16/content_32646723.htm?from=timeline&amp;isappinstalled=0">宗成庆老师-机器翻译的梦想与现实</a></p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

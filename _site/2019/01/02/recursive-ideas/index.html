@@ -1,0 +1,249 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[LeetCode]重说：递归</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/01/02/recursive-ideas/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[LeetCode]重说：递归</h1>
+    <p class="meta">Jan 2, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <p><strong>总结：</strong></p>
+
+<p>（1）从问题的形式上来看，倾向于得到所有的解/一个解（可能的）。比如，<a href="https://leetcode-cn.com/problems/all-possible-full-binary-trees/solution/suo-you-ke-neng-de-man-er-cha-shu-by-leetcode/">所有可能的满二叉树</a>，<a href="https://leetcode-cn.com/problems/partition-to-k-equal-sum-subsets/">划分为K个相等的子集</a></p>
+
+<p>（2）题目的数量不多</p>
+
+<p>（3）问题可以从其他领域抽象而来，该现象应该存在于很多类型的问题中。比如，<a href="https://leetcode-cn.com/problems/number-of-atoms/">原子的数量</a></p>
+
+<p>很多年前，写过一个<a href="https://zhpmatrix.github.io/2016/10/11/code-tricks/">短文</a>，最近在读组里同学的源码的时候，看到这样一段代码，如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def traverse_datafile(rootpath, suffix, fout_path):
+    
+    FILENAME_PATTERN = re.compile('^(.*?)' + suffix + '$')
+    
+    files = os.listdir(rootpath)
+    for file in files:
+        # print(file)
+        if os.path.isdir(rootpath + '/' + file):
+            # print(rootpath + '/' + file)
+            traverse_datafile(rootpath + '/' + file, suffix, fout_path)
+        else:
+            if FILENAME_PATTERN.match(file):
+                print(rootpath + '/' + file)
+                change_format(rootpath + '/' + file, fout_path+file)
+    
+    return True
+
+</code></pre></div></div>
+<p>代码想要做的就是实现目录文件遍历，于是用手撸了一个遍历的逻辑。当一个目录包含文件目录和文件的时候，只使用os.listdir应该是无法实现的。当然，如果知道os.walk的情况下，可以更加优雅的实现。如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def get_ner_filenames(self)-&gt;list:
+        filenames = []
+        for root, dirs, files in os.walk(self.root_dir):
+            for filename in files:
+                if filename.endswith('.name'):
+                    filenames.append(os.path.join(root,filename))
+        return filenames
+</code></pre></div></div>
+<p>这里，os.walk返回的是一个generator，能够逐级访问一个文件目录。优点很多，比如没有recursive的stack限制，内存友好(lazy)以支持更深的遍历需求，此外，写出的代码更加优雅易懂。</p>
+
+<p>但是，recursive的思想在很多时候，实现的方式是简单优雅的。在阮的一篇博客中，看到一个认识：<strong>递归本质上是一种循环操作，纯粹的函数式编程语言没有循环操作命令，所有的循环都用递归实现。</strong></p>
+
+<p>比如，遍历一个list的实现，多数时候，这样实现：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a = [1,2,3]
+print(a)
+</code></pre></div></div>
+
+<p>递归改造一下吧（不考虑边界），比如这样：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def show_list(a):
+	print(a[0])
+	if len(a[1:]) &gt; 0:
+		show_list(a[1:])
+</code></pre></div></div>
+
+<p>但是，recursive的问题，包括：重复计算（这在计算斐波那契数的第N项中可以体现），递归深度受限。前者的解决方式可以是递归改为递推，后者可以采用<a href="https://www.ruanyifeng.com/blog/2015/04/tail-call.html">尾递归</a>的方式实现（比如将一个类似树形的调用栈转为一个链式的调用栈）。从状态维护上来看，二者有相通之处，都是记录当前需要的状态，不需要记录历史状态。当然，结合问题的特殊之处，减少重复计算也算是一个红利了。</p>
+
+<p>当然，<a href="https://mp.weixin.qq.com/s?__biz=MzA5ODUxOTA5Mg==&amp;mid=2652556683&amp;idx=2&amp;sn=5692497d7b3d352e428be81e73f2ee08&amp;chksm=8b7e3cd0bc09b5c67cc9b557785607f552defdcff0084297dafc4d8ba9c6e9ee8231a18685a5&amp;mpshare=1&amp;scene=23&amp;srcid=1122HbnVa5L18L5MtmzspUqi&amp;sharer_sharetime=1584768314443&amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd">递归算法转化为非递归算法</a>是另外一个有意思的问题，这里暂不做探讨。</p>
+
+<p>看几道LC的题目吧。</p>
+
+<h4 id="1为运算表达式设计优先级">1.<a href="https://leetcode-cn.com/problems/different-ways-to-add-parentheses/submissions/">为运算表达式设计优先级</a></h4>
+
+<p>题目描述：给定一个含有数字和运算符的字符串，为表达式添加括号，改变其运算优先级以求出不同的结果。你需要给出所有可能的组合的结果。有效的运算符号包含 +, - 以及 * 。示例如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>输入: "2-1-1"
+输出: [0, 2]
+解释: 
+((2-1)-1) = 0 
+(2-(1-1)) = 2
+</code></pre></div></div>
+<p>还有一个：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>输入: "2*3-4*5"
+输出: [-34, -14, -10, -10, 10]
+解释: 
+(2*(3-(4*5))) = -34 
+((2*3)-(4*5)) = -14 
+((2*(3-4))*5) = -10 
+(2*((3-4)*5)) = -10 
+(((2*3)-4)*5) = 10
+</code></pre></div></div>
+
+<p>一个基本的解法：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def diffWaysToCompute(self, input: str) -&gt; List[int]:
+		res = []
+        for i, char in enumerate(input):
+            if char in ['+', '-', '*']:
+             	left = diffWaysToCompute(input[:i])
+                right = diffWaysToCompute(input[i+1:])
+                for l in left:
+                    for r in right:
+                        if char == '+':
+                            res.append(l + r)
+                        elif char == '-':
+                            res.append(l - r)
+                        else:
+                            res.append(l * r)
+
+        return res
+</code></pre></div></div>
+<p>分析上述代码，整体的逻辑是：将原问题分解为子问题，在得到子问题的解之后，合并子问题的解。因此，从这道题也可以看出，分支和递归往往是在一块儿的，用递归的方式求解子问题。</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

@@ -1,0 +1,237 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]Rethink系列-copy和coverage机制</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/01/29/NLP-rethinking-copy-and-coverage/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]Rethink系列-copy和coverage机制</h1>
+    <p class="meta">Jan 29, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <p>一.<a href="https://zhpmatrix.github.io/2019/01/27/NLP-rethinking-base-blocks/">Rethink系列-CNN/RNN/GRU/LSTM/BiLSTM</a></p>
+
+<p>二.<a href="https://zhpmatrix.github.io/2019/01/27/NLP-rethinking-attention/">Rethink系列-Attention</a></p>
+
+<p>三.<a href="https://zhpmatrix.github.io/2019/01/28/NLP-rethingking-seq2seq/">Rethink系列-seq2seq</a></p>
+
+<p>四.<a href="https://zhpmatrix.github.io/2019/01/29/NLP-rethinking-copy-and-coverage/">Rethink系列-copy和coverage机制</a></p>
+
+<p>五.<a href="https://zhpmatrix.github.io/2019/01/31/NLP-rethinking-basic-techniques/">Rethink系列-词法/句法/语义</a></p>
+
+<p>六.<a href="https://zhpmatrix.github.io/2019/03/13/NLP-rethinking-Transformer/">Rethink系列-Transformer</a></p>
+
+<p>机器翻译和文本摘要是NLP中的经典任务，seq2seq的很多研究工作一般都会在机器翻译上首先尝试。同时由于文本摘要和机器翻译在任务上的相似性，在机器翻译任务中有效的工作一般也可以用于文本摘要的任务，基于两个任务的相关研究工作互相借鉴，共同发展。一个不严格的感受是机器翻译的进展要快于文本摘要。</p>
+
+<p>传统意义上的机器翻译是语言翻译，输入和输出域不同。例如输入是英语域，输出是中文域。文本摘要的输入和输出域相同，通常是根据中文文章输出中文摘要。注意，这里的域是指通俗意义上的领域，比如语种差异。</p>
+
+<p>在文本摘要中，会想要在摘要文本中出现一些输入文本中不存在的词，由此达到摘要生成的目的。(<em>学术上区分文本摘要为基于生成式的和基于抽取式的。想像一下，小学语文考试需要用自己的话概括一段话的意思，理想情况下，用自己的话，不是段落中的话来概括段落的含义。有些老师会告诉你，如果不会自己概括，那就从段落中摘抄一些句子。前者可以认为是生成式，后者就是抽取式了。</em>)</p>
+
+<p>经典的seq2seq+attention可以实现生成式摘要。但是生成的摘要存在两个明显的问题：</p>
+
+<p>第一.摘要会去重复他们自己。这里分两种情况，其一是单句摘要，看到一个字不断重复的现象，在机器翻译领域也会出现；其二是多句摘要，看到某个句子重复。</p>
+
+<p>第二.摘要的内容存在事实性错误。尤其是稀有词和OOV词带来的负面影响，这是主要问题。(<em>围绕OOV的问题，学术界的研究成果也是非常丰富的。</em>)</p>
+
+<p>第二个问题显然比第一个问题严重的多。如何解决？</p>
+
+<p>OOV是词汇非常稀有以至于没有出现的特例。不考虑细微差异的前提下，后续使用的稀有词包含OOV。稀有词较少，属于语料的问题。无论如何强大的模型，对于该类词的直接的特征学习能力都不会令人满意。</p>
+
+<p>既然很难学习，那就不学了，直接copy。</p>
+
+<p>假设存在一个合理的copy机制，那么我们的模型就兼具abstractive(generating)和extractive(copying)能力了。那么，最重要的问题就是如何设计一个合理的copy机制？合理性体现在既能实现copy，又能兼具生成和抽取的能力。</p>
+
+<p>经典的CP组合decoder端每个时间步会得到一个词典长度的概率向量，表示当前时间步为词典中某个词的概率，概率向量和为1，保证是一个合理的概率分布。</p>
+
+<p>类比，在encoder端也有一个合理的概率分布，就是attention分数的分布，和为1。那么，也就意味着输入序列的词汇也可以构造出一个词典，而attention分数可以当做输入序列构成词典的每个词汇的满足某种含义(相关性)的概率。</p>
+
+<p>decoder端的每个时间步的输出词取决于某个词典的概率分布。按照上述的逻辑，想让存在于输入序列中的OOV出现在摘要中，OOV就要出现在这个词典中。那么显然，输入序列构成的词典和输出端的词典的并集就是我们要的了。</p>
+
+<p>从另外一个角度，这个输出词汇的概率可以认为是由两端的词典的词汇概率按照某种比例组合而成。而这个比例可以是encoder端的利用attention得到的中间表示(上下文向量)，decoder端的输入，decoder端的上一时刻的HiddenState的函数。</p>
+
+<p>为啥可以？因为经典的CP输出的概率不也是上述三个量的间接函数表示吗？</p>
+
+<p>参考文献1给出了一种copy机制，具体细节可以参看论文。opennmt-py也实现了论文对应的模型，不过上文中提到的”比例”的计算方式和论文有细微差别。上述讨论给出了基本动机，能否设计出更好的copy机制是一个值得思考的问题。</p>
+
+<p>基本解决了重要的问题(第二)，就要去考虑不重要的问题(第一)。</p>
+
+<p>重复的可能原因是什么？从重复的内容来看，文本摘要任务中是输入文档中的某些句子，那么在这个任务中，就是要减少输入文档中重复的句子量。进一步思考，为什么？如果attention机制使得decoder老是盯着相同的句子，那么就有大概率会导致重复。这里更加细致的讨论，应该需要考虑decoder端每个时间步三种输入的比重问题。</p>
+
+<p>假设是这个原因，那就需要思考减少过分关注的发生。attention分数是关注的度量，因此一种可行的思路是从attention分数下手。那么如何去度量过分呢？</p>
+
+<p>在decoder端的每一个时间步都需要利用前一时间步的HiddenState和encoder端的所有时间步的HiddenState计算一遍，得到attention分数，进而得到对应decoder端当前时间步的中间表示。</p>
+
+<p>假设encoder的时间步长度为N，decoder端的时间步长度为M，则解码到第M步时，encoder端会得到M组N维向量。那么，基于M组N维向量，度量过分的方式大致有一些，比如：</p>
+
+<p>第一.encoder端对应时间步的attention分数求和。</p>
+
+<p>第二.encoder端某个时间步对应的attention分数历史序列的某个窗口的统计值，比如最大，中值等。</p>
+
+<p>当然，可以设计一些其他的度量方式。</p>
+
+<p>我们希望过分关注的HiddenState就不要再过分关注了，这个需要一个量化的操作来实现。</p>
+
+<p>在文献1中，通过减少decoder端当前时间步对应的</p>
+
+<p>encoder端的attention分数(一个N维向量，用A表示)</p>
+
+<p>和</p>
+
+<p>历史attention求和分数之间的(一个N维向量，用B表示)</p>
+
+<p>交集(每维求min后，对所有维度求和)</p>
+
+<p>来实现。</p>
+
+<p>上述建立了A和B之间的函数关系，作为约束(惩罚项)出现在原始的负对数似然函数中。这种函数关系想必也可以有多种，比如建立一个关于输入的衰减函数等。</p>
+
+<p>上述谈到的问题在机器翻译中同样存在，不过具体的表现形式存在微小的差异。值得一提的是，上述讨论的内容多是围绕参考1展开来的，copy机制和coverage机制还是有不同的表现方式，具体可以找些文章来读。此外，此二者都是基于attention机制的，是attention机制的再利用。在opennmt-py中围绕attention的实现包括上述两种机制，<a href="http://opennmt.net/OpenNMT-py/options/train.html">具体包括</a>：基本的attention机制(Bahdanau,Luong等)]，copy_attn，coverage_attn，copy_loss_by_seqlength等，其他相关机制四类。文档中这部分参数，看起来有些乱，代码中有一些简单的<a href="https://github.com/OpenNMT/OpenNMT-py/blob/master/onmt/opts.py">注释</a>，可能后续会单独对opennmt-py中这部分与attention有关的机制实现做个讨论，理清思路。</p>
+
+<p><em>后记：</em></p>
+
+<p><em>这趟回家，无锡，上海，郑州在KFC的平均停留时间超过三个小时。这篇博客是在郑州火车站的KFC中完成的。在上海KFC期间读了一篇CTO极力推荐的论文，NIPS2018汤晓鸥组林达华等人做的image captioning的工作，这个思路或许可以用于其他语言生成类任务中，稍后关于这篇文章的想法会形成一篇博客作为输出。同时作为对比，可能写一篇同组师弟在投的CVPR2019的关于视觉问答的工作。吃鸡腿去了。</em></p>
+
+<p>本文主要参考文献：</p>
+
+<p>1.《Get To The Point: Summarization with Pointer-Generator Networks》</p>
+
+<p>2.<a href="http://forum.stanford.edu/events/posterslides/GetToThePointSummarizationwithPointerGeneratorNetworks.pdf">上文对应Poster</a></p>
+
+<p>3.《Modeling Coverage for Neural Machine Translation》</p>
+
+<p>4.<a href="https://arxiv.org/pdf/1506.03134.pdf">《Pointer Network》</a></p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

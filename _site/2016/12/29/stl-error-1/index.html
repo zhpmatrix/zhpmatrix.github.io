@@ -1,0 +1,301 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[C++]STL陷阱</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2016/12/29/stl-error-1/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[C++]STL陷阱</h1>
+    <p class="meta">Dec 29, 2016</p>
+  </header>
+
+  <article class="post-content">
+  <p>在开始文章之前，回顾几个概念。</p>
+
+<p><strong>段错误(segmentation fault)</strong></p>
+
+<p>通常意义上的段错误是指程序访问的内存超出了系统给该程序的内存空间或者程序通过<strong>符号</strong>访问了不存在的物理内存。就自己的经历而言，常见有两种类型：<strong>数组越界</strong>和<strong>使用悬挂指针</strong>。当然，根据对段错误的理解，还可能存在其他多种情况，对于一个C++程序员，这是我们的光荣，因为C++赋予了我们操作内存的权利，而同时也是我们的不幸，因为野指针(悬挂指针)满天飞的程序，画面都懂的。</p>
+
+<p><strong>core文件</strong></p>
+
+<p>当程序挂掉后，内核会把程序当前内存映射到core文件中。当然，程序挂掉后，对于可以产生core文件的情况，当我们需要确实产生core文件的时候，通过设置core文件的大小来允许产生。命令如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#设置core大小为无限
+ulimit -c unlimited
+</code></pre></div></div>
+
+<p>通常来说，当程序接受到UNIX信号的时候可以产生core文件，信号列表如下：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>信号名字</th>
+      <th style="text-align: right">信号说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SIGABRT</td>
+      <td style="text-align: right">异常终止</td>
+    </tr>
+    <tr>
+      <td>SIGBUS</td>
+      <td style="text-align: right">硬件故障</td>
+    </tr>
+    <tr>
+      <td>SIGEMT</td>
+      <td style="text-align: right">硬件故障</td>
+    </tr>
+    <tr>
+      <td>SIGFPE</td>
+      <td style="text-align: right">算术异常</td>
+    </tr>
+    <tr>
+      <td>SIGILL</td>
+      <td style="text-align: right">非法硬件指令</td>
+    </tr>
+    <tr>
+      <td>SIGIOT</td>
+      <td style="text-align: right">硬件故障</td>
+    </tr>
+    <tr>
+      <td>SIGQUIT</td>
+      <td style="text-align: right">终端退出符</td>
+    </tr>
+    <tr>
+      <td>SIGSEGV</td>
+      <td style="text-align: right">无效存储访问</td>
+    </tr>
+    <tr>
+      <td>SIGSYS</td>
+      <td style="text-align: right">无效系统调用</td>
+    </tr>
+    <tr>
+      <td>SIGTRAP</td>
+      <td style="text-align: right">硬件故障</td>
+    </tr>
+    <tr>
+      <td>SIGXCPU</td>
+      <td style="text-align: right">超过CPU限制</td>
+    </tr>
+    <tr>
+      <td>SIGXFSZ</td>
+      <td style="text-align: right">超过文件长度限制</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>SIGSEGV</strong>就是发生段错误的信号。在使用GDB调试程序的时候，当调试到程序挂掉的地方时，会产生该信号。</p>
+
+<p>在调试挂掉的程序的时候，可以利用朴素的GDB单行调式。但是利用core文件可以快速定位挂掉的代码行，<strong>前提是设置core文件大小，见上段文字</strong>。具体操作如下，假设测试程序为<strong>test.cpp</strong>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>g++ -g test.cpp -o test
+</code></pre></div></div>
+
+<p>参数<strong>-g</strong>告诉编译器要生成调试所需信息（例如一些变量符号信息等）。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gdb test core
+</code></pre></div></div>
+
+<p>载入core文件。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb)bt
+</code></pre></div></div>
+
+<p>查看挂掉程序的函数调用栈。</p>
+
+<p>从调试流程上说就是这样的，目的在于定位crash的地方。但是如果对于原因不够了解，段错误依然是调试困难的问题(写这篇文章的时候，groot项目还有一个段错误问题没有解决)。</p>
+
+<p>从groot中把测试场景拉出来，代码如下：</p>
+
+<script src="https://gist.github.com/zhpmatrix/2d05ce656928376aca99bf22f0c5e807.js"></script>
+
+<p>vector::erase()方法是从指定容器删除指定位置的元素或者某段范围内元素，通常的声明如下(LLVM/clang的实现):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iterator erase(const_iterator position);
+</code></pre></div></div>
+
+<p>如果是删除指定位置的元素时，返回值是一个迭代器，指向删除元素下一个元素。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iterator erase(const_iterator first, const_iterator last);
+</code></pre></div></div>
+
+<p>如果是删除某范围内的元素时，返回值也表示一个迭代器，指向最后一个删除元素的下一个元素。</p>
+
+<p>在不同的平台下测试结果如下：</p>
+
+<p><strong>MAC和Ubuntu编译和运行都OK，Windows下编译OK，运行挂掉</strong>。Windows下的错误窗口(由实验室冒冒同学提供)如下所示：</p>
+
+<p><img src="http://ww2.sinaimg.cn/mw690/aba7d18bgw1fb6rrtt6fxj20db0ad40g.jpg" alt="erase-crash" /></p>
+
+<p>为什么呢？<strong>不同平台针对相同的STL标准，给出了不同的STL实现</strong>，我抽出了MAC和Ubuntu中的对应函数的源代码，如下：</p>
+
+<p>Mac中的编译器是LLVM/clang，代码如下：</p>
+
+<script src="https://gist.github.com/zhpmatrix/0d76a506bf7518fd8bdf4950b36ff6cf.js"></script>
+
+<p>Ubuntu中的编译器是g++，代码的实现是GNU ISO C++库的一部分，代码如下：</p>
+
+<script src="https://gist.github.com/zhpmatrix/17e003c5649e05717e4907d3626191f2.js"></script>
+
+<p>从源代码来看，和上述提到的erase的含义保持一致。Windows中 VS 的编译器是cl.exe，如果能够看到对应的STL实现就比较好。</p>
+
+<p>好，现在按照对erase的理解是：返回值指向被删除元素的下一个元素。看我们的测试代码，假设</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>v.push_back(20);
+</code></pre></div></div>
+
+<p>在这行代码后再添加一行代码：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>v.push_back(20);
+</code></pre></div></div>
+
+<p>也就是添加两个连续的值20，此时测试代码能够删除两个20？</p>
+
+<p>不能！很显然，erase(iter)之后，删除了第一个20，此时iter已经指向第二个20了，然后for循环中iter++，此时iter已经指向了30，跳过了第二个20。</p>
+
+<p>解决方法：</p>
+
+<script src="https://gist.github.com/zhpmatrix/df141723e5b42fde33d7be5c13c9f786.js"></script>
+
+<p>当然主流的解决方法还有第二种：</p>
+
+<p>将第一个for循环代码改为：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>v.erase(remove(v.begin(),v.end(),20),v.end());
+</code></pre></div></div>
+
+<p>总结：本文回顾了程序crash掉后的调试过程，抛出了一个Windows运行STL代码的结果和Mac及Ubuntu不同的问题，给出了vector::erase()的源代码实现，最后提到了一个erase常见的陷阱。<strong>正如恐惧的来源一样，陷阱是由于未知造成的</strong>。同时愿C++程序员的世界没有野指针。</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

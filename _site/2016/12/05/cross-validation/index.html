@@ -1,0 +1,229 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[ML]模型选择</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2016/12/05/cross-validation/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[ML]模型选择</h1>
+    <p class="meta">Dec 5, 2016</p>
+  </header>
+
+  <article class="post-content">
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<p>余凯在《”AI Inside”无处不在的未来》报告中谈到：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                        G = A + E + O
+</code></pre></div></div>
+
+<p>其中</p>
+
+<p><strong>G</strong>：Generalization Error即泛化误差。</p>
+
+<p><strong>A</strong>： Approximation Error即近似误差。误差来源是模型假设不完美，解决方法：更好的模型。</p>
+
+<p><strong>E</strong>： Estimation Error即估计误差。误差来源是数据不完美，解决方法：更多的数据。</p>
+
+<p><strong>O</strong>： Optimization Error即优化误差。误差来源是计算资源不完美，解决方法：更好的算法。</p>
+
+<p>考虑误差与模型之间的关系(<em>图片来源《ESL》</em>)：</p>
+
+<p><img src="http://ww3.sinaimg.cn/mw690/aba7d18bgw1faguvucn98j20hk0db41m.jpg" alt="Bias&amp;Variance" /></p>
+
+<p>随着模型复杂度的增加，训练误差(red line)逐渐减小，测试误差(blue line)逐渐减小到一个值之后又逐渐增加（<em>Breiman的Random Forest没有增加过程</em>）。换种方式来说，训练过程是偏差逐渐减小的过程，测试过程方差变化先减小后增大的过程。</p>
+
+<p>NIPS 2016上，Andrew Ng水笔白板作报告，又一次谈了他的bias和variance均衡，此处自行脑补bias和variance两条曲线随着模型复杂度变化的X型，通常来说，最佳的模型复杂度在两条曲线的交叉点处取得。模型复杂度太高，导致overfitting，产生variance，训练误差远小于交叉验证误差，也就是上图中右侧的高方差和低偏差的表示（训练误差和交叉验证误差的值相差较多）。反之，较低的模型复杂度，导致underfitting，产生bias，也就是上图右侧的高偏差和低方差的表示(但是训练误差和交叉验证误差的值是接近的)。此外，对于cost function中的正则项系数，系数太小，导致overfitting，反之太大，导致underfitting。至于<strong>训练样本和两类误差的关系</strong>，Ng是这样表述的，underfitting导致的high bias问题，增加训练样本数目不管用！为啥呢？设想你选择了一个不合适的模型。overfitting导致的high variance问题，增加训练样本数目，使得训练误差和交叉验证误差之间的gap变小，从而有助于性能提高。所以，不是所有的问题都可以用<strong>更多的数据</strong>来解决。</p>
+
+<p>此处不合时宜的谈谈二者均衡对我们的指导操作。</p>
+
+<ul>
+  <li>更多的数据，解决高方差</li>
+  <li>更小的特征集，解决高方差</li>
+  <li>更多的特征(例如：多用多项式特征)，解决高偏差</li>
+  <li>降低正则系数，解决高偏差</li>
+  <li>增加正则系数，解决高方差</li>
+</ul>
+
+<p>因此，更好的模型要满足有一个合适的模型复杂度。如何选择？</p>
+
+<p>关于选择策略通常有两个，分别是<strong>经验风险最小化</strong>和<strong>结构风险最小化</strong>。前者的具体实施是特定应用情景下的误差函数，基于前者提出的模型如极大似然估计，通常来说，数据越多，效果越好。但是数据较少的情况下，容易出现过拟合，因为模型复杂度过高。为了防止过拟合，提出了结构风险最小化策略，具体实施是正则化。正则化的作用就是选择经验风险和结构风险都尽量小的模型。于是常常看到：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    目标函数 = 误差函数 + 正则化项
+</code></pre></div></div>
+
+<p>上述是从目标函数的角度出发进行模型选择，能否从数据角度出发呢？</p>
+
+<p>当然！经典的方法是交叉验证。通常来说，利用这种方法选择出的泛化能力强的模型，经验风险和模型复杂度同时较小。一般来说，折数为5或者10。回顾交叉验证的过程之后，考虑下交叉验证的目的：</p>
+
+<p><em>1.</em> 从有限的训练数据中获取尽可能多的有效信息。</p>
+
+<p>从工业界的竞赛来看，通常拿到数据之后，将数据分成两个部分，训练集和验证集。简单的做法是利用训练集训练数据，调整参数。验证集用来进行测试（预测），得到一个模型评分。在有限数据情况下，模型并没有从验证集中学习有效信息，因此，利用”交叉”的想法，利用上验证集的数据就显得很重要。</p>
+
+<p><em>2.</em> 从多个方向训练模型，有效避免陷入局部最小值。</p>
+
+<p>一种可能的情况是训练数据满足某种分布，串行训练也即按照分布方向进行的训练。显然交叉之后，会得到不同的分布进而按照多方向训练模型。在<a href="https://zhpmatrix.github.io/2016/12/04/coding-tricks/">编程复盘</a>中提到的Shuffle操作有同样的意味。其实交叉也是一种Sampling，涉及到采样分布（统计量是样本的函数）的问题。</p>
+
+<p><em>3.</em> 一定程度上避免过拟合。</p>
+
+<p>交叉训练过程中，利用分开的训练集训练模型，利用验证集测试模型，选择预测评分较高的模型。</p>
+
+<p>常见的三种验证方式：HoldOut验证(无交叉，工业竞赛用)，K-fold交叉验证（此乃正法），留一法(K-fold的特殊形式)。</p>
+
+<p>代码时刻终于来了(sklearn中的交叉验证)！</p>
+
+<script src="https://gist.github.com/zhpmatrix/0858ea5a4ba3182597938ead60d49174.js"></script>
+
+<p>几点说明：</p>
+
+<p>1.通常采用的是K-fold交叉验证方式，必要的时候可以HoldOut。</p>
+
+<p>2.HoldOut中的scoring是‘accuracy’,可以读源代码。</p>
+
+<p>3.cross_val_score中的<a href="http://scikit-learn.org/stable/modules/model_evaluation.html#scoring-parameter">scoring</a>可选参数众多，<strong>scoring是用来定义模型评估准则的</strong>，比如scoring=’accuracy’是target预测值和真实值的差度量。具体如下：</p>
+
+<p>[<strong>‘accuracy’</strong>, ‘adjusted_rand_score’, ‘average_precision’, <strong>‘f1’</strong>, ‘f1_macro’, ‘f1_micro’, ‘f1_samples’, ‘f1_weighted’, <strong>‘log_loss’</strong>, <strong>‘mean_absolute_error’</strong>, <strong>‘mean_squared_error’</strong>, ‘median_absolute_error’, ‘precision’, ‘precision_macro’, ‘precision_micro’, ‘precision_samples’, ‘precision_weighted’, ‘r2’, <strong>‘recall’</strong>, ‘recall_macro’, ‘recall_micro’, ‘recall_samples’, ‘recall_weighted’, <strong>‘roc_auc’</strong>]</p>
+
+<p>在利用交叉验证进行参数选择的时候，结合Ng所谈到的问题，我们只要关心交叉验证误差最小时对应的模型就好，当然，GridSearchCV也是模型参数选择一种合适的方式。</p>
+
+<p>总结：文章从误差谈到模型选择到风险，最终回到正则化和交叉验证的讨论。在实际问题中，参数选择是个相对耗时的操作，一方面可以依托于人类经验tuning，另一方面依托于机器暴力搜索解决。</p>
+
+<p>参考：</p>
+
+<p>1.<a href="http://blog.csdn.net/daringpig/article/de    tails/8122903">经验风险最小化与结构风险最小化</a></p>
+
+<p>从科学命题的讨论转移到没有免费午餐定理，再到Occam剃刀，通俗易懂。有人提到周  志华老师的书上有关于没有免费午餐的详细证明。</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

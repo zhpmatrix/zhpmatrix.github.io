@@ -1,0 +1,266 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[医疗NLP]NLP人误闯医疗界</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2021/03/10/medical-survey/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[医疗NLP]NLP人误闯医疗界</h1>
+    <p class="meta">Mar 10, 2021</p>
+  </header>
+
+  <article class="post-content">
+  <h4 id="一2021年新冠如魅影">一.2021年，新冠如魅影</h4>
+
+<h5 id="1大国对比中美pk">（1）大国对比，中美PK</h5>
+
+<p>2015年，联合国统计的GDP排名前20的国家，医疗卫生总支出占GDP的百分比。其中，<strong>美国为17.1%，中国为5.5%</strong>，见参考(1)。这说明，我们的水平，还不能算很高。</p>
+
+<h5 id="2中国政策引导">（2）中国政策引导</h5>
+
+<p>这里给出一个基本的时间线，如下：</p>
+
+<ul>
+  <li>2014年：“46312工程”（卫生资源整合的顶层设计）</li>
+  <li>2018年3月：电子病历分级评价的新标准（共8级水平，此前是7级水平）</li>
+  <li>2018年8月：卫健委要求2020年前所有三级医院电子病历应用水平达到4级或以上</li>
+</ul>
+
+<p>附加：</p>
+
+<p>（1）<strong>2016年，国内49.8%的医疗机构电子病历评级为0级，4级或以上的占比为8%</strong>。</p>
+
+<p>（2）“46312工程”解读</p>
+
+<ul>
+  <li>“4”代表4级卫生信息平台，分别是：国家级人口健康管理平台，省级人口健康信息平台、地市级人口健康区域信息平台及区县级人口健康区域信息平台</li>
+  <li>“6”代表6项业务应用，分别是：公共卫生、医疗服务、医疗保障、药品管理、计划生育、综合管理</li>
+  <li>“3”代表3个基础数据库，分别是：电子健康档案数据库、电子病历数据库和全员人口个案数据库</li>
+  <li>“1”代表1个融合网络，即人口健康统一网络</li>
+  <li>“2”是人口健康信息标准体系和信息安全防护体系</li>
+</ul>
+
+<p>内忧，外患，还有”新冠“黑天鹅，所以，值得干一把。</p>
+
+<h4 id="二nlp的大锤有了医疗界的钉子给我一打">二.NLP的大锤有了，医疗界的钉子给我一打</h4>
+
+<p>整体上看，业务流程的划分有三个视角：</p>
+
+<ul>
+  <li>医院粒度：院前，院中和院后</li>
+  <li>诊断粒度：诊前，诊中和诊后</li>
+  <li>事件粒度：事前，事中和事后</li>
+</ul>
+
+<p>整体的业务场景划分上，分别以<strong>平安医疗</strong>和<strong>来未来&amp;熙牛医疗</strong>为例，医渡云的团队也不错：</p>
+
+<p>平安医疗：智能医疗质量控制，智能疾病预测，智能分诊导诊，智能医疗影像筛查，智能辅助诊断和治疗（700+的疾病类型，医疗知识图谱），智能ICU重症管理以及智能随访患教。</p>
+
+<p>来未来&amp;熙牛医疗在数据中台和业务中台两大中台体系下的业务架构如下：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/3581455c7677b32b.png" alt="img-2" /></p>
+
+<p>整体上看，以智慧医院云平台和区域医疗健康两大核心为主，下分不同的智慧模块，服务不同的用户角色，实现医疗过程的全流程介入。</p>
+
+<p>嗯，医疗首先要解决的是信息化，也就是让数据流动起来。在流动的数据中，可以添加智能化的组件。这里仅给出算法侧相关的钉子两例。</p>
+
+<p>其中的一个算法侧的抓手是：<strong>电子病历结构化</strong>。博主调研了各种相关<a href="https://github.com/zhpmatrix/nlp-competitions-list-review">学术竞赛</a>，绝大多数的比赛都是围绕该抓手进行的。通过结构化，形成知识库，甚至于知识图谱，继而支撑上游业务。</p>
+
+<p>比如，一个标准的电子病历结构如下（通常情况下，每种类别可以分开处理）：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/94765b7830d9ce21.png" alt="img-1" /></p>
+
+<p>但是要形成一个知识库，仅有上述数据是不够的。这里给出一个临床诊疗知识库的体系：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/240bd6c455c760ab.png" alt="img0" /></p>
+
+<p>第二个算法侧的抓手是：<strong>临床科研</strong>。具体场景如下：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/6df68cc655b4f6cd.png" alt="img1" /></p>
+
+<p>本着循证医学的思路，临床科研也是一个较大的钉子。</p>
+
+<h4 id="三具有医疗特色的nlp技术">三.具有医疗特色的NLP技术</h4>
+
+<p>（3.1）结构化</p>
+
+<p>第一：数据融合。要关注多源，多模态，多类型。比如要融合第三方厂商的数据库数据，下面给出一个列表。</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/bcf2638e79d620b5.png" alt="img2" /></p>
+
+<p>第二：模型侧。分类，序列标注，关系抽取，消歧归一，知识图谱构建与应用</p>
+
+<p>第三：重规则引擎开发</p>
+
+<p>第四：闭环：数据侧+模型侧+服务侧</p>
+
+<p>（3.2）搜索：标准的文本处理问题。</p>
+
+<p>（3.3）推荐：医疗问题的错误惩罚较重，决策权一定是要在人手中。</p>
+
+<p>（3.4）医疗影像处理</p>
+
+<p>（3.5）文本生成</p>
+
+<p>整体上，相比于通用NLP任务，医疗NLP的落地要求重视规则引擎的开发，要求准确率的提升，要求更加通用的方案（各种“多”的特点），要求模型能力和更加的耐心做badcase的分析和纠正。</p>
+
+<h4 id="四未来">四.未来</h4>
+
+<h5 id="41医疗行业的成长周期很长这是一个重视长期价值普世价值的赛道可以回顾丁香园等公司">（4.1）医疗行业的成长周期很长，这是一个重视长期价值，普世价值的赛道。（可以回顾丁香园等公司）</h5>
+
+<h5 id="42信息化的进程还有一半的路要走更深的医疗环节介入">（4.2）信息化的进程还有一半的路要走，更深的医疗环节介入。</h5>
+
+<h5 id="43信息化基础上对智能化的需求加深还有很多值得挖掘的地方这是一个有较高壁垒的赛道">（4.3）信息化基础上对智能化的需求加深，还有很多值得挖掘的地方，这是一个有较高壁垒的赛道。</h5>
+
+<h5 id="44强政策依赖跟着党和国家走可能是区别其他行业的一个鲜明特点">（4.4）强政策依赖，跟着党和国家走（可能是区别其他行业的一个鲜明特点）。</h5>
+
+<p>好了，有几个故事想讲给你听，见参考（5）。</p>
+
+<p>但是，别忘了，投资50亿的IBM医疗裁员70%这样的新闻，可能的风险点在哪里？可以参考（6）。</p>
+
+<p><strong>参考文献和部分数据来源：</strong></p>
+
+<p>(1)中国和世界各国医疗支出占GDP的比例是多少？https://www.zhihu.com/question/264996078?from=groupmessage</p>
+
+<p>(2)卫健委卫生信息数据。http://www.nhc.gov.cn/wjw/s9497/wsbz.shtml（非常有价值的文档）</p>
+
+<p>(3)《电子病历系统功能应用水平分级评价方法及标准》，https://wenku.baidu.com/view/0700d582842458fb770bf78a6529647d262834f1.html</p>
+
+<p>(4)腾讯天衍实验室：https://jarvislab.tencent.com/</p>
+
+<p>(5)故事：http://share.591adb.com/sharearticle/article/article_id/3524764/app_key/e70891ddafa5e012828c143390cdad9e</p>
+
+<p>(6)IBM医疗的问题：https://spectrum.ieee.org/biomedical/diagnostics/how-ibm-watson-overpromised-and-underdelivered-on-ai-health-care</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

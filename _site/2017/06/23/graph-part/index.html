@@ -1,0 +1,266 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[ML&DL]用图分割的方式加速随机漂移粒子群优化算法(RDPSO)</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2017/06/23/graph-part/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[ML&DL]用图分割的方式加速随机漂移粒子群优化算法(RDPSO)</h1>
+    <p class="meta">Jun 23, 2017</p>
+  </header>
+
+  <article class="post-content">
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<p>在<a href="https://zhpmatrix.github.io/2017/06/14/graph-partitioning/">基于图的目标函数分解策略</a>中，已经相对详细的说了目标函数分解的方法，本文则谈<strong>计算</strong>的问题。</p>
+
+<h4 id="0-同步异步阻塞非阻塞">0. 同步，异步，阻塞，非阻塞</h4>
+
+<p><strong>同步</strong>是指<strong>调用者</strong>没有从<strong>被调用者</strong>那里得到<strong>结果</strong>前，调用者不返回。</p>
+
+<p><strong>异步</strong>是指调用者发出调用后就返回(没有结果)，当有结果时，被调用者告诉调用者。</p>
+
+<p><strong>阻塞</strong>是在<strong>没有获得结果前</strong>，调用者一直等待，啥也不干。</p>
+
+<p><strong>非阻塞</strong>是在<strong>没有获得结果前</strong>，调用者去干别的事情，时不时查询一下被调用者是否返回结果。</p>
+
+<p>[一个字一个字儿读]</p>
+
+<p>从上述关系上来看，同步和异步反映调用者和被调用者之间的关系，或者说反映了二者之间的<strong>消息通信机制</strong>，阻塞和非阻塞描述的是调用者的状态，<strong>异步一定是非阻塞</strong>，但是调用者获取结果的方式不同，对异步来说，是调用者被动接受(由被调用者发出”有结果啦”的消息)，而非阻塞是调用者主动获取(时不时问被调用者，”有结果没呢?”)。但是<strong>同步是可以分为阻塞和非阻塞</strong>的，注意同步和非阻塞的关系，调用者不返回和调用者去干别的事情不冲突的。</p>
+
+<p>关于上述概念更丰富的理解，可以见<a href="https://www.zhihu.com/question/19732473">这里</a>。</p>
+
+<h4 id="1-mpi通信">1. MPI通信</h4>
+
+<p>1.0 MPI_Barrier</p>
+
+<p>这里有一个<a href="http://blog.csdn.net/u014247371/article/details/26958469">Demo</a>，我尝试说形象地表达一下。A,B,C三个同学跑5000米，有个教练D，为了保证最终A,B,C的成绩差距不太大，他在1000米处等着，三个同学没有全到达该处时，其他任意一个到的同学要等待其他同学，然后开跑。“在1000米处等”就意味着设置了一个<strong>Barrier</strong>，不管Barrier前各个任务的执行速度，先来的都要等待后到的，在后续的RDPSO的分布式计算中可以使用Barrier实现(粗粒度)同步计算。</p>
+
+<p>1.1 MPI_Send和MPI_Recv，MPI_ISend和MPI_IRecv</p>
+
+<p>Send和Recv是用于<strong>阻塞通信</strong>，而ISend和IRecv用于<strong>非阻塞通信</strong>，通过设置消息缓冲区实现计算和通信的重叠。这里很显然，消息缓冲区的大小会成为一个bottleneck。代码先占坑：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include&lt;mpi.h&gt;  
+#include&lt;stdio.h&gt;  
+
+int main(int argc ,char * argv[]){  
+
+    int  s1=5 ,r1=4;  
+    MPI_Status status;  
+    MPI_Request req;  
+  
+    int nprocs,rank;  
+    MPI_Init(&amp;argc, &amp;argv);  
+    MPI_Comm_size(MPI_COMM_WORLD, &amp;nprocs);  
+    MPI_Comm_rank(MPI_COMM_WORLD, &amp;rank);  
+    if(rank==0){  
+            //MPI_Send(&amp;s1,1,MPI_INT,1,1,MPI_COMM_WORLD);  
+            MPI_Isend(&amp;s1, 1, MPI_INT, 1, 1, MPI_COMM_WORLD, &amp;req);  
+            MPI_Wait(&amp;req, &amp;status);
+            printf("rank 0 send!\n");   
+    }  
+    if(rank==1){  
+            //MPI_Recv(&amp;r1,1,MPI_INT,0,1,MPI_COMM_WORLD,&amp;status);  
+            MPI_Irecv(&amp;r1, 1, MPI_INT, 0, 1, MPI_COMM_WORLD, &amp;req);
+            MPI_Wait(&amp;req, &amp;status);  
+            printf("rank 1 recv!\n"); 
+            printf("recv data: %d\n",r1);
+    }
+    MPI_Finalize();  
+    return 0;  
+}
+</code></pre></div></div>
+
+<p>使用非阻塞通信时，需要显式调用MPI_Wait，为了测试非阻塞效果，可以通过传输大量的数据，来看是否影响程序下一行代码地执行，在测试中开辟了稍微大的空间就会挂掉，难道技能点还没Get到(需要明确应用场景)？</p>
+
+<p>1.2 集合通信</p>
+
+<p>集合操作的三种类型包括：同步，数据传递(广播，分散，收集等)，规约。具体可以参照这篇<a href="http://blog.csdn.net/miaohongyu1/article/details/21093913">文章</a>，想来与神威太湖之光也就一墙之隔。</p>
+
+<p>1.3 Allreduce</p>
+
+<p>在之前的文章中多次提到工业界对于SGD的分布式优化通常的思路是MPI+AllReduce+SGD，所以这里着重提一下MPI_Reduce和MPI_Allreduce，下述内容参照该<a href="http://mpitutorial.com/tutorials/mpi-reduce-and-allreduce/">tutorial</a>，良心文档，安利一发。</p>
+
+<p><img src="http://mpitutorial.com/tutorials/mpi-reduce-and-allreduce/mpi_reduce_2.png" alt="reduce" /></p>
+
+<p>关键代码：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Reduce all of the local sums into the global sum
+float global_sum;
+MPI_Reduce(&amp;local_sum, &amp;global_sum, 1, MPI_FLOAT, MPI_SUM, 0,
+       MPI_COMM_WORLD);
+
+// Print the result
+if (world_rank == 0) {
+printf("Total sum = %f, avg = %f\n", global_sum,
+     global_sum / (world_size * num_elements_per_proc));
+}
+</code></pre></div></div>
+
+<p><img src="http://mpitutorial.com/tutorials/mpi-reduce-and-allreduce/mpi_allreduce_1.png" alt="allreduce" /></p>
+
+<p>关键代码：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Reduce all of the local sums into the global sum in order to
+// calculate the mean
+float global_sum;
+MPI_Allreduce(&amp;local_sum, &amp;global_sum, 1, MPI_FLOAT, MPI_SUM,
+          MPI_COMM_WORLD);
+float mean = global_sum / (num_elements_per_proc * world_size);
+</code></pre></div></div>
+
+<p>对比二者的区别：MPI_Allreduce=MPI_Reduce+MPI_Bcast.从代码中可以看到MPI_Reduce之后，global_sum在root process(根节点，主节点，管理节点)被访问，其他（计算）节点不可访问，而MPI_Allreduce则可以在计算节点上访问global_sum。类似的还有MPI_Allgather和MPI_Gather两个操作，MPI_Allgather=MPI_Gather+MPI_Bcast，从操作上来看，<strong>Reduce和Gather有什么区别呢？</strong></p>
+
+<p>Gather重在数据的收集，对于收发两端的数据起始地址，数据个数和数据类型敏感，Reduce重在数据的处理，故在MPI_Reduce的API中有MPI_Op这个关键的操作参数(MPI_MAX,MPI_SUM,MPI_MAXLOC,MPI_MINLOC等)。</p>
+
+<h4 id="2-计算实现">2. 计算实现</h4>
+
+<p>下图是目标函数分解后的通信拓扑：</p>
+
+<p><img src="http://wx3.sinaimg.cn/mw690/aba7d18bgy1fgu9z90slnj20e00d8gml.jpg" alt="cluster" /></p>
+
+<p>Rosenbrock’s function如下：</p>
+
+\[F=\sum_{i=1}^{D-1}(100(x_{i}^2-x_{i+1})^2+(x_{i}-1)^2)+bias\]
+
+<p>令D=6(变量维度)，K=3(子目标个数)，由于是按照SUM方式分解，每个子目标的和就是原目标。如上图，红色圆圈表示子目标f1，绿色表示子目标f2，紫色表示子目标f3，由分解结果知道，f1和f2的依赖变量是x1，f2和f3的依赖变量是x3。如何利用<a href="https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-15-S6-S1">RDPSO算法</a>寻找原函数的最小值？据老板说，他搞的这个算法在<strong>稳定性</strong>上比较好，具体没有研究过。</p>
+
+<p>整体的思路是：给集群的每个计算节点上分配一个粒子群用来优化对应的子函数f，设置子种群迭代次数sub_iter，<strong>当子种群迭代次数到达该值时（目前假定f1,f2,f3同时到达），f1和f2交换x1的值，f2和f3交换x3的值，交换后的值作为下一次迭代的粒子初始值，相比于首次迭代开始，粒子初始值是随机值。</strong>设置种群迭代次数max_iter，也就是子种群互相交互的次数，当达到该值时，在管理节点上得到每个子种群的粒子位置gbestx和对应的最优值gbest，所有子种群的gbest求和作为全局gbest。</p>
+
+<p>实际上在上述策略中，涉及的关键问题是<strong>冲突变量的解决</strong>。围绕着交换冲突(共享)变量的目标，要解决两个问题，<strong>第一是when?</strong>在假设子目标寻优同时结束的情况下，策略如上描述，这是一种同步方案。可是假设子目标函数的差别较大，子目标寻优不同时结束时情况怎样？其中一种情况是f2和f1以及f3都有x1的依赖，如何处理关于x1的更新呢？显然此时需要为x1加锁，但是会不会由于同步方案的选择造成计算效率的降低？<strong>第二是how?</strong>在上述策略描述中，简单的做exchange，如何评估方案的好坏？比如说更好的加权方案，满足某种映射关系？</p>
+
+<p>代码还没有整理，雏形阶段，不是对这个问题感兴趣，一定不要点开。<a href="https://github.com/zhpmatrix/metis">Github代码</a></p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

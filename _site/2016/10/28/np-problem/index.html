@@ -1,0 +1,291 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[LeetCode]NP问题和近似算法</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2016/10/28/np-problem/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[LeetCode]NP问题和近似算法</h1>
+    <p class="meta">Oct 28, 2016</p>
+  </header>
+
+  <article class="post-content">
+  <hr />
+
+<p><em>P，NP，NPC问题的关系：</em></p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Complexity_classes.svg/414px-Complexity_classes.svg.png" alt="P&amp;NP&amp;NPC" /></p>
+
+<hr />
+<p>上图是假设P != NP的情形，如果P = NP，则P = NP = NPC</p>
+
+<p><em>NPC问题没有多项式时间算法，常用解题策略：</em></p>
+
+<p><em>1.</em> <strong>只计算特殊情况下的解</strong></p>
+
+<p><em>2.</em> <strong>动态规划或分支限界求解</strong></p>
+
+<p><em>3.</em> <strong>概率算法</strong></p>
+
+<p><em>4.</em> <strong>近似解</strong></p>
+
+<p><em>5.</em> <strong>启发式求解</strong></p>
+
+<hr />
+
+<p><em>四个NPC问题的近似算法的例子：</em></p>
+
+<h4 id="顶点覆盖问题">顶点覆盖问题</h4>
+
+<p>问题描述：给定一个N个点M条边的无向图G（点的编号从1至N），问是否存在一个不超过K个点的集合S，使得G中的每条边都至少有一个点在集合S中。</p>
+
+<p>近似算法思想：从G中的所有边中任选一条边，删除与该边两端顶点连接的所有边。从剩余边中继续任意选择第二条边，删除与该边两端顶点连接的所有边。继续该过程，<strong>直到没有剩余边可以选择</strong>，这时被选择的边的所有两端顶点就是集合S中的元素。</p>
+
+<p>算法执行过程如下图：</p>
+
+<hr />
+<p><img src="http://ww4.sinaimg.cn/mw690/aba7d18bgw1f98azq7btnj20gm0dptaz.jpg" alt="顶点覆盖问题" /></p>
+
+<hr />
+
+<p>图(e)是近似算法得出的集合S，其中元素包括：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>b，c，d，e，f，g
+</code></pre></div></div>
+
+<p>图(f)是含有最少点的集合S(通常意味着最优),元素包括：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>b，e，d
+</code></pre></div></div>
+
+<h4 id="旅行售货员问题">旅行售货员问题</h4>
+
+<p>问题描述：给定一个完全无向图G=(V,E)，其每一边(u,v)∈E有一非负整数费用c(u,v)，要找出G的最小费用哈密顿回路。</p>
+
+<p>一个性质（三角不等式）：费用函数c通常意义下具有三角不等式性质，即对任意的3个顶点u,v,w∈V，有：c(u,w)≤c(u,v)+c(v,w)。</p>
+
+<p>近似算法思想：从G中任选一个点A，用Prim算法做以A为根的最小生成树T，前序遍历T得到顶点表L，将A加入L的末尾，最后按照L中顶点次序连接得到目标回路。</p>
+
+<p>算法执行过程如下图：</p>
+
+<hr />
+<p><img src="http://ww3.sinaimg.cn/mw690/aba7d18bgw1f98bu7v846j20l20duta3.jpg" alt="TSP问题" />
+—</p>
+
+<p>图(d)是近似算法的结果，图(e)是最优结果。</p>
+
+<h4 id="集合覆盖问题">集合覆盖问题</h4>
+
+<p>问题描述：给定一个集合U以及U内元素构成的若干各小类集合S，目标是找到S的一个子集，该子集满足所含元素包含了所有的元素且使小类集合个数最少。</p>
+
+<p>例如，U={1,2,3,4,5}，S=[{1,2},{3,4},{2,4,5},{4,5}],找到集合能满足条件的可以有”[{1,2},{3,4}{4,5}]”或是”[{1,2},{3,4},{2,4,5}]。</p>
+
+<p>近似算法(贪婪思想)，伪代码描述如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/**
+* X: 全体元素的集合
+* F: 由X中元素构成的小类集合的集合
+*/
+Set greedySetCover(X,F)
+{
+   U=X；
+   C=NULL；
+   while (U != NULL) {
+     选择F中使|S∩U|最大的子集S；
+     U=U-S；
+     C=C∪{S}；
+     }
+   return C；
+} 
+</code></pre></div></div>
+
+<p>近似算法采用贪心思路，<strong>每次选择与全体元素集合交集最大的子集合</strong>。这样的决策从当前看来，可以减少最终结果的子集合数目。因为可以简单地理解为，在最终得到的子集合中，元素（是一个集合）越大，元素个数越少，因为子集合中元素(集合)的并是全体元素(个体)。</p>
+
+<h4 id="子集和问题">子集和问题</h4>
+
+<p>问题描述：S={x1，x2，…，xn}是一个正整数的集合，t是一个正整数。子集和问题判定是否存在S的一个子集S1，使得S1中的元素和等于t。</p>
+
+<p>指数时间算法伪代码如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int exactSubsetSum(S,t)
+{
+    int n=|S|；
+    L[0]={0}；
+    for(int i=1；i&lt;=n；i++) {
+        L[i]=mergeLists(L[i-1],L[i-1]+S[i])；
+        删去L[i]中超过t的元素；
+    }
+    return max(L[n])；
+}
+</code></pre></div></div>
+
+<p>完全多项式时间近似格式</p>
+
+<p>基于算法exactSubsetSum，通过对表L[i]作适当的修整建立一个子集和问题的完全多项式时间近似格式
+在对表L[i]进行修整时，用到一个修整参数δ，0＜δ＜1。用参数δ修整一个表L是指从L中删去尽可能多的元素，使得每一个从L中删去的元素y，都有一个修整后的表L1中的元素z满足<strong>(1-δ)y≤z≤y</strong>可以将z看作是被删去元素y在修整后的新表L1中的代表。</p>
+
+<p>修正算法伪代码：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>List trim(L,δ)
+{  
+    int m=|L|；
+    L1=〈L[1]〉；
+    int last=L[1]；
+    for(int i=2；i&lt;=m；i++) {
+        if(last&lt;(1-δ)*L[i]) {//另一种表达：last*(1+δ)&lt;L[i]
+            将L[i]加入表L1的尾部；
+            last=L[i]；
+        }
+    return L1；    } 
+</code></pre></div></div>
+
+<p>改正后子集合问题的完全多项式时间格式伪代码：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int approxSubsetSum(S,t,ε)
+{
+    n=|S|；
+    L[0]=〈0〉；
+    for(int i=1；i&lt;=n；i++) {
+        L[i]=Merge-Lists(L[i-1],
+        L[i-1]+S[i])； 
+        L[i]=trim(L[i],ε/n)；//此处添加trim操作
+        删去L[i]中超过t的元素；
+    }
+    return max(L[n])；
+} 
+</code></pre></div></div>
+
+<p>衡量NPC问题的近似解法的最重要的两个性能指标：<strong>时间复杂度</strong>和<strong>近似比</strong>(<em>当然并不是意味着空间复杂度不重要</em>)。关于上述四个问题的性能评估，并不是本文的目标。数学色彩更加浓厚的文章可能对于时间复杂度和近似比这两件事儿说的相对清晰一些。</p>
+
+<hr />
+
+  </article>
+
+  <!-- mathjax -->
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

@@ -1,0 +1,228 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[PyTorch]RNN遇上PyTorch</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/03/08/rnn-series-pytorch/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[PyTorch]RNN遇上PyTorch</h1>
+    <p class="meta">Mar 8, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<p>这篇博客，主要梳理一下PyTorch中的RNN系实现的相关接口和参数，输入和输出维度的对应。结合使用其他框架的体验，做一些简单的对比。PyTorch老鸟可以直接飞走了。</p>
+
+<p>GRU的Cell结构如下，</p>
+
+<p><img src="http://wx4.sinaimg.cn/mw690/aba7d18bgy1g0uet6s5t8j20kd06jgmj.jpg" alt="img1" /></p>
+
+<p>PyTorch中对应的类是<strong>torch.nn.GRU</strong>。其中参数如下：</p>
+
+<p>input_size: 输入特征的维度</p>
+
+<p>hidden_size: 隐藏层的维度</p>
+
+<p>num_layers: 堆叠的GRU的层数</p>
+
+<p>bias: 是否添加bias项，可以有bias，也可以没有。weights和bias的初始化都是按照U(-根号(k),根号(k))，其中k=1/hidden_size来做的。但是要和输入的h_0有区别，当h_0不以显式的方式提供时，h_0 = 0!</p>
+
+<p>batch_first：这是一个关于input和output的维度排列的参数。需要重点关注，默认情况下，input和output的都是seq_len first的，input的格式如(seq_len, batch, …)，output的格式如(seq_len, batch, …)。设置该参数为True，则对应的input和output的维度可以对应得出。对比其他框架的使用体验，多是batch_first，所以初次使用该函数，需要注意。见下图：</p>
+
+<p><img src="https://pytorch.org/tutorials/_images/seq2seq_batches.png" alt="img3" /></p>
+
+<p>dropout: 设置dropout率</p>
+
+<p>bidirectional: 是否是双向GRU</p>
+
+<p>通过上述七个参数，就可以搭建一个GRU的结构了。通常定义语句出现在类的__init__方法中，在forward函数中可以使用该定义，那么使用的时候需要考虑输入的类型。输入参数格式如下：</p>
+
+<p>input: (seq_len,batch,input_size)，主要注意的两个地方：第一是默认情况下是seq_len优先的。第二是，如果想要处理变长序列，可以借助torch.nn.utils.rnn.pack_padded_sequence()来实现。</p>
+
+<p>h_0: 如上图所示，在第一个时间步，需要一个初始化的隐藏层向量。其中格式为(num_layers*num_directions, batch, hidden_size)</p>
+
+<p>有了上述参数，模型已经可以执行forward函数了。那么，输出是怎么样呢？</p>
+
+<p>output: 最后一层GRU，所有时间步的隐藏层向量。格式为(seq_len, batch, num_directions*hidden_size)，显然,</p>
+
+<p>output.view(seq_len, batch, num_directions, hidden_size)有时是很有用的。</p>
+
+<p>通常来说，output是我们在使用RNN时比较关注的，但是在seq2seq框架下，我们希望得到最后一层，所有时间步的隐藏层向量，此处应用场景很多，不做过多阐述。</p>
+
+<p>h_n: (num_layers*num_directions, batch, hidden_size)，类比上述output，可以有：</p>
+
+<p>h_n.view(num_layers, num_directions, batch, hidden_size)</p>
+
+<p>上述描述包括三块内容，结构定义，input和output。其中需要重点关注的细节包括维度，初始化等。好了，可以测试一波了。用PyTorch可以获得非常棒的测试体验。代码如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import torch
+gru = torch.nn.GRU(10,20,2)
+input = torch.randn(5,3,10)
+h0 = torch.randn(2,3,20)
+output, hn = gru(input, h0)
+</code></pre></div></div>
+
+<p>完事儿，对一个函数的认识基本结束了。</p>
+
+<p>沿着这种思路，类比可以快速Get到原生的RNN和LSTM的相关参数和注意细节。这里需要提示的是，PyTorch对原生RNN的参数说明中暴露了非线性函数的选择，可以使用tanh或者relu；LSTM相对于GRU，input中需要对记忆状态(cell_state)初始化，同时output中有最后一层，所有时间步对应的记忆状态。在seq2seq框架中，LSTM将隐藏层状态hidden_state和记忆状态cell_state共同作为encoder端的输入的表示传递给decoder作为初始化向量。</p>
+
+<p>上述描述的所有内容，目的都是搭建一个类似于下图的结构，</p>
+
+<p><img src="http://wx1.sinaimg.cn/mw690/aba7d18bgy1g0uer231rej20k807u75t.jpg" alt="img2" /></p>
+
+<p>这也是多数情况下，我们对RNN系的使用场景。但是，PyTorch为我们提供了更加灵活的Cell的定义。有了Cell，可以使用for-loop实现一个上述的结构。具体参数不再赘述，一个使用例子如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import torch
+gru_cell = torch.nn.GRUCell(10,20)
+input = torch.randn(6,3,10)
+hx = torch.randn(3,20)
+output = []
+for i in range(input.shape[0]):
+    output.append(gru_cell(input[i], hx))
+
+</code></pre></div></div>
+
+<p>总之，Cell接口的开放给我们提供了更加灵活的处理RNN系结构的能力，相信一定存在相应的模型场景，但是自己现在暂时没想到。</p>
+
+<p>对比Tensorflow中实现地多个RNN系的版本，PyTorch中的RNN系要清晰的多。可以开心地复现模型了。</p>
+
+<p>主要参考：</p>
+
+<p>1.<a href="https://pytorch.org/docs/stable/nn.html">PyTorch官方文档</a></p>
+
+<p>2.相关图片地址：<a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/">图片1</a>,<a href="https://pytorch.org/tutorials/beginner/chatbot_tutorial.html">图片2</a>, <a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/">图片3</a></p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

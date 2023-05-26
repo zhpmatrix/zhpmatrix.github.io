@@ -1,0 +1,313 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[Optimization]Deep Learning中的梯度下降优化算法</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2017/04/13/deep-learning-optimizer-tricks/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[Optimization]Deep Learning中的梯度下降优化算法</h1>
+    <p class="meta">Apr 13, 2017</p>
+  </header>
+
+  <article class="post-content">
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<p>看图说话，比较一下常见优化算法在正常和非正常(saddle point)情况下的表现。</p>
+
+<p><strong>正常情况下：</strong></p>
+
+<p><img src="http://wx2.sinaimg.cn/mw690/aba7d18bgy1fehvxkvlclg20h80dc4n1.gif" alt="Algs Compare" /></p>
+
+<p>图片来源: Alec Radford</p>
+
+<p>对比六种优化算法，Adagrad,Adadelta,Rmsprop能够很快的找到minimum，而Momentum和NAG则随之到来，而SGD奔着目标，姗姗来迟。</p>
+
+<p>鞍点附近情况:</p>
+
+<p><img src="http://wx2.sinaimg.cn/mw690/aba7d18bgy1fehvvz9orng20h80dc1ca.gif" alt="saddle point 1" /></p>
+
+<p><em>下面是一张看起来不那么好的的图</em></p>
+
+<p><img src="http://wx3.sinaimg.cn/mw690/aba7d18bgy1fehvy2j12ug20h80dc7lw.gif" alt="saddle point 2" /></p>
+
+<p>图片来源: Alec Radford</p>
+
+<p>这是六种优化算法在鞍点处的表现，Adadelta表现出色，悲剧了SGD。</p>
+
+<hr />
+
+<p>在利用SGD作优化算法的时候，会面临两个困难：</p>
+
+<p><em>1.</em> 怎样选择合适的学习率？</p>
+
+<p>相比于BGD，SGD收敛速度快，但是精度略差。如果学习率较小，收敛更慢，反之如果学习率较大，在靠近最小点附近，由于梯度较小，会导致震荡(Rosenbrock函数)以至于发散(步子太大，没有扯着’0’，囧)。针对学习率的选择有一些解决方案，例如模拟退火，不是一味的下降，适当爬山，可能跳出小水沟，找到真正的深井。同时有一些在训练开始前定义的预调度策略，但是采用这种方式不能很好地适应数据集的特性。采用相同的学习率对不同的参数进行更新而不考虑数据和特征也是不合适的。</p>
+
+<p><em>2.</em> 鞍点的问题？</p>
+
+<p>采用SGD对非凸问题进行优化的时候，会陷入鞍点困境(saddle point)。</p>
+
+<p>为解决上述问题，学术界做出了一系列算法改进工作。DL中常常使用基于梯度的改进优化算法，也就是一阶优化算法。DL中参数众多，计算量大，所以简单work的方案总是会受到青睐。</p>
+
+<p>1.动量方法(Momentum)</p>
+
+<p>没有用Momentum之前是这个样子的：</p>
+
+<p><img src="https://www.willamette.edu/~gorr/classes/cs449/figs/valley1.gif" alt="before" /></p>
+
+<p>在走向minimum的过程中，如果方向是对的，那就加速，如果方向是错的，那就刹车。想像一个场景，站在山顶向山底滚动一个巨大的球，在滚向山底的过程中，由于惯性的作用，球会越滚越快，但是当球滚过山底时，滚向对面山顶的过程中，球会越滚越慢。惯性是保持事物本来运动状态的一种性质，在问题1中提到，如果学习率设置不合适，在接近minimum的时候，由于梯度较小，梯度更新较大，会跨过minimum，继而形成震荡，如果我们在寻找minimum的过程中，使得在搜索方向错误的时候，梯度更新不要太冒险，或许可以在一定程度上解决这个问题，<strong>不要太冒险，就要尽量保持原来状态</strong>。</p>
+
+<p>更新表达式：</p>
+
+\[\nu_t=\gamma\nu_{t-1}+\eta\nabla_\theta J(\theta)\]
+
+\[\theta = \theta - \nu_t\]
+
+<p>自从使用Momentum之后是这个样子的(卖钙片滴)：</p>
+
+<p><img src="http://wx2.sinaimg.cn/mw690/aba7d18bgy1fes5em9gurg20be04uwe9.gif" alt="after" /></p>
+
+<p>2.Nesterov Accelerated Gradient(NAG)</p>
+
+<p>Geoffrey Hinton在lecture中的描述是这样的：</p>
+
+<ul>
+  <li>First make a big jump in the direction of the previous accumulated gradient.</li>
+  <li>Then measure the gradient where you end up and make a correction.</li>
+</ul>
+
+<p>表达式如下:</p>
+
+\[\nu_t = \gamma\nu_{t-1}+\eta\nabla J(\theta-\gamma\nu_{t-1})\]
+
+\[\theta = \theta - \nu_t\]
+
+<p>在上式中，可以认为\(\theta-\gamma\nu_{t-1}\)是参数下一个位置的近似。Momentum和NAG的区别如下(来自Hinton课件)：</p>
+
+<p><img src="http://wx1.sinaimg.cn/mw690/aba7d18bgy1fej0qns796j20lt06c759.jpg" alt="pic" /></p>
+
+<p>蓝色向量表示动量方法，其中较短的蓝色向量表示计算当前梯度，较长的蓝色向量表示big jump(\(\gamma\nu_{t-1}\))。 其余向量表示NAG方法的两个迭代过程，左侧棕色向量表示big jump, 红色向量表示计算当前梯度\(\nabla J(\theta-\gamma\nu_{t-1})\)，绿色向量表示合成的更新参数\(\nu_t\).</p>
+
+<p>3.Adagrad</p>
+
+<p>在问题1中谈到有些场景下不同的参数对应的学习率不同，adagrad实现了这个目标。Jeffrey Dean在Google的从Youtube视频中识别猫的神经网络训练中用到这个方法来提高SGD的鲁棒性，同时也实现了稀疏场景下的学习问题。表达式如下:</p>
+
+<p>\(g_{t,i} = \nabla_\theta J(\theta_i)\)表示目标函数在\(t\)步中在\(\theta_i\)的梯度，则对传统SGD有\(\theta_{t+1,i}=\theta_{t,i}-\eta g_{t,i}\)，而adagrad的更新方式为：</p>
+
+\[\theta_{t+1,i}=\theta_{t,i}-\frac{\eta}{\sqrt{G_{t,ii}+\epsilon}}g_{t,i}\]
+
+<p>其中，\(G_t \in R^{dxd}\)是一个对角矩阵，对角上的元素\(i\)为\(\theta_i\)的历史值的平方和，\(\epsilon\)是为了防止分母为0的项，通常取值为\(1e-8\),\(\eta\)通常不需要调整，默认值\(0.01\)。此处也正是adagrad缺点的体现，随着训练过程的进行，分母越来越大，导致学习率变小，学习不足。</p>
+
+<p>4.Adadelta</p>
+
+<p>在Adagrad方法中, \(G_t\)中的元素是历史值的平方和，Adadelta对于Adagrad中的改进主要是<strong>采用一个固定窗口内的值的平方和的平均</strong>。第\(t\)步对应的值为：</p>
+
+\[E[g^2]_t=\gamma E[g^2]_{t-1}+ (1-\gamma)g_t^2\]
+
+<p>同时有：</p>
+
+\[\triangle\theta_t = -\frac{\eta}{\sqrt{E[g^2]_t+\epsilon}}g_t\]
+
+<p>用新的记号\(RMS[g]_t\)来重写上述分母，有：</p>
+
+\[\triangle\theta_t = -\frac{\eta}{RMS[g]_t}g_t\]
+
+<p>针对\(\eta\)的改进是：</p>
+
+\[\eta = RMS[\triangle\theta]_{t-1}=\sqrt{E[\triangle\theta^2]_{t-1}+\epsilon}\]
+
+<p>最终的表达式是：</p>
+
+\[\triangle\theta_t = -\frac{RMS[\triangle\theta]_{t-1}}{RMS[g]_t}g_t\]
+
+\[\theta_{t+1}=\theta_t+\triangle\theta_t\]
+
+<p>从上面可以看出，Adadelta的关键是固定窗口而非历史所有值的利用，学习率不需要调整。</p>
+
+<p>5.RMSprop</p>
+
+<p>RMSprop没有经过正式发表，是Geoffrey Hinton在课上提出的，是Adadelta对学习率不改进前的版本，其中\(\gamma=0.9\),\(\eta=0.001\),想到自己在《神经网络》课程上的大作业中，利用keras做一个分类问题利用的优化方法就是RMSprop。</p>
+
+<p>6.Adam</p>
+
+<p>Adam的全称是Adaptive Moment Estimation,是一种对不同参数更新计算不同学习速率的新方法，同样要维持一个关于梯度的指数衰减平均。更新规则如下：</p>
+
+\[m_t = \beta_1 m_{t-1}+(1-\beta_1)g_t\]
+
+\[\nu_t = \beta_2 \nu_{t-1} + (1-\beta_2)g_t^2\]
+
+\[\hat{m}_t=\frac{m_t}{1-\beta_1^t}\]
+
+\[\hat \nu_t = \frac{\nu_t}{1-\beta_2^t}\]
+
+\[\theta_{t+1}=\theta_{t}-\frac{\eta}{\sqrt{\hat{\nu}_t}+\epsilon}\hat{m}_t\]
+
+<p>作者给出的参数默认值是\(\eta=0.001,\beta_1=0.9,\beta_2=0.999,\epsilon=10^{-8}\),其中\(m_t\)和\(\nu_t\)分别是第一动量和第二动量(梯度平方)的估计,\(\hat{m}\)和\(\hat \nu_t\)是对动量估计的修正方式。</p>
+
+<p>【补充】：史春奇在<a href="https://mp.weixin.qq.com/s?__biz=MzIzMjU1NTg3Ng==&amp;mid=2247485870&amp;idx=1&amp;sn=3c40e9a2865dd45fbe14f745be62315f&amp;chksm=e8925da5dfe5d4b30f05b19b55e313adc493e026d646004927dea299ecaeb0e6c8ddca9c8a74&amp;mpshare=1&amp;scene=23&amp;srcid=07064tSquHJV9jnQTeqYqKUk#rd">文章</a>中谈到为什么主流平台都实现该优化算法？</p>
+
+<p>1.实现简单</p>
+
+<p>2.计算高效，动量+自适应，提高了收敛速度</p>
+
+<p>3.内存消耗小，更新完就丢</p>
+
+<p>4.<strong>对于极具变化，带噪声，甚至稀疏的梯度能够较好的适应</strong></p>
+
+<p>5.不太需要人工干预，初始化和调参不需要高级技巧(<em>这点从主流平台的参数设置也可以看出</em>)</p>
+
+<h4 id="如何选择优化算法">如何选择优化算法？</h4>
+
+<p>实际情况下，现在的一些文章还是使用标准SGD算法和一个简单的学习率退火调度过程来训练模型。在很多场景下，RMSprop，Adadelta和Adam表现几乎一样，但是在某些场景下，Adam的表现较优与其他算法。</p>
+
+<p><strong>结合分布式场景，SGD如何优化？</strong></p>
+
+<p>典型的算法有Hogwild!,Downpour SGD,Delay-tolerant Algorithms for SGD,Elastic Averaging SGD等。</p>
+
+<p>同时有一些其他策略：Shuffling and Curriculum Learning,Batch Normalization,Early stopping,Gradient noise等。</p>
+
+<p><strong>总结</strong>：本篇博客以DL领域中的优化review为纲，梳理了常用的优化算法。对比在之前的文章中反复提到的Bottou关于SGD的review文章，前者主要围绕学习率和saddle point来考虑，后者则关心noise和二阶信息的利用。而在noise处理方面，和DL中的优化策略类似，是对当前梯度信息和历史梯度信息的共同使用。二阶优化方法是为了挖掘更多可利用信息，而一阶优化是为了更好的利用历史信息。</p>
+
+<p><strong>参考</strong>：</p>
+
+<p>1.<a href="http://sebastianruder.com/optimizing-gradient-descent/index.html#challenges">An Overview of Gradient Descent Optimization Algorithm</a></p>
+
+<p>2.<a href="http://mp.weixin.qq.com/s?__biz=MzAwNDI4ODcxNA==&amp;mid=404482412&amp;idx=1&amp;sn=3fb245d1893487a1beaa6abd56147b30&amp;scene=25#wechat_redirect">算法优化之道：避开鞍点</a></p>
+
+<p>3.<a href="https://www.willamette.edu/~gorr/classes/cs449/momrate.html">Momentum and Learning Rate Adaptation</a></p>
+
+<p>4.<a href="http://mp.weixin.qq.com/s?__biz=MzIzMjU1NTg3Ng==&amp;mid=2247483805&amp;idx=1&amp;sn=83f2e6e1e9f021e9227ef2fbbcefbeda&amp;chksm=e8925596dfe5dc80844b67e5e020ee2e7b79b00bc95184fcb0ab0f08d03793441beea2d2e97c&amp;mpshare=1&amp;scene=23&amp;srcid=0504OdKe8hESi7SWQS9TSL76#rd">迭代优化算法之直观概述</a></p>
+
+<p>文章中有一张更细致的优化算法关系图，同时对近期的经典优化算法进行了实验上的对比。</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

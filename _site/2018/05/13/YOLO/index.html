@@ -1,0 +1,165 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[目标检测]重新思考YOLO的一些问题</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2018/05/13/YOLO/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[目标检测]重新思考YOLO的一些问题</h1>
+    <p class="meta">May 13, 2018</p>
+  </header>
+
+  <article class="post-content">
+  <p>了解一个架构或者算法，首先明确输入和输出。虽然输入和输出是算法定义的一部分，但是很遗憾，经常看到一些报告会忽略这个问题，分析思路是输入，详细过程和输出。可能导致的一个问题是陷入到详细过程的细节中不能自拔。回顾分类过程，一种常见的结构是网络结构高层为全连接层加上Softmax层，输入一张图片和对应标签，全连接层得到特征的向量化表示，Softmax层后得到一个预测结果，通过预测结果和标签对比，得到反馈信号进行反向传播，得到网络结构的参数更新量，下一张图片喂给模型，过程类似，以此类推，参数的更新效应是累计的，所以需要一张一张图片喂给模型。从优化角度或者站在全局的角度，Loss函数是基于所有样本定义的一个巨大的网络参数搜索空间，优化的过程是通过SGD等方法尽可能找到全局最优的过程，而训练过程，或者Pipeline驱动了寻优的进行。</p>
+
+<p>回到检测过程，检测是定位和分类的和。如何定位？坐标或者说bounding box，小方块。那一个直接的思路就来了，把图片分成好多个小方块，分别对小方块进行分类。当然可以的，但是缺点也是很多的，比如说物体尺度的问题，物体有大有小；随之带来的问题是，计算消耗的问题（括号中内容可以不看，针对这个问题，假设是基于卷积的分类网络，原始方法是一个个拿出小方块，喂给分类网络，改进方法是对原图中的多个小方块同时进行分类，核心是通过卷积操作，在卷积分类网络的最后一层输出所有小方块的预测结果，非常棒的想法，前提是卷积分类网络，代表工作学名OverFeat）；等等。不过，不失为一种解决问题的方法，稍微学术点的叫法是基于滑动窗口的目标检测。实际上，比较后来的方法，这种方法最大的优点之一在于不需要打位置标签，检测的位置标签非常昂贵，这也从侧面反映出这种方法在定位上精确不会很高，实在太粗糙，几乎没有任何物体位置的先验信息可以使用，注意这里是几乎没有。</p>
+
+<p>能否按照分类的思路构造定位的过程？还是需要输入和输出的定义。定位是用bbox标出物体在图片中的位置。位置是从坐标来表示，如何唯一表示一个bbox？四个角的坐标可以，中心点的坐标加上bbox的宽高可以，对角线坐标可以。那么，输出就确定了，就是物体坐标，而且是多个坐标。整个Pipeline是输入一张图片，通过网络结构，输出图片中物体的坐标。这个过程在监督体系下，显然需要一个监督信号，也就是标签或者ground truth。类比分类问题，标签应该也是坐标了。输入确定了。如何构造反馈过程？比较预测的坐标和ground truth之间的距离就OK了，这个是一个显然的回归过程。这样，问题就清楚了。检测最终还是要回到分类和回归上。在分类问题中，我们存在特征提取的问题，分类网络到底提取了什么特征？其实，在检测问题中，这个问题应该依然存在。</p>
+
+<p>到这里，可以设计一个最简单的检测网络了。假设已经有一个分类网络了，在全连接层后加上一个回归层，Softmax层输出一个信号，回归层输出四个信号(比如bbox用物体中心点坐标，长，宽表示)。或者换种角度理解，一个网络结构，对应两个任务，一个分类，一个回归，且任务之间具有相关性。</p>
+
+<p>当训练完成后，给网络输入一张图片，就可以输出图片中物体的位置和类别，是不是非常棒！</p>
+
+<p>类比人脸关键点检测，人体姿态检测，对任务轮廓的把握就基本上清晰了。</p>
+
+<p>沿着OverFeat的思路，上文提到没有先验信息，导致位置预测不准确。怎么添加先验信息？一种最强先验莫过于在训练集中给出每个物体的ground truth。当给出ground truth的时候，直接回到上文对输入和输出讨论的一段内容。实际上，这个工作是YOLO早期的想法。此处提一个问题，为啥YOLO需要划分Cell？(相信可以很快得到答案)，另一个延伸问题是，撇开OverFeat的框架，撇开Cell，结合ground truth，定位的事情能不能做？</p>
+
+<p>接下来的讨论是在YOLO早期工作的基础上展开的。按照OverFeat的想法，每个小方块代表一个候选物体，候选位置。稍后的博文中，候选的概念可能会经常看到。现在添加了ground truth，如果还要按照这个路子走，至少考虑两个问题。第一，满足每个小方块与一个物体有关。第二，利用好这部分先验信息。针对问题以，ground truth的midpoint落在哪个Cell，就与哪个Cell绑定；问题二上文已经讨论过。</p>
+
+<p>这个路子还是很僵硬，不灵活。假设一个Cell中落入两个物体呢？YOLO的解决方案是添加几个不同尺度的anchor，想要把ground truth分开，midpoint的限制条件不够就添加限制条件，同时与原有体系兼容。这样，和原始的滑窗方法相比，原始的方式可以认为是固定大小和尺度的一种anchor，这种方式是固定大小和尺度的几种anchor，几种不同的尺度就不仅解决了一个Cell落入两个物体的问题，同时解决了多尺度检测的问题。此处，再次提出上文的一个问题，能不能撇开Cell的概念，直接谈多尺度anchor？但是考虑这个问题时，不能忽略利用卷积实现共享计算的问题，而实时性正是YOLO的卖点所在。</p>
+
+<p>上周研讨班的讨论内容，拖到这周才去整理思路，懒。YOLO还有v2和v3的改进版，尚没有跟进。CVPR一波未平，ECCV一波又起，还不讨论ICML，NIPS，ICLR等。针对同样的任务，数据增强，网络结构，损失函数等改进众多，文章根本读不完。所以，关键的是把握脉络和发展方向，保持自己的思考。不能仅仅停留在怎么做的层面上，当然调参这件事，怎么做确实很重要，但是个人认为不具备太强的学习价值，各种做法的背后的原因和理解才是相对有价值的东西。</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

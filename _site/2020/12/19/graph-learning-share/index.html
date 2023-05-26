@@ -1,0 +1,242 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]Graph Learning: 一种数据组织观点</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2020/12/19/graph-learning-share/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]Graph Learning: 一种数据组织观点</h1>
+    <p class="meta">Dec 19, 2020</p>
+  </header>
+
+  <article class="post-content">
+  <p>对于知识图谱的构建，从非结构化数据中构建，知识的价值更高，但是对信息抽取能力的要求也更高；从结构化数据中构建，可以弱化对信息抽取能力的要求，转而将重心放在应用层，这对于一个有大量结构化数据积累的团队而言，是非常有吸引力的。</p>
+
+<p><img src="https://tva1.sinaimg.cn/mw690/aba7d18bly1glt6n0o589j20zk0k0my7.jpg" alt="img_1" />
+<img src="https://tva1.sinaimg.cn/mw690/aba7d18bly1glt6n5eo5zj20zk0k0jso.jpg" alt="img_2" /></p>
+
+<p>为了讲清楚图数据库和传统关系型数据库有啥区别？从一个具体例子出发。</p>
+
+<p><img src="https://tva4.sinaimg.cn/mw690/aba7d18bly1glt6n91ik4j20zk0k00ux.jpg" alt="img_3" />
+<img src="https://tva1.sinaimg.cn/mw690/aba7d18bly1glt6nckrxjj20zk0k0mzj.jpg" alt="img_4" />
+<img src="https://tva2.sinaimg.cn/mw690/aba7d18bly1glt6nituwjj20zk0k0767.jpg" alt="img_5" />
+<img src="https://tva1.sinaimg.cn/mw690/aba7d18bly1glt6ozp1fhj20zk0k0432.jpg" alt="img_6" /></p>
+
+<p>简单而言，ER图的设计和Schema设计对应，SQL和Cypher对应，关系表和图对应。</p>
+
+<p><img src="https://tva3.sinaimg.cn/mw690/aba7d18bly1glt6p44iwpj20zk0k0wga.jpg" alt="img_7" /></p>
+
+<p>传统关系表更像是一个个挺立的烟囱，每个烟囱中装载同一种类型的数据。而图则爆破了这些烟囱，将所有数据拉平到一个巨大的平面上。</p>
+
+<p>那么，为啥要研究KG/GL呢？从一些具体的应用场景出发来看，如下：</p>
+
+<p><img src="https://tva4.sinaimg.cn/mw690/aba7d18bly1glt6p7mmzpj20zk0k0juv.jpg" alt="img_8" /></p>
+
+<p>这里给出一个Cypher相对于SQL在查询上更具优势表现的例子：</p>
+
+<p><img src="https://tva2.sinaimg.cn/mw690/aba7d18bly1glt6r0qc47j20zk0k0tm6.jpg" alt="img_9" /></p>
+
+<p>左上角是完美世界的产品：全历史的工作，右上角是个人非常喜欢的工作Magi（2019年的工作），左下角是组里小姐姐研究生期间参与的一个比较大的项目（华谱网）的具体例子。</p>
+
+<p><img src="https://tva1.sinaimg.cn/mw690/aba7d18bly1glt6pf1abxj20zk0k0guq.jpg" alt="img_10" /></p>
+
+<p>那么，一个知识查询服务，要具有什么样的特点呢？</p>
+
+<p><img src="https://tva2.sinaimg.cn/mw690/aba7d18bly1glt6coou2zj20zk0k041a.jpg" alt="img_12" /></p>
+
+<p>知识查询服务意味着图构建本身就可以产生价值。除此之外，也有其他的一些应用场景，如下：</p>
+
+<p><img src="https://tva1.sinaimg.cn/mw690/aba7d18bly1glt6cs8zawj20zk0k0tdg.jpg" alt="img_13" />
+<img src="https://tva2.sinaimg.cn/mw690/aba7d18bly1glt6cvy1wgj20zk0k0jw8.jpg" alt="img_14" />
+<img src="https://tva4.sinaimg.cn/mw690/aba7d18bly1glt6czomrdj20zk0k0aho.jpg" alt="img_15" />
+<img src="https://tva2.sinaimg.cn/mw690/aba7d18bly1glt6d3i73zj20zk0k078z.jpg" alt="img_16" />
+<img src="https://tva2.sinaimg.cn/mw690/aba7d18bly1glt6dff5iyj20zk0k00w9.jpg" alt="img_17" />
+<img src="https://tva3.sinaimg.cn/mw690/aba7d18bly1glt6disgv0j20zk0k0af2.jpg" alt="img_18" /></p>
+
+<p>总结一下，如下：</p>
+
+<p><img src="https://tva2.sinaimg.cn/mw690/aba7d18bly1glt6dlxvs0j20zk0k0juf.jpg" alt="img_19" /></p>
+
+<p>说了这么多的场景，那么怎么用呢？这里先给出一个该方向知识体系的脉络图。左图来自THU的唐杰老师组梳理的一个脉络图，右图是比较常见的一张NLP的milestone图。</p>
+
+<p><img src="https://tva2.sinaimg.cn/mw690/aba7d18bly1glt6dp9maxj20zk0k0nbs.jpg" alt="img_20" /></p>
+
+<p>从上述体系上观察，主要重点关注的工作有三个方面，这里用三张PPT分别简要介绍各个方向上的代表性工作。</p>
+
+<p><img src="https://tva2.sinaimg.cn/mw690/aba7d18bly1glt6dycpe3j20zk0k0q6s.jpg" alt="img_21" />
+<img src="https://tva2.sinaimg.cn/mw690/aba7d18bly1glt6e2k49yj20zk0k0jxz.jpg" alt="img_22" />
+<img src="https://tva1.sinaimg.cn/mw690/aba7d18bly1glt6e6xv7nj20zk0k0q9b.jpg" alt="img_23" /></p>
+
+<p>在读了大量相关方向上的资料之后，得出的一些比较宏观的观点，如下：</p>
+
+<p><img src="https://tva1.sinaimg.cn/mw690/aba7d18bly1glt6eat039j20zk0k00vq.jpg" alt="img_24" /></p>
+
+<p>最后，聊一聊我们自己的工作吧。目前已经做过的包括基于结构化和非结构化的数据做图谱构建，具体为电商领域美妆行业的知识图谱。</p>
+
+<p><img src="https://tva3.sinaimg.cn/mw690/aba7d18bly1glt6eekqvbj20zk0k077f.jpg" alt="img_25" />
+<img src="https://tva2.sinaimg.cn/mw690/aba7d18bly1glt6emwdvtj20zk0k0mzm.jpg" alt="img_26" />
+<img src="https://tva1.sinaimg.cn/mw690/aba7d18bly1glt6eqx5v5j20zk0k0wgt.jpg" alt="img_27" />
+<img src="https://tva2.sinaimg.cn/mw690/aba7d18bly1glt6evfmuvj20zk0k042a.jpg" alt="img_28" />
+<img src="https://tva1.sinaimg.cn/mw690/aba7d18bly1glt6ezoxdmj20zk0k0wih.jpg" alt="img_29" /></p>
+
+<p>关于上述描述的问题，在博客<a href="https://zhpmatrix.github.io/2020/11/25/business-kg-thoughts/">电商域图谱构建-问题复盘</a>中有更加具体的阐述，这里不再瞎BB了。基于结构化数据的图谱构建，目前的图谱规模如下：</p>
+
+<p><img src="https://tva1.sinaimg.cn/mw690/aba7d18bly1glt6f4g1qsj20zk0k040c.jpg" alt="img_30" /></p>
+
+<p>基于上述工作，即将展开的研究内容如下：</p>
+
+<p><img src="https://tva3.sinaimg.cn/mw690/aba7d18bly1glt6fconvsj20zk0k0gqp.jpg" alt="img_31" />
+<img src="https://tva3.sinaimg.cn/mw690/aba7d18bly1glt6fghon7j20zk0k0juk.jpg" alt="img_32" /></p>
+
+<p>最后，总结一些基于结构化数据图谱构建的一些问题和注意点，如下：</p>
+
+<p>（1）做一个好的SQL Boy吧（逃）。基于结构化数据构建的核心环节在于写SQL。</p>
+
+<p>（2）DataFrame要用的6。基于SQL获取的数据能解决大部分问题，但是需要用DataFrame对这些得到的数据做二次加工，需要Join/Merge/Concat，需要去重，去空，分组等基本功能。</p>
+
+<p>（3）人工参与不能避免。</p>
+
+<p>（4）慢工出细活。整体上是一个非常细致的工作，要求对表，数据，属性，字符串等处理，数据处理的工作，不难但是步骤多，由此很容易导致某个步骤遗漏。数据的问题在小规模下不暴露，在大规模下就会暴露，是因为错误情况很难在没有看到数据的情况下想到，耐心一些吧。</p>
+
+<p>（5）大规模数据处理需要工程优化。</p>
+
+<p>（6）数据的问题，尤其要注意错误数据和遗漏数据，因为在图谱构建的最终结果中，这部分是需要被验证的，系统不会报错的。</p>
+
+<p>接下来我们的工作会重点转向应用层，希望对该方向上的工作有进一步的理解和认识吧。</p>
+
+<p>PPT链接: https://pan.baidu.com/s/1xob-iFB9kR5Ku1p69VkWGg</p>
+
+<p>提取码: 3h2b</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

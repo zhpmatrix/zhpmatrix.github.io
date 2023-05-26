@@ -1,0 +1,286 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[知识图谱]开放域信息抽取</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/07/28/open-relation-extraction/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[知识图谱]开放域信息抽取</h1>
+    <p class="meta">Jul 28, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <p>强调两句：</p>
+
+<blockquote>
+  <p>开放信息抽取的三元组的&lt;S,P,O&gt;都是来自于待抽取的句子，也就是说S,P和O都会出现在待抽取的句子中。不同于其他场景，P可以是预先定义的relation(可以不出现在句子中)，而S和O都是来自待抽取的句子。</p>
+</blockquote>
+
+<blockquote>
+  <p>调研的目的在于不希望预先定义schema去做关系抽取，同时最好不要引入标注任务(比如构造平行语料)。</p>
+</blockquote>
+
+<p>主要阅读的<a href="https://github.com/NPCai/Open-IE-Papers">论文列表1</a>，<a href="https://aclweb.org/anthology/D14-1201">论文列表2</a>。</p>
+
+<p><strong>总结：</strong></p>
+
+<p>首先，要明确一下开放域信息抽取的目的，在强调部分已经说明。</p>
+
+<p>其次，开放域信息抽取的主流路子，个人认为在<strong>写规则</strong>。写规则主要包括两条线：第一是基于内容的匹配，例如写正则表达式；第二是基于结构的匹配，基于句法分析。实际上，这两条线从相关学术界和工业界的一些工作来看，在<strong>垂直场景</strong>下都是可以work的。第一需要业务专家的参与，第二需要好的句法分析和业务专家，如果句法分析是数据驱动的，且通用句法分析不满足要求，则是将直接的关系标注任务转移到了句法分析，其实这是很有启发性的一条思路。</p>
+
+<p>最后，有一些比较有意思的思路。比如<strong>无监督的关系抽取</strong>（个人对无监督保持极大的好奇心，但是实际上多数情况下，无监督的效果不达预期，希望进一步发展吧。），比如用<strong>序列标注</strong>和<strong>seq2seq</strong>的思路，将标注任务转移到其他模块，这两种思路要严格满足强调中提到的假设。</p>
+
+<p>如果和我的目的一样，只是为了了解一下目前的开放信息抽取的主流方式，就基本可以结束了。下文是一些相对具体的工作，希望有一些启发。</p>
+
+<p>1.<a href="https://github.com/lemonhu/open-entity-relation-extraction">《Chinese Open Relation Extraction and Knowledge Base Establishment》</a>,TALLIP2018</p>
+
+<p>类似工作：《Chinese Open Relation Extraction for Knowledge Acquisition》</p>
+
+<p>基于依存句法的方案。依据具体的待抽取的关系和语料特性(话术体系)，依据<strong>依存树</strong>和<strong>依存图</strong>设计了七种抽取
+规则，其中一种如下所示：</p>
+
+<p><img src="http://wx1.sinaimg.cn/mw690/aba7d18bgy1g5d57xl7iej20k903rdg9.jpg" alt="img1" /></p>
+
+<p>可以基于<a href="http://ltp.ai/demo.html">LTP</a>平台进行测试。其实，相对适合抽取的语料如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>德国总统高克。
+
+高克访问中国。
+
+习近平在上海视察。
+
+习近平对埃及进行国事访问。
+
+奥巴马毕业于哈佛大学。
+
+习近平主席和李克强总理接见普京。
+
+习近平访问了美国和英国。
+
+高克访问中国，并在同济大学发表演讲。
+</code></pre></div></div>
+
+<p>这种方式和<strong>基于正则</strong>的抽取类似，不过前者是基于结构的，后者不仅有结构，同时可能有内容上的限制，是更加严格的约束。同属于<strong>模式匹配</strong>的范畴。</p>
+
+<p>这篇文章同时给出了一个<a href="https://github.com/TJUNLP/COER">中文的关系抽取库</a>。同时提到了<a href="https://www.ldc.upenn.edu/collaborations/past-projects/ace/annotation-tasks-and-specifications">The Automatic Content Extraction(ACE)</a>数据，有830篇标注的中文文档，内含实体，关系和事件。</p>
+
+<p><strong>想法</strong>：整体上存在两个大的问题，第一是依赖于上游基于语言学工具；第二是需要专家设计好的DSNF；假设上游的语言学工具的获取需要数据驱动，则是将直接进行关系抽取的标注任务转移到了其他任务而已；但是假设可以间接利用通用的语言学工具，且要解决的问题话术体系稳定，也是一个思路。</p>
+
+<p>2.《A Sentence Simpliﬁcation System for Improving Relation Extraction》</p>
+
+<p>提出了一个用于开放信息抽取的预处理操作：句子简化(<strong>syntax-based sentence simpliﬁcation</strong>)。句子压缩可以称为一个单独的任务，印象中ACL2018中的某个工作做了一个数据集。</p>
+
+<p>3.《A Survey on Open Information Extraction》，2018</p>
+
+<p><strong>OIE的三个挑战：</strong></p>
+
+<p>（1）自动化。不需要预先定义schema，不需要标注数据；或者定义少量的schema，标注少量的数据</p>
+
+<p>（2）数据依赖。理想中的OIE是<strong>domain-independent</strong>的。</p>
+
+<p>（3）计算高效。“Open IE systems must be computationally efﬁcient. Enabling fast extraction over huge datasets, shallow linguistic features, like POS tags, are to be preferred over deep features that are derived from parse trees”</p>
+
+<p><strong>OIE的四个方向：</strong></p>
+
+<p>第一：learning-based</p>
+
+<p>和之前博客提到的<a href="https://zhpmatrix.github.io/2019/06/05/snorkel/">snorkel</a>是一个很类似的系统。</p>
+
+<p>第二：rule-based</p>
+
+<p>基于内容写规则，类似于写正则。</p>
+
+<p>第三：clause-based</p>
+
+<p>基于结构写规则。类似于1的工作。</p>
+
+<p>第四：approaches capturing inter-proposition relationships</p>
+
+<p>比较有意思的问题，但是感觉并不能算是一个方向。问题如下：给定一句话，</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Early scientists believed that the earth is the center of the universe.
+</code></pre></div></div>
+
+<p>可以抽取的三元组如下，</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;the earth; is the center of; the universe&gt;
+</code></pre></div></div>
+
+<p>但是这个三元组是事实吗？不一定。因为是前缀，<strong>‘Early scientists believed that’</strong>，为此，希望抽取的内容是，</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(&lt;the earth; be the center of; the universe&gt;; AttributedTo believe; Early astronomers)
+</code></pre></div></div>
+
+<p>而这个方向主要解决的问题包括上述。在正在做的事实性错误检测的工作中，同样会面临该问题。</p>
+
+<p>4.《Supervised Open Information Extraction》</p>
+
+<p>建模为一个序列标注问题。输入输出如下：</p>
+
+<p><img src="http://wx4.sinaimg.cn/mw690/aba7d18bgy1g5dif9olm0j20u20aymzv.jpg" alt="img2" /></p>
+
+<p>5.《Neural Open Information Extraction》</p>
+
+<p>建模为一个seq2seq问题。输入输出如下：</p>
+
+<p>输入：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>deep learning is a subfield of machine learning
+</code></pre></div></div>
+
+<p>输出：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;arg1&gt;deep learning &lt;/arg1&gt; &lt;rel&gt; is a subfield of &lt;/rel&gt; &lt;arg2&gt; machine learning &lt;/arg2&gt;
+</code></pre></div></div>
+
+<p>相关文章，《Extracting Relational Facts by an End-to-End Neural Model with Copy Mechanism》,ACL2018</p>
+
+<p>6.《Open Information Extraction from Question-Answer Pairs》</p>
+
+<p>用阅读理解的任务框架来做，本质上还是seq2seq的问题，输入输出如下：</p>
+
+<p><img src="http://wx1.sinaimg.cn/mw690/aba7d18bgy1g5dincsh3lj20hm07dta0.jpg" alt="img3" /></p>
+
+<p>其中输入是Q和A，输出是Tuple，Tuple中的SPO也可以添加&lt;arg1&gt;,&lt;rel&gt;,&lt;arg2&gt;作为分隔符。</p>
+
+<p>7.《Unsupervised Open Relation Extraction》</p>
+
+<p>对relation进行clustering。</p>
+
+<p>8.<a href="https://medium.com/@mgalkin/knowledge-graphs-in-natural-language-processing-acl-2019-7a14eb20fce8">Knowledge Graphs in Natural Language Processing@ACL2019</a></p>
+
+<p>9.<a href="https://github.com/gkiril/oie-resources#oie-systems-for-chinese-language">开放信息抽取的工作总结</a>(非常全面的文献)</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

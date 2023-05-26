@@ -1,0 +1,259 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[Python]Python高级编程</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/07/04/python-efficient-coding/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[Python]Python高级编程</h1>
+    <p class="meta">Jul 4, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <p>想来每隔一段时间都要写点关于python编程的博客。不知不觉已经写了一些，具体如下：</p>
+
+<p><a href="https://zhpmatrix.github.io/2017/02/24/python-data-structure/">深入理解python中的数据结构</a></p>
+
+<p><a href="https://zhpmatrix.github.io/2017/02/22/python-functional-programming/">后知后觉函数式编程</a></p>
+
+<p><a href="https://zhpmatrix.github.io/2017/11/04/speed-up-python/">用进程池Pool进行代码加速</a></p>
+
+<p><a href="https://zhpmatrix.github.io/2018/06/14/programming-tricks/">回调函数，线程安全，Monkey Patch和try/except使用</a></p>
+
+<p><a href="https://zhpmatrix.github.io/2017/09/24/python-debug-experience/">记一次Debug经历</a></p>
+
+<p><a href="https://zhpmatrix.github.io/2017/08/13/view-versus-copy/">Pandas引用和复制的PK</a></p>
+
+<p><a href="https://zhpmatrix.github.io/2017/02/22/python-language-tricks/">若干有意思的知识点</a></p>
+
+<p><a href="https://zhpmatrix.github.io/2016/12/04/coding-tricks/">编程复盘</a></p>
+
+<p>这里再写一篇，每隔一段时间总觉得python写的不够强，很多地方可以优化。这篇博客更多的是《Effective Python-编写高质量Python代码的59个有效方法》的读书笔记，作者是Google的Brett Slatkin。</p>
+
+<p>(1)itertools的使用</p>
+
+<p>在NER任务中，当得到pos对应的label之后，需要进一步得到entity，这个时候就可以使用itertools中的groupby来实现。如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>label = [(0,'B-PER'),(1,'I-PER'),(2,'I-PER'),(3,'B-ORG')]
+for tag, chunk in groupby(label, lambda x:x[1].split('-')[1]):
+	print(tag, ','.join(k for w, k in chunk))
+</code></pre></div></div>
+
+<p>输出如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PER B-PER,I-PER,I-PER
+ORG B-ORG
+</code></pre></div></div>
+
+<p>(2)生成器表达式(<strong>dataloader中可以使用，yield</strong>)</p>
+
+<p>warning：从身边的反馈来看，生成器的使用不当也会带来一些奇怪的问题。</p>
+
+<p>可以避免内存用量问题，同时串在一起的生成器表达式执行速度很快。代码如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>it = (len(x) for x in open('data.txt'))
+roots = ((x,x**0.5) for x in it)
+print(next(roots))
+</code></pre></div></div>
+
+<p>（3）用列表推导来取代map和filter</p>
+
+<p>（4）遵循pep8风格指南</p>
+
+<p>a.使用space(空格)来表示缩紧，而不要用tab（制表符）</p>
+
+<p>b.判断somelist是否为[]或者‘’等空值，不要使用</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if len(somelist) == 0
+</code></pre></div></div>
+
+<p>而是使用</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if not somelist
+</code></pre></div></div>
+
+<p>（5）try/except/pdb的使用方式(<strong>书中建议：尽量使用异常来表示特殊情况，而不要返回None</strong>)</p>
+
+<p>三者结合的新方式，如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>try:
+	#step0
+except:
+	import pdb;pdb.set_trace()
+else:
+	#step1
+</code></pre></div></div>
+
+<p>(6)考虑用生成器来改写直接返回列表的函数（节约内存的大杀器，dataloader实现需关注）</p>
+
+<p>(7)按照列表中字符串的长度给列表进行排序</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>names = ['zhpmatri','zhp','matrix']
+sorted(names, key=lambda x: len(x))
+</code></pre></div></div>
+
+<p>（8）并发和并行(在数据处理的相关任务中可以重点关注)</p>
+
+<p>a.用subprocess模块来管理子进程</p>
+
+<p>b.可以用线程来执行阻塞式I/O，但不要用它做平行计算</p>
+
+<p>c.在线程中使用Lock来防止数据竞争</p>
+
+<p>d.用Queue来协调各线程之间的工作</p>
+
+<p>e.考虑用协程来并发地运行多个函数</p>
+
+<p>f.考虑用concurrent.futures来实现真正的平行计算</p>
+
+<p>(9)eval来执行一个字符串表达式，使用repr输出一个来自logging的值，可以最大化地保持值本身的信息</p>
+
+<p>（10）性能分析</p>
+
+<p>python提供了两种内置性能分析器，分别叫做profile和cProfile。后者会更好一些，使用后者时对受测程序的效率只会产生很小的影响。而前者会产生较大的开销，使得测试结果变得不准确。</p>
+
+<p>（11）内存使用和泄漏</p>
+
+<p>tracemalloc</p>
+
+<p>总结：比起用Python做后台研发，算法方面对Python的特性需求感觉并不是很高。这应该与两个不同工种的工作流有关。多数情况下，模型代码往往有几个文件组成，即使是框架，也并不需要相对复杂的语言特性。但是对特性的了解，可以帮助我们写出更fancy，更pythonic的code吧。</p>
+
+<p>其他的高效方法：</p>
+
+<p>1.<a href="https://medium.com/@ageitgey/python-3-quick-tip-the-easy-way-to-deal-with-file-paths-on-windows-mac-and-linux-11a072b58d5f">Python 3 Quick Tip: The easy way to deal with file paths on Windows, Mac and Linux</a></p>
+
+<p>os.path.join是最好的路径拼接的方法吗，不是的，<strong>pathlib</strong>。</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

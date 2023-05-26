@@ -1,0 +1,274 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[ML]机器学习模型关系分析和探讨</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2017/12/27/relationships-models/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[ML]机器学习模型关系分析和探讨</h1>
+    <p class="meta">Dec 27, 2017</p>
+  </header>
+
+  <article class="post-content">
+  <p>1.单层感知机(不含有隐藏层)是一种线性分类器。</p>
+
+<p>2.对自组织映射网络，如果使其邻域交互作用设为0，则等价于K均值聚类算法。</p>
+
+<p>3.很多情况下，多层感知机的输出可以看作是对贝叶斯后验概率的估计。</p>
+
+<p>4.<a href="http://blog.csdn.net/xsqlx/article/details/51120485#t2">二项分布，信息熵，逻辑回归的Loss函数关系</a></p>
+
+<p>针对二分类问题，假设每个样本符合二项分布B(1,p)，其中p表示该样本是正类的概率，则似然函数就是所有样本的分布的乘积，也就是目标函数。接下来就是最大化似然函数的值了。在逻辑回归中，用Sigmoid函数来表示p，用梯度上升法求解参数的值。</p>
+
+<p>可以参考<a href="http://blog.csdn.net/ligang_csdn/article/details/53838743">LR的推导过程加强理解</a>，在<a href="https://zhuanlan.zhihu.com/p/27223959">Softmax函数与交叉熵</a>中提到，对于LR问题，需要最大化似然函数，如果在似然函数前加一个负号作为目标函数，就需要最小化目标函数的值，此时这个目标函数就称为交叉熵损失函数，这种命名似乎在DL中比较常见。同时给出了相对熵(KL散度)和交叉熵的关系。</p>
+
+<p>5.<a href="http://blog.csdn.net/xsqlx/article/details/51330627">GBDT和LR在泛函空间的相似性联系</a></p>
+
+<p>Boosting别名：函数空间梯度下降。Boosting的可加性体现在根据决策树模型得到预测值的可加。决策树和线性回归只是相同算法框架下的不同假设，从这个角度来说，回归和分类也是共生于一个通用的算法框架。</p>
+
+<p>6.<a href="http://blog.csdn.net/xsqlx/article/details/76599171">Multinomial回归多分类推导</a></p>
+
+<p>7.<a href="https://www.zhihu.com/question/26768865/answer/247134855">Linear SVM和LR的异同</a></p>
+
+<p>不同点：</p>
+
+<p>LR不依赖于数据的距离测度；Linear SVM依赖数据的距离测度，需要对数据做Normalization；</p>
+
+<p>LR受所有数据点的影响，要做不平衡处理；Linear SVM不依赖数据分布(假设分类平面确定了，某一类加减一些样本后，分类平面不受影响)；</p>
+
+<p>共同点：</p>
+
+<p>Linear SVM依赖惩罚项的系数；LR依赖L1 regularization；</p>
+
+<p>Linear SVM和LR都对Outlier敏感；</p>
+
+<p>关于为什么要做归一化，这里有个非常棒的<a href="https://www.zhihu.com/question/37129350">回答</a>。</p>
+
+<p>站在优化的角度，如果不归一化，各维特征跨度很大，目标函数是“扁”的，梯度优化过程会发生震荡；如果归一化，目标函数是“圆”的，每一步梯度的方向都会基本指向最小值，可以大踏步前进，Momentum是从优化方法本身来解决这个问题的。</p>
+
+<p>8.<a href="https://zhuanlan.zhihu.com/p/30745139">分类学习算法-一个统一的视角</a></p>
+
+<p>按照最小化期望损失分为概率框架和非概率框架。在概率框架下，根据<strong>估计条件分布</strong>，分为判别模型和生成模型。判别模型直接对条件分布建模，有两种建模方法，分为参数方法和非参数方法。参数方法需要假设分布的具体形式，用参数估计的方法去求解参数。非参数方法不需要显式假设分布的具体形式，使用全部样本去表示条件分布。生成模型间接对条件分布建模。非概率框架下，直接学习假设分布。</p>
+
+<p>概率框架:   选定分布距离的度量方法-&gt;最小化分布距离
+                                                |KL距离对应LR的损失函数(不严格的说)|
+非概率框架:  选定替代损失函数-&gt;期望风险最小化</p>
+
+<p>概率框架-&gt;非概率框架？条件是什么？</p>
+
+<p>所有上述的分析可以讨论：KL距离和Logistic损失函数之间的关系。</p>
+
+<p>9.<a href="https://zhuanlan.zhihu.com/p/30824582">朴素贝叶斯与单层神经网络关系</a></p>
+
+<p>链接中的专栏并没有讲清楚。</p>
+
+<p>10.<a href="http://blog.csdn.net/guohecang/article/details/52313046">极大似然估计和贝叶斯估计之间的关系</a></p>
+
+<p>最大似然估计(MLE)只考虑某个模型能产生某个给定观察序列的概率，而不考虑该模型本身的概率，这是与贝叶斯估计的区别。最大后验估计(MAP)融入了估计量的先验分布，从形式上看是贝叶斯估计。<a href="http://blog.csdn.net/u011508640/article/details/72815981">详解MLE，MAP，和贝叶斯公式的理解</a>对MLE和MAP问题的区别和联系解释的非常棒！</p>
+
+<p>这个Blog和Blog 8结合起来看，可能会更棒。</p>
+
+<p>11.K-means算法和其他模型/算法之间的关系</p>
+
+<p>高斯混合模型(GMM)是EM算法的特例，而K-means是GMM的一个特例。EM/聚类从解决无监督问题来看是相似的。</p>
+
+<p>12.<a href="http://www.sohu.com/a/210423018_114877">传统算法如何转化成神经网络?</a></p>
+
+<p>附带一个很好的基础Blog：<a href="https://www.leiphone.com/news/201711/MWEDFvRMdOyN7Evm.html?ulu-rcmd=0_5021df_rfill_2_72a03ae49ee64aeb96fb79c6dc33f672">神经网络容易忽视的基础知识</a></p>
+
+<p>13.最大熵模型和LR模型的关系</p>
+
+<p>最大熵和SVM都用到对偶理论。</p>
+
+<p>参考一篇论文《The equivalence of logistic regression and maximum entropy models》</p>
+
+<p>14.L2(Ridge Regression，L2 weight decay)等价于Early Stopping？</p>
+
+<p><a href="https://www.zhihu.com/question/264607356/answer/283856609">知乎问题-寻找全局最小值和防止过拟合是不是矛盾？</a></p>
+
+<p>@废柴大蜗牛的回答，尝试性的解决了上述问题。深度学习社区早期一直在推动的一个事情是“局部最优是全局最优，FAIR的工作证明了不是。可以参考他的年度总结<a href="https://zhuanlan.zhihu.com/p/32380031">2017年度总结</a></p>
+
+<p>15.<a href="https://zhuanlan.zhihu.com/p/24291822">贝叶斯观点下的拉普拉斯平滑</a></p>
+
+<p><a href="http://www.ruanyifeng.com/blog/2013/12/naive_bayes_classifier.html">朴素贝叶斯分类器的应用</a></p>
+
+<p>这篇文章试图用贝叶斯统计的方法来推导出朴素贝叶斯方法的整个体系，如何推导出拉普拉斯平滑方法用于处理朴素贝叶斯方法中可能出现的零概率问题。</p>
+
+<p>朴素贝叶斯假设特征独立，在计数过程中，发现某个特征从没有出现过，会导致待估计的目标为零。为了解决这种零概率问题(上文引入了一个投硬币的例子)，引入参数的先验概率估计，成为最大后验概率估计问题；当先验概率估计的分布为均匀分布的时候，MAP就是MLE。</p>
+
+<p>假设引入的先验分布使得后验分布和先验分布属于相同的分布族(好处是可以得到解析解)，先验分布则称为共轭先验分布。比如二项分布(二分类问题，相应的多项分布)的共轭是Beta分布。</p>
+
+<p>为了解决零概率问题，引入的平滑贝叶斯方法不仅仅是一个Trick，而是有很深的原理在里面。</p>
+
+<p>关于极大后验和期望后验的讨论在文章中的讨论区，</p>
+
+<p>@Mo.bius说的一段话：选择极大后验和期望后验反映了两种统计思想，选择“众数”和选择平均数，但在贝叶斯学派下统称为贝叶斯解，目的都是为了minimum loss function，统称为贝叶斯解。至于如何选择取决于损失函数的定义，比如说平方损失函数最小时，选择的是期望后验。</p>
+
+<p>16.<a href="http://www.bilibili.com/video/av10590361/#page=11">LR的生成模型观察</a></p>
+
+<p>LR在NLP领域称为最大熵模型(不严格)，当类标签只有两个的时候，最大熵模型就是LR模型。</p>
+
+<p>从最大熵模型推导到LR模型，参看这个<a href="https://www.zhihu.com/question/24094554">答案</a>@Semiring，从推导来看，LR处理多分类问题的时候，使用Softmax函数；而最大熵模型在定义的时候，形式和Softmax给出的形式是类似的。</p>
+
+<p>李宏毅的课程对于判别模型和生成模型的对比：</p>
+
+<p>1.通常人们相信判别模型效果更好；</p>
+
+<p>2.生成模型有对概率分布的假设，该假设的存在使得需要更少的训练数据和对噪音更加的鲁棒；priors and class-dependent probabilities can be estimated from different sources;</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>常见的判别模型：LR模型(对P(Y</td>
+      <td>X)建模)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>常见的生成模型：朴素贝叶斯模型(对P(X,Y)建模)</p>
+
+<p>17.对比散度来近似玻尔兹曼机中难以处理的对数似然梯度</p>
+
+<p>18.<a href="https://zhuanlan.zhihu.com/p/32500133">岭回归(Ridge regression)和主成分分析(PCA)的关系</a></p>
+
+<p>PCA暴力地将奇异值小的维度置为0，其他维度置为1；Ridge regression的惩罚系数对奇异值不同的维度的惩罚力度不同。二者都是通过消除数据的多重共线性来提升线性回归的效果，连接桥梁是SVD分解。</p>
+
+<p>19.SVD分解本质上与不带激活函数的三层自编码机等价，理解SVD分解，能够为神经网络模型寻求一个合理的概率解释，同时<a href="http://kexue.fm/archives/4216/">SVD可以实现自动聚类</a>，是通过概率模型，为SVD分解赋予了聚类意义。</p>
+
+<p>20.PCA和SVD以及LSA(LSI)的关系</p>
+
+<p><a href="http://www.cnblogs.com/LeftNotEasy/archive/2011/01/19/svd-and-applications.html">文章一</a>，<a href="http://www.mamicode.com/info-detail-1402028.html">文章二</a></p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

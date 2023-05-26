@@ -1,0 +1,321 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]关于Continual Learning在NLP问题中的应用讨论</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2020/02/09/continual-learning/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]关于Continual Learning在NLP问题中的应用讨论</h1>
+    <p class="meta">Feb 9, 2020</p>
+  </header>
+
+  <article class="post-content">
+  <p><strong>前言：</strong></p>
+
+<p>从术语上，一般认为Life Long Learning(LLL) = Continuous Learning = Never Ending Learning = Incremental Learning。从近期梳理的一些工作来看，学术界围绕CV领域的Recognition和RL相关的问题研究工作较多，但是直接针对NLP的问题做的工作非常少，但是从已经有的工作来看，理论上是可以做在NLP的问题上的。</p>
+
+<p>个人觉得整体的理论体系梳理的尚不够清楚，需要后续结合实践上的理解，进一步完善。</p>
+
+<h3 id="问题设定">问题设定</h3>
+
+<h4 id="1命名实体识别问题">1.命名实体识别问题</h4>
+
+<p>假设现在有一个支持三种类型（人名，地名，爱好）的序列标注模型A，则对一个句子，如下：</p>
+
+<blockquote>
+  <p>老吴，生于安徽，爱写码，不爱钓鱼，就职于宇宙最强科技有限公司。</p>
+</blockquote>
+
+<p>有预测的结果，如下：</p>
+
+<ul>
+  <li>（老吴，人名）</li>
+  <li>（安徽，地名）</li>
+  <li>（写码，爱好）</li>
+</ul>
+
+<p>这里的“钓鱼”可能相对容易被误标为“爱好”，因为要结合上下文理解到“不”的否定含义，暂且不谈。</p>
+
+<p>当需要模型支持对新类型“公司”的预测，得到模型B，也就是希望现有模型的标注结果中，新增：</p>
+
+<ul>
+  <li>（宇宙最强科技有限公司，公司）</li>
+</ul>
+
+<p>怎么办？实际上，对于一个实体识别模型的期望是：横向上能够识别更多的字段，纵向上每个字段能够做到很棒。</p>
+
+<h4 id="2分类问题">2.分类问题</h4>
+
+<p>模型A能够做四分类，现在想要增加一个新的分类类别，得到模型B。<strong>能够借助于“其他类”实现吗？</strong></p>
+
+<h4 id="3纠错问题">3.纠错问题</h4>
+
+<p>模型A能够做六种子问题的检纠错，现在想要增加一种新的子问题（形近字），得到模型B。</p>
+
+<h4 id="4多标签分类">4.多标签分类</h4>
+
+<p>标签个数不定，随着业务变化，逐渐增长。</p>
+
+<h4 id="5模型的hotfix">5.模型的hotfix</h4>
+
+<p>在生产环境下，hotfix的手段包括写规则，后处理，别的方案共同预测，增强类似badcase后重新训练等，但是这些都不是优雅的方案。hotfix需要基于原始模型fix一个badcase，同时不影响其他case。</p>
+
+<h4 id="6其他">6.其他</h4>
+
+<p>《Three scenarios for continual learning》这篇文章总结了三种场景，如下：</p>
+
+<ul>
+  <li>基于task的：需要做新的任务，体现在多个输出端，但是有共享层</li>
+  <li>基于domain的：任务的结构相同，但是输入分布不同</li>
+  <li>基于class的：需要学习新的类</li>
+</ul>
+
+<p>个人并不认为这是个很好的分类方法。</p>
+
+<h3 id="方案讨论">方案讨论</h3>
+
+<p><strong>1.重新标注数据A，标注支持四种类型（人名，地名，爱好，公司），然后重新训练得到模型B。</strong></p>
+
+<p>对于数据准备，需要基于一份数据，两次标注。第一次标注前三种类型，第二次需要在第一次的基础上标注一个类型（公司）。需要具体思考的问题是是，补标数据和已标数据是否是一致？如果一致，重新标注新类型即可。如果不一致呢？也就是说数据A中不包含新类型。</p>
+
+<p>这种情况下，首先需要标注了新类型的数据B，其次模型B至少要用到数据B。问题是，模型B如何保持对原始三种类型的预测能力？</p>
+
+<p>第一种：在数据B上标注四个字段。这种方法存在明显的效率低下的问题（标注成本高，数据利用率低等）。可以讨论的问题是：</p>
+
+<ul>
+  <li>当数据B中有旧类型字段时，那么可以用模型A去预测旧类型字段，人工标注新类型字段。本质上是一个Weak Supervised Learning问题。</li>
+</ul>
+
+<p>第二种：在数据B上标注新字段，合理利用数据A和模型A。这种方法看起来相对理想，问题是如何利用？可以讨论的问题是：</p>
+
+<ul>
+  <li>数据B只标新类型，然后合并数据B+数据A。需要思考的是，虽然数据A中不包含新类型字段，但是数据B中可能包含旧类型字段，由于数据B中没有显式标注，当基于合并后的数据训练模型时，这会confuse模型B对于旧类型的learning，这一定程度上可能需要PU Learning的帮助。当然，数据B中不包含旧类型时，数据A和数据B在类型上是正交的，数据上没有问题，直接合并即可。</li>
+</ul>
+
+<p>对于模型训练，可以train from scratch，也可以将模型A作为pre-trained的模型。</p>
+
+<p>讨论了上述问题之后，可能比较有价值的问题是：</p>
+
+<p><strong>给定模型A和只标注了新字段的数据B，得到模型B，对于四种类型的字段有预测能力。</strong></p>
+
+<p><strong>2.其他方案（连续学习）</strong></p>
+
+<p>为了实现我们的目标，方案可能需要具有的特点：</p>
+
+<ul>
+  <li>学过的知识要能够记住，但是允许少量的遗忘（解决存量问题）</li>
+  <li>要能够做知识迁移（解决增量问题）</li>
+</ul>
+
+<p>嗯，<strong>multi-task learning或许是一种潜在的方法。</strong>但是multi-task的方式也许会遇上存储和计算的问题，导致该方案并不是特别的fancy。围绕存储问题，一种解决思想是：</p>
+
+<p>在训练任务A的时候，同时训练一个数据A的生成器G。训练任务B的时候,合并<strong>数据B</strong>和<strong>任务A的生成器G</strong>。本质上解决的是从存储数据自身，改为存储一种数据生成的机制。那么问题来了，怎么保证生成器的效果？</p>
+
+<p>除此之外，模型学习到的内容以参数形式存储。所谓要不退化，可以理解为某些参数不能被大幅度修改，如果违反该条件，模型能力在旧任务上就会形成退化。因此，对应的思想是：</p>
+
+<p>对重要参数添加约束，该约束表明了对应参数的重要程度。这里的一个问题是，假设任务A和任务B对应的重要的参数一样重要呢？任务B希望更新重要参数，以提升对数据B的拟合能力。而任务A不希望更新重要参数，以保证对数据A的预测能力。比如，两个任务，同一种网络结构。</p>
+
+<p>针对知识迁移这个问题，连续学习要求模型在任务A学到的内容能够有助于任务B的学习，同时不能忘记在任务A中学到的知识；而迁移学习只关心前者，实际上多数情况下，迁移方法会导致一定程度的退化现象。</p>
+
+<p><strong>3.增加一种新的类别</strong></p>
+
+<ul>
+  <li>
+    <p>《Learning without Forgetting》(损失函数端的工作)</p>
+  </li>
+  <li>
+    <p>《iCaRL- Incremental Classifier and Representation Learning》（数据端的工作）</p>
+  </li>
+  <li>
+    <p>《Incremental Learning with Unlabeled Data in the Wild》（损失函数端+数据端）</p>
+  </li>
+</ul>
+
+<p><strong>4.如何评估连续学习的效果</strong></p>
+
+<ul>
+  <li>
+    <p>准确率</p>
+  </li>
+  <li>
+    <p>前向迁移效果</p>
+  </li>
+  <li>
+    <p>后向迁移效果</p>
+  </li>
+</ul>
+
+<p><strong>5.模型扩张和任务扩张</strong></p>
+
+<p>当模型容量足够大的时候，一个模型可以学习所有任务；但是当模型容量不够的时候，在任务扩张的时候要做模型容量的扩张。显然，这里的目标是：</p>
+
+<p>模型容量扩张的速度小于任务扩张的速度。</p>
+
+<p><strong>6.学习的顺序</strong></p>
+
+<p>学习的顺序是重要的，这是课程学习的研究内容。</p>
+
+<h3 id="实验设计">实验设计</h3>
+
+<p><strong>1.数据集</strong></p>
+
+<p>多分类数据集：<a href="https://github.com/skdjfla/toutiao-text-classfication-dataset">今日头条新闻分类数据集</a>，共15类。</p>
+
+<p>序列标注数据集：OntoNotes-Release-5.0，中文共18个标签。</p>
+
+<p>多标签（&gt;34个标签）和纠错的数据集(7个子任务)均是来自自有业务数据。</p>
+
+<p>相关阅读：</p>
+
+<p>1.<a href="https://zhuanlan.zhihu.com/p/68421371?utm_source=qq&amp;utm_medium=social&amp;utm_oi=52727124066304">知乎</a></p>
+
+<p>2.<a href="https://github.com/xialeiliu/Awesome-Incremental-Learning">awesome-incremental-learning</a></p>
+
+<p>3.<a href="https://www.zhihu.com/question/360374828">深度学习微调网络,会导致网络对原本的数据识别效果变差吗？</a></p>
+
+<p>4.<a href="https://zhuanlan.zhihu.com/p/29196822">深度学习中如何避免灾难性遗忘？</a></p>
+
+<p>总体上该方向包括三种解决问题的角度：数据端，模型参数端和损失函数端。这和多数情况下DL中的方法论是保持一致的。针对数据端，这篇文章中提出的一个观点：</p>
+
+<blockquote>
+  <p>保留少量代表性的样本来解决Catastrophic Forgetting应该是一个很有意义的方向，但是这个方法仍然做出了太多过强的假设，应当后续有不少发展和改进的空间。</p>
+</blockquote>
+
+<p>围绕该问题的研究从<a href="https://www.sciencedirect.com/science/article/pii/S0079742108605368">1989年</a>就开始啦。</p>
+
+<p>5.<a href="https://www.analyticsvidhya.com/blog/2017/09/pseudo-labelling-semi-supervised-learning-technique/">Introduction to Pseudo-Labelling : A Semi-Supervised learning technique</a></p>
+
+<p>6.《One Model to Recognize Them All: Marginal Distillation from NER Models with Different Tag Sets》</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

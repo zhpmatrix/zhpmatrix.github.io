@@ -1,0 +1,196 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[PyTorch]CNN系列接口Highlights</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/03/12/conv-highlights-in-pytorch/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[PyTorch]CNN系列接口Highlights</h1>
+    <p class="meta">Mar 12, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<h3 id="convolution-layers">Convolution Layers</h3>
+
+<p>PyTorch中Conv层，主要包括卷积和反卷积两类，并且实现了两类分别对1d到3d的支持。卷积的作用之一是降维。那么反卷积的作用之一自然是升维了。这里指的一提的是，与之在作用上有点类似的是Vision层，该层主要实现了一些Upsample的方法，如最近邻和双线性插值等方法。Downsample和Upsample在CV领域中的Segmentation任务上，例如Unet系列中是很常见的模块。在讨论参数的时候，以torch.nn.Conv2d为例，具体参数包括：输入和输出通道的数目；卷积核的大小；步长；是否padding；是否有空洞；输入和输出之间是否进行分块连接；是否需要bias；由此接口实现，可以看到空洞卷积已经是标准的一部分了。同时，该接口支持输入通道和输出通道之间的分块连接，这对模型的并行训练非常重要，同时可能支持一些相关Trick的实现。</p>
+
+<p>围绕卷积，在之前的一篇博客中，<a href="https://zhpmatrix.github.io/2018/07/06/Tech-Notes/">CNN中的两个计算问题</a>，讨论了感受野和输出通道的大小计算的问题。<a href="https://zhpmatrix.github.io/2019/01/27/NLP-rethinking-base-blocks/">Rethink系列-CNN/RNN</a>，重点讨论了CNN在NLP中应用的理论意义。<a href="https://zhpmatrix.github.io/2017/06/01/something-about-dl/">啊哈，CNN!</a>，列举了很早时期首次接触CNN时的一些参考资料。<a href="https://zhpmatrix.github.io/2018/05/12/RCNN-Series/">R-CNN</a>中讨论了一个基于CNN的目标检测模型。</p>
+
+<p>在官方文档中，给出了一个综合考虑上述参数的具体的计算公式(面试/笔试必备，拿出小本本记下来。)。转置卷积参数与上述参数类似。其实转置卷积也是卷积过程。</p>
+
+<h3 id="pooling-layers">Pooling Layers</h3>
+
+<p>Pooling层经常讨论的是Max和Avg操作，自然包括1d到3d的支持。但是PyTorch同时实现了一些有意思的支持，包括MaxUnpool，FractionalMaxPool，LPPool，AdaptiveMaxPool四类。MaxPool的结果返回输出结果和对应的位置，找Max的过程是一个离散的操作，记录了位置自然可以做逆向实现了。LPPool是按照LP范式实现的Pooling操作，Max和Avg理论上都可以划分为LPPool中，AdaptiveMaxPool实现的是只关心输出的大小，也就是接口中需要指定的参数，对核的大小，步长等其他参数并不关心，也就是只关心结果而不关心过程的MaxPool。</p>
+
+<p>Fractional Max-Pooling在2014年就提出了，但是似乎并没有得到业界的关注，具体论文可以参看Benjamin Graham
+d的<a href="https://arxiv.org/abs/1412.6071">文章</a>，这里不做过多讨论。</p>
+
+<h3 id="normalization-layers">Normalization Layers</h3>
+
+<p>Normalization层目前实现了BatchNorm，InstanceNorm，LayerNorm以及GroupNorm和LocalResponseNorm。关于Normalizaiton，还有一个相对较大的分支，Weight Normalization，一个朋友围绕这块内容做的文章几乎发遍了CV各个顶会。但是直观上看，主流框架在官方实现上并没有关注到这块。</p>
+
+<p>BatchNorm和InstanceNorm的区别可以通过下述两句话来描述：</p>
+
+<p>BN:The mean and standard-deviation are calculated per-dimension over the mini-batches.</p>
+
+<p>IN:The mean and standard-deviation are calculated per-dimension separately for each object in a mini-batch.</p>
+
+<p>LayerNorm在NLP领域应用较广，典型的Transformer的Block中。和BN&amp;IN的区别如下：</p>
+
+<p>LN: The mean and standard-deviation are calculated separately over the last certain number dimensions which have to be of the shape specified.</p>
+
+<p>印象中的LRN是较早时期的工作，但是GN则是2018年比较火的工作，该工作在很大程度上与自己做Weight Normalization的朋友的工作重叠，背后的故事太多，在这里就不展开了。</p>
+
+<p>和Conv层，Pooling层一样，Normalization层同样需要1d到3d的实现。</p>
+
+<h3 id="padding-layers">Padding Layers</h3>
+
+<p>Padding的策略较多，PyTorch中实现了四种策略，适用于不同Nd的Padding操作，包括基于输入边界的reflection，基于输入边界的replication，0填充，常数值填充。</p>
+
+<h3 id="dropout-layers">Dropout Layers</h3>
+
+<p>除了实现Nd的Dropout，还实现了AlphaDropout，具体论文可以读<a href="https://arxiv.org/abs/1706.02515">Self-Normalizing Neural Networks</a>。</p>
+
+<p>上述组件在CNN相关的模型实现中是比较清晰的，比起上述组件或者Layers，激活函数的选择，损失函数的选择和优化器的选择三块内容种类要丰富的多，但这些并不是这篇博客要去梳理的内容。嗯，基本可以愉快地尝试基于PyTorch复现Facebook的<a href="https://arxiv.org/abs/1705.03122">《Convolutional Sequence to Sequence Learning》</a>了。</p>
+
+<p>在年初，关于Transformer/RNN/CNN的未来发展的讨论持续了好长一段时间，目前来看，Transformer取得了辉煌的成就，但是由于CNN的并行特性和在CV中广泛应用，在NLP中将CNN发扬光大也是众多NLP研究者的希望，同时多数情况下RNN总是我们最稳定的Baseline提供者，同时目前很大一部分工作仍旧是基于RNN的研究成果，非要给出一个结论，排个队，对我而言还是挺难的。</p>
+
+<p>主要参考：</p>
+
+<p>1.<a href="https://pytorch.org/docs/stable/nn.html#">torch.nn</a></p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

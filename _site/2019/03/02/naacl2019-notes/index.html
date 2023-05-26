@@ -1,0 +1,321 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]NAACL2019论文马拉松</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/03/02/naacl2019-notes/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]NAACL2019论文马拉松</h1>
+    <p class="meta">Mar 2, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<p><em>大部分文章的地址还没有放出来，随着放出来的进度，笔记慢慢补充。</em></p>
+
+<h3 id="关键新词">关键新词</h3>
+
+<p>Capsule Network，Graph Convolutional Networks，Knowledge Graph，Normalizing Flow.</p>
+
+<h3 id="主要印象">主要印象</h3>
+
+<p>一.以新任务和新数据集为代表的新的挖坑工作总是最受欢迎的。新的QA数据集总是被不断地提出。</p>
+
+<p>二.domain-specific的工作也非常值得关注，如peer review，biomedical相关的文本分析任务等。</p>
+
+<p>三.关于数据/模型偏见的问题，例如词向量中的性别偏见等问题研究，本届NAACL录用了多篇文章。</p>
+
+<p>四.机器翻译，摘要，分类，词向量，多任务等依旧是热门话题；</p>
+
+<h3 id="拟读论文论文地址还没有全部放出来笔记陆续补充中">拟读论文(论文地址还没有全部放出来，笔记陆续补充中)</h3>
+
+<p>1.《Adapting RNN Sequence Prediction Model to Multi-label Set Prediction》</p>
+
+<p>2.《An Empirical Investigation of Global and Local Normalization for Recurrent Neural Sequence Models Using a Continuous Relaxation to Beam Search》</p>
+
+<p>3.《Competence-based Curriculum Learning for Neural Machine Translation》</p>
+
+<p>4.《Curriculum Learning for Domain Adaptation in Neural Machine Translation》</p>
+
+<p>5.《Data-efficient Neural Text Compression with Interactive Learning》</p>
+
+<p>6.《Lost in Machine Translation: A Method to Reduce Meaning Loss》</p>
+
+<p>7.《Online Distilling from Checkpoints for Neural Neural Machine Translation》</p>
+
+<p>8.《Differentiable Sampling with Flexible Reference Word Order for Neural Machine Translation》</p>
+
+<p>9.《Extract and Edit: An Alternative to Back-Translation for Unsupervised Neural Machine Translation》</p>
+
+<p>10.《Generating Knowledge Graph Paths from Textual Definitions using Sequence-to-Sequence Models》</p>
+
+<p>11.《Adaptive Convolution for Multi-Relational Learning》</p>
+
+<p>12.《Adaptive Convolution for Text Classification》</p>
+
+<p>13.《Dialogue Act Classification with Context-Aware Self-Attention》</p>
+
+<p>14.《An Effective Label Noise Model for DNN Text Classification》</p>
+
+<p>15.《A Submodular Feature-Aware Framework for Label Subset Selection in Extreme Classification Problems》</p>
+
+<p>16.《Continuous Learning for Large-scale Personalized Domain Classification》</p>
+
+<p>17.《Ranking-Based AutoEncoder for Extreme Multi-label Classification》</p>
+
+<p>18.《An Encoding Strategy Based Word-Character LSTM for Chinese NER》</p>
+
+<p>19.《Answer-based Adversarial Training for Generating Clarification Questions》</p>
+
+<p>20.《Attention is not Explanation》</p>
+
+<p>21.《AudioCaps: Generating Captions for Audio in The Wild》</p>
+
+<p>22.《CCG parsing algorithm with online tree rebalancing》</p>
+
+<p>围绕CCG的研究工作，本届NAACL录用的文章不只一篇。</p>
+
+<p>23.《Convolutional Self-Attention Networks》</p>
+
+<p>Tencent AI Lab的工作。如题，卷积化的网络(CSN)。目的是挖掘Multi-Head机制在特征提取上的潜力，卷积结构如下：</p>
+
+<p><img src="http://wx4.sinaimg.cn/mw690/aba7d18bgy1g0pk2tfgivj215w0d877x.jpg" alt="img2" /></p>
+
+<p>实验是基于NMT任务做的，但是该模块也可以用于其他序列建模任务，包括但不限于阅读理解，语言推理和句子分类等任务。</p>
+
+<p>24.《Corpora Generation for Grammatical Error Correction》</p>
+
+<p>在Eigen实习的时候做中文语法检错，其中最重要的问题是语料的获取。由于检错模型是服务于智能写作编辑器的，因此考察场景后做的数据生成质量还是比较高的。搜索了相关文章，发现GEC任务讨论语料生成的文章还是挺多的。</p>
+
+<p>25.《Improving Grammatical Error Correction Via Pre-Training a Copy-Augmented Architecture with Unlabeled Data》</p>
+
+<p>26.《DiscoFuse: A Large-Scale Dataset for Discourse-based Sentence Fusion》</p>
+
+<p><a href="https://arxiv.org/pdf/1902.10526.pdf">论文地址</a>，这篇文章主要基于规则，构建了一个大型的数据集，用于文本融合，其中构建的领域文本来自Wikipedia和Sports Articles。所谓文本融合，如下：</p>
+
+<p><img src="http://wx2.sinaimg.cn/mw690/aba7d18bgy1g0ohayp8kfj20cz07vgnd.jpg" alt="img" /></p>
+
+<p>也就是两个句子作为输入，一个句子作为输出。两个句子作为输入的场景常见的是句子相似度匹配，文本蕴含等，且输出的是一个标量。在文中作者主要基于Transformer做了实验，给出了评估结果。</p>
+
+<p>在CV领域，图像融合是在拍照的时候，将几张照片融合为一张，从而提高拍照效果。和NLP中融合的区别之一在于连续和离散的差异，显然任务上要困难很多。不过，这仍旧是一个值得研究的问题。</p>
+
+<p>27.《Correlation Coefficients and Semantic Textual Similarity》</p>
+
+<p>28.《Cyclical Annealing Schedule: A Simple Approach to Mitigate KL Vanishing》</p>
+
+<p>29.《Detection of Abusive Language: the Problem of Biased Datasets》</p>
+
+<p>30.《Disentangling Language and Knowledge in Task Oriented Dialogs》</p>
+
+<p>31.《Distant Supervision Relation Extraction with Intra-Bag and Inter-Bag Attentions》</p>
+
+<p><a href="https://github.com/ZhixiuYe/Intra-Bag-and-Inter-Bag-Attentions">代码地址</a></p>
+
+<p>32.《Does My Rebuttal Matter? Insights from a Major NLP Conference》</p>
+
+<p>33.《Entity Recognition at First Sight: Improving NER with Eye Movement Information》</p>
+
+<p><a href="https://arxiv.org/pdf/1902.10068.pdf">论文地址</a>，模型结构上是做NER问题的经典结构，BiLSTM+CRF层。不过文章的主要贡献在于将Eye-Tracking特征用于NER任务中并且证明能够有所提升。个人在去年的一些会议中就已经看到有关于Eye-Tracking特征的使用，该特征与NLP中讨论的Attention有密切关系。</p>
+
+<p>34.《Evaluating Style Transfer for Text》</p>
+
+<p>类似文章《Evaluating Style Modification for Text》</p>
+
+<p>35.《Fake News Detection using Deep Markov Random Fields》</p>
+
+<p>36.《Learning Hierarchical Discourse-level Structure for Fake News Detection》</p>
+
+<p>37.《Fixed That for You: Generating Contrastive Claims with Semantic Edits》</p>
+
+<p>38.《From legal to technical concept: Towards an automated classification of German political Twitter postings as criminal offenses》</p>
+
+<p>39.《Generalizing Unmasking for Short Texts》</p>
+
+<p>40.《HiGRU: Hierarchical Gated Recurrent Units for Utterance-level Emotion Recognition》</p>
+
+<p>41.《How Large A Vocabulary Does Text Classification Need? A Variational Approach on Vocabulary Selection》</p>
+
+<p>42.《Latent Code and Text-based Generative Adversarial Networks for Soft-text Generation》</p>
+
+<p>43.《Neural Chinese Address Parsing》</p>
+
+<p>44.《Positional Encoding to Control Output Sequence Length》</p>
+
+<p>45.《Recommendations for Datasets for Source Code Summarization》</p>
+
+<p><strong>46.《Review-Driven Multi-Label Music Style Classification by Exploiting Style Correlations》</strong></p>
+
+<p>最近的一个想法是通过评论文本去做一些有意思的事情。在这之前，很多工作是将评论文本本身当做研究对象来做的，然而，可以通过评论文本去研究被评论对象的信息，比如电影，音乐等风格等，因为评论文本中包含了太多关于研究对象各个维度的信息。刚好看到这篇文章，我们正在投稿IJCAI2019的一个工作恰与之类似，后续可以应该可以借鉴一些工作。</p>
+
+<p>这篇文章就是通过豆瓣音乐评论实现对音乐类型的多标签分类，多标签分类的难点在于标签之间的依赖关系处理。从模型结构上，首先需要对多条评论文本进行特征提取，文中作者使用Hierarchical Attention Layer实现；标签关系是对整个任务的所有样本可见的，因此将这部分信息融入到模型中，通过一个Label Graph Layer实现；最后借助Soft Training的方式实现训练。也就是说模型上主要由三块构成，这并不是讨论的重点。</p>
+
+<p>跳出文章的细节描述，可以认为是一个文档多标签分类任务。多标签的关系依赖是一个经典问题。文档由评论文本组成，不过区别于自然文档。该组的CoLING2018的最佳论文SGM做多标签分类就是一个我非常喜欢的方式，当时考虑到用在AI Challenger2018的细粒度情感分类赛道上，公司的一个同事也确实用这样的方式取得了不错的成绩。</p>
+
+<p>虽然这个任务可以转化为一个基本问题，不过出发点还是很有意思的。数据和代码作者都还没有公开，不过数据可以爬取豆瓣的电影评论，模型在实现上应该难度不大。整体上是一篇中规中矩的文章。</p>
+
+<p>47.《Riemannian Normalizing Flow on Variational Wasserstein Autoencoder for Text Modeling》</p>
+
+<p>一直期待Normalizing Flow在文本生成上的应用，不过这篇文章从标题上看是做话题建模的。</p>
+
+<p>48.《Saliency Learning: Teaching the Model Where to Pay Attention》</p>
+
+<p><a href="https://arxiv.org/pdf/1902.08649.pdf">论文地址</a>，关于损失函数的改进工作，在传统损失函数中添加了一个关于梯度的项，以max函数形式呈现。</p>
+
+<p>49.《Simple Attention-Based Representation Learning for Ranking Short Social Media Posts》</p>
+
+<p>50.《Text Classification with Few Examples using Controlled Generalization》</p>
+
+<p>51.《Text Similarity Estimation Based on Word Embeddings and Matrix Norms for Targeted Marketing》</p>
+
+<p>52.《Training data augmentation for context-sensitive neural lemmatizer using inflection tables and raw text》</p>
+
+<p>53.《Understanding the Behaviour of Neural Abstractive Summarizers Using Contrastive Examples》</p>
+
+<p>54.《Using Large Corpus Ngram Statistics to Improve Recurrent Neural Language Models》</p>
+
+<p>55.《Using Similarity Measures to Select Pretraining Data for NER》</p>
+
+<p>56.《Detecting Customer Complaint Escalation with Recurrent Neural Networks and Manually-Engineered Features》</p>
+
+<p>57.《Generate, Filter, and Rank: Grammaticality Classification for Production-Ready NLG Systems》</p>
+
+<p>58.《Neural Text Normalization with Subword Units》</p>
+
+<p>59.《Train One Get One Free: Partially Supervised Neural Network for Bug Report Duplicate Detection and Clustering》</p>
+
+<p>60.《A k-Nearest Neighbor Approach towards Multi-level Sequence Labeling》</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

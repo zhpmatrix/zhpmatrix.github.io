@@ -1,0 +1,211 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[LeetCode]并行与问题分解技术</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2017/05/12/adding-grouping-recursive/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[LeetCode]并行与问题分解技术</h1>
+    <p class="meta">May 12, 2017</p>
+  </header>
+
+  <article class="post-content">
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<h4 id="问题描述">问题描述</h4>
+
+<p>把n个数分为k个非空子集，有多少种分法?</p>
+
+<h4 id="思路分析">思路分析</h4>
+
+<p>这里提供基于加法原理的分析，要解决一个原问题，可以把这个原问题<strong>分解成n个独立不相交且完备</strong>的小问题，则原问题的解是小问题解的和。在该问题中，可以依据<strong>第一个集合中放多少个数</strong>将原问题分解成小问题。</p>
+
+<h4 id="代码实现">代码实现</h4>
+
+<script src="https://gist.github.com/zhpmatrix/c49f76b3d23a7c59ca35bdb8dcb37a3f.js"></script>
+
+<h4 id="问题分析">问题分析</h4>
+
+<p>1.递归原理</p>
+
+<p>针对main函数中的调用group(4,3),可以得到下列递归调用过程。这里用(n-i,k-1)(一个元组)代替表示group(n-i,k-1)，用j(一个数)代替表示c(n,i),则</p>
+
+<p>(4,3)</p>
+
+<p>&lt;-(3,2)*4+(2,2)*6</p>
+
+<p>&lt;-(2,1)*3+(1,1)*3+(1,1)*2</p>
+
+<p>&lt;-(1,0)*2+(0,0)*1+(0,0)*1+(0,0)*1=0+1+1+1</p>
+
+<p>代码中的16,17解决的是上述过程的最后一步，21,22解决的是上述过程中的展开操作，24解决的是箭头。考虑到递归调用栈，每个箭头表示一个函数地址。使用mem的目的是为了记住运算过程中间结果，同时可以解决递归过程重复计算的问题。注意上述代码中，整个过程的计算点在16，17行非常简单的两行代码！问题的求解是按照自顶向下问题分解后自底向上问题计算的过程。递归本身的优点是考虑问题的方式可以很简单，写出的代码很简洁，但是缺点是函数占用空间大，函数功能受栈空间限制，而且如果不采取额外的措施，会导致重复计算的问题，这里是一个例子，类似在斐波那契数列的计算问题中同样存在。</p>
+
+<p>2.并行思考</p>
+
+<p>结合上述分析，我们换个角度思考问题。</p>
+
+<p>(4,3)=(3,2)*4+(2,2)*6</p>
+
+<p>(3,2)和(2,2)并行求解。</p>
+
+<p>又因为(3,2)=(2,1)*3+(1,1)*3,故(2,1)和(1,1)并行求解</p>
+
+<p>这样是否是一个递归分解并行呢?而且具有现实意义。(太遗憾了，早上写到这里，下午就看到其实递归并行化已经有很多工作了！也能说得通，大二的时候就想到过说并行化，不过没有思考下去。)注意，这里并行的子问题规模不尽相同。</p>
+
+<p>参考文献：</p>
+
+<p>1.<a href="http://blog.csdn.net/binling/article/details/49032691">递归，加法原理，如何分解问题?</a></p>
+
+<p>这篇博客是针对该文章中提出的一道题目的深入分析，同时该博客可以作为想要进一步刷题的参考资料。</p>
+
+<p>2.<a href="http://blog.csdn.net/lanchunhui/article/details/49494265">Python基础–排列组合的实现</a></p>
+
+<p>代码的实现需要排列组合的基础数学知识，这里给出了一个用python实现的排列组合代码，简单优雅。</p>
+
+<p>3.<a href="http://sciencewise.info/articles/1507.01239/">Parallelization of Neural Network Training using Model Averaging and Butterfly Mixing</a></p>
+
+<p>这篇论文中谈到了三种分布式通信结构:中心型，蝶型，和环型。遗憾的是在看到这篇文章之前，自己由中心结构推演到环型结构，然后发现想法已经被人给做了。</p>
+
+<p>4.<a href="http://fourinone.iteye.com/blog/1750153">使用并行计算大幅提升递归算法效率</a></p>
+
+<p>认为博客中存在一个问题：n应该是广度，m是深度。不过文章从一个问题出发，谈到单机递归，单机迭代和多机递归和多机迭代，在对多机迭代的思路改进时，其实正是3中谈到的蝶形结构。总之，这是一篇谈递归和并行的好文章！和自己博客中的问题进行比较，这篇文章中的递归子问题规模相同。<a href="https://my.oschina.net/fourinone/blog/96911">点击查看代码</a></p>
+
+<p>5.<a href="http://kb.cnblogs.com/page/181388/">浅谈并发与并行</a></p>
+
+<p>给了一个递归程序任务并行的例子：快速排序。同时给出了一些递归程序并行化的建议，如设定控制阈值，实现程序并行和串行的切换。</p>
+
+<p>6.<a href="https://wenku.baidu.com/view/87743750ac02de80d4d8d15abe23482fb4da026e.html">并行算法设计的关键技术</a></p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

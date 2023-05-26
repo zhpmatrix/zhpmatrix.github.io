@@ -1,0 +1,233 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]问答匹配，有点难</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2020/09/14/qa-match/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]问答匹配，有点难</h1>
+    <p class="meta">Sep 14, 2020</p>
+  </header>
+
+  <article class="post-content">
+  <p>首先给出智能问答系统中的两个场景：（1）FAQ问题中能否直接用Query-Answer匹配？（2）给定对话历史语料，如何自动化构建问题-答案知识库（QA库）？</p>
+
+<p>对于问题（1），一般的问答系统会通过Query-Question匹配（QQ匹配），然后将Question对应的Answer作为Query的请求返回。其实，似乎更直接的方式是Query-Answer匹配，这里的“Query”可以是“一个特定Query”，也可以是“上下文”，但是这样的匹配方式从我们的实践结果来看，并不容易做好。本质上，QQ匹配解决的是”Query和Question的相似性”问题，QA匹配解决的是”Query和Answer的相关性”问题，而“相似”和“相关”并不满足充要关系，并且多数时候，“相关”比“相似”更加主观，导致量化难度较高，客观化的结果并不理想。</p>
+
+<p>具体体现在实现技术上，</p>
+
+<p>（1）由于QA匹配的主观性问题较大，导致标注的不一致性较高，例如低于80%的一致性，这是这一任务困难的核心原因</p>
+
+<p>（2）建模上对相似和相关，并不做显式的区分。比如，常用的siamese和cross-encoder结构，将二者不加显式区别的当做一个匹配问题来做。为此，《FAQ Retrieval using Query-Question Similarity and BERT-Based Query-Answer Relevance》中整合了两个概念。</p>
+
+<p>在《A Deep Look into Neural Ranking Models for Information Retrieval》中，作者指出：</p>
+
+<blockquote>
+  <p>The notion of relevance is relatively clear in QA, i.e., whether the target passage/sentence answers the question, but assessment is challenging. Ranking models need to capture the patterns expected in the answer passage/sentence based on the intent of the question, such as the matching of the context words, the existence of the expected answer type, and so on.</p>
+</blockquote>
+
+<p>给定一个Q，可能相对容易找到多个A，但是实际场景下，我们更想要的是最好的一个或者三个A。什么是好带来了评估上的挑战性。（值得一提的是，匹配问题做检索的同学做了很多不错的工作，具体可以参照SIGIR的相关工作，不一定要只盯着NLP或者更具体问答系统相关方向的工作）</p>
+
+<p>但是这个任务是有价值的，</p>
+
+<p>（1）在多轮对话中作为候选回复的<a href="https://zhuanlan.zhihu.com/p/136971135">打分器</a></p>
+
+<p>（2）自动化问答库构建</p>
+
+<p>而（2）就是这篇博客接下来要讨论的有趣的问题。该问题的输入是对话历史语料，比如电商领域的一个3C行业的店铺对话历史数据（包含多个Session），输出是一个从该对话语料中挖掘的问答对。</p>
+
+<p>我们会有一个假设，“针对一个店铺，给定当前用户询问的问题，答案大概率存在于对话历史语料中。”，既然存在于对话历史语料中，那么就可以构建问答库，用于回答用户问题。在场景上，和检索式对话系统有相似之处，但不完全一致。主要是应用场景的区别：</p>
+
+<p>（1）用户输入一个Query，问答库中存储的是Question-Answer的pair，这个时候通常做QQ匹配，直接返回答案</p>
+
+<p>（2）在多轮对话过程中，给定一个上下文（多轮次对话历史），找到当前用户Query下的一个回复，比如<a href="https://zhuanlan.zhihu.com/p/136971135">这里</a>的做法</p>
+
+<p>（1）和（2）的主要区别是“Query”的含义不同。</p>
+
+<p>要构建问答库，整体的逻辑是：候选集+筛选策略（QA匹配机制）。其中，不考虑Query的具体含义，候选QA对的组合方式如下：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>候选QA对组合方式</th>
+      <th>优点</th>
+      <th>缺点</th>
+      <th>备注</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>分轮次</td>
+      <td>减小候选空间</td>
+      <td>不一定满足假设</td>
+      <td>当前方式</td>
+    </tr>
+    <tr>
+      <td>不分轮次</td>
+      <td>扩大候选空间，是分轮次后候选空间的超集</td>
+      <td>过大的候选空间，带来存储和计算的压力</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>显然，一个基于经验的假设，选择分轮次可能是一个更好的方案。两种方案如下：</p>
+
+<p>（1）标注Q-A数据，训练一个二分类模型。QA-score可以直接作为排序的依据，或者作为下游任务的一个重要信号（实际上，在初版答案推荐中，使用的正是该信号）</p>
+
+<p>（2）基于Rank的方案。给定一个Q和一个A的list，其中有一个或者多个A是匹配的，其余的A是不匹配的，基于Margin损失，希望匹配的A与Q的距离尽可能近，同时不匹配的A与Q的距离尽可能远。<a href="https://github.com/NTMC-Community/MatchZoo-py">相关工作</a></p>
+
+<p>方案（2）和方案（1）相比，显著提升了QA对的召回。为啥？QA匹配二分类模型解决三个子问题：给不合法的Q打负标签，给不合法的A打负标签，给不合法的Q-A打负标签。而基于Rank的方案理论上不对不合法的Q做过滤，同时会给所有的Q匹配一个答案（Rank的最高分）。实测对比结果：在QA库的质量上，（2）并不显著弱于（1）。</p>
+
+<p>从上述的分析可以看到，在QA匹配任务中研究对象有三个：Q, A和QA。QA总是需要显式建模在自己的方案中，但是Q和A其实是可选的，（2）中只考虑了A过滤，那么很容易顺推出，可以只考虑Q过滤。这种方案的优点在于：保留了所有的Q，但是会带来不同A，相同Q的问题。而（2）会存在不同Q，相同A的问题</p>
+
+<p>从上下文的主线展开来看，上述的三个想法的上下文都比较单一，只有一个Q或者一个A，承接上文讨论过的内容，有没有更多可以利用的上下文？</p>
+
+<p>（1）多轮次对话历史作为Q</p>
+
+<p>（2）基于阅读理解的方案。抽取出所有的Q，Session作为MRC中的Document，找A的start_position/end_position</p>
+
+<p>除此之外，开个脑洞，</p>
+
+<p>（1）基于百度问答语料，预训练问答模型能否有助于QA库的构建？如果有，可迁移的能力是啥？如果没有，为啥？</p>
+
+<p>（2）在QA匹配任务上，有没有更好的理解相关性和相似性的角度？</p>
+
+<p>因此，无论从具体研究对象，还是从可利用上下文来看，QA匹配都有诸多玩法，但是QA匹配的难点依然存在，除了之前在博客中讨论过的<a href="https://zhpmatrix.github.io/2020/08/02/learning-to-rank/">答案推荐</a>，QA匹配的应用场景还有许多。</p>
+
+<p>因为难，所有有趣，有价值。</p>
+
+<p>（雨一直下，约的稿终于写完了。）</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

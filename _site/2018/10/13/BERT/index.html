@@ -1,0 +1,239 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]关于BERT的讨论</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2018/10/13/BERT/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]关于BERT的讨论</h1>
+    <p class="meta">Oct 13, 2018</p>
+  </header>
+
+  <article class="post-content">
+  <h3 id="前言">前言</h3>
+
+<p>调侃一下新智元和机器之心针对该工作的报道，题目分别是《NLP历史突破！谷歌BERT模型狂破11项纪录，全面超越人类！》和《最强NLP预训练模型！谷歌BERT横扫11项NLP任务纪录》，你俩有意思啊…</p>
+
+<p>来自Google AI Language的文章，本月五号该工作登顶SQuAD1.1榜首，是关于无监督预训练的一个尝试。本周五(昨天)文章在arXiv上放出来，刚好今天周六可以写一些想法。被文章一作Jacob圈粉，于是从翻译他在reddit上回答开始，这个回答可以帮助读者快速掌握文章关键问题，稍后会讨论一些想法。翻译如下：</p>
+
+<h3 id="正文">正文</h3>
+
+<p>大家好，我是文章的一作：</p>
+
+<p>基本的想法非常简单。近些年来，学界通过预训练语言模型（深度神经网络等），然后在一些下游NLP任务（问答，自然语言推理，情感分析等）上做微调取得了很好的结果。</p>
+
+<p>经典的语言模型范式是自左到右的，例如：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"the man went to a store"
+P(the|&lt;s&gt;)*P(man|&lt;s&gt; the)*P(went|&lt;s&gt; the man)*...
+</code></pre></div></div>
+
+<p>然而对于一些下游NLP任务，你通常并不想要一个语言模型，而是一个可能更好的针对每个词的上下文表示。如果每个词只能看到它的左侧，很明显很多信息会丢失掉。所以，有些工作训练了一个自右到左的模型，例如：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>P(store | &lt;/s&gt;)*P(a|store &lt;/s&gt;)*...
+</code></pre></div></div>
+
+<p>现在，你有每个词的两种上下文表示，分别是自左向右和自右向左。你可以把两种上下文表示拼接起来用于下游任务。</p>
+
+<p>但是直觉上，如果我们训练一个深度双向模型，学习到的上下文表示可能会更好。</p>
+
+<p>不幸的是不能按照普通语言模型一样去训练一个深度双向模型，因为深度双向模型会使得词能够间接地“看到他们自己”，那还预测个毛线？</p>
+
+<p>为了解决上述问题，我们可以使用去噪自编码器中的一个简单技巧。我们随机遮挡住输入句子中的一定比例的词，让模型从上下文中重建这些词。我们称之为“masked LM”，实际上就是完型填空。</p>
+
+<p>任务一：Masked LM</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Input:
+the man [MASK1] to [MASK2] store
+Label:
+[MASK1] = went; [MASK2] = a
+</code></pre></div></div>
+
+<p>特别地，我们把遮挡后的输入句子喂给一个深度Transformer用于编码（encoder），然后利用被遮挡位置对应的隐藏层状态(hidden state)去预测对应的词。这和训练一个语言模型很类似呀!</p>
+
+<p>因为语言模型并不能理解两个句子之间的关系，然后句子关系对于一些NLP任务来说相当重要。因此，为了预训练一个句子关系模型，我们利用了一个非常简单的二分类任务。这个任务将两个句子顺次拼接起来，然后预测后一个句子是否是前一个句子的下一个句子。</p>
+
+<p>任务二：预测下一句</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Input:
+the man went to a store [SEP] he bought a gallon of milk
+Label:
+IsNext
+
+Input:
+the man went to a store [SEP] penguins are flightless birds
+Lable:
+NotNext
+</code></pre></div></div>
+
+<p>然后在大量语料（维基百科语料+许多电子书的集合）上，我们训练了一个大模型（12 Transformer blocks，768-hidden，110M parameters）。该模型能够用于下游NLP任务，只需要几个epoch的微调。</p>
+
+<p>通过上述工作，我们在几个NLP任务上取得了巨大的提升。即使针对特定领域的任务，我们的模型也不要做任何变化。</p>
+
+<p>但是令我们真正惊讶的是，在训练一个更大的模型后(24 Transformer blocks，1024-hidden，340M parameters)，我们在即使非常小的数据集（标注样本数不大于5000）上也取得了巨大的提升。</p>
+
+<p>翻译完。</p>
+
+<h3 id="思考">思考</h3>
+
+<p>无监督预训练在NLP中的地位非常高，但是相比于视觉领域中的工作，NLP的相关工作取得的进展似乎并不是很大。在本工作之前，还有一些工作引起的关注度都较大，在文章中作者也提到一些。从效果来看，BERT似乎确实很强。</p>
+
+<p>针对该工作，我比较关注的问题如下（也有可能是某些细节我还没有注意到）。</p>
+
+<p><strong>提升来自海量的数据吗？</strong>我很好奇为啥文章去做训练步骤数目的影响对比试验。文章中可认为模型超参数固定，假定训练步骤数目和训练数据量成正比，也就是说，不需要一个epoch就可以得到一组试验结果，这样的试验是需要的，但是对比试验中的step是在一个epoch内的，还是所有epoch的step的和，似乎没有明确说明，不过我个人倾向于是在一个epoch内完成的试验。个人认为更好的试验是将数据量作为变量，比较收敛的模型结果。</p>
+
+<p><strong>提升来自模型改进吗？</strong>这里的模型改进是比较含糊的表达，其实我并不认为文章是模型的改进，倒是可以认为是任务的设计改进。这里要考虑的是模型规模是否是提升的一个关键因素，文章中基于模型本身的超参数做了对比试验。</p>
+
+<p><strong>提升来自好的预训练任务设计吗？</strong>在对比试验中，由于文章认为任务一是提升的最关键因素，所以作者只是比较了有没有任务一的影响，并没有针对任务二的对比试验设计。</p>
+
+<p><strong>预训练成本怎样？</strong>大模型需要16个tpu，历时四天；更大的模型需要64个tpu，历时四天。直觉上还是比较大的训练成本，但是没有具体的感觉，不知道4块k80或者一块1080ti或者两块p100的时间成本怎样？（因为我就这点硬件，尴尬）期待中文社区搞一个开源后的模型。</p>
+
+<p><strong>微调成本怎样？</strong>非常小。</p>
+
+<p><strong>提升来自神秘调参等不为人知的黑科技吗？</strong>不知道，纯属臆测（尴尬）。</p>
+
+<h3 id="结论">结论</h3>
+
+<p>基于上述问题，个人认为这篇文章的结果还是非常强的，值得期待。但是试验部分有些地方不太认同，至今我不是很确定提升到底来自哪里？（尴尬）另我看到的文章是不是只是个草稿(<em>不太认可写作质量</em>)？</p>
+
+<p>延伸思考下，任务一的随机遮挡策略是否略显粗犷，这里有篇很好的文章（<em>参考二</em>）讨论如何更好的去使用遮挡策略，相信会有进一步提升，而且实现成本应该不高。</p>
+
+<p>参考一：《BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding》</p>
+
+<p>参考二：《Data Nosing As Smoothing In Neural Network Language Models》</p>
+
+<p>参考三：<a href="https://www.zhihu.com/question/298203515/answer/509613705">如何评价BERT模型？</a></p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

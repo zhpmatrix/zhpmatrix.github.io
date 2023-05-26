@@ -1,0 +1,200 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]NLP中的范式转移</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2021/10/02/thinking-in-nlp-paradigm/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]NLP中的范式转移</h1>
+    <p class="meta">Oct 2, 2021</p>
+  </header>
+
+  <article class="post-content">
+  <p>NLP的主流范式约有七种，包括分类，匹配，序列标注，阅读理解等，而在解决具体问题时，可以从一种范式转移到另外一种范式，甚至多种范式的综合使用，这称之为NLP的范式转移。具体如下：</p>
+
+<hr />
+
+<p><img src="https://s3.bmp.ovh/imgs/2021/10/54cae8f24fd05f34.png" alt="" /></p>
+
+<hr />
+
+<p>上图来自文章Xuanjing Huang组的《Paradigm Shift in Natural Language Processing》，其中的（f），全称为sequence-to-action-sequence，形式的表达为：</p>
+
+<p><strong>A = CLS(ENC(X),C)</strong>, 其中A是action的序列，C是configuration的序列。在每个时间步，模型基于当前text和当前的configuration，预测action。</p>
+
+<p>这种方式主要应用于结构化预测任务，比如Parser相关。感兴趣可以读陈丹琦老板Manning或者西湖大学Yue Zhang的工作。</p>
+
+<p>既然有了这些范式，那么范式之间是如何转移的呢？具体如下(图片来自<a href="https://txsun1997.github.io/nlp-paradigm-shift/">这里</a>)：</p>
+
+<hr />
+
+<p><img src="https://s3.bmp.ovh/imgs/2021/10/7f0942a3f685efb4.png" alt="" /></p>
+
+<hr />
+
+<p>以文本分类为例，传统的文本分类采用Class范式，该范式分为one-hot和multi-hot两种，对于multi-hot的问题，Class范式是一种次优范式。而通过将Class转化为Seq2Seq范式，有效利用label之间的交互信息。此外，label本身的语义信息在Class范式中也并未被充分的利用，而通过将Class范式转化为Matching范式,可以充分利用label中的先验信息,尤其是在数据资源较少的前提下。在预训练任务流行的现在，将Class范式转化为（M）LM的方式，可以充分利用预训练语言模型本身的能力。</p>
+
+<p>除此之外，多种范式的组合也是范式迁移的范畴。</p>
+
+<p>在将其他范式迁移到(M)LM的时候，其中一类非常重要的工作是Prompt-Learning。具体文章《Pre-train， Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing》，文章一作也是Xuanjing Huang老师组的，对应的<a href="https://zhuanlan.zhihu.com/p/395115779">知乎文章</a>，评论区也有很多互动的观点很有意思。</p>
+
+<p>这篇文章中，作者的思考问题的方式值得学习。其中一个总结是：在Fine-tuning的年代，我们希望语言模型能够尽可能的向下游任务靠近，而Prompting的年代，则是下游任务向语言模型靠近。我们经历了从使用预训练语言模型到使用了更强的预训练语言模型，到更好的使用了预训练语言模型的过程。整体上看，二者越来越近！</p>
+
+<p>以Huang老师组的这两篇文章，具体可以展开非常多该方向上的研究，在此不再陈述。围绕上述工作，引发的一些思考如下。</p>
+
+<p>（1）模态之间的范式转移是否存在？</p>
+
+<p>一个典型的例子是2021年1月份的文章《Named Entity Recognition in the Style of Object Detection》，这篇文章将目标检测的思路用于NER任务，取得了和NLP传统方法相比comparable的结果。其中，目标检测中的方式是two-stage方法，NER是传统的标准方式。整体上，是CV的范式转向NLP的范式。</p>
+
+<p>2021年9月的Hinton组的文章《PIX2SEQ : A LANGUAGE MODELING FRAMEWORK FOR OBJECT DETECTION》，用一个语言模型做目标检测。其中，语言模型是NLP中的标准范式。整体上，是NLP的范式转移到CV的范式。</p>
+
+<p>这些探索能否将我们引向一个结论：一个统一的范式用于多种模态的问题求解。</p>
+
+<p>（2）Prompt为什么会成为转移至(M)LM的关键操作？</p>
+
+<p>在Fine-tuning的年代，我们倾向于将预训练语言模型作为一个更强的Encoder，但是随着探索的加深，我们认识到这个Encoder非常强，为了更好地挖掘Encoder的潜力，需要将焦点从下游任务转向Encoder自身。其中最简单的一条路径是适应Encoder的训练模式。比如对BERT而言，我们构造Mask的方式，而这就是Prompt的一种方式。范式转移过程中，考虑到Prompt和下游任务的适配，又会引发一系列的工作。</p>
+
+<p>与之相关的一个角度是，研究中心从输出侧转移到输入侧，而对BERT的花式玩法，其实也正是存在于这两端。</p>
+
+<p>其实，核心的思想都和朴素，都很直接。正如网络结构的设计，无论怎样，组件的选择有时候会受到维度对齐的影响，任何能够被设计的结构，都有自己的偏置。</p>
+
+<p>（3）面向具体问题的范式选择逻辑是什么？</p>
+
+<p>在上述两篇文章中，都没有找到比较有说服力的结论。不过，针对预训练语言模型，我们的逻辑是：用+用更强的+更好地用。但是，更多时候的问题是，PLM是不在选择空间中的。虽然文章中给出了各种范式的优缺点，但是只能成为一个出发点，并不能成为一个结论。</p>
+
+<p>这也许很难得到一个结论。</p>
+
+<p>不管怎样，这些范式，以及范式转移的逻辑，定义了一个有趣且庞大的探索空间，NLP的各种可能性均发生于此。</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

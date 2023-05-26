@@ -1,0 +1,225 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]因果推断+NLP</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2021/10/15/causal-inference-for-nlp/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]因果推断+NLP</h1>
+    <p class="meta">Oct 15, 2021</p>
+  </header>
+
+  <article class="post-content">
+  <p>《Causal Inference in Natural Language Processing: Estimation, Prediction, Interpretation and Beyond》，相关的<a href="https://zhuanlan.zhihu.com/p/419734891">中文解读</a>，对应的<a href="https://github.com/causaltext/causal-text-papers">参考文献列表</a>。在该文章中，讨论了两个方向的关系：</p>
+
+<ul>
+  <li>NLP有助于因果推断</li>
+  <li>因果推荐有助于NLP：interpretation&amp;explanation/sensitivity&amp;robustness</li>
+</ul>
+
+<p>其中，第一个方向的研究对象是因果推断，NLP是辅助手段。第二个方向和第一个方向恰恰相反。下文中的例1表明第一个方向，例2表明第二个方向，其中涉及的具体因果概念如下（例子原文来自网络，表格和分析来自博主本人）：</p>
+
+<p><strong>例 1</strong> 一个在线论坛允许其用户在他们的个人资料中用一个图标表示性别。他们注意到，图标为「女性」的用户所发的帖子得到的点赞量要少一些。为了评估这一政策（允许用户在资料中提供性别信息），他们问了一个问题：被认为是女性会降低帖子的受欢迎程度吗？</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Treatment</th>
+      <th>Outcome</th>
+      <th>Confounding</th>
+      <th>Counterfactual Question</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>被认为是女性</td>
+      <td>帖子得到的点赞量</td>
+      <td>话题（图标为女性的用户所发的帖子可能更多的是关于某个话题的，而该话题本身就很难吸引人点赞）</td>
+      <td>如果我们操控了一个帖子的性别图标，它能得到多少个赞？</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>在例1中，借助于NLP相关的技术，能够刻画Confounding，比如话题分析技术等，继而有利于因果分析。在本例中，文本作为Confounding，其他场景下，文本也可以作为Treatment或者Outcome，或者Mediator。</p>
+
+<p><strong>例 2</strong>
+一家医学研究中心想要构建一个分类器，用于从病人医疗记录的文本叙述中检测临床诊断。这些记录汇总在多个医院站点，目标临床状况的频率和叙述的写作风格都有所不同。当分类器应用于训练集之外的站点的记录时，它的准确率会下降。事后分析表明，这个分类器在看起来不相关的特性上投入了很高的权重，比如格式标记。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Treatment</th>
+      <th>Outcome</th>
+      <th>Confounding</th>
+      <th>Counterfactual Question</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>医疗记录文本</td>
+      <td>分类器的预测</td>
+      <td>医院站点（写作风格）</td>
+      <td>如果我们改变医院站点，同时保持真实的临床状态不变，分类器的预测是否会改变？（我们希望分类器依靠那些表达临床状况的短语来作出判断，而不是写作风格。）</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>在例2中，反映了NLP模型的鲁棒性差的问题。借助于因果推断，分析影响NLP模型鲁棒性的因素，比如这里的写作风格，通过特定的提升鲁棒性的方法，比如对抗训练等，从而有助于NLP。</p>
+
+<p>相关文章和工作：</p>
+
+<ul>
+  <li>
+    <p><a href="https://arxiv.org/abs/2002.02770">《A Survey on Causal Inference》</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/uber/causalml">CausalML</a>/PyLift/grf(uplifting models)</p>
+  </li>
+</ul>
+
+<p>在读过一些文章，看过一些工作之后，博主形成的基本结论是：</p>
+
+<ul>
+  <li>
+    <p>因果推断在一些更好的场景下有着实际的落地价值，比如A/B实验，营销定价策略等</p>
+  </li>
+  <li>
+    <p>NLP赋能因果推断，其实是一个NLP问题，和赋能哪个方向没有关系</p>
+  </li>
+  <li>
+    <p>因果推断赋能NLP，是做NLP的同学要格外关注的一个方向，但是从目前赋能的问题看，理论性&gt;实践性，短期内看不到特别的价值</p>
+  </li>
+</ul>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

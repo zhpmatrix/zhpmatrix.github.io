@@ -1,0 +1,310 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]初识图数据库</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2020/10/26/graph-db/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]初识图数据库</h1>
+    <p class="meta">Oct 26, 2020</p>
+  </header>
+
+  <article class="post-content">
+  <p>本文工作均是基于阿里云提供的基础服务设施完成，阿里云图数据库服务GDB目前支持的图模型是属性图。阿里云的确在基础设施上做的比较不错，研究阿里云提供的服务，认真阅读技术文档，确是一件很享受的事情。除了GDB，需要重点关注Neo4J和JenaGraph两款工具，其中，尤其需要重点关注JenaGraph。</p>
+
+<h4 id="gremlin">Gremlin</h4>
+
+<p>给定一张图（TinkerPop model图），如下：</p>
+
+<p><img src="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/149466/cn_zh/1578727938984/tinkerpop-modern-graph.png" alt="img_1" /></p>
+
+<p>如何用CSV文件格式描述这张图呢？常用的图元素包括：实体（顶点），顶点属性，边。</p>
+
+<p>针对上图，顶点文件描述如下（实体+属性）：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~id,~label,name:string,lang:string,age:int
+1,person,marko,,29
+2,person,vadas,,27
+3,software,lop,java,
+4,person,josh,,32
+5,software,ripple,java,
+6,person,peter,,35
+</code></pre></div></div>
+
+<p>边的文件描述如下（注意：这张图的边有权值）：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~id,~from,~to,~label,weight:double
+7,1,2,knows,0.5
+8,1,4,knows,1.0
+9,1,3,created,0.4
+10,4,5,created,1.0
+11,4,3,created,0.4
+12,6,3,created,0.2
+</code></pre></div></div>
+
+<h4 id="需要一个图数据库gdb">需要一个图数据库(GDB)</h4>
+
+<p>图数据库GDB的实例与ECS虚拟机处于同一个Virtual Private Cloud(VPC)网络环境。</p>
+
+<h4 id="python连接gdb">Python连接GDB</h4>
+
+<p>（1）安装gremlinpython程序包</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install gremlinpython ‑‑user
+</code></pre></div></div>
+
+<p>（2）创建测试文件test.py</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from __future__ import print_function  # Python 2/3 compatibility
+from gremlin_python.driver import client
+#注意三个参数做对应修改
+client = client.Client('ws://${your-gdb-endpoint}:8182/gremlin', 'g', username="${username}", password="${password}")
+#遍历并返回GDB中的一个顶点
+callback = client.submitAsync("g.V().limit(1)")
+for result in callback.result():
+    print(result)
+</code></pre></div></div>
+
+<p>gremlin支持的基本操作：删除指定label的边，添加顶点并设置id和property，修改或者新增property，建立关系设置属性weight，查询所有顶点和边的数量，查询指定条件的顶点，关联查询，删除关系和顶点。其中，关联查询是重点，也提供了一些非常有意思的想象空间。（重点查阅文档：<a href="http://tinkerpop.apache.org/docs/current/reference/?spm=a2c4g.11186623.2.15.258029c1vsdMEp#gremlin-python">Gremlin-Python</a>）</p>
+
+<h4 id="应用场景">应用场景</h4>
+
+<p>（1）欺诈检测场景</p>
+
+<p>主要原因：</p>
+
+<ul>
+  <li>
+    <p>欺诈者可以使用改变自身身份等手段，来达到逃避风控规则的欺诈目的。但是，欺诈者往往难以改变所有涉及网络的关联关系，难以在所有涉及的网络群体中同步执行相同操作来躲避风控</p>
+  </li>
+  <li>
+    <p>利用经典社区发现算法，发现欺诈犯罪团伙的群体规律</p>
+  </li>
+  <li>
+    <p>良好的可视化支持</p>
+  </li>
+</ul>
+
+<p>（2）知识图谱场景</p>
+
+<p>实现多级查询：zhpmatrix.github.io的博主的github账号是啥？</p>
+
+<p>（3）网络运维场景</p>
+
+<p>可以将关系型数据库中结构化数据转换图数据库中的节点和边，提升查询效率。</p>
+
+<p>（4）推荐场景</p>
+
+<p>给定属性图如下：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2020/10/4aedcc07f0eb06db.png" alt="img_2" /></p>
+
+<p>典型场景：找到那些和小明评价过相同的书的读者，把他们评价过的其它书推荐给小明。</p>
+
+<p>（5）社交应用场景</p>
+
+<p>给定属性图如下：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2020/10/e18e198c5fe9cdbc.png" alt="img_3" /></p>
+
+<p>比如查询：网络排名前三的大V。</p>
+
+<h4 id="小试牛刀搭建一个电商知识图谱问题较多需完善">小试牛刀（搭建一个电商知识图谱，问题较多需完善）</h4>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2020/10/b4ae6cf69cd5d3af.png" alt="img_9" /></p>
+
+<p>需要思考的问题：</p>
+
+<ul>
+  <li>哪些研究对象需要独立成节点</li>
+  <li>确定节点的属性维度</li>
+  <li>哪些边是需要的，哪些边是不需要的（通过间接可以建立，但是如果显式的链接，能否提高查询效率？）</li>
+  <li>关系如何设计（不冲突的前提下，提升查询效率）</li>
+  <li>传统关系型数据库和图数据库的联系和区别（核心：查询效率时的空间换时间）</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>分类</th>
+      <th>图数据库</th>
+      <th>关系型数据库</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>模型</td>
+      <td>图结构</td>
+      <td>表结构</td>
+    </tr>
+    <tr>
+      <td>存储信息</td>
+      <td>结构化/半结构化数据库</td>
+      <td>高度结构化数据</td>
+    </tr>
+    <tr>
+      <td>2度查询</td>
+      <td>高效</td>
+      <td>低效</td>
+    </tr>
+    <tr>
+      <td>3度查询</td>
+      <td>高效</td>
+      <td>低效/不支持</td>
+    </tr>
+    <tr>
+      <td>空间占用</td>
+      <td>高</td>
+      <td>中</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>图的稀疏性问题（节点和边都是稀疏的）</li>
+</ul>
+
+<h4 id="总结">总结</h4>
+
+<p>NLP的问题要想得到好的解决，是需要常识的（知识），而知识图谱是复杂知识组织的一种数据结构。同时，基于知识图谱，可以带来其他应用层面上的想象空间。围绕知识图谱本身，需要考虑补全，去噪等问题。在应用的时候，需要考虑实体消歧，图表示，图查询，图推理等有挑战性的问题，但是首先需要一个知识图谱，不是吗？其次，才是知识图谱赋能其他NLP应用。</p>
+
+<p>相关文档：</p>
+
+<p>1.<a href="https://blog.csdn.net/javeme/article/details/82501797">深入学习Gremlin：图基本概念与操作</a></p>
+
+<p>2.<a href="https://help.aliyun.com/document_detail/112468.html?spm=a2c4g.11186623.6.607.4faa177aEEzqnI">阿里云GDB服务官方文档</a></p>
+
+<p>3.<a href="https://blog.csdn.net/huacha__/article/details/81123410">Neo4j的安装</a></p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

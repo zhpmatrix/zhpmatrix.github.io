@@ -1,0 +1,303 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]中文拼写检纠错-和百度比一比</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/02/02/rethinking-spellchecker/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]中文拼写检纠错-和百度比一比</h1>
+    <p class="meta">Feb 2, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <p>最近在调研一些公司的云平台对外开放的NLP相关的API接口，无意间看到参考1的总结说明。文章中提到百度的文本纠错API是免费使用的，腾讯虽然也有文本纠错的API，但是需要付费。其实实习期间就有关注到百度的开放接口，不过实习期间正值该接口属于内测阶段，当时的目的也是自研而非使用第三方接口，于是一直没有机会尝试。在主要参考列表中，给出了三家平台的入口地址。</p>
+
+<p>既然百度的可用，那就和自己的模型PK一下好了。之前写过一篇<a href="https://zhpmatrix.github.io/2018/12/17/chinese-spell-checker/">博客</a>，总结了在中文文本纠错上的尝试。</p>
+
+<p>这个可以使用的API接口可以用于很多地方，因此在此记录一下使用流程。</p>
+
+<p>第一，注册百度云账号，按照官网文档，得到应用的AppID，API Key，和Secret Key三个值；</p>
+
+<p>第二，pip install baidu-aip；</p>
+
+<p>官网提供了更具体的使用说明，同时也支持多种语言，多种调用方式，具体可查文档。不过上述两步已经满足我自己的需求了。值得一提的是，创建应用默认支持十六种语言处理基础技术，个人认为常见的基本功能，如分词，词向量，情感分析等都已经包含在内，是比较齐全的API支持。</p>
+
+<p>不过考察文本纠错的API，有两个显然的缺点：</p>
+
+<p>第一，待纠错文本的输入限制为511字节；</p>
+
+<p>第二，API的QPS=5，申请更高QPS需要公司申请；</p>
+
+<p>接下来，可以开心的PK一把了。测试代码如下(使用其他的功能，用法类似)：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+from aip import AipNlp
+app_id      =   '15520629'
+api_key     =   'bndhUzrh1iDasRhBxe2Objn6'
+secret_key  =   '应该不能告诉你'
+
+client = AipNlp(app_id, api_key, secret_key)
+
+
+text_list = ['形像代言人',
+            '此事不会影像中国关系大局',
+            '化夏子孙团结一心',
+            '就难免必理不平衡。',
+            '西藏叛乱的失败，使尼赫鲁“大印度联邦”的构想华为泡影。',
+            '看看人家，不给钱就酸了，因为你缺的那个敬业福。',
+            '甚至龙族的秘密歪斜也没有关系。',
+            '我们会优先推动五大创新研发计画。',
+            '说自己市提前两天排对的。',
+            '等啊等，忠于等到了。',
+            '还有进口香皂、家居服、花艺样样聚全。',
+            '“蒙汉药!”加尼马尔恍然大悟，他费了九牛二虎之力，终于把他的助手弄醒。',
+            '好象是我们错了。',
+            '人群中发出一阵惊吁声。',
+            '清河安宁庄西二条路人形步道翻修！',
+            '看来生活中也是蛮回撒娇的呢。',
+            '还可能与这个小村落与比斯特购物村想去不远也不无关系。']
+
+print(len(text_list))
+
+for text in text_list:
+    print(client.ecnet(text))
+
+</code></pre></div></div>
+
+<p>共测试出了六句错误。具体输出结果如下，</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+{'log_id': 923607537112811327, 'item': {'vec_fragment': [{'ori_frag': '形像', 'begin_pos': 0, 'correct_frag': '形象', 'end_pos': 4}], 'score': 0.947005, 'correct_query': '形象代言人'}, 'text': '形像代言人'}
+{'log_id': 720482710083012319, 'item': {'vec_fragment': [], 'score': 0, 'correct_query': '此事不会影像中国关系大局'}, 'text': '此事不会影像中国关系大局'}
+{'log_id': 4566419717022875711, 'item': {'vec_fragment': [{'ori_frag': '化夏', 'begin_pos': 0, 'correct_frag': '华夏', 'end_pos': 4}], 'score': 0.885656, 'correct_query': '华夏子孙团结一心'}, 'text': '化夏子孙团结一心'}
+{'log_id': 3083782733138639839, 'item': {'vec_fragment': [], 'score': 0, 'correct_query': '就难免必理不平衡。'}, 'text': '就难免必理不平衡。'}
+{'log_id': 3000122787598459551, 'item': {'vec_fragment': [], 'score': 0, 'correct_query': '西藏叛乱的失败，使尼赫鲁“大印度联邦”的构想华为泡影。'}, 'text': '西藏叛乱的失败，使尼赫鲁“大印度联邦”的构想华为泡影。'}
+{'log_id': 4761456975244649855, 'item': {'vec_fragment': [], 'score': 0, 'correct_query': '看看人家，不给钱就酸了，因为你缺的那个敬业福。'}, 'text': '看看人家，不给钱就酸了，因为你缺的那个敬业福。'}
+{'log_id': 1748021891136513983, 'item': {'vec_fragment': [], 'score': 0, 'correct_query': '甚至龙族的秘密歪斜也没有关系。'}, 'text': '甚至龙族的秘密歪斜也没有关系。'}
+{'log_id': 3357462939325308255, 'item': {'vec_fragment': [{'ori_frag': '计画', 'begin_pos': 26, 'correct_frag': '计划', 'end_pos': 30}], 'score': 0.508583, 'correct_query': '我们会优先推动五大创新研发计划。'}, 'text': '我们会优先推动五大创新研发计画。'}
+{'log_id': 1449603895071567359, 'item': {'vec_fragment': [{'ori_frag': '排对', 'begin_pos': 16, 'correct_frag': '排队', 'end_pos': 20}], 'score': 0.985248, 'correct_query': '说自己市提前两天排队的。'}, 'text': '说自己市提前两天排对的。'}
+{'log_id': 5453831342972440127, 'item': {'vec_fragment': [], 'score': 0, 'correct_query': '等啊等，忠于等到了。'}, 'text': '等啊等，忠于等到了。'}
+{'log_id': 5485571345359476351, 'item': {'vec_fragment': [], 'score': 0, 'correct_query': '还有进口香皂、家居服、花艺样样聚全。'}, 'text': '还有进口香皂、家居服、花艺样样聚全。'}
+{'log_id': 7264480693643118687, 'item': {'vec_fragment': [], 'score': 0, 'correct_query': '“蒙汉药!”加尼马尔恍然大悟，他费了九牛二虎之力，终于把他的助手弄醒。'}, 'text': '“蒙汉药!”加尼马尔恍然大悟，他费了九牛二虎之力，终于把他的助手弄醒。'}
+{'log_id': 6925038357614324767, 'item': {'vec_fragment': [{'ori_frag': '好象是', 'begin_pos': 0, 'correct_frag': '好像是', 'end_pos': 6}], 'score': 0.945305, 'correct_query': '好像是我们错了。'}, 'text': '好象是我们错了。'}
+{'log_id': 6186454006876672831, 'item': {'vec_fragment': [{'ori_frag': '吁声', 'begin_pos': 16, 'correct_frag': '嘘声', 'end_pos': 20}], 'score': 0.502987, 'correct_query': '人群中发出一阵惊嘘声。'}, 'text': '人群中发出一阵惊吁声。'}
+{'log_id': 4001481984683291871, 'item': {'vec_fragment': [], 'score': 0, 'correct_query': '清河安宁庄西二条路人形步道翻修！'}, 'text': '清河安宁庄西二条路人形步道翻修！'}
+{'log_id': 3198382055969640639, 'item': {'vec_fragment': [], 'score': 0, 'correct_query': '看来生活中也是蛮回撒娇的呢。'}, 'text': '看来生活中也是蛮回撒娇的呢。'}
+{'log_id': 6048855618626746847, 'item': {'vec_fragment': [], 'score': 0, 'correct_query': '还可能与这个小村落与比斯特购物村想去不远也不无关系。'}, 'text': '还可能与这个小村落与比斯特购物村想去不远也不无关系。'}
+
+</code></pre></div></div>
+
+<p>由此可以得出基本的结果：忽略测试集规模的影响，我们之前做的结果，分别基于统计语言模型和生成模型的结果都要比百度文本纠错API的测试结果好许多。</p>
+
+<p>从上述的对比过程，有几点想法或者是启发：</p>
+
+<p>第一，当不知道一个任务的上限在哪里，或者自己做的任务的效果怎样的时候，可以和百度开放的API做对比，对自己的模型效果做一个大致的评估，同时可以用于评估任务的难易程度，这点很重要。</p>
+
+<p>第二，从API的反馈结果，有可能逆推出百度API背后的支持模型或者解决问题的具体方法，这点也很重要。</p>
+
+<p>第三，十七句能够纠错出六句，我不太能接受，但是百度API为啥开放出这个接口？SLM和基于生成的模型在更大的数据规模上取得增益的同时，在该测试集上也会取得比上述测试结果更好的结果，但是我个人仍然认为这两个模型不可用。</p>
+
+<p>初步结论暂且这样，后续科学评估需要在更大的测试集上做。但是即使规模上去了，百度API的测试集和自己做的测试集是否具有可比性，也是需要考虑的问题。因为，针对文本纠错任务，大规模的测试集应该是按照某种规则人工做出来的，否则没有标签啊。</p>
+
+<p>总结：写这样的博客也算是换个脑子，换个视角，个人感觉还挺有意思的。</p>
+
+<p>补充：</p>
+
+<p>1.百家号的语句纠错</p>
+
+<p><img src="http://wx1.sinaimg.cn/mw690/aba7d18bly1g1ak929kjgj21400u04qq.jpg" alt="img" /></p>
+
+<p>2.<a href="https://102.alibaba.com/detail?id=223">阿里将纠错用于OCR任务中-单证业务</a></p>
+
+<p>主要参考：</p>
+
+<p>1.<a href="https://ptorch.com/news/178.html">BAT三家NLP的API对比与使用/价格分析以及选取</a></p>
+
+<p>2.<a href="http://ai.baidu.com/docs#/NLP-API/57b9b630">百度AI开放平台</a></p>
+
+<p>3.<a href="https://cloud.tencent.com/document/product/271/2050">腾讯文智自然语言处理</a></p>
+
+<p>4.<a href="https://help.aliyun.com/product/60058.html">阿里云自然语言处理</a></p>
+
+<p>5.<a href="https://blog.csdn.net/yang_daxia/article/details/86028619">调用百度自然语言处理API</a></p>
+
+<p>6.<a href="https://liweinlp.com/?p=5000">告诉你一个写外语避免常见错误的使用技巧</a></p>
+
+<p>7.<a href="https://mp.weixin.qq.com/s?__biz=MzU1NTMyOTI4Mw==&amp;mid=2247488610&amp;idx=1&amp;sn=c8793392f789ba5c39a9e8a4d7c6beac&amp;chksm=fbd4a60ecca32f184b19aac505aeb10b282cb12ff6b84b712e4038d856ed21d4cb6064546a9e&amp;mpshare=1&amp;scene=23&amp;srcid=03064sSimcEBAnYxk9ZsG5By%23rd">百度中文文本纠错技术</a></p>
+
+<p>8.<a href="https://mp.weixin.qq.com/s?__biz=MzU3NzUzNjg2MA==&amp;mid=2247483741&amp;idx=2&amp;sn=6fc2b06fca519bcd127eb4938388c6ef&amp;chksm=fd02576eca75de780d2e3cd3a59c39b257eccf85525da83febbab7fe239461da2c6ce7a9615e&amp;mpshare=1&amp;scene=23&amp;srcid=0428Dfx3CtCUMe21q1GyyKTl%23rd">2018-新媒体纠错指南</a></p>
+
+<p>9.<a href="https://azure.microsoft.com/zh-cn/services/cognitive-services/spell-check/">微软Bing的spellchecker</a></p>
+
+<p>描述了spellchecker的具体内容。</p>
+
+<p>10.《Corpora Generation for Grammatical Error Correction》</p>
+
+<p>给出了两种用seq2seq思路解决语法错误纠正问题的数据平行语料构建方法，分别是利用wiki的编辑历史和借助于中间语言的互相翻译。</p>
+
+<p>11.《Misspelling Oblivious Word Embeddings》,NAACL2019</p>
+
+<p>基于word embedding的解决方案。</p>
+
+<p>12.《Review of Real-word Error Detection and Correction Methods in Text Documents》</p>
+
+<p>2018年的Review文章</p>
+
+<p>13.<a href="https://mp.weixin.qq.com/s/58ZsOjX-nGfFK-2Thq_0ng">庖丁科技的纠错技术用于金融</a></p>
+
+<p>14.<a href="https://cloud.tencent.com/developer/article/1435917">中文纠错到底走多远了？</a></p>
+
+<p>2019年5月份的一个review类博客</p>
+
+<p>15.<a href="2019-02-01-rethinking-spellchecker">英语流利说</a></p>
+
+<p>16.<a href="https://zhuanlan.zhihu.com/p/82807092">平安寿险的总结</a></p>
+
+<p>17.<a href="https://leetcode-cn.com/problems/vowel-spellchecker/solution/yuan-yin-pin-xie-jian-cha-qi-by-leetcode/">元音拼写检查器</a></p>
+
+<p>18.<a href="https://mp.weixin.qq.com/s?__biz=MzU2NDQ3MTQ0MA==&amp;mid=2247485374&amp;idx=1&amp;sn=f85097d0c9d0d725f5e314041dfa4e3d&amp;chksm=fc4b3441cb3cbd5701f79375f948f73bae60138ecb61d5851e4506c833b59ea5c22b0fb403a5&amp;mpshare=1&amp;scene=23&amp;srcid&amp;sharer_sharetime=1586748490212&amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd">飞鹰系统，哈工大的文章</a></p>
+
+<p>19.<a href="https://mp.weixin.qq.com/s?__biz=MzUyMDY0OTg3Nw==&amp;mid=2247484225&amp;idx=1&amp;sn=6435258fb1aeb27dab441f4ecd66a502&amp;chksm=f9e66ebbce91e7add59f4cb15c4f366409c937d5a4e8af9d27ae77e9bea0d7279baeb893956b&amp;mpshare=1&amp;scene=23&amp;srcid&amp;sharer_sharetime=1591590014192&amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd">丁香园的一个工作</a></p>
+
+<p>20.2020年的三个工作：</p>
+
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzU2MDkwMzEzNQ==&amp;mid=2247485798&amp;idx=2&amp;sn=122b00674bfb7033d8b6875f1d6a9360&amp;chksm=fc01afd6cb7626c07b2100bff92bec050c26e44e00e9cce7462e63510f0003ae0fbda030cdf1&amp;mpshare=1&amp;scene=23&amp;srcid=0710wsa99Uc4PRvInfR38Ftx&amp;sharer_sharetime=1595072313431&amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd">平安寿险</a></p>
+
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzUyMDY0OTg3Nw==&amp;mid=2247484261&amp;idx=2&amp;sn=fde09bfd7ae6482e24e0bf1d63c24ff1&amp;chksm=f9e66e9fce91e7893fee5105335343df5871ff7af42e83edfc1ca5bae679117f86a97b3e93ee&amp;mpshare=1&amp;scene=23&amp;srcid=0708kNf3341o19wYigMEddZr&amp;sharer_sharetime=1595072323410&amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd">丁香园</a></p>
+
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzU1NTMyOTI4Mw==&amp;mid=2247503412&amp;idx=1&amp;sn=75ef312902713d3766a43a6c71e1024e&amp;chksm=fbd77c58cca0f54e3a9ffbe9ec075a144e8b16a171287367173d4a0d69f511106335c7b05298&amp;mpshare=1&amp;scene=23&amp;srcid=0715O91EigE98rTxYGPFAhTG&amp;sharer_sharetime=1594786619222&amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd">小米</a></p>
+
+<p>21.<a href="2019-02-01-rethinking-spellchecker.md">针对OCR的NLP纠错</a></p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

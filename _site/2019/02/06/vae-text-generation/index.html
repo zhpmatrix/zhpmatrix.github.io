@@ -1,0 +1,247 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLG]论文阅读-《Generating Sentences from a Continuous Space》</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/02/06/vae-text-generation/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLG]论文阅读-《Generating Sentences from a Continuous Space》</h1>
+    <p class="meta">Feb 6, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<p>这篇文章是首次讨论VAE用于文本生成任务，从目前发展的结果来看，GAN在CV领域的生成效果好于VAE，因为VAE的生成图片比较模糊。但是在文本生成任务中，VAE的效果应该要好于GAN的使用。参考5和参考6中给出了一种从贝叶斯角度得到VAE的损失函数的方法，值得品味一番。在很久之前的对<a href="https://zhpmatrix.github.io/2018/08/26/NLG/">NLG的一个调研</a>也可以参考一下。</p>
+
+<p>假设数据x的真实分布为p(x)，由于p(x)在DL的方法框架下不可知，因此，想要通过一个q(x)来近似p(x)，理想情况下，希望p(x)=q(x)。在这里，不加解释的直接引入隐变量z用于建模q(x)，如下：</p>
+
+\[q(x)=\int q(x,z)dz=\int q(x|z)q(z)dz\]
+
+<p>其中，q(x|z)就是想要的生成模型了。为了保持一致性，假设真实分布p(x)也是由隐变量z生成的。由于我们对p(x)一无所知，因此这种假设是合理的。既然近似，那就需要评估近似的手段，显然，衡量两个分布的近似程度，KL距离是首先能够想到的(实际上，单纯的度量方法有很多，不过KL距离具有多方面的优越性)。度量表达如下：</p>
+
+\[KL(p(x,z)|q(x,z))=\iint p(x,z)ln\frac{p(x,z)}{q(x,z)}dzdx\]
+
+<p>由于p(x,z)=p(x)p(z|x)，则上式可以展开得到，</p>
+
+\[KL(p(x,z)|q(x,z))=\int p(x) \left[ \int p(z|x)ln\frac{p(x)p(z|x)}{q(x,z)}dz \right] dx=E_{x \sim p(x)} \left[ \int p(z|x)ln\frac{p(x)p(z|x)}{q(x,z)}dz \right]\]
+
+<p>上式将对数项展开，可以得到一个常数项，进而可以得到损失函数，如下，</p>
+
+\[loss=KL(p(x,z)|q(x,z))-const=E_{x \sim p(x)} \left[ \int p(z|x)ln\frac{p(z|x)}{q(x,z)}dz \right]\]
+
+<p>由上式可以观察到const确定了loss的下界，并且由于const本身的取值范围，导致loss可以为负。</p>
+
+<p>当然可以继续将loss函数展开，就得到VAE的损失函数，</p>
+
+\[loss=E_{x \sim p(x)} \left[ E_{z \sim p(z|x)} \left[ -lnq(x|z) \right]+KL(p(z|x) | q(z)) \right]\]
+
+<p>有loss函数的形式来看(上上式更加直观)，我们的目的是找到q(x|z)和q(z)使得loss函数最小化。至此，VAE的loss函数得到了。</p>
+
+<p>现在注意几个细节。</p>
+
+<p>在上述式子的推导过程中，我们用到的是p(x,z)=p(x)p(z|x)，但是p(x,z)=p(z)p(x|z)也成立，此处能够带来什么启发呢？直观地从VAE做的事情来看，可以得到p(z|x)，数据本身的分布是p(x)，但是p(z)未知，自然难以得到p(x|z)，这不正是我们想要学习到的q吗？</p>
+
+<p>这里又出现了两个项的和共同作为loss函数，传统的loss函数，遇到这种结构的时候，多半是普通的损失项加上正则项，通常在正则项前添加一个调节常数因子。而这里的loss函数是作为整体的两项出现的，不同于以往。尝试分析一下这里的loss函数，第一项，需要q(x|z)大，这意味着生成能力强。理想情况下，KL项也对应的小就好了，但是这里成立吗？</p>
+
+<p>上述得出了loss函数的形式化的表达，但是不够具体，下面讨论一下详细计算loss函数的需要的三个项，分别是q(z)，q(x|z)，和p(z|x)。</p>
+
+<p>在VAE的设定中，假设\(q(z)=N(0,I)\)</p>
+
+<p>p(z|x)和q(x|z)不知道咋搞呀？在前一篇博客中提到的，反正分布也是个函数(松弛条件下)，那就NN来吧。从这两项可以看出，分别对应”编码”和”解码”，或者说描述了一个重构过程。</p>
+
+<p>具体地说，同样假设p(z|x)也是一个正态分布，那么自然需要分布对应的均值和方差来描述该分布。明确一下此处的输入和输出，分别是输入x，输出均值和方差。这样，loss函数的第二项的KL损失可以计算了。</p>
+
+<p>类比，q(x|z)可以假设为伯努利分布(二值数据，CE损失函数)和正态分布(一般数据，MSE损失函数)。</p>
+
+<p>假设第一步是得到形式化的损失函数，第二步是具体化每个项的表达形式，第三步则是具体计算。由loss函数的第一项可知，需要通过采样的方法得到对期望的估计。VAE认为采样一个就OK，具体需要借助”重参数化技巧”。一旦只采样一个，loss函数的形式又可以继续化简。那么，为啥一个就OK呢？</p>
+
+<p>重参数化的技巧值得一提。对p(z|x)建模后得到均值和方差，当此时采样一个满足该均值和方差限定的正态分布的样本时，其实是得到了一个常量。由于是依概率采样，这个常量没有显示地建立与均值和方差的关系，则p(z|x)得不到采样结果的反馈。</p>
+
+<p>既然没有参数化采样结果，那就参数化呀。借助于概率统计中正态分布和标准正态分布之间的关系实现参数化，有：</p>
+
+\[z=均值+\epsilon*方差，\epsilon \sim N(0,I)\]
+
+<p>那么，至此，VAE的理论部分基本讨论完了，部分细节上的考察需要后续深入思考。</p>
+
+<p>整体上看，VAE是原始AE添加了正则项，表现为KL损失，因此，全部的损失函数为重构损失加上KL损失。而这其中的两个细节在于V(变分)和重参数化技巧。V的来源可以不严格的认为就是KL作为正则项的应用，而重参数化技巧则是为了解决”采样”操作本身的不可导性(采样结果可导)，通过从标准正态分布中采样，简单代数运算后得到非标准正态分布的采样结果。</p>
+
+<p>衡量两个概率分布之间的距离有多种，但是为啥选择KL距离呢？从数值角度来看，KL散度可以写成期望的形式，而期望的计算可以通过<a href="https://spaces.ac.cn/archives/5343">数值计算和采样计算</a>。</p>
+
+<p>实际上，类似于SeqGAN，存在Conditional SeqGAN一样。对于VAE，同样存在Conditional VAE。并且如果考虑到隐变量的连续性和非连续性，当隐变量是离散变量的时候，可以基于VAE做聚类。</p>
+
+<p>回顾了VAE的基本理论，来讨论一下应用。《Generating Sentences from a Continuous Space》这篇文章应该是首次将VAE用于文本生成的文章，直接给出模型结构如下图，</p>
+
+<p><img src="http://wx2.sinaimg.cn/mw690/aba7d18bly1fzunj20gylj20lg05pab4.jpg" alt="变分自编码语言模型结构" /></p>
+
+<p>其中，encoder和decoder都是一层的LSTM，文章认为在上文中讨论的q(z)是施加在hidden code上的正则化项。在关于z的使用方案中(encoder-decoder的连接部分)，文章尝试了下述方案：</p>
+
+<p>第一，将z作为decoder的每个时间步的一个输入；</p>
+
+<p>第二，读方差进行softmax参数化；</p>
+
+<p>第三，在encoder-latent variable和latent-decoder分别尝试使用前馈网络；</p>
+
+<p>结论是，上述三种方案都差不多。实际上，在传统的讨论的seq2seq方案中，上述的一些尝试同样可以进行。</p>
+
+<p>关于encoder部分，也就是p(z|x)的高效建模，作者也尝试了一些比较复杂的方案，包括基于正则化流做后验估计等，都发现没有带来显著的效果提升。</p>
+
+<p>这篇只关心VAE在文本生成任务上的首次应用，证明确实是可行的。除了上述讨论的内容，文章还有针对具体任务地一些其他讨论，具体细节可以读论文。(<em>发现文章写多了，这部分细节不能展开讨论，后续有机会了会重新拉出来讨论吧。</em>)</p>
+
+<p>主要参考文献：</p>
+
+<p>1.《Generating Sentences From A Continuous Space》</p>
+
+<p>2.<a href="http://rsarxiv.github.io/2017/03/02/PaperWeekly%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%B8%83%E6%9C%9F/">PaperWeekly-VAE For NLP</a></p>
+
+<p>3.<a href="https://github.com/timbmg/Sentence-VAE">Sentence-VAE，PyTorch</a></p>
+
+<p>4.<a href="https://spaces.ac.cn/archives/5253">变分自编码器系列一</a></p>
+
+<p>5.<a href="https://spaces.ac.cn/archives/5343">变分自编码器系列二</a></p>
+
+<p>6.<a href="https://spaces.ac.cn/archives/5383">变分自编码器系列三</a></p>
+
+<p>7.<a href="https://spaces.ac.cn/archives/5887">变分自编码器系列四</a></p>
+
+<p>8.<a href="https://github.com/GauravBh1010tt/DL-Seq2Seq">VAE和CVAE的一个实现</a></p>
+
+<p>9.<a href="https://mp.weixin.qq.com/s?__biz=MzIzNjc0MTMwMA==&amp;mid=2247487935&amp;idx=1&amp;sn=e1c372bb09b5027fc89b5af25d264f70&amp;chksm=e8d26664dfa5ef72dcf092a712c6fbf5346a50c9c53c5d08213fd92ba0ee5b987469b45ce189&amp;mpshare=1&amp;scene=23&amp;srcid=%23rd">机器学习中的编码器-解码器结构哲学</a></p>
+
+<p>这篇文章中有两张VAE的训练和解码的图，非常清晰。</p>
+
+<p>10.<a href="http://www.sohu.com/a/216987798_297288">KL vanishing problem解决的两个方向</a></p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

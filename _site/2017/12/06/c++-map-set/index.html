@@ -1,0 +1,232 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[C++]map和set的坑</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2017/12/06/c++-map-set/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[C++]map和set的坑</h1>
+    <p class="meta">Dec 6, 2017</p>
+  </header>
+
+  <article class="post-content">
+  <h3 id="使用方法">使用方法</h3>
+
+<p>map用于维护KV对，set以集合的身份维护元素。从命名角度可以知道set中元素不重复，符合数学的定义。结合计算机的底层实现，<strong>set中的元素可以按照一定的顺序组织</strong>，比如大小，字典序。同时极具计算机特色的一个用法是multiset的使用，允许一个set中有重复元素的出现。代码如下：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;unordered_set&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">unordered_multiset</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">_set</span><span class="p">;</span>
+    <span class="n">_set</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="s">"Scala"</span><span class="p">);</span>
+    <span class="n">_set</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="s">"Haskell"</span><span class="p">);</span>
+    <span class="n">_set</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="s">"C++"</span><span class="p">);</span>
+    <span class="n">_set</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="s">"Java"</span><span class="p">);</span>
+    <span class="n">_set</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="s">"Erlang"</span><span class="p">);</span>
+    <span class="n">_set</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="s">"Erlang"</span><span class="p">);</span>
+    <span class="n">unordered_multiset</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">it</span> <span class="o">=</span> <span class="n">_set</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">_set</span><span class="p">.</span><span class="n">end</span><span class="p">();</span><span class="n">it</span><span class="o">++</span><span class="p">){</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">it</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>从用法上违背了数学中set的定义。至于为什么有这种用法？一种可能的理由是为了充分使用set底层的数据结构，原理可以从<strong>底层实现</strong>部分看到，同时此处的一个坑在<strong>坑</strong>部分提到。map用于维护KV对，代码
+如下：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;unordered_map&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;map&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="n">map</span><span class="p">;</span>
+    <span class="c1">//map&lt;int, string&gt; _map;</span>
+    <span class="n">_map</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s">"Scala"</span><span class="p">));</span>
+    <span class="n">_map</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s">"Haskell"</span><span class="p">));</span>
+    <span class="n">_map</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="s">"C++"</span><span class="p">));</span>
+    <span class="c1">//_map.insert(make_pair(4,"Java"));</span>
+    <span class="n">_map</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="s">"JavaScript"</span><span class="p">));</span>
+    <span class="n">_map</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="s">"Erlang"</span><span class="p">));</span>
+    
+    <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="n">elem</span><span class="o">:</span><span class="n">_map</span><span class="p">){</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">elem</span><span class="p">.</span><span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="s">","</span> <span class="o">&lt;&lt;</span> <span class="n">elem</span><span class="p">.</span><span class="n">second</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span><span class="p">;</span>
+    <span class="c1">//map&lt;int, string&gt;::iterator it;</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">it</span> <span class="o">=</span> <span class="n">_map</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">_map</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">){</span>
+      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="s">","</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>KV对，就要维持K的唯一，保证K的索引作用。</p>
+
+<h3 id="底层实现">底层实现</h3>
+
+<p>set和map及其unordered版本最大的不同体现在底层实现，其中set和map的实现都是基于红黑树，而unordered_map的实现是基于哈希表。从用法上看，set默认元素有序，unordered_set中元素无序。为啥？红黑树是一棵平衡二叉查找树，能够以O(lgN)的时间复杂度实现插入，删除，访问元素。而哈希表基于散列函数及相关冲突解决方案确定元素的最终位置，不能保证元素的顺序。这里的顺序的概念可以从遍历容器的输出中看到。既然set是基于哈希表实现，那么需要KV，现在有了V，K在哪里呢？对于unordered_set的实现，K=V，为啥？set中元素不重复，保证了K的唯一性呀。那这里问题来了，unordered_multiset的实现呢？相同的K的散列值一般应该保持相同，如果位置冲突，找到一个合理的位置应该能解决问题。</p>
+
+<p>map的原理和set基本相同，map的对K进行顺序的维持。</p>
+
+<p>原理决定了使用的选择。如果是查询密集型程序，显然使用基于哈希表的容器实现更好。但是哈希是用空间换时间的典型技术，故如果对内存要求比较高，基于哈希的实现就不好了。另一个方面，如果要求数据有序，显然选择基于红黑树的实现。</p>
+
+<h3 id="坑">坑</h3>
+
+<p>坑一：unordered_set和unordered_multiset都在头文件</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;unordered_set&gt;</span><span class="cp">
+</span></code></pre></div></div>
+
+<p>中，至于为什么没有单独拿出来？可能二者在实现上的差别大于set和unordered_set的差别吧。</p>
+
+<p>坑二：在向map中插入元素时，K可以不唯一，但是最终存储的元素中，只会保留K第一次出现的那个元素。代码如下：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">//_map.insert(make_pair(4,"Java"));</span>
+    <span class="n">_map</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="s">"JavaScript"</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p>_map中只会将”Java”成功插入。可能成为坑的一个地方在于当插入K相同的两个元素时，竟然没有警告或者报错。</p>
+
+<p>参考：</p>
+
+<p>1.<a href="http://www.sczyh30.com/posts/C-C/cpp-stl-hashmap/">C++ STL之哈希表</a></p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

@@ -1,6 +1,8 @@
 #Site settings
 title: ZHPMATRIX blog
-email: 
+wechat: 微信公众号《KBQA沉思录》
+email: Gmail邮箱
+weibo: 微博
 description: "致力于算法，数据和工程的全链路打通"
 baseurl: ""
 

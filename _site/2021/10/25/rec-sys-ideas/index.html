@@ -1,0 +1,290 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[RecSys]再议推荐系统</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2021/10/25/rec-sys-ideas/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[RecSys]再议推荐系统</h1>
+    <p class="meta">Oct 25, 2021</p>
+  </header>
+
+  <article class="post-content">
+  <p>最近在阅读Ricci的<a href="https://book.douban.com/subject/26437066/">《Recommender Systems Handbook》</a>，顺道阅读了公众号《炼丹笔记》的所有文章，公众号《机器学习与推荐系统》的所有文章，翻了RecSys等相关会议的一大坨纸，其中，不乏该方向上业界比较资深的大佬的观点和认识。这篇博客是笔者自己的一个笔记和心得。心得总述如下：</p>
+
+<ul>
+  <li>
+    <p>推荐系统是一个算法，工程，业务强耦合的方向。其中，算法上的定义是良好且清晰的（定义简单，目标复杂），工程上需要多方数据联动，效率和稳定性保障，对业务的理解深度是影响推荐效果提升的重要变量（强业务属性）</p>
+  </li>
+  <li>
+    <p>作为搜索，推荐，广告三驾马车之一，是商业变现的重要手段之一。NLP作为原子能力，通过支持三驾马车，间接赋能业务场景（NLP作为核心能力直面业务的场景极其稀有，在笔者之前的博客中有谈到类似问题）</p>
+  </li>
+  <li>
+    <p>Bias&amp;Debias是推荐方向上一个非常核心且特色的课题，兼具理论价值和实际意义。</p>
+  </li>
+  <li>
+    <p>推荐的工业属性决定在模型创新上进度慢于NLP，NLP的角色是隐藏在推荐背后的信号。</p>
+  </li>
+</ul>
+
+<p>在接下来的内容中，详细探讨在阅读中的各种发现和想法。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>做一个推荐系统，我们的方向在哪里？
+</code></pre></div></div>
+
+<p>以项亮的观点，包含以下五个方面：</p>
+
+<ul>
+  <li>准确。推荐的内容，希望尽可能都被用户采纳。（exploit）</li>
+  <li>覆盖。在候选内容池中，被推荐的内容的比例。（保守和激进的系统属性）</li>
+  <li>新颖。推荐给用户一些用户之前没有见过的内容。（explore）</li>
+  <li>惊喜。推荐给用户一些能够给用户带来惊喜的内容。（business）</li>
+  <li>可解释。推荐理由。（reasoning）</li>
+</ul>
+
+<p>整体上，借助召回-粗排-精排-重排四个阶段的工作，实现从全部内容推荐出TopN个内容的目的。其中，召回阶段的主流做法是双塔模型，该阶段要求快速，高召回。典型地以Youtube的工作为例。整体上，业界围绕召回阶段的工作并不是很多，整体上主要围绕排序做。这里的问题：</p>
+
+<ul>
+  <li>
+    <p>为什么推荐系统要分为召回+排序两阶段？（类似的问题，张俊林也有提到；在笔者自己的一个问答系统经历中，我们并没有采用这种划分方案）</p>
+  </li>
+  <li>
+    <p>为什么相比排序，召回的相关工作较少？</p>
+  </li>
+</ul>
+
+<p>一个相关的延伸问题是：搜索，推荐和广告本质上都在解决信息过载的问题，各自解决的手段，目标不相同，各自诞生在产品生命周期不同阶段，以至于系统实现不尽相同。但是，三者能否统一呢？（借邢无刀的问题）
+，我们知道搜索是站在用户角度识别用户想要什么（搜索求准），推荐是站在平台角度看想要引导什么（推荐求新），广告是以局外人看广告主、平台、用户分别想要什么（广告求财）。</p>
+
+<p>沿着一个技术脉络展开，主流的技术方向包括：</p>
+
+<ul>
+  <li>协同过滤</li>
+  <li>矩阵分解</li>
+  <li>深度学习</li>
+  <li>树（TDM）</li>
+</ul>
+
+<p>决定是否上线的方式包括：A/B测试和Bandit算法，前者是业界的主流方式。</p>
+
+<p>下文开始，将对主流的技术方向做一个宏观的总结和思考。首先，再次定义一个标准的推荐问题：</p>
+
+<p>给定M个物品，N个用户的数据，只有部分用户和部分数据之间是有评分数据的，其它部分评分是空白，此时我们要用已有的部分稀疏数据来预测那些空白的物品和数据之间的评分关系，找到最高评分的物品推荐给用户。</p>
+
+<p>具体怎么实现呢？</p>
+
+<ul>
+  <li>
+    <p>回到本质。推荐的本质是猜你喜欢。既然是猜，就存在猜的维度。按照维度的复杂度，可以基于规则，按照比较硬的维度做推荐。</p>
+  </li>
+  <li>协同过滤
+    <ul>
+      <li>user-based：计算user的相似度。核心假设：相似的user喜欢相似的item</li>
+      <li>item-based：计算item的相似度。核心假设：对于相同的user，喜欢相似的item</li>
+      <li>区别：前者关注点在人，人的计算空间大，有利于实现”千人前面“；后者的关注点在物，物的计算空间小，有利于实现相对稳定的离线计算</li>
+    </ul>
+  </li>
+  <li>
+    <p>基于模型</p>
+  </li>
+  <li>关联规则+分类+聚类</li>
+  <li>矩阵分解：SVD为代表</li>
+  <li>FM:
+    <ul>
+      <li>二阶特征的各自Embedding的内积作为二阶特征的weight，以一种soft的方式缓解大规模场景下的二阶组合特征的稀疏性问题（hard的方式分配weight/等价于多项式核SVM），更好的泛化能力的来源是Embedding。</li>
+      <li>本质思想和矩阵分解类似（训练完成后，获取user和item各自的矩阵，可以作为各自的Embedding）。</li>
+      <li>FM=MF+Side Info，都是针对二阶特征组合的，FM的二阶特征候选更大，MF只有user和item两类。</li>
+      <li>一种演化路径：LR-&gt;FM-&gt;DeepFM</li>
+      <li>FM实用性的关键步骤：O(KxNxN)-&gt;O(KxN),K=Embedding Dim, N=Feature Num</li>
+      <li>召回：多路+策略+模型</li>
+      <li>排序：特征</li>
+      <li>假设能够将召回模型和排序模型都统一到特征的视角，一个有意思的想法</li>
+      <li>Deep&amp;Wide：Wide部分是LR模型，Deep部分是一个Deep模型</li>
+      <li>DeepFM（D&amp;W的升级版）
+        <ul>
+          <li>Wide-&gt;FM</li>
+          <li>Deep和Wide共享共享原始特征（FM的必要条件）</li>
+        </ul>
+      </li>
+      <li>DIN：Attention首次用于CTR问题</li>
+      <li>TDM：基于Tree，item是叶子节点，解决召回阶段的TopK问题。树的非叶子节点有独特的特征含义。</li>
+    </ul>
+  </li>
+</ul>
+
+<p>除了上述讨论的话题，还有其他比较重要的问题：</p>
+
+<ul>
+  <li>EdgeRec</li>
+  <li>序列/跨域/多模态推荐</li>
+  <li>冷启动</li>
+  <li>Exploit&amp;Explore</li>
+  <li>隐私计算：联邦学习+安全多方计算+可信计算，见<a href="https://mp.weixin.qq.com/s?__biz=MzA3MTU2ODMzNA==&amp;mid=2247499159&amp;idx=1&amp;sn=b75ce5f7fbdd8c74a011c89d9b2ca31f&amp;chksm=9f292336a85eaa207bfca8a90c062332475df4b87e1cebb4047c172c1d4b95dd21efface9be3&amp;mpshare=1&amp;scene=23&amp;srcid=1024zw56ptrAEP4wD9O4Im4q&amp;sharer_sharetime=1635076861126&amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd">同盾的工作</a></li>
+  <li>Bias&amp;Debias
+    <ul>
+      <li>针对开篇中的（3），各种Bias中最重要的是样本选择偏置，具体地将是负样本选择问题。比如常见的策略包括直接使用曝光数据作为负例，全局随机负例，Batch内负例，曝光+随机，Popularity-Based， Hard-Based的方法。在CTR问题中，正样本通过日志即可获得，负样本就需要通过构造的方式，因此构成了一个经典的只有正样本的场景（学术上PU-Learning）。</li>
+      <li>《Bias and Debias in Recommender System: A Survey and Future Directions》</li>
+    </ul>
+  </li>
+</ul>
+
+<p>在阅读过程中，夹杂着各种大问题，比如：</p>
+
+<ul>
+  <li>数据挖掘模型+深度模型的融合， Deep&amp;Wide为代表的工作，二者互为特征补充</li>
+  <li>推荐+NLP的融合</li>
+  <li>推荐中召回+排序的融合， 俊林的观点</li>
+  <li>搜索+推荐+广告的融合，《Information Seeking: Convergence of Search, Recommendations and Advertising》</li>
+</ul>
+
+<p>相关文章:</p>
+
+<p>具体模型技术：</p>
+
+<ul>
+  <li><a href="https://zhuanlan.zhihu.com/p/67795161">FFM及DeepFFM模型在推荐系统的探索</a></li>
+  <li><a href="https://zhuanlan.zhihu.com/p/100019681">推荐系统技术演进趋势：从召回到排序再到重排</a></li>
+  <li><a href="https://zhuanlan.zhihu.com/p/59528983">推荐系统召回四模型之二：沉重的FFM模型</a>，这篇文章比较符合笔者当下的品味，开篇提出了两个有意思的问题：
+    <ul>
+      <li>是否我们能够使用一个统一的模型，将多路召回改造成单模型单路召回策略？如果不能，那是为什么？如果能，怎么做才可以？这样做有什么好处和坏处？</li>
+      <li>是否存在一个模型，这个模型可以将召回阶段和排序阶段统一起来，就是把两阶段推荐环节改成单模型单环节推荐流程？就是说靠一个模型一个阶段把传统的两阶段推荐系统做的事情一步到位做完？如果不能，为什么不能？如果能，怎么做才可以？什么样的模型才能担当起这种重任呢？而在现实世界里是否存在这个模型？这个思路真的可行吗?</li>
+    </ul>
+  </li>
+  <li><a href="https://zhuanlan.zhihu.com/p/58160982">推荐系统召回四模型之：全能的FM模型</a></li>
+  <li><a href="https://www.slideshare.net/xamat/recsys-2016-tutorial-lessons-learned-from-building-reallife-recommender-systems">Recsys 2016 tutorial: Lessons learned from building real-life recommender systems</a></li>
+  <li><a href="https://mp.weixin.qq.com/s?__biz=Mzg4MzU1NjQ2Mw==&amp;mid=2247510505&amp;idx=1&amp;sn=a5b21ec251388c107ca9d03a92c7f1c8&amp;chksm=cf4740e9f830c9fffc13f8c4a1c1e67262dd3aad0618b49ce009e25cedf315b50d0f816fe0e2&amp;mpshare=1&amp;scene=23&amp;srcid=1025A8cmTfdKSsmVtAsKsJMo&amp;sharer_sharetime=1635169333535&amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd">推荐系统中的特征集列表</a></li>
+  <li><a href="https://mp.weixin.qq.com/s?__biz=MzA4NTUxNTE4Ng==&amp;mid=2247507256&amp;idx=1&amp;sn=4eac18f14dc69e04975f7ae16e82a052&amp;chksm=9fd453e5a8a3daf32ccf10a2ca62390c35540aa769939d52566a92e15427ccdd4a9808651740&amp;mpshare=1&amp;scene=23&amp;srcid=1025C69Np1I9XxLeAvJGa12L&amp;sharer_sharetime=1635121397281&amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd">2021年推荐系统论文</a></li>
+</ul>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

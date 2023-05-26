@@ -1,0 +1,181 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[目标检测]R-CNN</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2018/05/13/RCNN-Series/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[目标检测]R-CNN</h1>
+    <p class="meta">May 13, 2018</p>
+  </header>
+
+  <article class="post-content">
+  <p>在之前的博文中，表达一个想法，就是能不能不要Cell？这个问题其实很难回答。基于滑窗的检测方法卷积化获得速度上的提升，个人认为，这里是关键。</p>
+
+<p>R-CNN中，不要Cell，在获取更高精度的同时，却失去了速度优势。虽然Andrew Ng个人认为YOLO等才是更有发展前景的检测模型，但是从品味上，我个人更欣赏R-CNN系列工作，当然总是希望每个路子的模型都能在速度和精度上达到某种平衡，至于如何平衡，反正不是速度最快且精度最高。</p>
+
+<p>R-CNN的出发点是没毛病的，滑窗存在冗余检测，要去掉冗余，选择的方法是Selective Search，博客中简写为SS且不做关于SS的任何技术上的讨论。虽然去掉了冗余，但是SS引入的时间成本是很高的。这里其实引入了一个很大的问题，如果把SS的时间成本减少，又去掉了冗余，这个事情做得才算干净。</p>
+
+<p>先不谈SS的时间成本问题，围绕去除冗余之后的想法讨论。</p>
+
+<p>这里引入一个概念，叫做Region Proposal，博客中简写为RP。RP就是SS提取的物体，这个物体很特别，不知道物体的具体类别和精确位置，只知道是个物体，且只有轮廓(位置不精确)。讲到这里，很容易得出SS可以做语义分割。要实现检测的目的，接下来做的事情就是确定该物体类别和物体精确位置，也就是需要一个分类器和一个回归器。</p>
+
+<p>问题来了，沿着RP的路子，如何训练一个分类器和回归器？</p>
+
+<p>R-CNN使用SVM作为分类器，使用了一个fine-tune的CNN架构做特征提取器，提取每个RP的特征，OK，这里只剩下标签的问题了。R-CNN将SVM用于二分类，每个类别一个SVM模型，也就是说，训练样本需要针对每类的二类样本，标签为是或者不是该类。因为分类的对象是RP，所以只需要针对每类，确定RP是正或者负。</p>
+
+<p>首先解决RP是正的问题。对每一个RP，选择和该RP的IoU最大且值大于0.5的ground truth对应的类标签作为该RP的标签。因为SS的分割结果，实际上是ground truth的一个近似，IoU最大表明距离最近，能够表明实例对应关系，自然类别对应。IoU的值范围是一个限制条件，防止出现比较离谱的分割结果，划定了这种度量的可信范围。</p>
+
+<p>不满足上述条件的是背景。</p>
+
+<p>经过上述一波比对，得到的是SS之后每个RP的类标签。这样，训练针对每个类别的SVM的正标签有了。其实，这个时候可以构造负标签了，就用其他类的RP作为负标签。</p>
+
+<p>没毛病。但是不妨看一下R-CNN中的负标签具体构造方法。对每一个RP，如何和当前类对应的ground truth的IoU的值小于0.3，认为是针对当前类的负样本。考虑一下正标签，&gt;0.5是正，&lt;0.5是负，首先这里肯定包含背景类；第二，也包含其他类；所以，结果和上文中讨论的一样。不过通过0.3这个值可以控制正负样本的比例和负例的程度(概念比较模糊)。</p>
+
+<p>回顾一下，针对每个类别的RP，有了CNN提取的特征，构建了正负类，选择了模型SVM，可以训了。分类搞定了。</p>
+
+<p>位置的问题需要通过回归的方式解决。回归的标签是什么？当然是和该RP对应的实例的ground truth了，RP和距离最近实例有近似关系。可能还需要一种能够合理控制样本个数的机制，不妨看R-CNN是如何做的，只选那些和实例的IoU大于0.6的RP作为训练样本。显然阈值越高，RP越接近实例，样本质量越高，样本数越少。当阈值为0.5的时候，使用所有RP。实际上，在R-CNN中的回归过程中，学习的是RP到ground truth的水平位移和尺度变换。希望学习什么东西，需要对应的标签构造方式，本质上，一个数学等式的恒等变换，但是从几何意义上来讲，是不同的。</p>
+
+<p>回归的事情搞定了。</p>
+
+<p>跳出来看一看，ground truth到底在分类和回归过程中的角色是什么？用IoU作为距离度量方式，给RP打标签。分类中，直接用ground truth的类别标签作为RP的类别标签；回归中，直接用ground truth的位置标签作为RP的位置标签。</p>
+
+<p>对于YOLO，其实每个Cell的作用等同于RP，只不过YOLO是固定RP数目，这个数目不依赖于真实图片中有多少物体，所以存在冗余。这个Cell对应的标签也是来自于ground truth，Cell和实例建立映射的关系是实例的midpoint是否在Cell中。</p>
+
+<p>总之，个人认为，理解R-CNN的关键点之一在于如何给RP打标签，构造分类和回归的训练数据。</p>
+
+<p>参考：强推一篇<a href="https://blog.csdn.net/shenxiaolu1984/article/details/51066975">博客</a>，DL讲原理的文章写成这样就很棒。</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

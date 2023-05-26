@@ -1,0 +1,257 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[DL]余弦空间下的人脸Loss</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2018/06/12/face-loss/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[DL]余弦空间下的人脸Loss</h1>
+    <p class="meta">Jun 12, 2018</p>
+  </header>
+
+  <article class="post-content">
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<p>CVPR 2017的文章《SphereFace: Deep Hypersphere Embedding for Face Recognition》中提出了一个softmax的改进版，A-Softmax。</p>
+
+<p>针对二分类问题，<strong>原始softmax loss</strong>获取的后验概率表示为：</p>
+
+\[p_1 = \frac{exp(w_1^Tx+b_1)}{exp(w_1^Tx+b_1)+exp(w_2^Tx+b_2)}\]
+
+\[p_2 = \frac{exp(w_2^Tx+b_2)}{exp(w_1^Tx+b_1)+exp(w_2^Tx+b_2)}\]
+
+<p>其中，x是学习到的特征向量,wi的和bi是针对不同类i，最后的全连接层对应的权值和偏差。</p>
+
+<p>如果将</p>
+
+\[w_i^Tx+b_i\]
+
+<p>重写为</p>
+
+\[||w_i^T||||x||cos(\theta_i)+b_i\]
+
+<table>
+  <tbody>
+    <tr>
+      <td>进一步为了简化表达，正则化权重，也就是使得</td>
+      <td> </td>
+      <td>wi</td>
+      <td> </td>
+      <td>=1，偏差置0，也就是bi=0，可以得到</td>
+    </tr>
+  </tbody>
+</table>
+
+\[p_1 = ||x||cos(\theta_1)\]
+
+\[p_2 = ||x||cos(\theta_2)\]
+
+<p>其中p1和p2共享相同的x，也就是最后的分类结果取决于余弦角度，决策平面为</p>
+
+\[cos(\theta_1) - cos(\theta_2) = 0\]
+
+<p>至此，余弦空间下的人脸Loss的最为关键的motivation已经说清楚了。接下来，我们形式化这个<strong>改进版的softmax</strong>。</p>
+
+\[L_{modified} = \frac{1}{N}\sum_i-log(\frac{e^{||x_i||cos(\theta_{y_i,i})}}{\sum_je^{||x_i||cos(\theta_{j,i})}})\]
+
+<p>改进版的softmax限定了一个角度边界，学习出的特征仍不具有很强的判别性。为了增强学习出的特征的判别性，作者们认为将angular margin引入是一个很自然的方式，也就是<strong>A-softmax</strong>，形式化表达为</p>
+
+\[L_{ang}=\frac{1}{N}\sum_i-log(\frac{e^{||x_i||cos(m\theta_{y_i,i})}}{e^{||x_i||cos(m\theta_{y_i,i})}+\sum_{j\neq y_i}e^{||x_i||cos(\theta_{j,i})}})\]
+
+<p>直观上来看，在余弦角度前加了一个系数m，因此对系数m的讨论成了A-softmax的关键。因为没有深入使用这个Loss的需求，所以本文并不打算详细分析这个m的值，但是会在文末给出一些自己的实验现象。总结一下上述三个softmax的变种。</p>
+
+<p>原始softmax的决策边界为</p>
+
+\[(w_i-w_2)x+b_1-b_2=0\]
+
+<p>改进版的softmax的决策边界为</p>
+
+\[||x||(cos\theta_1-cos\theta_2)=0\]
+
+<p>A-Softmax(又名SphereFace)的决策边界为</p>
+
+\[||x||(cosm\theta_1-cos\theta_2)=0\quad for\quad class 1\]
+
+\[||x||(cos\theta_1-cosm\theta_2)=0\quad for\quad class 2\]
+
+<p>假设全连接层的维度为2，三个Loss的学习出的特征的分布如下：</p>
+
+<p><img src="http://wx3.sinaimg.cn/mw690/aba7d18bgy1fs77fnyq2zj210405tdij.jpg" alt="A-Softmax" /></p>
+
+<p>在上文中看到改进版的softmax的决策边界为</p>
+
+\[||x||(cos\theta_1-cos\theta_2)=0\]
+
+<p>如果将x的大小调节为一个固定值s，例如s=64，也就是对应一个特征映射空间的超球半径。可以直接得到一些新的Loss，如下。</p>
+
+<p>F-Norm SphereFace的决策边界为</p>
+
+\[s(cosm\theta_1-cos\theta_2)=0\quad for\quad class 1\]
+
+\[s(cos\theta_1-cosm\theta_2)=0\quad for\quad class 2\]
+
+<p>CosineFace的决策边界为</p>
+
+\[s(cos\theta_1-m-cos\theta_2)=0\]
+
+<p>ArcFace的决策边界为</p>
+
+\[s(cos(\theta_1+m)-cos\theta_2)=0\quad for\quad class 1\]
+
+\[s(cos\theta_1-cos(\theta_2+m))=0\quad for\quad class 2\]
+
+<p>直观感受下上述不同Loss的决策边界，如下图。</p>
+
+<p><img src="http://wx1.sinaimg.cn/mw690/aba7d18bgy1fs78fj4o6xj20hd04z75h.jpg" alt="decision margin" /></p>
+
+<p>一种可能的更加general的想法如下</p>
+
+\[s(cos(m_0\theta_1+m_1)-cos\theta_2-m_2)=0\quad for\quad class 1\]
+
+\[s(cos\theta_1-cos(m_0\theta_2+m_1)-m_2)=0\quad for\quad class 2\]
+
+<p>在实习期间，基于PyTorch，复现了ArcFace的工作，同时对比了SphereFace的工作，训练数据分别为MNIST，CIFAR10和CIFAR100，两个Loss对m值敏感且ArcFace中m的取值范围要小于SphereFace，训练过程中，不一小心训练就会挂掉。同时将ArcFace尝试应用到流量漏斗项目中用于年龄识别，可能受限于调参能力，没有明显的效果。</p>
+
+<p>总结：很多人脸问题最终会回到度量学习的范畴，两个问题的进展在一定程度上可以相互借鉴。除了本文中谈到的余弦Loss，人脸领域还有一些其他比较经典的Loss，尚且可以在度量学习的范畴内讨论。</p>
+
+<p>参考：</p>
+
+<p>1.《ArcFace: Additive Angular Margin Loss for Deep Face Recognition》</p>
+
+<p>2.CosineFace的文献《Additive margin softmax for face verification》</p>
+
+<p>3.SphereFace+，<a href="https://arxiv.org/pdf/1805.09298.pdf">《Learning towards Minimum Hyperspherical Energy》</a></p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

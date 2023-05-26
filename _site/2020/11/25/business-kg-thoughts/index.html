@@ -1,0 +1,275 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]电商域图谱构建-问题复盘</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2020/11/25/business-kg-thoughts/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]电商域图谱构建-问题复盘</h1>
+    <p class="meta">Nov 25, 2020</p>
+  </header>
+
+  <article class="post-content">
+  <p>我们自己的内部代号称为socrates，定位为电商领域美妆行业的知识图谱构建。一期构建结果如下：
+<img src="https://ftp.bmp.ovh/imgs/2020/11/4c8b41244d6f0041.png" alt="img_1" />
+这里是整体的工作流程，如下：
+<img src="https://ftp.bmp.ovh/imgs/2020/11/44bc48a9b8852fa5.png" alt="img_2" />
+博主之前做了很多模型层的工作，但是没有完整构建KG的经历。做完一次之后，发现自己对于之前不是很清楚的概念又加深了一层理解，KG的构建，本质在于节点和边的构建。
+<img src="https://ftp.bmp.ovh/imgs/2020/11/1b7c1fe0ce998604.png" alt="img_3" />
+但是，在一期图谱构建过程中，更多的是痛苦，尤其是数据标注和人工质检的痛苦，这里要感谢组里小姐姐的倾情奉献。
+<img src="https://ftp.bmp.ovh/imgs/2020/11/3c65e444faa47653.png" alt="img_4" />
+下面逐一展开讨论具体的问题，如下：
+<img src="https://ftp.bmp.ovh/imgs/2020/11/297118893dd14fb3.png" alt="img_5" />
+<img src="https://ftp.bmp.ovh/imgs/2020/11/41b2a9679509912a.png" alt="img_6" />
+<img src="https://ftp.bmp.ovh/imgs/2020/11/2c9abf45824e9f71.png" alt="img_7" />
+<img src="https://ftp.bmp.ovh/imgs/2020/11/aad2c1145f7760c4.png" alt="img_8" />
+<img src="https://ftp.bmp.ovh/imgs/2020/11/572f623375dc4e9f.png" alt="img_9" />
+<img src="https://ftp.bmp.ovh/imgs/2020/11/dda48bbe5ed0a127.png" alt="img_10" />
+<a href="https://imgchr.com/i/DdEvdJ"><img src="https://s3.ax1x.com/2020/11/25/DdEvdJ.png" alt="DdEvdJ.png" /></a>
+<a href="https://imgchr.com/i/DdEjZ4"><img src="https://s3.ax1x.com/2020/11/25/DdEjZ4.png" alt="DdEjZ4.png" /></a>
+KG在模型上的工作主要包括序列标注和关系分类。结合我们的目标，虽然说整体上有两大类模型，但是模型的构建策略比较灵活，具体模型设计如下：黄色和绿色代表两种个人相对喜欢的范式，各有一个模型。同样可以按照需要将任务进行分解，拆分成多个基础子模型，但是多个模型会导致推断效率不高。黄色和绿色两种范式分别是将识别的压力放到了序列标注端和关系抽取端，可以结合实际任务效果做平衡。
+<a href="https://imgchr.com/i/DdVSiR"><img src="https://s3.ax1x.com/2020/11/25/DdVSiR.png" alt="DdVSiR.png" /></a>
+整体的架构设计如下，需要在后续完善的基础上继续补全。
+<a href="https://imgchr.com/i/DdExo9"><img src="https://s3.ax1x.com/2020/11/25/DdExo9.png" alt="DdExo9.png" /></a></p>
+
+<p>除了上述讨论的比较系统的问题，在实践的过程中，同样存在一些其他的小问题和相关思考，如下：</p>
+
+<p>（1）全量还是少量原始数据</p>
+
+<p>这次尝试过程首先确定了KG的Domain，但是任给一个Domain中的原始数据量可能很大，因此首先是基于少量数据做测试。但是少量带来的一个问题是：节点和关系是通过Mining的方式得到的，当数据量较少的时候，可能Mining不到很多内容，导致做出的KG很稀疏。</p>
+
+<p>（2）否定词判断</p>
+
+<p>在图谱的本体构建中，对Problem的定义是问题，对POI的定义是用户的真正意图。举例说明：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Problem：油腻
+</code></pre></div></div>
+
+<p>对应的一种POI为：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POI：不油腻
+</code></pre></div></div>
+
+<p>也就是说存在部分对Problem的描述，添加否定词”不”之后，就可以转化为POI。在AliMe KG的工作中，这部分是通过人工质检完成的。</p>
+
+<p>其他相关例子：</p>
+
+<p>文本：消炎，修护，补水，淡化痘印。</p>
+
+<p>其中Problem是痘印，POI是淡化痘印。</p>
+
+<p>文本：清爽不油腻的吧</p>
+
+<p>其中Problem是油腻，POI是不油腻。</p>
+
+<p>文本：亲亲，您主要是想改善肌肤干燥是吗？</p>
+
+<p>其中Problem是肌肤干燥，POI是改善肌肤干燥。</p>
+
+<p>文本：亲爱的，像出油，长痘，长黑头，暗黄，皮肤发干等这样一些肤质问题，都是因为皮肤水油不平衡导致的，注意做好补水控油的工作就可以慢慢改善的呢。</p>
+
+<p>文本：毛孔粗大，油脂分泌多，是因为皮肤长期缺水，水油不平衡引起的，建议亲亲配合补水控油产品帮助调理哦。</p>
+
+<p>（3）归一化</p>
+
+<p>同样的字符级表达，都表示相同的Problem，需要解决多对一的映射关系。</p>
+
+<p>（4）字符含义和语义理解</p>
+
+<p>字符含义保证高精确，但是低召回，需要语义理解提供泛化能力。</p>
+
+<p>（5）商品属性的利用</p>
+
+<p>直接从商品属性材质字段中得到的信息：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>寡肽因子（修复受损表皮）
+
+寡肽-3胴（改善痘痘肌）
+
+可溶性胶原（补充胶原蛋白）
+</code></pre></div></div>
+
+<p>(6)训练数据中的样本构造偏置</p>
+
+<p>比如：每个训练样本中只有一个表示商品属性的实体词。实际场景中可能有多个不同商品属性对应的实体词。</p>
+
+<p>(7)POI词典和Property词典中的词重叠，导致词典匹配候选标注样本时的质量较低</p>
+
+<p>这种问题在整个KG构建中都是相对常见的，本质上是词典匹配引入的。但是如果考虑到只是召回的作用，那就可以接受。由此带来的一个问题是：无法有效评估标注样本的正负不平衡问题。</p>
+
+<p>(8)商品属性的互斥性</p>
+
+<p>比如：“茉莉”既可以指材质，也可以指香型。</p>
+
+<p>(9)词典一致性维护</p>
+
+<p>保证加载的词典和真正使用的词典是一致的，过滤逻辑是体现在使用代码中，还是直接体现在词典构造中。</p>
+
+<p>(10)关系建立需要的数据源</p>
+
+<p>香型和POI的关系，从对话语料中的挖掘量很少。作为对比，Problem和POI的关系从对话语料中可以挖掘到更多，材质和POI的关系从对话语料中挖掘到的量次之。</p>
+
+<p>考虑到挖掘到的关系的质量和规模，需要考虑待挖掘的数据源和挖掘方案，整体上是一个Trade Off的过程。这并不是一个简单的关系，IsA关系的挖掘都可以成为一个独立的大型任务，cause和need关系的建立并不是很简单。</p>
+
+<p>(11)POI词典的构建（词典中是内含短语结构的，这种结构包括纵向和横向的）</p>
+
+<p>同义词：表达相同含义的POI</p>
+
+<p>组合词：两个POI组合</p>
+
+<p>层次性：改善肌肤和改善眼部肌肤</p>
+
+<p>细粒度：改善眼周干燥和改善眼周黯黑</p>
+
+<p>高频词：平衡等</p>
+
+<p>(12)较难的例子</p>
+
+<p>使用肤质的描述词：所有肤质，敏感肌肤除外</p>
+
+<p>关系的表达：</p>
+
+<p>假设已经存在节点：干性/中性/油性/混合性/敏感性，如何表达所有肤质的概念呢？理想的方式是：将Item连接到所有肤质，即可表达所有肤质的概念。问题是，是否需要将所有肤质作为一个单独的节点独立出来呢？</p>
+
+<p>（13）IPV中的字段</p>
+
+<p>时间类型的值处理</p>
+
+<p>保质期的多种描述：48个月和4年的描述区别</p>
+
+<p>典型字段：保质期、使用频次</p>
+
+<p>这是笔者第一次从阅读，理解一篇文章，到研究一款图数据库(Neo4J)，搭建一个知识图谱的经历。整个图谱构建的过程在早期主要依赖于结构化数据和规则系统，但是语义理解不仅需要浅层理解，同样需要深层理解，因此在上文中设计了相关模型思路。整体上看，图谱具有一定的想象空间，但是图谱相关工作回报周期长，早期投入大，涉及的基础NLP技术较多，个人认为图谱是NLU的集大成者。虽然图谱的关注度较高，但是博主个人并没有观察到很多图谱在应用层的工作，希望有更多应用层的工作出现。</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

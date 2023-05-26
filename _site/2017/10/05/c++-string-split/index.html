@@ -1,0 +1,259 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[C++]从C++的字符串分割展开讨论</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2017/10/05/c++-string-split/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[C++]从C++的字符串分割展开讨论</h1>
+    <p class="meta">Oct 5, 2017</p>
+  </header>
+
+  <article class="post-content">
+  <p>没有内置函数，可以自己来写。下面是我在别人代码上修改之后的一个版本。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vector&lt;string&gt; split(const string&amp; src, const string&amp; separator){
+    string str = src;
+    string substring;
+    string::size_type start = 0, index;
+    vector&lt;string&gt; dest;
+    while(index != string::npos){
+        index = str.find_first_of(separator,start);
+        if (index != string::npos){    
+                substring = str.substr(start,index-start);
+                dest.push_back(substring);
+                start = str.find_first_not_of(separator,index);
+                if (start == string::npos) break;
+        }
+    }
+    substring = str.substr(start);
+    dest.push_back(substring);
+    return dest;
+}
+</code></pre></div></div>
+
+<p>其中，string::size_type是一种数据类型，而string::npos的解释可以直接读官网解释：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>static const size_t npos = -1;
+
+Maximum value for size_t
+
+npos is a static member constant value with the greatest possible value for an element of type size_t.
+
+This value, when used as the value for a len (or sublen) parameter in string's member functions, means "until the end of the string".
+
+As a return value, it is usually used to indicate no matches.
+
+his constant is defined with a value of -1, which because size_t is an unsigned integral type, it is the largest possible representable value for this type.
+</code></pre></div></div>
+
+<p>从上述表达可知，string::npos常常用于字符串中子串查找不到的返回值。幸好，C++提供了find函数的内置实现，也就是说，string::npos和find结合实现子串查找逻辑。此处据说有大坑，先留坑，后讨论。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index = str.find_first_of(separator,start);
+</code></pre></div></div>
+
+<p>返回separator在str[start:](Python党一定知道我在说什么)中首次出现的位置。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>start = str.find_first_not_of(separator,index);
+</code></pre></div></div>
+
+<p>返回separator在str[index:]中首次不匹配的位置。注意，在while结构中，返回值start又作为find_first_of的参数进行下一轮循环。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if (start == string::npos) break;
+</code></pre></div></div>
+
+<p>查找结束，退出。上文提到的大坑与这行代码相关。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>substring = str.substr(start);
+dest.push_back(substring);
+</code></pre></div></div>
+
+<p>不要忘记最后分割出的子串，分割结束。</p>
+
+<p>关于上述大坑的描述，在这篇<a href="http://www.cnblogs.com/web100/archive/2012/12/02/cpp-string-find-npos.html">博客</a>中有介绍。在此简单描述：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int idx = str.find(substr);
+if(idx == string::npos){
+    cout &lt;&lt; "No found!";
+}else{
+    cout &lt;&lt; "Found!";
+}
+</code></pre></div></div>
+
+<p>作者说道，idx == string::npos会由于类型不一致导致错误！正确的做法应该是：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>string::size_type idx = str.find(substr);
+</code></pre></div></div>
+
+<p>或者</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if(str.find(substr) == string::npos){//TODO}
+</code></pre></div></div>
+
+<p>第一种解决方法声明正确的类型，第二种解决方法避免判断返回值类型。</p>
+
+<p>实际上，打印出的string::npos的值是一个非常大的数，而且代码在C++11下使用int类型声明idx验证通过。坑在哪里？(难道验证姿势不对？)</p>
+
+<p>在LeetCode中，C++的字符串操作是一种常见类型。涉及函数substr, replace, find, rfind,</p>
+
+<p>find_first_of, find_last_of, find_first_not_of, find_last_not_of。</p>
+
+<p>补充：</p>
+
+<p><a href="http://www.cppblog.com/Herbert/archive/2008/12/27/70479.html">erase指针失效问题</a>,这篇博客相对较早，给出了两种方案，代码如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for(vector&lt;int&gt;::iterator iter = numbers.begin();iter != numbers.end();){
+    if(*iter == 10){
+        iter = numbers.erase(iter);
+        //Not work!
+        //numbers.erase(iter++);
+    }else{
+        iter++;
+    }
+}
+
+iter = numbers.erase(iter);
+</code></pre></div></div>
+
+<p>erase返回被删除元素下一个元素的地址，所以可以使用返回值(iter)来存储下一个元素的指针(地址)。</p>
+
+<p>虽然，</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>numbers.erase(iter++)
+</code></pre></div></div>
+
+<p>表示在指针时效前完成计算，但是实验中不OK！个人感觉这种方式仍然没有解决野指针问题。</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

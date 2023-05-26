@@ -1,0 +1,260 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]基于Graph的Learning问题</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2020/11/29/gnn-about/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]基于Graph的Learning问题</h1>
+    <p class="meta">Nov 29, 2020</p>
+  </header>
+
+  <article class="post-content">
+  <p>在之前的博客中，讨论了知识图谱构建的工作。知识图谱的上层，是应用问题。知识图谱有自己独特的应用场景，同时又由于知识图谱也是Graph的一种具体形式，因此研究Graph的应用问题在一定程度上能够了解知识图谱的应用。</p>
+
+<p>（<em>提示：文中部分图片非本人原创，但是引用时均给出了引用文章，如有侵权，立删。</em>）</p>
+
+<h4 id="一三个关注方向">一.三个关注方向</h4>
+
+<p>围绕Graph，个人比较关注的有三个方向的工作。</p>
+
+<p>第一，标签传播，社区发现等算法，代表工作有LBP/Louvain/PageRank等。在neo4j中默认支持两大类算法：中心度算法和社区发现算法。除此之外包括：图染色，节点相似性等。Neo4j Lab在算法大类上支持：中心度算法，社区发现算法，路径发现算法，相似度算法，链接预测算法等，每个大类算法下都实现了多种算法。相关方向的算法工作也在逐步进展，比如《Estimating Node Importance in Knowledge Graphs Using Graph Neural Networks》等。</p>
+
+<p>cypher和neo4j的关系，可以类比于sql语句和mysql的关系。可以通过driver，用Java代码操作mysql，也有相应的方式用Python代码操作neo4j，比如：py2neo。</p>
+
+<p>第二，图表征的工作，可以用于支持下游推荐等工作。代表工作有基于矩阵分解的方法，基于随机游走(DeepWalk/Node2Vec)的方法，基于DL的方法(SDNE)以及其他方法。</p>
+
+<p>第三，GNN/GCN/GAT/GraphSAGE/TAGConv相关（节点预测和边预测），通常顺带可以得到一个图表征，不过这里关注的主要内容是预测，而不是表征。</p>
+
+<p>其他，概率图模型也可以算作关注的对象，比如条件随机场等。</p>
+
+<h4 id="二图分类">二.图分类</h4>
+
+<p>根据节点属性的划分，图分为同构图，异构图和二部图。当一个图中只有一种节点类型的时候，称为同构图。当只有两种节点类型的时候，并且同类型节点之间不存在连接的时候，称为二部图。当存在多种节点类型的时候，成为异构图。</p>
+
+<h4 id="三应用场景">三.应用场景</h4>
+
+<h5 id="1欺诈检测问题">（1）欺诈检测问题</h5>
+
+<p>围绕二部图的典型应用是：欺诈检测等类似场景，典型代表工作是KDD2016的Best Paper，<a href="https://mp.weixin.qq.com/s?__biz=MzI1OTY3NzI0NQ==&amp;mid=2247484562&amp;idx=1&amp;sn=04dfffddc42931d17a13480d08071a8e&amp;chksm=ea7409c0dd0380d68fdb1fe006dd9fd79f08b6e668597c2e260598ab6f035df013782750cd00&amp;mpshare=1&amp;scene=23&amp;srcid=1129FN2uVfrRfEe34XhAvrFR&amp;sharer_sharetime=1606627898124&amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd">Fraudar算法</a>。由该问题进一步可以延展到更大的风控领域，<a href="https://mp.weixin.qq.com/s?__biz=MzU1NTMyOTI4Mw==&amp;mid=2247497387&amp;idx=1&amp;sn=aa2df0484a75720e3796ca3832b851e6&amp;chksm=fbd744c7cca0cdd1d268214e93bece472bc482d3020cffae998fb6cd5ecc790a8e5aaf7ef730&amp;scene=21#wechat_redirect">贝壳在风控领域也将图谱用在了多个业务场景中</a>。</p>
+
+<h5 id="2商品图谱构建">（2）商品图谱构建</h5>
+
+<p>商品图谱是对货的关系建立结果，在之前的智能穿搭工作中，召回阶段的一个工作正是基于商品图谱完成的。组里在商品图谱的构建工作和1688类似，<a href="https://mp.weixin.qq.com/s?__biz=MzU1NTMyOTI4Mw==&amp;mid=2247505049&amp;idx=1&amp;sn=cf383cf29d392b6dbdca89f8c78cad8d&amp;chksm=fbd766f5cca0efe39b3e287834cd57d5655ae9796982ca314bd351cbe1403a798b47441b1ff0&amp;mpshare=1&amp;scene=23&amp;srcid=1129DxCk6yCAycvQoJIMLt7G&amp;sharer_sharetime=1606587159598&amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd">1688的商品图谱构建方式</a>如下：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2020/11/8129199c833e5223.png" alt="img_1" /></p>
+
+<p>这种方式要求明确P的类型，同时尽可能枚举V的值。在之前的<a href="https://zhpmatrix.github.io/2020/11/25/business-kg-thoughts/">博客</a>中有讨论过V存在不可枚举的问题。同时由于结构化数据仍旧存在相当程度上的质量问题，因此如果能够结合业务端确定P的个数，也是值得考虑的。</p>
+
+<h5 id="3价格模型二手标品和非标品的估价">（3）价格模型：二手标品和非标品的估价</h5>
+
+<p>在<a href="https://appukvkryx45804.h5.xiaoeknow.com/v1/course/video/v_5f44951fe4b0dd4d974b0f74?type=2&amp;available=0&amp;available_product=0&amp;share_user_id=u_5f43e01adea80_OSwoPXAoGX&amp;share_type=5&amp;scene=分享&amp;is_redirect=1">转转的应用场景</a>中，假设大部分成交的二手商品的成交价是合理的。因此，可以利用该信息，从统计和非统计的两种角度构建价格模型。这里关心非统计的角度，也就是回归建模，思路如下：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2020/11/59e0a9c4b1adcb73.png" alt="img_2" /></p>
+
+<p>这里的Embedding采用基于距离的翻译模型，除此之外，对于同质图，可以采用Node2Vec+Side Info，对于异质图，可以采用Metapath2Vec。</p>
+
+<h5 id="4关系强度量化">（4）关系强度量化</h5>
+
+<p>在<a href="https://mp.weixin.qq.com/s?__biz=MzU1NTMyOTI4Mw==&amp;mid=2247497857&amp;idx=1&amp;sn=d02701b5107a72c02201153aca48e3da&amp;chksm=fbd74aedcca0c3fba31ae5825473bc7a3ca0fb24889a4bd40b2408598e623d469e5570e78735&amp;scene=21#wechat_redirect">贝壳</a>的工作中，给出了关系强度量化的一种实现方式，如下：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2020/11/d48c0fd9473dfec2.jpeg" alt="img_3" /></p>
+
+<p>其中，关系类型影响权重的例子，“带看”的权重高于“浏览”的权重（租房或者购买二手房的时候，中介会带你去看房子，称为“带看”）。同时，可以通过模型的方式预测边的权重，但是需要区分哪些是可预测的，哪些不可以预测。</p>
+
+<h5 id="5节点影响力节点重要性">（5）节点影响力/节点重要性</h5>
+
+<p>常用的方法包括计算与中心节点连接的边的数目，可以考虑加权，或者采用PageRank。</p>
+
+<h5 id="6关系预测">（6）关系预测</h5>
+
+<p>关系预测也称Link Prediction，或者边预测，是基于Graph的Learning问题中的经典问题之一。在贝壳的工作中，有两种实现方式：</p>
+
+<ul>
+  <li>基于相似房源或者相似用户，再结合关系强度来进行关系预测</li>
+  <li>基于异构网络，计算User embedding和House Embedding的距离</li>
+</ul>
+
+<p>具体如下图：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2020/11/a083d9963016ab2b.jpeg" alt="img_4" /></p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2020/11/bff2c7433d368215.jpeg" alt="img_5" />
+其中，对于上述两种方式，关系强度=强度x相似度。</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2020/11/9cce2adeaaadd8c6.jpeg" alt="img_6" />
+对于异质图，直接计算不同类型节点对应的Embedding，作为二者关系的强度。</p>
+
+<h5 id="7用户行为图网络构建">（7）用户行为图网络构建</h5>
+
+<p>在<a href="https://mp.weixin.qq.com/s?__biz=MzU1NTMyOTI4Mw==&amp;mid=2247504657&amp;idx=1&amp;sn=cdc744687502d33c5481aef9aad36618&amp;chksm=fbd7617dcca0e86be7f56b15680c0bb97c2b16d2ac07f71ce251ec2f7dbdbb7e79f3d1747ff6&amp;mpshare=1&amp;scene=23&amp;srcid=1129tli4hZ6k4B4LawOsugJC&amp;sharer_sharetime=1606587309150&amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd">飞猪</a>的营销工作中，会考虑用户行为的图利用，如下：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2020/11/f0b485636cd85251.png" alt="img_7" /></p>
+
+<p>上图是user和item的抽象表达，下图是基于该抽象表达，得到Embedding的方式。
+<img src="https://ftp.bmp.ovh/imgs/2020/11/0f4e6bf5047482eb.png" alt="img_8" /></p>
+
+<p>采取GraphSAGE的做法，训练主要节点的Embedding。主要节点有用户、商品、POI。用户本身有一些属性，如年龄、LBS、购买力等也会作为附加节点和主要节点建立边。</p>
+
+<h5 id="8潜客获取和销量预测">（8）潜客获取和销量预测</h5>
+
+<p>我们想做的事情，姑且算作另外的比较具体的问题，如下：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2020/11/f00a35444359339f.png" alt="img_9" /></p>
+
+<p>总结：这篇博客个人的工作比较少，主要是梳理工业界前辈们的工作内容。笔者准备做的工作是围绕潜客获取和销量预测。在前期的知识图谱相关工作中，主要从非结构化文本中构建图谱，特别是基于问答语料的挖掘。但是，整体打通流程之后，其中需要人力参与的环节过多，投入较大。因此，方向上调整为采用结构化数据做图谱构建，但是即使是基于结构化数据做构建，仍旧可能有一些人力和模型参与的环节，因此，更多的是半结构化的构建。不管怎样，这样将大大降低图谱构建的难度和周期，因此，可以将更多关注点放在图谱的应用层，这也正是本文的目的。笔者也是第一次做相关探索，存在不正确的地方，在所难免，希望后续有新的感悟和思考，持续完善。</p>
+
+<p>相关参考：</p>
+
+<p>（1）<a href="https://www.zhihu.com/question/54504471">如何理解GCN？</a>围绕GCN，有很多深入简出的讨论。</p>
+
+<p>（2）<a href="https://github.com/thunlp/GNNPapers">thunlp/GNNPapers</a>，GNN领域要读的文章。</p>
+
+<p>（3）<a href="https://github.com/svjan5/GNNs-for-NLP">GNNs-for-NLP</a></p>
+
+<p>（4）<a href="https://github.com/graphdeeplearning/benchmarking-gnns">benchmarking-gnns</a></p>
+
+<p>（5）<a href="https://github.com/aister2020/KDDCUP_2020_AutoGraph_1st_Place">KDDCup2020-AutoGraph第一名的方案</a>，实现了GCN/GAT/GraphSAGE/TAGConv，同时应用了AutoML的思想。</p>
+
+<p>（6）《AutoKnow: Self-Driving Knowledge Collection for Products of Thousands of Types》，Jiawei Han组的工作，构建商品知识图谱</p>
+
+<p>（7）<a href="https://mp.weixin.qq.com/s?__biz=MzU1NTMyOTI4Mw==&amp;mid=2247508780&amp;idx=1&amp;sn=c7b4a7a6503db22a92230a011a24e1a4&amp;chksm=fbd71140cca09856c76258588da02d574180f820f0e102d2287c8209950c666a85c94dd70f59&amp;mpshare=1&amp;scene=23&amp;srcid=1129Rj1ljSPikiZFz0CnDWXK&amp;sharer_sharetime=1606586130397&amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd">图网络中的社群以及社群发现算法</a>，用很多图讨论了社区发现算法的概念</p>
+
+<p>（8）<a href="https://mp.weixin.qq.com/s?__biz=MzU1NTMyOTI4Mw==&amp;mid=2247500931&amp;idx=2&amp;sn=78501021d74b522319c7ce3acdc82b73&amp;chksm=fbd776efcca0fff9c06d502fa79f03aa404cbe8d974fe898acda410ac096d49143c6b1710696&amp;mpshare=1&amp;scene=23&amp;srcid=1129InXClG5fk1k96zvgi1P6&amp;sharer_sharetime=1606587750169&amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd">Graph Embedding 图表示学习的原理及应用</a>基于一个给定数据集，比较了几种经典的Graph Embedding算法的算法代码和实验结果，同时给出了两个工业界使用Embedding的具体例子</p>
+
+<p>（9）<a href="https://mp.weixin.qq.com/s?__biz=MjM5MDE0Mjc4MA==&amp;mid=2650995211&amp;idx=1&amp;sn=8e32b5590b8e8bff8a5bd8bfb2ceaa7a&amp;chksm=bdbf02588ac88b4e32ea5320e10c7a2e5ac762ea580e7fce8320b6d5c74a273c13410f5475cf&amp;mpshare=1&amp;srcid=0113PKe7MsUK1uHM3FkOpV46&amp;scene=21#wechat_redirect">微信朋友圈的Lookalike算法</a></p>
+
+<p>（10）<a href="https://mp.weixin.qq.com/s?__biz=MzIzOTU0NTQ0MA==&amp;mid=2247486868&amp;idx=1&amp;sn=c2d3e38e9ab7cc61f2a2ffaeecf0febe&amp;chksm=e929309bde5eb98dfa657c7fd1bf7e80495f9c9ad0cde2ee78b36a1f0a453d2cc322948cb3a3&amp;mpshare=1&amp;srcid=0213HJqpvPzBLS7AW7L6K3Zz&amp;scene=21#wechat_redirect">凑单算法:基于Graph Embedding的打包商品挖掘系统解析</a></p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

@@ -1,0 +1,169 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[学术报告]2018-JSAI模式识别专委会学术年会总结</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2018/04/17/JSAI-summary/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[学术报告]2018-JSAI模式识别专委会学术年会总结</h1>
+    <p class="meta">Apr 17, 2018</p>
+  </header>
+
+  <article class="post-content">
+  <p>二零一八年四月十三日，报告第一天。二零一八年四月十四日，报告第二天。早上的报告没有去听，还被老板逮个正着，囧；我们实验室是会务组，从北京返回学校，刚好赶上一大波Talk，也赶上了干活儿。读研期间，学院关于DM/ML/DL/CV/AI方面的Talk一向很少。这一波，估计把未来一年的Talk都给省了，逗乐。</p>
+
+<p>《Kernel based Non-negative Matrix Factorization Method with General Kernel Functions》,是深圳大学的陈文胜老师带来的，讲了他的一个工作UKNMF，是Kernel NMF的一个推广，个人觉得类似generalize的工作，还是可以去尝试一下的。整个Talk很数学。</p>
+
+<p>《面向大规模多模态机器学习的异构并行处理方法，平台与应用》，该报告由湖大的李肯立，同时也是国家超算长沙中心带来。Talk中提出，CNN的并行性，可以从<strong>位级计算并行，神经元节点内计算并行，神经元节点间计算并行，层内并行和层间并行五个方面</strong>来处理。同时，在处理方法中提到一种可能的解决途径是通信优化，具体来讲可以利用模型压缩，张量压缩的方法来提升通信效率；采用节点内和节点间的流水线处理技术和数据复用技术（避免重复数据传输）。</p>
+
+<p>《Research Progress of Dynamic Fuzzy Machine Learning》,这个Talk是苏州大学李凡长教授的，他在1994年提出了“<strong>动态模糊逻辑</strong>”，围绕这个概念，一直做到了今天，做出了很多工作（发了很多Paper）。报告中给出了机器学习和大数据分析的各自五个原理，分别是一致性，对称性，泛化性，可度量，小样本；分解，扩展，表现，度量，拓扑；原理上的定义和阐述，对我而言，目前显得非常困难，但是直觉上是认同的。从参考文献上来看，这个概念已经应用在了机器学习的多个任务上，包括有监督，无监督等，在展望未来部分，李教授提出未来继续做的工作将<strong>围绕dynamic fuzzy deep learning，dynamic fuzzy category learning，dynamic fuzzy topology learning三个方面</strong>具体展开。搞模糊的有很多学者，但是从1994年坚持做到今天，并且和机器学习，过程控制等多个方面建立联系，属于非常基础性的工作，这从一定上启发研究者<strong>要做基础性的工作</strong>，影响力更大，产生的价值更多。</p>
+
+<p>东南的耿新老师的报告是关于标记分布和标记增强的，这两个概念也是他们自己提的。个人感觉这个Topic没啥意思，不过发Paper还是可以Follow的，这里就不谈了。耿老师是学术界新星，自己看到问题，并分析解决问题，然后给大家分享自己的工作，真的是一件非常酷的事情！</p>
+
+<p>《多智能体强化学习中的博弈和近似均衡》，是南京大学的高阳老师带来的Talk，我们实验室的常客了。在和高老师交流的时候，高老师骄傲的说，阿里那边做强化的都是我们的人。高老师总结大数据的关键技术是表示技术，学习技术和推理技术。这里翻翻教材，基于逻辑的演绎推理方法适用于小规模问题；而结合统计的归纳推理方法适用于大数据场景；直到面对复杂决策的动态推理技术。强化学习的本质在于Trial and Error（奖惩和试错），抽象模型包含reward，action，state。Talk中提到一个经典的博弈均衡解概念：纳什均衡，同时提出个体理性和集体理性相矛盾的本质。特意问了一下强化学习的落地情况，高老师说他不清楚啊。阿里巴巴2018年春节期间推了一本电子本《强化学习在阿里巴巴的技术创新和业务创新》，其中总结了阿里巴巴和其他高校，研究单位等合作的几个关于强化学习的报告应用于自己的业务中，落地场景具体怎样，不太清楚，报告中反馈不错，高老师也不知道。</p>
+
+<p>《Built-in Feature Selection with Application in Machine Learning》,由福建师范大学的陈黎飞教授带来。回顾了维度Reduction的两类方法：Feature extraction(creating a subset of new features by combinations of the existing features)和Feature selection(choosing a subset of all the features).其中Feature selection包括Non-linear reduction（e.g., Kernel PCA）和linear reduction（e.g.,PCA）。整个报告更像是一个tutorial，其中也谈到了他们组近期的一些工作。</p>
+
+<p>北邮杜军平老师的《基于时空特性的在线社交网络搜索研究》，讲了各种技术在微博社交中的应用。PPT做的很棒，个人感觉像在讲基金本子，学到的很少。</p>
+
+<p>团队大腿吴小俊老师做了《Deep Learning Meets Shape Analysis》,Shape一直是一个比较难的问题，报告中纪老师问吴老师，你是怎么说服你的博士生做Shape的？在报告的最后，做了自己对于DL发展的几点感受：AutoEncoder is very unique；Layer wise learning is a breakthrough;semantic extraction is a milestone;CNN is a practical model;ResNN is a shortcut;GAN is a new horizon;<strong>Combination and/or Fusion is the main method borrowing ideas from NN, PR, ML or even other disciplines</strong>.个人对最后一点感受颇为认同。</p>
+
+<p>沈红斌老师是我们大团队出去的老师，也是吴老板最为引以为傲的学生。做生物信息学蛋白质相关，从江苏科大被挖到上海交大，杰青。报告期间表示，希望我老板能够做出更好的多目标优化算法用于生物信息学科。本科第一，优秀硕士论文，优秀博士论文，很努力，很优秀。报告组织合理，思维严密。</p>
+
+<p>整个报告听下来最有收获的是厦门大学纪荣嵘教授的报告，提问环节一连提了三个问题，会后也交流了一些问题。报告回顾了DNN面临的一些挑战，例如small training set;biased training distribution;online/incremental learning;un/weak supervised learning;inside DNN Black box;complexity of DNN(large parameters;high flop(floating point operation))，DNN的常用压缩方法：parameter sharing;parameter pruning;matrix decomposition;DNN的常用加速方法：binary network;structured pruning;tensor decomposition;他们组和腾讯优图，滴滴有很多模型压缩和加速方面的工作，具体可以阅读纪教授在人工智能前沿讲习班的文章<a href="http://mp.weixin.qq.com/s?__biz=MzIzNjc0MTMwMA==&amp;mid=2247483920&amp;idx=1&amp;sn=9963a13afe1214f0b2bf4f520fa27d32&amp;chksm=e8d275cbdfa5fcdd5f49fb186b0cabae7f5733249bc0436a069ad87635cc0445a6169b25dc17&amp;mpshare=1&amp;scene=23&amp;srcid=04138IcRmwd6crwinNQKvU8l#rd">深度神经网络压缩及应用</a>。</p>
+
+<p>总结：两天的报告，第二天早上没有去听。提了大概五六个问题，晚上被老板拉去陪大佬们喝酒，还被几个大佬和同团队的老师夸了一波，嘻嘻。得到的几点认识：第一，搞研究要盯着一个点儿做深做细，从报告老师，从黄博，从我老板等都可以看到，只要做的足够深，足够细，一定可以做出有价值的工作，起码发Paper。第二，要注重原创精神。耿新老师和李凡长老师这些年都是做自己的东西，虽然自己的工作还是要和领域经典工作一块协作，但是做自己的东西很是令人敬佩。第三，部分研究要落地。纪老师的关于模型加速和压缩的工作不但引起了我个人的兴趣，同时也吸引了很多参会老师的兴趣，人气很旺。第四，和第一点相承接，要相信自己做的工作，不一定要赶热潮。比如NMF,比如kernel方法，比如Reduction等，还有很多人在做相关的工作。</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

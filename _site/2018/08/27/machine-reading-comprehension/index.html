@@ -1,0 +1,305 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]全国第一届“军事智能·机器阅读”挑战赛</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2018/08/27/machine-reading-comprehension/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]全国第一届“军事智能·机器阅读”挑战赛</h1>
+    <p class="meta">Aug 27, 2018</p>
+  </header>
+
+  <article class="post-content">
+  <p><em>作者按：本来想着全职做这个比赛，老大看过比赛之后，语重心长地说“来公司最好做一些业务型的项目。”，于是交给我一个更具挑战性的项目，中文文本错误检测和修正，凉。</em></p>
+
+<p>先放出比赛链接，<a href="http://47.96.153.138/index.html">“莱斯杯”全国第一届“军事智能·机器阅读”挑战赛</a>，写这篇博客的目的主要是通过比赛来了解机器阅读理解的任务，技术和进展。这篇博客不会给阅读理解老司机带来任务价值，逃。</p>
+
+<h3 id="赛题分析">赛题分析</h3>
+
+<p>机器阅读类比赛需要关注两个方面的数据，分别是文档和问题。二者的关系是问题是从文档中来的，需要机器能够读懂文章，然后回答问题。比赛的文档包括新闻类，快讯类和情报类共三大类五万+篇文档。其中每篇文档对应五个问题以及人工标注的答案，共有二十五万问题答案对。</p>
+
+<p>问题包括六类，具体为事实型问题，列表型问题，数值型问题，定义型问题，观点型问题和篇章型问题。</p>
+
+<p>现对问题进行逐一分析。</p>
+
+<ul>
+  <li>事实型问题是有一个确定性实体级别的答案。</li>
+</ul>
+
+<p>例如第X舰队指挥官是谁？</p>
+
+<ul>
+  <li>列表型问题是有多个确定性实体级别的答案。</li>
+</ul>
+
+<p>例如X国舰载机机型？</p>
+
+<ul>
+  <li>数值型问题有可能需要统计运算的数值型答案。</li>
+</ul>
+
+<p>例如最近一周，XX对XX油气田几次骚扰？</p>
+
+<ul>
+  <li>定义型问题需要用一句话或者多句话回答某个概念，术语，现象，任务的定义或者解释。</li>
+</ul>
+
+<p>例如“XX一体战”的定义？</p>
+
+<ul>
+  <li>观点型问题的答案是发表的一句话或者多句话的言论或者观点。</li>
+</ul>
+
+<p>例如XX对军事智能化的指示？</p>
+
+<ul>
+  <li>篇章型问题的答案需要对问题进行全方位的描述，答案包含问题目标的多个方面。</li>
+</ul>
+
+<p>例如XX对南海的基本政策倾向？</p>
+
+<p>从问题角度出发，和搜狗问答比赛对比，搜狗比赛只包含事实型问答和非事实型问题，而该比赛则涵盖的问题类型较广，这会增加比赛的难度。</p>
+
+<p>因为比赛的数据集还有公布，暂且看一下DuReader的数据，如下。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "question_id": 186358,
+  "question_type": "YES_NO",
+  "question": "上海迪士尼可以带吃的进去吗",
+  "documents": [
+    {
+      'paragraphs': ["text paragraph 1", "text paragraph 2"]
+    },
+    ...
+  ],
+  "answers": [
+    "完全密封的可以，其它不可以。",                                  // answer1
+    "可以的，不限制的。只要不是易燃易爆的危险物品，一般都可以带进去的。",  //answer2
+    "罐装婴儿食品、包装完好的果汁、水等饮料及包装完好的食物都可以带进乐园，但游客自己在家制作的食品是不能入园，因为自制食品有一定的安全隐患。"        // answer3
+  ],
+  "yesno_answers": [
+    "Depends",                      // corresponding to answer 1
+    "Yes",                          // corresponding to answer 2
+    "Depends"                       // corresponding to asnwer 3
+  ]
+}
+
+</code></pre></div></div>
+
+<p>上述数据就是一个事实型问答，但是给出了问答的关系，包括Depends和Yes.</p>
+
+<p>比赛指标为ROUGE-L和BLUE指标。</p>
+
+<h3 id="相关比赛和数据集">相关比赛和数据集</h3>
+
+<h4 id="2018机器阅读理解技术竞赛"><a href="http://mrc2018.cipsc.org.cn/cipsc">2018机器阅读理解技术竞赛</a></h4>
+
+<p>比赛数据集是基于百度搜索引擎获取的数据，整理成DuReader公开数据集。评测指标为ROUGH-L和BLEU4，针对是非及实体类型问题，对ROUGE-L和BLEU4评价指标进行了微调， 适当增加了正确识别是非答案类型及匹配实体的得分奖励， 一定程度上弥补传统ROUGE-L和BLEU4指标对是非和实体类型问题评价不敏感的问题。</p>
+
+<p>比赛给出了基于PaddlePaddle和Tensorflow的基准模型。第一名团队尝试很多的经典RC模型，包括bidaf，match-lstm, r-net, dcn等，最终模型是对bidaf的改进，尝试引入多个答案的信息。</p>
+
+<p><a href="https://www.kesci.com/apps/home/project/5b2ca2e3f110337467b2752c">PaddlePaddle来做机器阅读理解（DuReader数据集)</a></p>
+
+<h4 id="webqa"><a href="https://kexue.fm/archives/4338">WebQA</a></h4>
+
+<p>百度的中文问答数据集。</p>
+
+<h4 id="asc2018世界超算-机器阅读理解">ASC2018世界超算-机器阅读理解</h4>
+
+<p>比赛数据集是基于微软Bing和Cortana收集的数据集，整理成MS MARCO数据集发布。</p>
+
+<p>比赛给出了基于CNTK的基准模型。</p>
+
+<h4 id="squad">SQuAD</h4>
+
+<p>由Standford发布的Standford Question Answering Dataset.</p>
+
+<h4 id="coqa">CoQA</h4>
+
+<p><a href="https://stanfordnlp.github.io/coqa/">数据集地址</a>，对话型问答挑战。</p>
+
+<h4 id="hotpotaq">HotpotAQ</h4>
+
+<p><a href="https://hotpotqa.github.io/">数据集地址</a>，多跳问答，注重推理。</p>
+
+<h4 id="semeval-2018">SemEval-2018</h4>
+
+<p><a href="https://competitions.codalab.org/competitions/17184#phases">比赛地址</a></p>
+
+<h4 id="semeval-2019">SemEval-2019</h4>
+
+<p><a href="https://competitions.codalab.org/competitions/20013#results">比赛地址</a></p>
+
+<h4 id="哈工大发布的阅读理解数据集">哈工大发布的阅读理解数据集</h4>
+
+<h4 id="第一届讯飞杯中文机器阅读理解评测cmrc2017"><a href="http://www.cips-cl.org/static/CCL2017/iflytek.html">第一届“讯飞杯”中文机器阅读理解评测（CMRC2017）</a></h4>
+
+<p>填空型阅读理解任务。</p>
+
+<h4 id="cips-sogou问答比赛"><a href="http://task.www.sogou.com/cips-sogou_qa/">CIPS-SOGOU问答比赛</a></h4>
+
+<p>分为事实类问答任务和非事实类问答任务。</p>
+
+<h4 id="fujitsu-ai-nlp-challenge"><a href="https://openinnovationgateway.com/ai-nlp-challenge/">Fujitsu AI-NLP Challenge</a></h4>
+
+<p>冠军方案是：Cross-Attentive Convolutional Neural Network.</p>
+
+<h4 id="triviaqa"><a href="https://github.com/mandarjoshi90/triviaqa">TriviaQA</a></h4>
+
+<h4 id="经典模型">经典模型</h4>
+
+<p>参考2中<strong>梳理QA的经典模型</strong>中用非常清晰明白的语言梳理了QA的发展历程，个人对CNN比较认可，所以选择了QANet作为比赛模型，模型结构如下：</p>
+
+<p><img src="http://wx3.sinaimg.cn/mw690/aba7d18bgy1fuo1cft3bfj212z0w0438.jpg" alt="QANet" /></p>
+
+<p>大部分相关任务结构从整体上类似，两个输入，中间聚合，一个或者多个输出(“魔镜杯”比赛问题相似度模型使用相同架构），所以需要关注的点就是模型细节。</p>
+
+<p><em>近期任务较多，跑通Pipeline后，就一直拖着没有去调试模型。允悲！</em></p>
+
+<h4 id="参考资料">参考资料</h4>
+
+<p>1.<a href="https://zhuanlan.zhihu.com/p/22671467">深度学习解决机器阅读理解任务的研究进展</a></p>
+
+<p>2.<a href="https://mp.weixin.qq.com/s?__biz=MzI3NTA0MzM1OQ==&amp;mid=2651615623&amp;idx=1&amp;sn=03bed544ea8f932beffbaea76af6aa4c&amp;chksm=f0f214f7c7859de112edd5d183590e916f098c48e7d05613995525226af989d81e6309b412c0&amp;mpshare=1&amp;scene=23&amp;srcid=0803uL7l7PNzyIIaj8mqXGG8#rd">梳理QA的经典模型</a></p>
+
+<p>3.《QANet: Combining Local Convolution With Global Self-Attention For Reading Comprehension》，Google</p>
+
+<p>4.<a href="https://www.oreilly.com/ideas/question-answering-with-tensorflow">question answering with tensorflow</a></p>
+
+<p>5.<a href="https://www.zhihu.com/question/389751777/answer/1178900681">NLP领域的阅读理解模型实际上是语义匹配还是词与词之间的匹配？</a></p>
+
+<p>6.<a href="https://zhpmatrix.github.io/2020/04/04/sample-bias/">样本构造中的偏置问题</a></p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

@@ -1,0 +1,353 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]智能服饰搭配的方案讨论</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2020/11/29/smart-outfit/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]智能服饰搭配的方案讨论</h1>
+    <p class="meta">Nov 29, 2020</p>
+  </header>
+
+  <article class="post-content">
+  <p>近期做的一个工作是关于智能穿搭的，任务背景是在线上虚拟试衣间中，给定上衣，需要推荐下衣作为搭配。从整体上看，是一个推荐问题，技术思路是标准的召回和排序两阶段任务。在具体实现上，可以仅从NLP的角度求解，也可以从CV的角度求解，还可以从Graph的角度求解，本质上是利用的信息模态不同，当然可以做多模态信息融合。从学术角度上看，这个工作在CV的同学圈子中似乎做的更多一些，这里简单梳理一下相关经典工作。</p>
+
+<p>一个基于专家模型的方案设计如下：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2020/11/c7fd199751b66391.png" alt="img" /></p>
+
+<p>流程上看主要是结构化引擎和业务规则引擎两个重点工作。这里关注其他的解决思路。</p>
+
+<p>《Context-Aware Visual Compatibility Prediction》</p>
+
+<p>这篇文章是基于GCN的建模方式，具体思路如下。将服饰搭配转化为一个基于Graph的Link Prediction或者Edge Classification问题，采用Triplet Loss作为损失函数。</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2020/11/bf69f02651d9c3ab.png" alt="img_1" /></p>
+
+<p>其中，需要关注的是待预测商品（作为节点）的表征问题，一般采用基于BFS算法找到满足给定周围节点数的节点表征做融合，具体如下：
+<img src="https://ftp.bmp.ovh/imgs/2020/11/dc5094677b2f4992.png" alt="img_2" /></p>
+
+<p>《Fashion Outfit Generation for E-commerce》</p>
+
+<p>这篇文章采用二分类的方式来做。在特征表示阶段的做法如下，利用了多模态的信息，具体包括图片本身的信息，商品标题信息和商品类目（在电商体系下，这三类数据都比较容易获取）。</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2020/11/5a7ceb02e80e84e7.png" alt="img_3" /></p>
+
+<p>二分类阶段的工作如下（比较朴素的做法）：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2020/11/56ab90ac88c30699.png" alt="img_4" /></p>
+
+<p>《Learning Type-Aware Embeddings for Fashion Compatibility》</p>
+
+<p>这篇工作也是比较经典的，基于度量学习的方式，整体上的解决方案也相对朴素，模型架构如下：
+<img src="https://ftp.bmp.ovh/imgs/2020/11/b11886e1bd64d5e6.png" alt="img_5" /></p>
+
+<p>对比三篇工作，第一篇主要亮点在基于Graph来做，这样理论上能够获取更加Structural的Context信息；第二篇的工作中规中矩，体现在Compatibality Prediction任务中，多模态信息融合的必要性；第三篇主要特色在于Metric Learning范式的使用，同时融合了多模态信息作为Regularization（学术灌水的标准套路）。</p>
+
+<p>作为Compatibality Prediction任务的特色，三篇文章都在讨论的问题是：Similarity和Compatibality。在第三篇文章中，描述了二者的区别：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Similarity：when two tops are interchangeable
+
+Compatibality：items of possibly different type that can go together in an outfit
+</code></pre></div></div>
+
+<p>一个好的模型，通常希望能够学到上述两个概念。在博主之前的问答匹配任务中，提到的两个概念是：相似性和相关性。和该任务相比，在概念学习上，有异曲同工之妙。</p>
+
+<p>除此之外，还有很多其他有趣的基于Graph的任务，如下：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2020/11/4e1c030dbff37e57.png" alt="img_6" /></p>
+
+<p><a href="https://chenyue.top/2019/09/10/%E6%9C%8D%E9%A5%B0%E6%90%AD%E9%85%8D%E6%8E%A8%E8%8D%90%E7%A0%94%E7%A9%B6%E7%BB%BC%E8%BF%B0/">服饰搭配推荐研究综述</a>中，总结了该领域的问题和难点，数据集，评测方法和主流算法。从另外一个角度来看，也就是FashionAI的角度，相关工作为<a href="https://tianchi.aliyun.com/course/video?liveId=5437#postsId=5437">FashionAI全球挑战赛决赛现场答辩</a>，具体内容为服饰关键点定位（服饰属性标签识别）。</p>
+
+<p>除了基于CV和Graph的解决思路，还有基于NLP的方案，比如在<a href="https://wenku.baidu.com/view/a4244b2130126edb6f1aff00bed5b9f3f90f726e.html">2015年天池大赛-淘宝穿衣搭配大赛：第一名方案</a>中，有一些相关讨论。由于比赛数据是脱敏的，因此无法直接使用。该比赛的基本解决思路有两种：第一种是给定商品，直接找可以搭配的商品；第二种是利用达人的搭配结果，通过计算商品相似性，得到可以搭配的商品。类比于问答系统，第一种给定Q，借助问答模型（生成模型等）直接得到A；第二种，利用QA知识库，通过QQ匹配，得到A作为返回结果。每类方案返回候选商品和搭配度，其中搭配度在不同的方案中，有不同的计算方式，最后通过线性加权的方式得到。</p>
+
+<p>Graph结构是一种通用的数据组织方式，适用于图片和文本，在上文中讨论了基于GCN的商品穿搭任务，Graph用于NLP的相关工作，可以参考<a href="https://github.com/svjan5/GNNs-for-NLP">GNN4NLP</a>和<a href="https://github.com/graphdeeplearning/benchmarking-gnns">benchmarking-gnns</a>。考虑到Graph的组成元素，基本任务包括：Node Classification,Graph Regression, Graph Classification, Edge Classification/Link Prediction。</p>
+
+<p>最后，通过一张图总结智能穿搭的技术线，如下：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>建模方法</th>
+      <th>优点</th>
+      <th>缺点</th>
+      <th>备注</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>基于规则的方法</td>
+      <td>可控，快速</td>
+      <td>专家介入</td>
+      <td>优先级=1</td>
+    </tr>
+    <tr>
+      <td>基于CV的方法</td>
+      <td>商品图片含有丰富的信息</td>
+      <td> </td>
+      <td>优先级=2</td>
+    </tr>
+    <tr>
+      <td>融合CV和NLP的多模态方法</td>
+      <td>在图片信息的基础上，融合NLP的信息</td>
+      <td> </td>
+      <td>优先级=3</td>
+    </tr>
+    <tr>
+      <td>数据挖掘的思路：CV/NLP融合结构化信息</td>
+      <td>更加丰富的信息维度</td>
+      <td>不同维度的贡献度衡量</td>
+      <td>优先级=4</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>在上文中，讨论了智能穿搭的技术问题。没错，这里瞎BB的产品正是依托于这个事情展开而来的。给产品一个靓丽的命名，姑且叫做“搭嗒”吧。第一个想到的名字是“美搭”，不过，看到已经被其他公司用起来了，而且业务相同，因此改名。个人比较喜欢“知乎”，“饿了么”类似的命名，这也是命名的来源之一。</p>
+
+<p>早上7：00钟，闹铃准时响起。美诺揉着惺忪的睡眼从被窝中爬起来，冬天的被窝可是格外的香。打开手机，自动获取今天的穿衣搭配建议。7：30，出门。外面阳光正好，心情正浓。</p>
+
+<p>时间回到10天前，双十一活动期间，美诺剁手1万，买了冬季的上衣，下衣，外套和鞋子，通过手机拍照上传了刚买的宝贝的信息。</p>
+
+<p>晚上9：00，下班洗过澡的美诺慵懒的躺在床上，打开手机查看穿搭建议。啊！推荐的这款鞋子显然和上衣搭起来更好看啊，买买买，一波操作。</p>
+
+<p>上文描述的正是该产品的一个使用场景。从产品的角度，解读与这款产品相关的商业模式：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>模式维度</th>
+      <th>产品解读</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>客户细分</td>
+      <td>对穿搭有需求的男女同学。其中，年轻女性是核心用户，对产品的需求度更高。男性也有，但是比起女性来说，黏性可能不是很高。年龄上以年轻人群为主，显然爱美是年轻人的天性。</td>
+    </tr>
+    <tr>
+      <td>价值主张</td>
+      <td>对有穿搭建议需求的用户来说，帮助解决衣服过多，不知道如何搭配的问题，减少穿衣的思考投入。对商品来说，通过该产品可以实现导购，提升用户粘性。商家不仅仅是卖商品，同时提供更深度的服务，通过产品，借助服务，拓展商品的价值。</td>
+    </tr>
+    <tr>
+      <td>客户关系</td>
+      <td>用户自助使用，典型的2C产品。同时产品的延伸点在于搭建用户与用户，用户与商家的价值桥梁。</td>
+    </tr>
+    <tr>
+      <td>渠道通路</td>
+      <td>通过引入专业时尚的达人，明星等，提升产品品质和品牌价值。通过达人穿搭建议，用户互评等模式缩短用户和产品的距离。</td>
+    </tr>
+    <tr>
+      <td>关键业务</td>
+      <td>穿搭建议，品牌营销和导购。</td>
+    </tr>
+    <tr>
+      <td>核心资源</td>
+      <td>基于NLP，CV和推荐的算法加持。</td>
+    </tr>
+    <tr>
+      <td>重要合作</td>
+      <td>穿搭达人，商家，广告商。</td>
+    </tr>
+    <tr>
+      <td>收入来源</td>
+      <td>导购，广告。</td>
+    </tr>
+    <tr>
+      <td>成本结构</td>
+      <td>产品研发，运营。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>其中，关键业务，核心资源，重要合作是业务模式，收入来源和成本结构是盈利模式。从团队的主要工作内容角度，分为四个阶段：创意设计，研发生成，运营销售，市场品牌。假设博主自己一个人就是一个团队的话，前二者已经可以基本完成，但是在运营销售和市场品牌方面比较薄弱。其中，运营销售的目标就是卖得出去，赚得到钱。而市场品牌的目的在于铺的开，叫得响。</p>
+
+<p>接下来聊一聊运营侧的事情。运营的核心任务包括两点：流量建设和用户维系。一般认为分为三个方面的工作：内容运营，用户运营和活动运营。三类的总和，称之为产品运营。结合这三方面的工作，聊一聊初步的想法。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>运营类型</th>
+      <th>主要内容</th>
+      <th>备注</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>内容</td>
+      <td>该产品的内容主要是商品风格知识，搭配知识等。运营手段包括采集，创作，编辑，审核，推荐，专题和推送等</td>
+      <td>主要关注的维度是内容类型和运营手段</td>
+    </tr>
+    <tr>
+      <td>用户</td>
+      <td>围绕用户运营的核心展开的运营工作</td>
+      <td>用户运营的核心是开源，节流，维持，刺激</td>
+    </tr>
+    <tr>
+      <td>活动</td>
+      <td>活动文案撰写，活动流程设计，活动规则制定，活动成本预估，活动预期收益，活动效果统计，活动改动措施</td>
+      <td>通过展开独立活动，联合活动，拉动一个或者多个指标的短期提升的运营工作</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>写在最后的话：</p>
+
+<p>最近分别读了产品和运营的两本书，分别是《淘宝十年产品事》和《人人都是产品经理》，以及《从零开始做运营1》和《从零开始做运营2》，在此之前的一段时间，读了俞军的《产品方法论》和《聊天机器人：对话式体验产品设计》。可能和笔者所在的大学设计学院的同学接触较多的原因，产品意识很早就建立了，但是运营观点一直没有形成，一度认为做运营的都是打杂的。但是，在新的团队，看到了运营团队的重要功能，同时从书中相对系统的了解了运营的具体工作内容，对运营有了质的改变。孩子不能只生不养，亲妈和奶妈都是妈。</p>
+
+<p>这篇博客本来想以智能穿搭为场景，从产品和运营侧给出一个理想的方案。但是，真正在写的时候，才发现很多问题没有思考清楚，同时产品和运营的角度有很多，不是短时间能够考虑周全的事情，因此也就作罢。本质上是因为笔者对二者的思考尚不足以完成这样的工作。但是，能够在近期建立对运营工作的基本认识，也是自我迭代的一次宝贵经历了。</p>
+
+<p>技术，产品和运营都很重要。想要做成一件完整的事情，要做整体的思考。未来已来，还有很多事情没有做。</p>
+
+<p>相关参考：</p>
+
+<p>0.<a href="https://mp.weixin.qq.com/s/E5VpBt53VTjOxt8wE3SrLA">工程师如何解决穿衣搭配烦恼？</a>，阿里的滴搭平台</p>
+
+<p>1.<a href="http://www.zzmmgo.com">美搭网</a></p>
+
+<p>2.<a href="https://caii.ckgsb.com/uploads/life/201901/25/1548395075695302.pdf">京东AI时尚挑战赛</a></p>
+
+<p>3.<a href="https://market.cloud.tencent.com/products/18993">腾讯服饰风格识别</a></p>
+
+<p>4.<a href="https://help.aliyun.com/document_detail/151943.html">阿里的风格识别</a></p>
+
+<p>5.知衣科技</p>
+
+<p>6.极睿科技</p>
+
+<p>7.<a href="https://arxiv.org/pdf/2101.08301.pdf">《Aesthetics, Personalization and Recommendation: A survey
+on Deep Learning in Fashion》</a></p>
+
+<p>最新的一篇综述文章。</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

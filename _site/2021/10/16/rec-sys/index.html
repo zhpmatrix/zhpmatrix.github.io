@@ -1,0 +1,197 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[RecSys]2021年的推荐系统杂文</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2021/10/16/rec-sys/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[RecSys]2021年的推荐系统杂文</h1>
+    <p class="meta">Oct 16, 2021</p>
+  </header>
+
+  <article class="post-content">
+  <p>距离第一次写推荐系统的<a href="https://zhpmatrix.github.io/2018/06/25/recsys-rethinking/">博客</a>，已经过去了两年多。近期读了一些推荐方向上比较有深度的文章，因此，想借助此篇博客梳理推荐系统方向上的部分工作，另一方面也是对所读文章的一个学习笔记。</p>
+
+<p>什么是推荐？和搜索对比，搜索解决的是用户寻找物品的问题，而推荐解决的是物品找人的问题。前者是多对一，多个用户去搜索一个巨大的物品库。后者是一对多的问题，一个巨大的物品库分别推送给各自的潜在用户。场景的变化推动技术的演进。在PC时代，机器由于无法获取全面的用户信息，对于用户的理解是存在偏差的，但是到了移动互联网时代，通过手机终端，可以获取全面的用户信息，这让推荐有了实施的数据基础。至于PC时代为什么无法获取更全面的用户信息，也许是一个关于OS的技术问题，又或是一个用户习惯养成的问题，再或者是互联网的群体还不够大，积累的数据量不足以做出好的推荐效果问题。</p>
+
+<p>在进入一个方向之前，首先要从整体上看到该方向上做的事情。这篇<a href="https://zhuanlan.zhihu.com/p/95350982">文章</a>给予博主很大的启发。文章的主要内容是给出了对待推荐系统的三个视角。</p>
+
+<ul>
+  <li>矩阵视角</li>
+</ul>
+
+<p>矩阵的行是物品，矩阵的列是用户，矩阵中的元素是用户对物品的评分。矩阵中存在的空值填充，就是推荐系统要做的事情。既然将推荐问题用一个矩阵得以描述，就给了推荐问题一个形式化的定义，借助量化/数值计算的方式解决该问题。相关的方法比如User/Item-Based的各种具体算法，进而包括各种用户表征，商品表征算法等，基于矩阵分解(SVD)的方法等。</p>
+
+<ul>
+  <li>图视角</li>
+</ul>
+
+<p>用户和商品通过各种交互行为（浏览，点赞，收藏，评论等），可以形成一个天然的图的结构，继而可以很自然的将推荐问题定义为图的链接预测问题。这里既可以基于图的拓扑结构，演化出传统的图算法，比如swing算法，或者利用深度学习的技术，将该问题转化为图表征+连接预测问题。</p>
+
+<p>既然可以将推荐问题转化为一个图问题，而从数学上看，图是可以用矩阵来描述的，所以本质上，矩阵视角和图视角在数学上存在本质的相似性。清华的唐杰组基于图表征的问题出发，有对二者的关系给出一个数学上的描述。</p>
+
+<ul>
+  <li>时间线</li>
+</ul>
+
+<p>矩阵和图，是一种静态的观察视角，不过，如果能够在图上添加时间的维度，就可以用一种静态的方式处理动态的信息，不过这种方式是隐式的。一种显式的方式则是将推荐问题定义为：已知用户历史时间中购买的物品序列，计算下一时刻用户可能会购买的物品。这样就将推荐问题转化为一个经典的序列预测问题，类似可能的方法论都得以应用。</p>
+
+<p>本质上该视角是一种动态的观察角度。相关的方法包括Translation-Based推荐等，相关工作《Sequential Recommender Systems: Challenges, Progress and Prospects》等。</p>
+
+<p>明确方法上的大方向之后，就可以深入到细分方向。这篇<a href="https://zhuanlan.zhihu.com/p/34004488">文章</a>给出了一份要阅读的具体的工作，<a href="https://github.com/hongleizhang/RSPapers">这里</a>是一份具体的阅读清单。</p>
+
+<p><a href="https://zhuanlan.zhihu.com/p/398041971?utm_source=wechat_session&amp;utm_medium=social&amp;utm_oi=758077317837783040&amp;s_r=0">文章</a>中作者以一个资深广告算法专家的身份讲述了广告算法发展的宏观视角，围绕召回+排序（粗排+精排）的框架，结合具体的CTR问题，以系统和算法协同设计的思路，讲述了广告系统发展的波澜壮阔的宏大历史图景。这其中夹杂着作者对于代际变换的思考，对于数据+算力+算法三要素的认知和实质性的工作推进。敢想敢干的品质，在文章中有很多地方可以体现。</p>
+
+<p><a href="https://zhuanlan.zhihu.com/p/446993392">阿里妈妈搜索广告预估模型2021思考与实践</a>，这篇文章的行为风格和思路同上篇文章。</p>
+
+<p>相关文章：</p>
+
+<ul>
+  <li><a href="https://blog.csdn.net/xzz_hust/article/details/102873312">CTR模型一览</a>，这篇文章梳理了经典的CTR模型系列，具体包含LR/GBDT/GBDT+LR/FM/FFM/Deep&amp;Wide/DeepFM/Deep&amp;Cross/NFM/DIN/FTRL等。这些模型的发展脉络包含一下思想：</li>
+  <li>特征低维-&gt;特征高维</li>
+  <li>特征离散-&gt;特征连续</li>
+  <li>交叉特征的手工构建-&gt;交叉特征的自动构建</li>
+  <li>参数的离线更新-&gt;参数的在线更新</li>
+</ul>
+
+<p>除了上述核心思想外，也有其他的一些思想指导。但是从这个维度来看，主流思想是围绕特征的各种花式玩儿法。</p>
+
+<p>相关文章：</p>
+
+<ul>
+  <li><a href="https://zhuanlan.zhihu.com/p/418943291">NLP方向是否有前景</a></li>
+  <li><a href="https://mp.weixin.qq.com/s?__biz=MTM2ODM0ODYyMQ==&amp;mid=2651537793&amp;idx=1&amp;sn=5c4b3f8184760981de9cdb2fb7212f6b&amp;chksm=624f41235538c835781213762ce017f8eac805cb9d6cf8aceb9e03a6f9787c1f37704fb68e6a&amp;mpshare=1&amp;scene=23&amp;srcid=1013BCYrd4eOBY6WxShst0bN&amp;sharer_sharetime=1634117019555&amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd">那些用推荐引擎改变世界的人</a></li>
+</ul>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

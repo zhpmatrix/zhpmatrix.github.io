@@ -1,0 +1,228 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[医疗NLP]啥？听说你要构建一个新冠知识图谱</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2021/03/11/ccks-covid19-kg/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[医疗NLP]啥？听说你要构建一个新冠知识图谱</h1>
+    <p class="meta">Mar 11, 2021</p>
+  </header>
+
+  <article class="post-content">
+  <p>这篇博客将以CCKS2020的新冠知识图谱构建赛道的四个子任务为纲，梳理一下具体在执行层面上的问题。具体包括四个子任务：类型推断，概念上下位关系挖掘，链接预测和基于知识图谱的问答。</p>
+
+<h4 id="一类型推断">一.类型推断</h4>
+
+<p>该任务的目的是给实体打标签。输入如下：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/9e312bcdb6713f11.png" alt="img1" /></p>
+
+<p>希望的输出如下：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/552a1063c4e3770b.png" alt="img2" /></p>
+
+<p>其中，共包括7个目标类型，病毒、细菌、疾病、药物、医学专科、检查科目、症状（非目标类型输出为 NoneType）。附加数据包括提供的：百度百科，互动百科，中文维基百科，医学百科，保证任意实体至少被一个页面文件覆盖，页面文件包括含类型推断可能会用到的名称，标签和简介等信息。页面内容示例如下：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/528716a00cfa34a3.png" alt="img3" /></p>
+
+<p>两种建模思路：</p>
+
+<p>（1）找到实体在页面中的句子，做序列标注；</p>
+
+<p>（2）借助外部数据，扩充对实体的描述，做<a href="https://bj.bcebos.com/v1/conference/ccks2020/eval_paper/ccks2020_eval_paper_1_1_2.pdf">多分类</a>；</p>
+
+<p>分析：为啥这种任务设定是OK的？</p>
+
+<p>（1）对于知识型的图谱构建，有一些已经存在的知识体系。比如可以通过国家卫健委官方网站获取所有药物的列表。也就是说，现实条件下，可以让我们以较低的成本拿到实体-类型对数据。</p>
+
+<p>（2）丰富的开放医学数据。典型的各种百科类页面。</p>
+
+<p>（3）支持不同的建模思路，包括序列标注和多分类。整体上在标注上的区别是：传统方式是给定任意文本，比如提供百科页面，去标注实体-类型。但是最终获取的实体-类型的比例，较难提前预估，这是从输入开始的数据构建。但是，也可以从输出端开始，也就是先得到实体-类型，然后通过其他方式找到对应的文本，之后进行后续的建模推进。不管怎样，都会受限于非结构化文本的规模和质量。后者，在扩充描述上存在一些比较灵活的Trick，从而提升标注质量，丰富实体的表达。从执行方式上来看，这种是不需要人工标注的，相当于预打标，因此是一个很实际，高效的执行方案。</p>
+
+<p>从任务体验上来讲，和CCKS2020的<a href="https://finance.sina.com.cn/tech/2020-11-15/doc-iiznctke1534222.shtml">基于商品标题的大规模商品实体检索</a>有类似之处。</p>
+
+<p>补充新的工作，<a href="https://mp.weixin.qq.com/s?__biz=MzA3MzI4MjgzMw==&amp;mid=2650834657&amp;idx=5&amp;sn=b63bd09562cb6bacbc6527748c90802d&amp;chksm=84e5429fb392cb8944769909e1f899f054ac823d4fed58c50fa27353b9966bb320d1794b893a&amp;mpshare=1&amp;scene=23&amp;srcid=1229pRcHlYxrtbrdQtR15rWw&amp;sharer_sharetime=1640753050038&amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd">《筛选风险词，用实体类型推断发现限售商品》</a>，基于通用百科数据，共计54种实体类型，60万训练数据。关键亮点是：如何基于没有标注的数据构建有标签的数据。</p>
+
+<h4 id="二概念的上下位关系预测">二.概念的上下位关系预测</h4>
+
+<p>工业界的一种场景是，类别体系很难一次定好，需要反复迭代。那么，能不能通过自动化的方式构建一个类别体系呢？这里，对类别体系添加了约束，强调对上下位关系的挖掘。</p>
+
+<p>输入是：实体列表+概念列表</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/0bdfe1cd0d4b9b01.png" alt="img4" /></p>
+
+<p>输出是：实体-概念之间的关系，概念和概念之间的关系</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/502b4c65c736d18a.png" alt="img5" /></p>
+
+<p>如果采用<a href="https://bj.bcebos.com/v1/conference/ccks2020/eval_paper/ccks2020_eval_paper_1_2_2.pdf">有监督的方式构建</a>，思路如下：</p>
+
+<p>（1）上下位关系构建。借助于聚类，第三方关系，知识库等方式。（比较Tricky的工作体现在这里）</p>
+
+<p>（2）头实体描述和尾实体表述作为输入，三关系分类（上位，下位和无关系）</p>
+
+<p>整体上，该方案存在以下问题：</p>
+
+<p>（1）上下位关系，也就是标注数据的构建比较Tricky</p>
+
+<p>（2）对关系层级添加了约束。上下位关系，现实条件下并不一定成立</p>
+
+<p>（3）获取对实体的描述信息环节，仍旧比较灵活</p>
+
+<p>（4）整体难度较大，指标较低</p>
+
+<p>这里给一个聚类的效果图：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2021/03/84312cb964b1fbe4.png" alt="img6" /></p>
+
+<p>补充一个类似的工作：</p>
+
+<p><a href="https://tianchi.aliyun.com/competition/entrance/231629/information">商品标题归集</a></p>
+
+<h4 id="三链接预测">三.链接预测</h4>
+
+<p>任务定义：给定(h,r,?)或者(?,r,t)，预测?。这是一个典型的知识表征任务，代表工作从TransX系列开始。</p>
+
+<p>参考解决方案：<a href="https://bj.bcebos.com/v1/conference/ccks2020/eval_paper/ccks2020_eval_paper_1_3_1.pdf">DistMult的改进版</a></p>
+
+<h4 id="四知识图谱的自然语言问答">四.知识图谱的自然语言问答</h4>
+
+<p>标准任务：KBQA，特点在于提供了SPARQL作为中间查询语句。<a href="https://bj.bcebos.com/v1/conference/ccks2020/eval_paper/ccks2020_eval_paper_1_1_2.pdf">参考方案</a></p>
+
+<h4 id="五整体结论和认识">五.整体结论和认识</h4>
+
+<p>整个任务的设定仍旧没有离开标准图谱构建的范式，不过基于医疗行业的知识沉淀，在具体建模上有特色之处。虽然在上下位关系约束的前提下，可以在一定程度上实现类型体系的自动化构建，但是从目前的结果来看，距离实用仍有一段路要走。</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

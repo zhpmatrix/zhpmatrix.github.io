@@ -1,0 +1,193 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[思考]一个夏日的午后，聊一聊智能客服与NLP</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2020/06/13/thoughts-about-dialogue/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[思考]一个夏日的午后，聊一聊智能客服与NLP</h1>
+    <p class="meta">Jun 13, 2020</p>
+  </header>
+
+  <article class="post-content">
+  <p>2020年了，纵观国内外的NLP创业公司，围绕智能客服方向的团队可能是最多的？群众的眼睛是雪亮的，他们都看到了啥？这篇文章以电商智能客服中的问答机器人为例，讨论一些尚不成熟的观点（非技术文，更多的是关于业务和产品的想法）。</p>
+
+<p>电商使得商品交易的每个环节可以被信息化，也就意味着行为可以通过数据被量化。现实中，通过一个上网终端，就可以通过各种各样的店铺购买自己喜欢的商品。购买商品，有询价，售后等环节，直接催生了客服小姐姐/小哥哥们。其中交流的方式就是问答，客户问，客服答。</p>
+
+<p>嗯，场景就是这样滴。</p>
+
+<p>在笔者之前的文章中，经常提到的一个观点是：好场景需要独立且易规模化。（否则，赚不够油钱。说出这五个字的那位兄弟，粗来让大家认识一下。）</p>
+
+<p>每个店铺是独立的。小张卖Python代码，老王卖C++代码，论斤的。那么，买Python代码和买C++代码的客户就会询问与相关编程语言特性本身相关的问题，多数情况下，前者客户不会询问关于买的Python代码不能编译的问题，这是店铺个性。但是同为编程语言，自然有其共性。同时，行业也具有共性和个性的问题。</p>
+
+<p>作为类比，一个APP也是独立的。特定APP的用户也只会询问与该APP相关的问题。打开你的应用市场，看看有多少APP吧？好像走进一个菜市场，满目的各种各样的摊位。兄弟，练摊，约吗？</p>
+
+<p>同样，汽车也是独立的，车内提供了一个独立封闭的环境。不过，这里的独立与店铺和APP的独立存在些许差异。</p>
+
+<p>50W个店铺不够，那就100W个吧。上述场景也是可以做规模化的场景，规模化的一个要求是共性，或者共性的比例大于个性的比例。客户是个性的来源之一，服务个性也是价值的一种体现方式。作为一个环节，问答机器人可以适配一个独立的场景。</p>
+
+<p>有了标准化的场景，技术方案和产品设计也容易被标准化，继而容易规模化。打开你的手机的APP的智能客服，多看几个，是不是交互雷同呢？悄悄告诉你，技术也很雷同。</p>
+
+<p>在今天，我们已经知道一个智能客服机器人该有的样子了。僧多粥少，仅在杭州的NLP创业团队，有智能客服相关业务的就有许多，好吧，是很多。那还有啥机会？（这里列举一些曾经想过的一些场景，如果你受到这些想法的启发，公司上市，走上人生巅峰，迎娶白富美，别忘了招我当司机。）</p>
+
+<p>（1）直播场景下的问答。</p>
+
+<p>场景就是直播的时候，会有一个评论区，由观众在该评论区写问题或者评论。可能不同的直播场景，对评论区的应用不同。比如：发挥类似弹幕的作用，电商直播由播主采样回答（别问我咋知道的，我曾经作为用户看了30分钟的刘一刀电商直播，也是够无聊），直播结束后播主答疑阶段随机刷问题回答（笔者个人看过很多场学术上的直播，问的问题播主回不回答，感觉全看心情，不是很开心）。</p>
+
+<p>该场景和上文描述的店铺场景不同，直播场景下对实时性要求更高。假设一个店铺通过直播只卖自家的商品，那么就基本相同了（一般一个店铺通常只卖相关商品），这里是强调共性的部分。实际上的场景是，比如对于学术直播，不同直播会讲不同的论文；董明珠和老王也不会每次卖相同的商品。</p>
+
+<p>在该场景下，如何做规模化就是一个值得思考的问题。问的问题可以晚点回，但是不要不回。当问题的规模很大的时候，还要高质量的回复，这显然不是仅靠加客服就能解的问题。</p>
+
+<p>（2）驾考宝典（忽略这个俗到家的名字吧）</p>
+
+<p>打开华为Mate30的应用市场，搜索驾考宝典（武汉木仓科技），安装次数：5亿次。几乎所有的考驾照一族都要下载该APP，是刚需，刚需就是好的场景和问题。该场景下的智能客服可以类比于支付宝客服，支付宝的安装次数是39亿次。但是，支付宝是安装一次，使用期限比较长，但是驾考宝典可能就是考完驾照就不用了，黏性稍弱，但是使用期间，我自己是几乎每天都使用。</p>
+
+<p>（3）学佛网</p>
+
+<p>知道该网站，是看到一位朋友读过《佛教常识问答》，豆瓣评分是8.7分。该书就是一问一答。而该网站文章的总访问量是：2742317639次。其中专设佛教问答模块，问答大概2000左右。当然可以通过搜索的方式找到答案，但是搜索和问答（对话）带来的交互体验是不同的，获取信息的成本也是非常不同。关于这二者的区别的讨论可能会单开一篇新的文章。</p>
+
+<p>列举上述场景其实也是为了做横向对比，现在需要想一想，为啥智能客服是可行的？</p>
+
+<p>第一：人力。客服流动性高，不受空间场地限制，工作内容较为机械化，同时是不可或缺的一个工种（刚需）。既然这样，那就用机器解放一部分生产力吧。</p>
+
+<p>第二：允许犯错。机器24小时可以无休，搞不定的问题可以转交人工客服，对任务完成准确度不算太高。作为对比，看人脸识别的场景。</p>
+
+<p>第三：技术要求不算高。目前NLP的技术能够满足该场景的要求。</p>
+
+<p>写到这里，我又一次打开支付宝我的客服。在去年之前，虽然用了多年支付宝，我还从来没打开过我的客服（有的APP叫做意见反馈），自然不太能理解为啥需要我的客服了。</p>
+
+<p>现在，我有点儿明白了。天儿，可真热。</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

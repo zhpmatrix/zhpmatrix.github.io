@@ -1,0 +1,319 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]样本构造中的偏置问题</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2020/04/04/sample-bias/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]样本构造中的偏置问题</h1>
+    <p class="meta">Apr 4, 2020</p>
+  </header>
+
+  <article class="post-content">
+  <p><strong>前言：</strong></p>
+
+<p>博主个人围绕BERT做了较多模型，实践中的总结就一句话：input和output端的花式玩儿法。结合不同任务，input和output的策略多样且灵活。在这种条件下，对于input，如何设计无偏的策略就是一个关键问题了。怎么解，不同的问题考虑的内容不同。</p>
+
+<p>（之前和凤巢的学长聊，在信息流中，模型上一般怎么做？学长的回答是模型几乎就是业界成熟的模型，多数情况下是针对问题做数据来解决问题。想必二者有相通之处，尤其是BERT出来之后，个人的感觉更加深刻。）</p>
+
+<h4 id="首先什么是样本偏置">首先，什么是样本偏置？</h4>
+
+<p>从一个例子谈起。Yoav Goldberg（博主正是看着他的教科书入了NLP的坑）在自己的一个<a href="http://u.cs.biu.ac.il/~yogo/on-squad.pdf">slides</a>中谈到<a href="https://rajpurkar.github.io/SQuAD-explorer/">SQuAD1.1</a>的问题。对SQuAD1.1来说，从<a href="https://rajpurkar.github.io/SQuAD-explorer/">benchmark</a>上，已经超越人类了！（无脑媒体标题党），啥啥啥？机器都这么牛逼了吗？Goldberg大手一挥，说2Y2S，naive！基本原因有四个，如下：</p>
+
+<ul>
+  <li>答案都是文本中的一个span。也就是可以直接抽取到啊。</li>
+  <li>需要在给定的文本中找到答案。我都给你划定考试范围了，并且不是整本书，能不能考及格啊？（惨遭老师暴打）</li>
+  <li>答案一定在给定文本中。你抄就完事儿了。</li>
+  <li>从标注的方式来看，问标注同学一个问题，他一般是按照问题中的关键词汇去给定文本中来找，导致问题和答案之间有比较高的词汇上的相似性。简单来说，就拿问题中的关键词汇去给定文本中匹配，瞎蒙也能蒙到一些吧。</li>
+</ul>
+
+<p>也就是说：</p>
+
+<ul>
+  <li>SQuAD1.1上的人类水准是真实人类水准的下界（标注同学划水）</li>
+  <li>SQuAD1.1上的霸榜模型是机器的一个上界（机器可以作弊）</li>
+</ul>
+
+<p>Goldberg顿了顿，认真地说：</p>
+
+<ul>
+  <li>现有的绝大多数模型都是模式匹配的高端玩家，有啥智能啊，有啥推理啊？</li>
+  <li>并不是所有的事情都可以靠着模式匹配搞定</li>
+  <li>模型匹配器很容易被玩儿坏的</li>
+</ul>
+
+<p>我翻了翻SQuAD2.0，也“早被人类超越了！”，SQuAD， Game Over!（求Goldberg出来怼。）</p>
+
+<p><strong>一句话总结：你的数据是这样设计的，但是真实场景下不这么玩儿啊。</strong></p>
+
+<h4 id="其次来到大型翻车现场">其次，来到大型翻车现场</h4>
+
+<p>这就完了？没有。看一些老司机大型翻车现场吧。</p>
+
+<p><strong>（1）纠错任务</strong></p>
+
+<p>假设采用序列标注的方案来做，因为这个问题很难搞到真实数据，标注数据的方式成本巨大，几乎不可行，因此就需要构造数据了。于是，步骤如下：</p>
+
+<p>第一：准备没有错误的句子</p>
+
+<p>第二：随机把句子中的字或者词改为其他的字或者词</p>
+
+<p>第三：构造pair，也就是错误句子和对应正确句子的pair</p>
+
+<p>那么问题来了，随机替换的时候，是改字还是改词？如果改字的时候，改几个字？如果改多了，极端情况下，这个就不是一个自然语句了；改少了，真实情况下一个句子中确实可能多处错误。可以通过挖掘的方式做？那得找到包含错误的句子吧。如果能找到，就不用构造了。</p>
+
+<p>事情总得做吧，那就拍脑袋，改字，改两个吧。这里，其实就引入了第一个偏置。对于测试样本，模型倾向于认为测试样本中有两个字错误，多于两个字的就不能检纠。这样就完了？没有。实际模型在测试的时候，误报很高。本来错别字就很少，误报多的时候，那这个模型就凉了。</p>
+
+<p>对啊，真实情况下，包含错误的句子是很少的。但是按照上述构造样本的方式，训练数据中都是包含错误的句子。导致的问题是，来一个样本，模型倾向于认为句子中包含错误。这就是引入的第二个偏置了。</p>
+
+<p>完了？没有…在具体构造的时候，考虑拼音输入法引入的错误，会带来更多的偏置。</p>
+
+<p>一般认为，构造的时候如果能够想到这些偏置的引入，那是最好的。不过，如果构造的时候没有想到，因为有些偏置确实很难想到，那么在进行误报case分析的时候，一般也会发现一些明显的偏置。偏置一旦发现，怎么解就是一件不那么困难的事情了。对第一个偏置，目前想到的是按照概率采样，本质上还是要回到mining的路子；第二个偏置很容易解决，训练数据中加入不包含错误的pair。事实上，这样确实显著改善了模型的误报问题。</p>
+
+<p><strong>（2）序列标注</strong></p>
+
+<p>一个模型不论测试句子是啥，都能给你找出标注结果。这里其实也是一种偏置。一般情况，对于序列标注问题，训练样本的标签是包含实体标签和O的。但是现实世界，是有标签为全O的样本的。假设训练样本中，没有标签为全O的样本，模型倾向于每个测试样本都包含实体，这显然是不正确的。</p>
+
+<p>怎么解？可以从样本构造上解决，比如添加这些样本就是了。另外，可以从预测概率上解。不过这里涉及一个<a href="https://scikit-learn.org/stable/auto_examples/calibration/plot_calibration.html#sphx-glr-auto-examples-calibration-plot-calibration-py">概率校准</a>的问题，另外最佳阈值的选择可能在实际情况下不像想象的那么简单。</p>
+
+<p><strong>（3）关系抽取</strong></p>
+
+<p>对于一个序列标注问题，我们可以通过关系抽取的方式来做。比如给定一个句子，包含三个实体：（e1）PER, (e2)ORG, (e3)LOC。现在我想通过关系抽取的方式来modeling？那就开始构造样本吧，如下：</p>
+
+<p>(e1, PER-ORG, e2)</p>
+
+<p>(e1, PER-LOC, e3)</p>
+
+<p>(e2, ORG-LOC, e3)</p>
+
+<p>这样，一个用于序列标注的样本，就扩展成了三个用于关系抽取的样本。modeling思路很简单，对两个实体的表示做分类，如果是PER-ORG关系，则第一个实体是PER，第二个实体是ORG，这样就实现了序列标注的目的。</p>
+
+<p>呵呵，这样有啥意义呢？第一：真实测试的时候也这么做吗？第二：已经选了分别对应PER和ORG的实体了，关系不就是显然的PER-ORG吗？这里不仅仅是偏置的问题，样本构造的策略就是不正确的。不过这个问题比较容易发现，因为指标奇高。</p>
+
+<p>这里延伸出的一个具体问题是这样的。给定下述标签映射关系：</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>TagA：ORG</td>
+      <td>PER</td>
+      <td>WORK</td>
+      <td>DEV</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td>TagB：ORG</td>
+      <td>PER</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td>TagC：CUR</td>
+      <td>CARDINAL</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>TagD：ROUND</p>
+
+<p>给定的句子中，只有映射后的标签，我想标注出TagX，怎么办？可以看到ORG既可以是TagA，也可以是TagB。序列标注的方式是直接标注TagX就OK了，那么通过关系抽取的方式怎么做呢？映射后的标签两两组合，关系分类的时候，要加上一类”No Relation”。</p>
+
+<p><strong>（4）MRC</strong></p>
+
+<p>最近用MRC的方式做序列标注比较流行。同样给定一个句子，包含三个实体：（e1）PER, (e2)ORG, (e3)LOC，一般的做法是对每个Tag构建一个Query，于是原来的一个样本就变成了三个样本。这样会带来两个问题：</p>
+
+<p>第一：模型倾向于每个句子中都抽取实体</p>
+
+<p>第二：训练和测试的时候的不一致。想想，测试的时候咋办？</p>
+
+<p>有了上文的铺垫，这个问题就很好解了。本质上，测试的时候是啥样，训练样本的构造是咋样的就OK。在测试的时候，每条样本都要做N次推断，其中N为标签个数。那自然训练的时候针对每条样本也要变成N条喽。当然，这里样本量会增加，怎么解决不是本文要探讨的问题。</p>
+
+<p><strong>（5）字重复问题</strong></p>
+
+<p>现在的问题是给定一个文本，找出文本中出现的重复字。怎么构造样本？</p>
+
+<p>第一：准备没有错误的句子</p>
+
+<p>第二：随机添加重复字或者重复词</p>
+
+<p>第三：构造pair，也就是错误句子和对应正确句子的pair</p>
+
+<p>有了对（1）的分析，很容易理解这里的一些偏置。这里的特殊在于：要考虑重复字是正确的。当然，这里通过挖掘的方式很容易做到了。也就是说，这里要考虑的问题：</p>
+
+<p>第一：有没有包含重复？</p>
+
+<p>第二：重复是正确的，还是错误的？（这里是区别于（1）中纠错任务的地方，正负例的考察）</p>
+
+<h4 id="最后怎么解">最后，怎么解？</h4>
+
+<p>在上文的讨论中，已经提到了一些方法。</p>
+
+<ul>
+  <li>第一准则：真实测试的方式是啥，训练样本构造的方式就是啥。（本质上训练和测试的一致性，<strong>敲黑板，划重点啦</strong>）</li>
+</ul>
+
+<p>不考虑测试方式的训练样本构造都是耍流氓。为什么有时候会忽略对测试方式的思考？因为在构造的时候，是对train/dev/test统一构造的，很容易就忽略了真实场景下的问题。想明白了测试是怎样的，就清楚了训练时候应该是怎样的。</p>
+
+<ul>
+  <li>第二准则：奇高的指标提升，鲜有发生。</li>
+</ul>
+
+<p>信息泄露，样本构造有偏置等，都会导致指标奇高。看到指标奇高，不要第一时间露出得意的笑容，反复确认为好。</p>
+
+<ul>
+  <li>第三准则：多看badcase。</li>
+</ul>
+
+<p>badcase中可以反馈模型的多方面的问题，从不同角度看badcase，会带来很多启发。</p>
+
+<p><strong>总结：</strong></p>
+
+<p>太阳底下没有新鲜事，这些问题本质上就是机器学习的基本原理。训练和测试的一致性，正负例，正确的类别的设计方式等。所谓基本原理，就是体现在多个问题和场景下，需要理论和实践相结合，实事求是……（别跑题，不是政治课）。另外，对细节的极致追求，比如论文中一笔带过的：需要添加”No Relation”，需要添加负例等，这些正是模型OK的基本且重要的条件。</p>
+
+<p>说了这么多，该翻车的还是会翻车……Anyway，翻两次就正了。</p>
+
+<p>补充：</p>
+
+<p>1.《Enriched Pre-trained Transformers for Joint Slot Filling and Intent Detection》</p>
+
+<p>讨论了QA中position bias。</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

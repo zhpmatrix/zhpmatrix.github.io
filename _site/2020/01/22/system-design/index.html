@@ -1,0 +1,237 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[LeetCode]设计题目</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2020/01/22/system-design/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[LeetCode]设计题目</h1>
+    <p class="meta">Jan 22, 2020</p>
+  </header>
+
+  <article class="post-content">
+  <h4 id="1最小栈">1.<a href="https://leetcode-cn.com/problems/min-stack/submissions/">最小栈</a></h4>
+
+<p>相关题目有：<a href="https://leetcode-cn.com/problems/max-stack/">最大栈</a></p>
+
+<h4 id="2用队列实现栈">2.<a href="https://leetcode-cn.com/problems/implement-stack-using-queues/submissions/">用队列实现栈</a></h4>
+
+<p>队列和栈的互相实现，都可以基于列表来实现。印象中HanLP的基础数据结构实现使用了大量列表。</p>
+
+<p>相关题目有：<a href="https://leetcode-cn.com/problems/implement-queue-using-stacks/submissions/">用栈实现队列</a></p>
+
+<h4 id="3设计哈希映射">3.<a href="https://leetcode-cn.com/problems/design-hashmap/submissions/">设计哈希映射</a></h4>
+
+<p>最简单的一个思路：用两个列表，分别存储key和value。关于python的list如何删除一个元素，可以参考<a href="https://www.cnblogs.com/xiaodai0/p/10564956.html">这里</a> ，删除可以基于内容，也可以基于位置。</p>
+
+<h4 id="4设计哈希集合">4.<a href="https://leetcode-cn.com/problems/design-hashset/submissions/">设计哈希集合</a></h4>
+
+<p>简单思路：一个列表</p>
+
+<h4 id="5日志速率限制器">5.<a href="359">日志速率限制器</a></h4>
+
+<p>题目描述如下：</p>
+
+<p>请你设计一个日志系统，可以流式接收日志以及它的时间戳。</p>
+
+<p>该日志会被打印出来，需要满足一个条件：当且仅当日志内容在过去的10秒钟内没有被打印过。</p>
+
+<p>给你一条日志的内容和它的时间戳（粒度为秒级），如果这条日志在给定的时间戳应该被打印出来，则返回 true，否则请返回 false。</p>
+
+<p>要注意的是，可能会有多条日志在同一时间被系统接收。</p>
+
+<p>示例如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Logger logger = new Logger();
+
+// 日志内容 "foo" 在时刻 1 到达系统
+logger.shouldPrintMessage(1, "foo"); returns true; 
+
+// 日志内容 "bar" 在时刻 2 到达系统
+logger.shouldPrintMessage(2,"bar"); returns true;
+
+// 日志内容 "foo" 在时刻 3 到达系统
+logger.shouldPrintMessage(3,"foo"); returns false;
+
+// 日志内容 "bar" 在时刻 8 到达系统
+logger.shouldPrintMessage(8,"bar"); returns false;
+
+// 日志内容 "foo" 在时刻 10 到达系统
+logger.shouldPrintMessage(10,"foo"); returns false;
+
+// 日志内容 "foo" 在时刻 11 到达系统
+logger.shouldPrintMessage(11,"foo"); returns true;
+</code></pre></div></div>
+<p>直接翻译题目的代码如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Logger:
+	def __init__(self):
+		from collections import defaultdict
+		self.logs = defaultdict(set)
+	def shouldPrintMessage(self, timestamp, message):
+		for i in rnage(tmestamp - 9, timestamp + 1):
+			if message in self.logs[i]:
+				return False
+		self.logs[timestamp].add(message)
+		return True
+</code></pre></div></div>
+<p>6.<a href="604">迭代压缩字符串</a></p>
+
+<p>题目描述如下：</p>
+
+<p>对于一个压缩字符串，设计一个数据结构，它支持如下两种操作： next 和 hasNext。</p>
+
+<p>给定的压缩字符串格式为：每个字母后面紧跟一个正整数，这个整数表示该字母在解压后的字符串里连续出现的次数。</p>
+
+<p>next() - 如果压缩字符串仍然有字母未被解压，则返回下一个字母，否则返回一个空格。 hasNext() - 判断是否还有字母仍然没被解压。</p>
+
+<p><strong>注意：</strong>请记得将你的类在 StringIterator中初始化 ，因为静态变量或类变量在多组测试数据中不会被自动清空。</p>
+
+<p>一种解题思路，参考<a href="https://aisky.men/problem/leetcode/LeetCode-604.%20%E8%BF%AD%E4%BB%A3%E5%8E%8B%E7%BC%A9%E5%AD%97%E7%AC%A6%E4%B8%B2.html">这里</a>。</p>
+
+<p>7.<a href="https://leetcode-cn.com/problems/kth-largest-element-in-a-stream/solution/python-3xing-er-fen-otlogn-4-xing-dui-otlogk-by-qq/">数据流中的第K大元素</a></p>
+
+<p>8.<a href="https://leetcode-cn.com/problems/add-and-search-word-data-structure-design/">添加与搜索单词-数据结构设计</a></p>
+
+<p>9.<a href="2020-01-22-system-design.md">二叉搜索树迭代器</a></p>
+
+<p>基本思路：解决类似设计题的一种思路是通过遍历树结构，将树中的值存储到列表中，通过对列表的操作实现特定的函数。</p>
+
+<p>10.<a href="https://leetcode-cn.com/problems/peeking-iterator/submissions/">顶端迭代器</a></p>
+
+<p>基本思路：将iterator中的数据扁平化。</p>
+
+<p>11.<a href="https://leetcode-cn.com/problems/add-and-search-word-data-structure-design/submissions/">添加和搜索单词-数据结构设计</a></p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

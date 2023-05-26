@@ -1,0 +1,186 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[C++]工厂设计模式</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2017/01/08/design-pattern-factory/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[C++]工厂设计模式</h1>
+    <p class="meta">Jan 8, 2017</p>
+  </header>
+
+  <article class="post-content">
+  <p>工厂设计模式分为三类：简单工厂模式，工厂方法模式和抽象工厂模式。本文借助于代码
+来聊聊模式设计背后的motivation和intuition。首先，给出一个简单工厂模式的代码(关于目标函数类的设计，在xgboost和lightGBM中都有一个文件objective.h)：</p>
+
+<script src="https://gist.github.com/zhpmatrix/2ae856353001969b6692e071d8181263.js"></script>
+
+<p>上述代码中LossSet类是一个工厂类，负责产生误差函数LossFunc，LossFunc类是一个包含纯虚函数的抽象类，定义了所有误差函数都应该实现的接口，或者说该类用来定义机器学习模型中目标函数的骨架。L1和L2是具体的两个误差函数，例如平方根和0-1误差等。</p>
+
+<p>在上述设计中，假设要引入一种新的误差函数L3，则首先要实现一个L3类<strong>继承</strong>自抽象类LossFunc，L3类的出现符合我们面向对象设计的思想。然而，此时工厂类LossSet中，由此采用了枚举判断的方式，需要<strong>修改</strong>LossSet工厂类，增加L3的枚举类型。</p>
+
+<p>在设计模式中，设计要符合<strong>开放封闭</strong>原则。<strong>软件实体（类、模块、函数）可以扩展，但是不可修改。</strong>。当我们增加新的误差函数的时候，扩展了L3类，但是同时修改了LossSet类。细究其关键，因为工厂类控制了具体实例化哪个类(如实例化L1还是L2?)，当增加了新的可实例化的类如L3的时候，工厂类的控制权也要相应修改。找到了问题的关键，<strong>那就把控制权从工厂类中转移出去？</strong></p>
+
+<p>这就出现了工厂方法模式。<strong>所谓工厂方法模式，是指定义一个用于创建对象的接口，让子类决定实例化哪一个类，工厂方法使一个类的实例化延迟到其子类。</strong>也就是说将简单工厂模式中的工厂类变成一个接口(啥事儿也不干，就订标准)，控制权转移到他的子类中。这样，当新的误差函数出现的时候，实现两个扩展。第一个是误差函数类的扩展，如实现L3类，和简单工厂模式相同。第二个扩展是实现一个新的工厂子类，负责具体实例化哪个类，简单工厂方法中要实现同样的目的可是要<strong>修改</strong>的哦。这样的想法同时也符合开闭原则。</p>
+
+<p><strong>简单的说：工厂方法模式就是将简单工厂模式中的工厂类接口化</strong>。</p>
+
+<p>改写之后，代码如下：</p>
+
+<script src="https://gist.github.com/zhpmatrix/9152836212e04178ffc43b815f150bec.js"></script>
+
+<p>在上述代码中，main函数给出了使用方法。由于在上文中，我们分析到控制权在工厂类的子类中，每个子类负责生产一种产品。那么，当我需要某种产品的时候，我向工厂要就OK啦！由于我们将简单工厂方法中的工厂类接口化，将控制权分散到子类中去，也就意味着工厂方法模式需要更多的类定义！(面向对象偏执狂不仅喜欢什么都是类，而且喜欢方法调用不嵌套到1000级不罢休，黑我某搭档，虽然他确实是个优秀的程序员吧。)</p>
+
+<p>关于抽象工厂模式，思想是<strong>类的组合</strong>，这种组合是控制权的组合。此处给出一个应用场景(我杜撰的)：给定<strong>条件假设</strong>和<strong>误差函数</strong>，二者可共同确定一个学习模型(不严格的表述)。通常我们可以设定的条件假设有很多种，比如样本符合高斯分布，噪声符合瑞利分布，属性独立不相关。误差函数也有多种类型，如上文我们提到的0-1误差，平方根误差。假设我现在需要一个特定的模型，这个模型样本符合高斯分布，使用0-1误差，怎么去设计类呢？</p>
+
+<p>没有答案。</p>
+
+<p>没有答案。</p>
+
+<p>真的没有答案。</p>
+
+<p>我说过了，真的没有。</p>
+
+<p>没有答案。</p>
+
+<p>还往下看？没有。</p>
+
+<p>真···没···有···答···案···</p>
+
+<p>(结尾还有一丢丢)</p>
+
+<p>可以设计一个条件假设接口，三个子类实现三种假设。设计一个误差函数接口，两个子类实现两个误差函数。设计一个工厂类，定义六个虚函数，六个子类实现六种模型。这种情况下，和工厂方法模式相同，需要某个特定模型，向工厂要。</p>
+
+<p>总结：受papi酱影响，中毒太深。设计模式围绕<strong>扩展</strong>工作很多，面向对象使得组件复用性大大提高，或者说可扩展性大大提高。做算法，可能某种意义上离业务开发较远，看了很多同学们写的算法实现，都是面向过程的高手，可能对于算法实现来说，对于扩展的需求并不是特别强烈。有些轮子，造了就可以不用改了，因为有很多方式让这个轮子直接拿来使用。但是，有设计的代码，总是显得格外优雅。</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

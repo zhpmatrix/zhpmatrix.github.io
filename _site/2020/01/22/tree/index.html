@@ -1,0 +1,414 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[LeetCode]为什么要LC，从树开始</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2020/01/22/tree/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[LeetCode]为什么要LC，从树开始</h1>
+    <p class="meta">Jan 22, 2020</p>
+  </header>
+
+  <article class="post-content">
+  <p><strong>系列前言:</strong></p>
+
+<p>印象中去年的春节期间，做了一个Rethink专题系列，梳理了NLP的基本技术，尤记得从无锡东站的KFC开始，读一份基于Keras的seq2seq的code，冰镇可乐是真的好喝。2020年的春节，于是有了这个围绕LC的专题，姑且算是笔记。</p>
+
+<p>一般情况下，密集的做LC的题目是面试找工作前开始的，说来尴尬，自己还真没有用心的做过，直到春节前看到组里一位同学的做题记录，加之年底内心疲劳，想着换一换脑子，于是就决定做这个专题。</p>
+
+<p>有啥好处？</p>
+
+<p>（1）<strong>考察基本的数据结构和算法思想。</strong>对于个人而言，这些基本内容虽然在日常工作中可能一直用到，但是当以工具的方式使用的时候，对我而言，和没用没啥区别，时间久了，自然陌生。</p>
+
+<p>（2）从格外长的独特的2020年春节的做题经历来看，<strong>的确是好东西，也是非常的有趣啊，能够解决的问题也是非常的现实，很硬核。</strong>过去由于自己没想明白为啥要做这些题，因此心存偏见，觉得意义不大。但是做了好多之后会发现，合理使用数据结构和算法，哪有那么容易？虽然对于专业的ACMer来说，就是刷题，既然是刷题，就是掌握套路。实际上，个人不是很喜欢这种说法。给定问题，不看答案，自己想，还是有难度的，也很锻炼思维。</p>
+
+<p>（3）<strong>不能拉组织的后腿。</strong>组里的两位同学，一位每周都会做一些，另一位从研究生期间就花了很多时间做LC，可能近年来的研究生同学多是做DL的相关比赛了吧，比如我们组。另外，现在的面试基本默认候选人有做过LC的经历，如果我没有做过一些基本的，那也就拉了行业的后腿了，逃。</p>
+
+<p>综上，好东西，有价值，为啥不做呢？</p>
+
+<p><strong>总结：</strong></p>
+
+<p>（1）深度优先搜索和递归的思想。简单级别的树的题目基本都是关于DFS，核心在于将题目需要的信息在DFS的时候能够计算出来。</p>
+
+<p>（2）深度优先遍历的代码模板，代码如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#获取树中的所有值
+def dfs(root, vals):
+	if root:
+		vals.append(root.val)
+		dfs(root.left, vals)
+		dfs(root.right, vals)
+vals = []
+dfs(root, vals)
+</code></pre></div></div>
+
+<h4 id="1相同的树">1.<a href="https://leetcode-cn.com/problems/same-tree/submissions/">相同的树</a></h4>
+
+<h4 id="2对称二叉树">2.<a href="https://leetcode-cn.com/problems/symmetric-tree/submissions/">对称二叉树</a></h4>
+
+<h4 id="3二叉搜索树的最近公共祖先">3.<a href="https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-search-tree/submissions/">二叉搜索树的最近公共祖先</a></h4>
+
+<p>二叉搜索树的定义是：根节点的左儿子的值比根节点小，右儿子的值比根节点大。也就是说二叉搜索树是一个有序结构。对于有序结构的算法，想办法利用这种结构上的有序性显得非常重要。类似的包括：在找规律题目中，如何找到规律？</p>
+
+<p>给定根节点root和两个任意给定的节点p和q，思路如下（默认情况下，比较都是基于节点的值）：</p>
+
+<p>（1）如果q和q分别在root的左右子树，那么root就是最近公共祖先了。（这里写成代码，也就是一个退出条件。）</p>
+
+<p>（2）如果p和q都小于root，也就是说p和q都在root的左子树，那么最近公共祖先一定在root的左子树。</p>
+
+<p>（3）如果p和q都大于root，也就是说p和q都在root的右子树，那么最近公共祖先一定在root的右子树。</p>
+
+<p>延伸思考：如果这个树是没有结构的呢？这是一道medium题目，<a href="https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/">二叉树的最近公共祖先</a>。</p>
+
+<h4 id="4二叉树的所有路径">4.<a href="https://leetcode-cn.com/problems/binary-tree-paths/submissions/">二叉树的所有路径</a></h4>
+
+<p>题目描述：给定一个二叉树，返回所有从根节点到叶子节点的路径。其中，叶子节点是指没有子节点的节点。示例如下:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>输入:
+
+   1
+ /   \
+2     3
+ \
+  5
+
+输出: ["1-&gt;2-&gt;5", "1-&gt;3"]
+
+解释: 所有根节点到叶子节点的路径为: 1-&gt;2-&gt;5, 1-&gt;3
+</code></pre></div></div>
+
+<p>直接的想法是：从root节点开始，到叶子节点结束，做深度遍历。遍历访问可以通过记录得到一条访问路径，这里有趣的是记录path的方式。如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>path = []
+def dfs(path, root):
+	#到达叶子节点，可以直接return掉，该分支上的递归结束
+	if not root.left and not root.right:
+		path += [root.val,]
+		return
+	if root.left:
+		dfs(path+[root.val,], root.left)
+	if root.right:
+		dfs(path+[root.val,], root.right)
+		
+</code></pre></div></div>
+
+<h4 id="5左叶子之和">5.<a href="https://leetcode-cn.com/problems/sum-of-left-leaves/">左叶子之和</a></h4>
+
+<p>题目描述：计算给定二叉树的所有左叶子之和。这里的问题是：<strong>如何判断一个节点是左叶子节点？</strong>，代码如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if root.left and not root.left.left and not root.left.right:
+	return True
+</code></pre></div></div>
+
+<h4 id="6二叉树的堂兄弟节点">6.<a href="https://leetcode-cn.com/problems/cousins-in-binary-tree/submissions/">二叉树的堂兄弟节点</a></h4>
+
+<p>题目描述：给定一棵二叉树和两个节点，判断这两个节点是否是<strong>堂兄弟节点</strong>。党兄弟节点的定义：如果二叉树的两个节点深度相同，但父节点不同，则它们是一对堂兄弟节点。这是一道经典的深度优先遍历的题目，代码如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def isCousins(root, x, y):
+	parent = {}
+	depth = {}
+	def dfs(root, par_node):
+		if root:
+			depth[root.val] = depth[par_node.val] + 1 if par_node else 0
+			parent[root.val] = par_node
+			dfs(root.left, root)
+			dfs(root.right, root)
+	dfs(root)
+	return depth[x] == depth[y] and parent[x] != parent[y]
+</code></pre></div></div>
+
+<p>值得注意的是：在DFS的同时，记录当前节点的<strong>深度</strong>和<strong>父节点</strong>。除了深度和父节点之外，结合题目自身的要求，很多信息都可以在DFS的时候进行记录。类似题目，<a href="https://leetcode-cn.com/problems/sum-of-root-to-leaf-binary-numbers/submissions/">从根到叶的二进制数之和</a>。</p>
+
+<p>不过，在结合Python的一些特性之后，比如<a href="https://juejin.im/post/5b3af9fb51882507d4487144">Python3.3之后的yield from</a>，可以写出更Pythonic的代码，看<a href="https://leetcode-cn.com/problems/leaf-similar-trees/">叶子相似的树</a>这道题，一种牛逼的解法如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def leafSimilar(self, root1, root2):
+        def dfs(node):
+            if node:
+                if not node.left and not node.right:
+                    yield node.val
+                yield from dfs(node.left)
+                yield from dfs(node.right)
+
+        return list(dfs(root1)) == list(dfs(root2))
+
+</code></pre></div></div>
+
+<h4 id="7腐烂的橘子">7.<a href="https://leetcode-cn.com/problems/rotting-oranges/submissions/">腐烂的橘子</a></h4>
+
+<p>题目描述：在给定的网格中，每个单元格可以有以下三个值之一：</p>
+
+<p>值 0 代表空单元格；
+值 1 代表新鲜橘子；
+值 2 代表腐烂的橘子。
+每分钟，任何与腐烂的橘子（在 4 个正方向上）相邻的新鲜橘子都会腐烂。</p>
+
+<p>返回直到单元格中没有新鲜橘子为止所必须经过的最小分钟数。如果不可能，返回 -1。</p>
+
+<p>举例如下：</p>
+
+<p><img src="https://wx1.sinaimg.cn/mw690/aba7d18bly1gbq85y11ltj210a07njs9.jpg" alt="img7" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>输入：[[2,1,1],[1,1,0],[0,1,1]]
+输出：4
+</code></pre></div></div>
+<p>基本思路：前述题目都是关于DFS，这道题目是关于BFS，与BFS比较相关的数据结构是队列，在Python中，通常用deque。一种解法如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -&gt; int:
+    	import collections
+        #获取二维数组的行和列的数目
+        x, y, time = len(grid), len(grid[0]), 0
+        #四个正方向上的偏移
+        locs = [[-1,0],[0,-1],[0,1],[1,0]]
+        deque = collections.deque()
+        #记录腐烂橘子的位置，同时带有一个time位置记录
+        for i in range(x):
+            for j in range(y):
+                if grid[i][j] == 2:
+                    deque.append((i, j, 0))
+        #从队列中取元素，结合当前情况，更新状态，新元素入队
+        while deque:  
+            i, j, time = deque.popleft()
+            for loc in locs:
+                loc_i, loc_j = i+loc[0], j+loc[1]
+                if 0 &lt;= loc_i &lt; x and 0 &lt;= loc_j &lt; y and grid[loc_i][loc_j] == 1:
+                    grid[loc_i][loc_j] = 2
+                    deque.append((loc_i, loc_j, time+1))
+        #最后做状态的判断
+        if any(1 in row for row in grid):
+            return -1
+        return time
+</code></pre></div></div>
+<p>总结一下整体的流程：</p>
+
+<ul>
+  <li>确定系统的边界：row和col的取值范围</li>
+  <li>定义状态的表达方式：4个正方向的表示，用坐标求和表示位置改变</li>
+  <li>确定队列的初始状态：找到烂橘子所在位置</li>
+  <li>队列更新：队列中的元素状态更新</li>
+  <li>最终的队列状态判断</li>
+</ul>
+
+<p>总之，这是一道标准模板题。</p>
+
+<h4 id="8员工的重要性">8.<a href="https://leetcode-cn.com/problems/employee-importance/">员工的重要性</a></h4>
+
+<p>题目描述：给定一个保存员工信息的数据结构，它包含了员工唯一的id，重要度和直系下属的id。</p>
+
+<p>比如，员工1是员工2的领导，员工2是员工3的领导。他们相应的重要度为15, 10, 5。那么员工1的数据结构是[1, 15, [2]]，员工2的数据结构是[2, 10, [3]]，员工3的数据结构是[3, 5, []]。注意虽然员工3也是员工1的一个下属，但是由于并不是直系下属，因此没有体现在员工1的数据结构中。</p>
+
+<p>现在输入一个公司的所有员工信息，以及单个员工id，返回这个员工和他所有下属的重要度之和。这是一个示例：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>输入: [[1, 5, [2, 3]], [2, 3, []], [3, 3, []]], 1
+输出: 11
+解释:
+员工1自身的重要度是5，他有两个直系下属2和3，而且2和3的重要度均为3。因此员工1的总重要度是 5 + 3 + 3 = 11。
+</code></pre></div></div>
+
+<p>该题其实是一道深搜题（DFS），代码如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def getImportance(self, employees, query_id):
+        emap = {e.id: e for e in employees}
+        def dfs(eid):
+            employee = emap[eid]
+            return (employee.importance +
+                    sum(dfs(eid) for eid in employee.subordinates))
+        return dfs(query_id)
+</code></pre></div></div>
+
+<h4 id="9另一个树的子树">9.<a href="https://leetcode-cn.com/problems/subtree-of-another-tree/submissions/">另一个树的子树</a></h4>
+
+<p><strong>题目描述：</strong>给定两个非空二叉树 s 和 t，检验 s 中是否包含和 t 具有相同结构和节点值的子树。s 的一个子树包括 s 的一个节点和这个节点的所有子孙。<strong>s也可以看做它自身的一棵子树。</strong></p>
+
+<p>给定的树s，如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     3
+    / \
+   4   5
+  / \
+ 1   2
+</code></pre></div></div>
+
+<p>给定的树t，如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   4 
+  / \
+ 1   2
+</code></pre></div></div>
+
+<p>返回True。</p>
+
+<p>给定的树s，如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     3
+    / \
+   4   5
+  / \
+ 1   2
+    /
+   0
+</code></pre></div></div>
+
+<p>给定的树t，如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   4
+  / \
+ 1   2
+</code></pre></div></div>
+
+<p>返回False。</p>
+
+<p>基本思路和<strong>判断两棵树是否相同类似</strong>，不过这里判断的是<strong>一棵树是否是另一棵树的子树</strong>。一种思路如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Solution:
+    def isSubtree(self, s: TreeNode, t: TreeNode) -&gt; bool:
+        if not t:
+            return True
+        if not s:
+            return False
+        #问题的核心逻辑
+        return self.isSame(s,t) or self.isSubtree(s.left,t) or self.isSubtree(s.right,t)
+    #该函数也是一道经典题目
+    def isSame(self,p,q):
+        #两棵树的根节点都为空
+        if not p and not q:
+            return True
+        #如果不满足上述条件，存在一个为空，另一个不为空
+        if not p or not q:
+            return False
+        #判断树是否相同的条件，树的值相同
+        return p.val==q.val and self.isSame(p.left,q.left) and self.isSame(p.right,q.right)
+</code></pre></div></div>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

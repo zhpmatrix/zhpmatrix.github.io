@@ -1,0 +1,952 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[LeetCode]LeetCode终结：题解</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/01/03/leetcode-review/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[LeetCode]LeetCode终结：题解</h1>
+    <p class="meta">Jan 3, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <h3 id="为什么要有这份题解列表">为什么要有这份题解列表？</h3>
+
+<p>（1）由于博主尚没有养成时常做题的习惯，但是估计之后应该就能养成了。导致每次准备换工作的时候，都要重新梳理一遍题目，这样的效率比较低，因此这里想形成一个列表，之后如果有换工作的需求，就以此为纲。</p>
+
+<p>（2）大厂的面试，尤其以字节和快手为例，特别强调代码题。比如快手的视频面试，直接是基于牛客网完成的，上来至少两道代码题，由面试官直接出题，编码之后要求通过测试例子。如果代码题不通过，之后的面试就不会进行了。另外，阿里的某些BU似乎都需要一轮代码题。</p>
+
+<p>（3）自己作为面试官的题目准备。之前面过大概20+的候选人，一般代码题要求是口述（电面）或者现场白纸写代码，代码题也没有特别的准备，一般是临时找一些题，自己梳理完之后再去用到面试中去。（但是，个人感觉经常作为面试官的人，都会有一些自己的题库）</p>
+
+<p>（4）代码题真的很能考验思维能力，有些题目也的确是非常的有意思，值得好好思考。</p>
+
+<h3 id="相关博客">相关博客</h3>
+
+<p>1.<a href="https://zhpmatrix.github.io/2020/01/22/LC-100/">LC100:相约新年伊始</a></p>
+
+<p>2.<a href="https://zhpmatrix.github.io/2020/01/21/tree/">为什么要LC，从树开始</a></p>
+
+<p>3.<a href="https://zhpmatrix.github.io/2019/01/01/recursive-ideas/">重说：递归</a></p>
+
+<p>4.<a href="https://zhpmatrix.github.io/2019/01/01/dp-ideas/">重说：动态规划</a></p>
+
+<p>5.<a href="https://zhpmatrix.github.io/2017/11/10/gas-station/">关于Gas Station的思考</a></p>
+
+<p>6.<a href="https://zhpmatrix.github.io/2016/10/07/algorithm-review/">浅聊算法思想和策略</a></p>
+
+<p>7.<a href="https://zhpmatrix.github.io/2016/10/08/dynamic-programming/">再聊动态规划</a></p>
+
+<p>8.<a href="https://zhpmatrix.github.io/2016/10/11/code-tricks/">两个Tricks</a></p>
+
+<p>9.<a href="https://zhpmatrix.github.io/2016/10/28/np-problem/">NP问题和近似算法</a></p>
+
+<p>10.<a href="https://zhpmatrix.github.io/2016/11/10/optimal-load-problem/">从最优装载看贪心</a></p>
+
+<p>11.<a href="https://zhpmatrix.github.io/2020/01/22/ds-in-lc/">有趣的数据结构</a></p>
+
+<p>12.<a href="https://zhpmatrix.github.io/2020/01/21/system-design/">系统设计题</a></p>
+
+<p>13.<a href="https://zhpmatrix.github.io/2020/01/21/string/">字符串</a></p>
+
+<p>14.<a href="https://zhpmatrix.github.io/2020/01/21/hash-tricks/">Hash,值得拥有</a></p>
+
+<p>####1.LRU（系统设计题）</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class LRUCache(collections.OrderedDict):
+	def __init__(self, capacity: int):
+		super().__init__()
+		self.capacity = capacity
+	def get(self, key: int)-&gt;int:
+		if key not in self:
+			return -1#一般对于查找算法，找不到就返回-1
+		#访问过的元素向双向链表的头部移动
+		self.move_to_end(key)
+		return self[key]
+	def put(self, key: int, value: int)-&gt;None:
+		if key in self:
+			#访问过的元素向双向链表的头部移动
+			self.move_to_end(key)
+		self[key] = value
+		if len(self) &gt; self.capacity:
+			self.popitem(last=False)#先进先出
+</code></pre></div></div>
+
+<p>####2.数据流中的中位数（系统设计题）</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from heapq import *
+class MedianFinder:
+	def __init__(self):
+		self.A = [] #小顶堆，保存较大的一半
+		self.B = [] #大顶堆，保存较小的一半
+	def addNum(self, num: int):
+		if len(self.A) != len(self.B):
+			heappush(self.A, num)
+			heappush(self.B, -heappop(self.A))
+		else:
+			heappush(self.B, -num)
+			heappush(self.A, -heappop(self.B))
+	def findMedian(self)-&gt;float:
+		return self.A[0] if len(self.A) != len(self.B) else (self.A[0] - self.B[0]) / 2.0
+</code></pre></div></div>
+
+<p>####3.二叉搜索树的增删查改</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class TreeNode:
+	def __init__(self, val, left=None, right=None):
+		self.val = val
+		self.left = left
+		self.right = right
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class BinaryTree:
+	def insert(self, root, val):
+		if not root:
+			root = TreeNode(val)
+		elif val &lt; root.val:
+			root.left = self.insert(root.left, val)
+		elif val &gt; root.val:
+			root.right = self.insert(root.right, val)
+		return root
+	def search(self, root, val):
+		if not root:
+			return False
+		elif root.val &gt; val:
+			return self.search(root.left, val)
+		elif root.val &lt; val:
+			return self.search(root.left, val)
+		elif root.val == val:
+			return True
+	def modify(self, root, val, new_val):
+		if not root:
+			return False
+		elif root.val &gt; val:
+			return self.modify(root.left, val, new_val)
+		elif root.val &lt; val:
+			return self.modify(root.left, val, new_val)
+		elif root.val == val:
+			root.val = new_val
+			return True
+	#二叉搜索树的删除操作比之其他，相对复杂
+	def delete(self, root, key):
+		if not root:
+			return False
+		if root.val == key:
+			if not root.left and not root.right:return None
+			elif root.left == None:
+				root = root.left
+			elif root.right == None:
+				root = root.left
+			elif root.left and root.right:
+				#TODO
+		elif root.val &gt; key:
+			root.left = self.delete(root.left, key)
+		elif root.val &lt; key:
+			root.right = self.delete(root.right, key)
+		return root
+</code></pre></div></div>
+
+<h4 id="31删除二叉搜索树中的节点">3.1删除二叉搜索树中的节点</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Solution:
+	def successor(self, root):
+		root = root.right
+		while root.left:
+			root = root.left
+		return root
+	def predecessor(self, root):
+		root = root.left
+		while root.right:
+			root = root.right
+		return root
+	def deleteNode(self, root, key):
+		if not root: return None
+		if key &gt; root.val:
+			root.right = self.deleteNode(root.right, key)
+		elif key &lt; root.val:
+			root.left = self.deleteNode(root.left, key)
+		else:
+			if not root.left and not root.right:
+				root = None
+			elif root.right:#后继节点的值替代当前节点，删除后继节点
+				root.val = self.successor(root)
+				root.right = self.deleteNode(root.right, root.val)
+			else:
+				root.val = self.predecessor(root)#前继节点的值替代当前节点，删除前继节点
+				root.left = self.deleteNode(root.left, root.val)
+		return root
+</code></pre></div></div>
+
+<h4 id="4二叉树的遍历">4.二叉树的遍历</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#DFS（搜索）: 前序，中序和后序
+#BFS（搜索）：层次
+def pre_order(root):
+	if root:
+		print(root.val)
+		pre_order(root.left)
+		pre_order(root.right)
+def in_order(root):
+	if root:
+		in_order(root.left)
+		print(root.val)
+		in_order(root.right)
+		
+#另外的写法
+def in_order(root):
+	return in_order(root.left) + [root.val] + in_order(root.right) if root else []
+
+def post_order(root):
+	if root:
+		post_order(root.left)
+		post_order(root.right)
+		print(root.val)
+def layer_order(root):
+	queue = []
+	queue.append(root)
+	while len(queue) &gt; 0:
+		node = queue.pop(0)
+		print(node.val)
+		if node.left:queue.append(node.left)
+		if node.right:queue.append(node.right)
+</code></pre></div></div>
+
+<p>TIPS：实现层次遍历二叉树，奇数层从左向右遍历，偶数层从右向左遍历</p>
+
+<h4 id="41n叉树的前序遍历">4.1N叉树的前序遍历</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#前序遍历
+def pre_order(root):
+	ans = []
+	if not root:
+		return ans
+	ans.append(root.val)
+	for child in root.children:#N叉树的构建需要children值
+		pre_order(child)
+	return ans
+#对于后序遍历，直接对最后的结果取反即可	
+</code></pre></div></div>
+
+<h4 id="42n叉树的最大深度">4.2N叉树的最大深度</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def maxDepth(root):
+	if not root: return 0
+	elif len(root.children) == 0:
+		return 1
+	else:
+		height = [maxDepth(c) for c in root.children]#对于每个children求深度
+		return max(height) + 1
+</code></pre></div></div>
+
+<h4 id="43二叉树的直径">4.3二叉树的直径</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def maxDepth(root):
+	#二叉树的最大深度
+	if not root: return 0
+	return 1 + max(maxDepth(root.left), maxDepth(root.right))
+def getDiameter(root):
+	if not root: return 0
+	res = maxDepth(root.left) + maxDepth(root.right) + 1#穿过root节点
+	return max(res, getDiameter(root.left), getDiameter(root.right))#不穿过root节点，分别在左右子树中
+</code></pre></div></div>
+
+<h4 id="44二叉树交换左右子树">4.4二叉树交换左右子树</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def exchange_tree(root):
+	if not root:
+		return False
+	else:
+		if root.left and root.right:
+			root.left, root.right = root.right, root.left
+			exchange_tree(root.left)
+			exchange_tree(root.right)
+</code></pre></div></div>
+
+<h4 id="5单链表反转">5.单链表反转</h4>
+
+<p><img src="https://pic.leetcode-cn.com/7d8712af4fbb870537607b1dd95d66c248eb178db4319919c32d9304ee85b602-迭代.gif" alt="img_5" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def reverseList(head):
+	pre = None
+	cur = head
+	while cur:
+		tmp = cur.next
+		cur.next = pre
+		pre = cur
+		cur = tmp
+	return pre
+</code></pre></div></div>
+
+<h4 id="6合并两个有序链表">6.合并两个有序链表</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def mergeTwoLists(l1, l2):
+	if not l1: return l2
+	if not l2: return l1
+	if l1.val &lt;= l2.val:
+		l1.next = mergeTwoLists(l1.next, l2)
+		return l1
+	else:
+		l2.next = mergeTwoLists(l1, l2.next)
+		return l2
+</code></pre></div></div>
+
+<h4 id="7判断链表中是否有环">7.判断链表中是否有环</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def hasCycle(head):
+	if not head or not head.next: return False
+	slow = head
+	fast = head.next
+	while slow != fast:
+		if not fast or not fast.next:#单链表，没有环
+			return False
+		slow = slow.next#慢指针每次走一步
+		fast = fast.next.next#快指针每次走两步
+	return True
+</code></pre></div></div>
+
+<h4 id="71链表倒数第k个节点">7.1链表倒数第K个节点</h4>
+
+<h4 id="72删除排序链表中的重复元素">7.2删除排序链表中的重复元素</h4>
+
+<h4 id="73链表公共节点">7.3链表公共节点</h4>
+
+<h4 id="8二分查找">8.二分查找</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def search(nums, target):
+	left, right = 0, len(nums) - 1
+	while left &lt;= right:
+		mid = (left + right) // 2
+		if nums[mid]  == target:
+			return mid
+		elif nums[mid] &lt; target:
+			left = mid + 1
+		else:
+			right = mid - 1
+	return -1#查找算法，找不到，返回-1
+</code></pre></div></div>
+
+<h4 id="9快速排序">9.快速排序</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def quick_sorted(nums, left, right):
+	if left &gt;= right: return nums
+	#以数组的第一个节点作为pivot
+	pivot = nums[left]
+	#记录数组的左右两边
+	low = left
+	high = right
+	while left &lt; right:
+		while left &lt; right and  nums[right] &gt;= pivot:
+			right -= 1
+		nums[left] = nums[right]
+		while left &lt; right and nums[left] &lt; pivot:
+			left += 1
+		nums[right] = nums[left]
+	#right和left指向相同位置
+	nums[right] = pivot
+	quick_sort(nums, low, left - 1)
+	quick_sort(nums, left + 1, high)
+</code></pre></div></div>
+<p><a href="https://zhuanlan.zhihu.com/p/63227573">一个具体的排序例子</a></p>
+
+<h4 id="10连续子数组的最大和">10.连续子数组的最大和</h4>
+
+<p><img src="https://pic.leetcode-cn.com/8fec91e89a69d8695be2974de14b74905fcd60393921492bbe0338b0a628fd9a-Picture1.png" alt="img_10" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def maxSubArray(nums):
+	for i in range(1, len(nums)):
+		nums[i] += max(nums[i-1], 0)
+	return max(nums)
+</code></pre></div></div>
+
+<h4 id="11全排列">11.全排列</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def permutations(nums, start, end):
+	if start == end:
+		return nums
+	else:
+		for i in range(start, end):
+			nums[i], nums[start] = nums[start], nums[i]
+			permutations(nums, start + 1, end)
+			nums[i], nums[start] = nums[start], nums[i]
+</code></pre></div></div>
+
+<p>TIPS：组合问题呢？</p>
+
+<h4 id="12斐波那契数列和爬楼梯">12.斐波那契数列和爬楼梯</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#递归式的解法
+def fibonacci(n):
+	if n &lt;= 0:
+		return 0
+	if n == 1:
+		return 1
+	return fibonacci(n-1) + finonacci(n-2)
+
+#迭代式的解法
+
+#用两个变量存储
+def finonacci(n):
+	first, second = 0,1
+	for _ in range(2,n):
+		first, second = second, first + second
+	return first
+
+#用一个数组存储
+def finonacci(n):
+	ans = []
+	ans[0] = 0
+	ans[1] = 1
+	for i in range(2, n):
+		ans[i] = ans[i-1] + ans[i-2]
+	return ans[n-1]
+</code></pre></div></div>
+
+<h4 id="13两个栈实现队列">13.两个栈实现队列</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>基础语法：
+a = [1,2,3]
+a.pop()#3
+a#[1,2]
+a.pop(0)#1
+a#[2]
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class CQueue:
+	def __init__(self):
+		self.A = []
+		self.B = []
+	def appendTail(self, value: int)-&gt;None:
+		self.A.append(value)
+	def deleteHead(self)-&gt; int:
+		if self.B: return self.B.pop()
+		if not self.A: return -1
+		while self.A:
+			self.B.append(self.A.pop())
+		return self.B.pop()
+</code></pre></div></div>
+
+<h4 id="14两个队列实现栈">14.两个队列实现栈</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>基础语法：
+import collections
+data = collections.deque()#双端队列
+data.append(1)
+data.append(2)
+data.append(3)
+data.popleft()#1，原地操作
+data.popright()#3，原地操作
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class CStack:
+	def __init__(self):
+		self.A = []
+		self.B = []
+	def push(self, value:int)-&gt;None:
+		self.B.append(value)
+		while self.A:
+			self.B.append(self.A.pop(0))
+		#交换操作
+		self.A, self.B = self.B, self.A
+	def pop(self)-&gt;int:
+		return self.A.pop(0)
+	def top(self)-&gt;int:
+		retrun self.A[0]
+	def empty(self)-&gt;bool:
+		return not self.A
+</code></pre></div></div>
+
+<h4 id="15n数之和">15.N数之和</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#两数之和
+def twoSum(nums, target):
+	hashtable = {}
+	for i, num in enumerate(nums):
+		if target - num in hashtable:#判断是否在hashtable中
+			return [hashtable[target-num],i]
+		hashtable[nums[i]] = i
+	return []#找不到的时候，返回空
+</code></pre></div></div>
+
+<h4 id="16第k大元素">16.第K大元素</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import heapq
+def findKthLargest(nums, k)-&gt;int:
+	#python中默认的是小顶堆，入堆和出堆取负
+	nums = [-1 * num for num in nums]
+	#将一个数组堆化
+	heapq.heapify(nums)
+	for _ in range(k-1):
+		heapq.heappop(nums)#操作对象是数组
+	return -1 * heapq.heappop(nums)
+</code></pre></div></div>
+
+<h4 id="161数组中前k个高频元素">16.1.数组中前K个高频元素</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def topKFrequent(nums, k):
+	return [e[0] for e in collections.Counter(nums).most_common(k)]
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def topKFrequent(nums, k):
+	dic = collections.Counter(nums)
+	heap, ans = [], []
+	for i in dic:
+		heapq.heappush(heap, (-dic[i],i))
+	for _ in range(k):
+		ans.append(heapq.heappop(heap)[1])
+	return ans
+</code></pre></div></div>
+
+<h4 id="17最长公共子串">17.最长公共子串</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def longestCommonSubstr(str1, str2)-&gt;int:
+	def dp(i,j):
+		if i == -1 or j == -1:
+			return 0
+		if str1[i] == str2[j]:
+			return dp(i-1, j-1) + 1
+		else:
+			return 0#子串和子序列的区别
+	return dp(len(str1)-1, len(str2)-1)
+</code></pre></div></div>
+
+<h4 id="18最长公共子序列">18.最长公共子序列</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def longestCommonSubsequence(str1, str2)-&gt;int:
+	def dp(i,j):
+		if i == -1 or j == -1:
+			return 0
+		if str1[i] == str2[j]:
+			return dp(i-1, j-1) + 1
+		else:
+			return max(dp(i-1,j), dp(i,j-1))#子串和子序列的区别
+	return dp(len(str1)-1, len(str2)-1)
+</code></pre></div></div>
+
+<p>TIPS：如果要返回找到的子串和子序列呢？</p>
+
+<h4 id="19最长回文串">19.最长回文串</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>题目描述：给定一个包含大写字母和小写字母的字符串，找到通过这些字母构造成的最长的回文串。
+输入："abccccdd"
+输出：7
+解释：我们可以构造的最长的回文串是"dccaccd", 它的长度是7
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#频数统计：count
+def longestPalindrome(s)-&gt;int:
+	ans = 0
+	for c in set(s):
+    		count = s.count(c)
+    		if count % 2 == 0:
+        		ans += count
+    		elif count % 2 != 0 and count &gt; 2:
+        		ans += count-1
+	#回文串中间的一个字符
+	if len(s) &gt; res:
+    	res += 1
+	return ans
+</code></pre></div></div>
+
+<h4 id="20编辑距离">20.编辑距离</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Solution:
+    def minDistance(self, word1: str, word2: str) -&gt; int:
+        #初始化dp数组
+        m, n = len(word1)+1, len(word2)+1
+        dp = [[0 for _ in range(n)] for _ in range(m)]
+        #dp数组的边界
+        for i in range(m):
+            dp[i][0] = i
+        for j in range(n):
+            dp[0][j] = j
+        #计算dp数组的值
+        for i in range(1, m):
+            for j in range(1, n):
+                if word1[i-1] == word2[j-1]:
+                    dp[i][j] = dp[i-1][j-1]
+                else:
+                    dp[i][j] = 1 + min(dp[i-1][j-1], dp[i][j-1], dp[i-1][j])#修改，增加和删除
+        return dp[m-1][n-1]
+</code></pre></div></div>
+
+<h4 id="21最长不含重复字符的子字符串">21.最长不含重复字符的子字符串</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#滑动窗口
+def lengthOfLongestSubstring(s: str)-&gt;int：
+	head=tail=0
+	ans = 1
+	if len(s) &lt; 2: return len(s)
+	while tail &lt; len(s) - 1:
+		tail += 1
+		if s[tail] not in s[head:tail]:
+			ans = max(tail-head+1, ans)
+		else:
+			while s[tail] in s[head:tail]:
+				head += 1
+	return ans
+</code></pre></div></div>
+
+<h4 id="22最长上升子序列">22.最长上升子序列</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#状态转移方程：dp[i] = max(dp[j]) + 1，其中0 &lt;= j &lt; i 且nums[j] &lt; nums[i]
+#结果：max(dp[i])，其中0 &lt;= i &lt; n
+def lengthOfLIS(nums)-&gt;int:
+	if not nums: return 0
+	dp = [1 for _ in len(nums)]
+	for i in range(len(nums)):
+		for j in range(i):
+			if nums[i] &gt; nums[j]:
+				dp[i] = max(dp[j]+1, dp[i])
+	return max(dp)
+</code></pre></div></div>
+<h4 id="23验证是否是二叉搜索树">23.验证是否是二叉搜索树</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def isValidBST(root):
+	def dfs(node, min_val, max_val):
+		if not node: return True
+		if not min_val &lt; node.val &lt; max_val:
+			return False
+		return dfs(node.left, min_val, node.val) and dfs(node.right, node.val, max_val)
+	return dfs(root, float("-inf"), float("inf"))
+</code></pre></div></div>
+
+<h4 id="24两数相加链表">24.两数相加（链表）</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -&gt; ListNode:
+        # 创建一个结点值为 None 的头结点, dummy 和 p 指向头结点, dummy 用来最后返回, p 用来遍历
+        dummy = p = ListNode(None)          
+        s = 0               # 初始化进位 s 为 0
+        while l1 or l2 or s:
+            # 如果 l1 或 l2 存在, 则取l1的值 + l2的值 + s(s初始为0, 如果下面有进位1, 下次加上)
+            s += (l1.val if l1 else 0) + (l2.val if l2 else 0)  
+            p.next = ListNode(s % 10)       # p.next 指向新链表, 用来创建一个新的链表
+            p = p.next                      # p 向后遍历
+            s //= 10                        # 有进位情况则取模, eg. s = 18, 18 // 10 = 1
+            l1 = l1.next if l1 else None    # 如果l1存在, 则向后遍历, 否则为 None
+            l2 = l2.next if l2 else None    # 如果l2存在, 则向后遍历, 否则为 None
+        return dummy.next   # 返回 dummy 的下一个节点, 因为 dummy 指向的是空的头结点, 下一个节点才是新建链表的后序节点
+</code></pre></div></div>
+
+<h4 id="25对称二叉树">25.对称二叉树</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def isSymmetric(root):
+	if not root: return True
+	def isSym(root1, root2):
+		#和判断两棵树是否相同的逻辑类似，区别在于递归部分代码
+		if not root1 and not root2:
+			return True
+		if root1 and root2 and root1.val == root2.val:
+			return isSym(root1.left, root2.right) and isSym(root1.right, root2.left)
+		return False
+		
+	return isSym(root.left, root.right)
+</code></pre></div></div>
+
+<h4 id="25翻转二叉树">25.翻转二叉树</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def invertTree(root):
+	if not root: return root
+	left = invertTree(root.left)
+	right = invertTree(root.right)
+	root.left, root.right = right, left
+	return root
+</code></pre></div></div>
+
+<p>TIPS：分析树递归的好题目</p>
+
+<h4 id="26搜索旋转排序数组">26.搜索旋转排序数组</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def search(nums, target):
+	if not nums: return -1
+	l, r = 0, len(nums)-1
+	while l &lt;= r:
+		mid = (l+r)//2
+		if nums[mid] == target:
+			return mid
+		if nums[0] &lt;= nums[mid]:
+			if nums[0] &lt;= target &lt; nums[mid]:
+				r = mid - 1
+			else:
+				l = mid  + 1
+		else:
+			if nums[mid] &lt; target &lt;= nums[len(nums)-1]:
+				l = mid + 1
+			else:
+				r = mid -1
+	return -1
+</code></pre></div></div>
+
+<h4 id="27最长公共前缀">27.最长公共前缀</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def longestCommonPrefix(strs):
+	res = ""
+	for tmp in zip(*strs):
+		tmp_set = set(tmp)
+		if len(tmp_set) == 1:
+			res += tmp[0]
+		else:
+			break
+	return res
+</code></pre></div></div>
+
+<h4 id="28一棵树是否是另一棵树的子树">28.一棵树是否是另一棵树的子树</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def isSubtree(s, t):
+	if not s and not t: return True
+	if not s or not t: return False
+	retrun self.isSameTree(s,t) or isSubtree(s.left, t) or isSubtree(s.right, t)
+def isSameTree(s,t):
+	#判断两棵树是否相同
+	if not s and not t: return True
+	if not s or not t: return False
+	return s.val == t.val and isSameTree(s.left, t.left) and isSameTree(s.right, t.right)
+</code></pre></div></div>
+
+<h4 id="29单调栈相关">29.<a href="https://blog.csdn.net/qq_17550379/article/details/86519771">单调栈相关</a></h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#下一个更大的元素
+def nextGreaterElement(nums):
+	stack = []
+	res = [-1] * len(nums)
+	for i, n in enumerate(nums):
+		while stack and nums[stack[-1]] &lt; n:
+			res[stack.pop()] = n
+		stack.append(i)
+	return res
+#前一个更大的元素
+def preGreaterElement(nums):
+	stack = []
+	res = [-1] * len(nums)
+	for i, n in enumerate(nums):
+		while stack and nums[stack[-1]] &lt; n:
+			stack.pop()
+		if stack:
+			res[i] = nums[stack[-1]]
+		stack.append(i)
+	return res
+#下一个更小的元素
+def nextSmallerElement(nums):
+	stack = []
+	res = [-1] * len(nums)
+	for i, n in enumerate(nums):
+		while stack and nums[stack[-1]] &gt; n:
+			res[stack.pop()] = n
+		stack.append(i)
+	return res
+#前一个更小的元素
+def preSmallerElement(nums):
+	stack = []
+	res = [-1] * len(nums)
+	for i, n in enumerate(nums):
+		while stack and nums[stack[-1]] &gt; n:
+			stack.pop()
+		if stack:
+			res[i] = nums[stack[-1]]
+		stack.append(i)
+	return res
+</code></pre></div></div>
+
+<h4 id="30大数加法相乘">30.大数加法/相乘</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#大数相加
+def addStrings(num1: str, num2: str)-&gt;str:
+	s1 = list(num1)[::-1]
+	s2 = list(num2)[::-1]
+	carry = 0
+	res = []
+	i = 0
+	while i &lt; len(s1) or i &lt; len(s2) or carry:
+		n1 = int(s1[i]) if i &lt; len(s1) else 0
+		n2 = int(s2[i]) if i &lt; len(s2) else 0
+		#返回商和余数
+		carry,n = divmod(n1+n2+carry,10)
+		res.append(str(n))
+		i += 1
+	return "".join(res[::-1])
+
+#大数相乘
+def multiply(num1: str, num2: str)-&gt;str:
+	if num1 == "0" or num2 == "0":
+		return "0"
+	result = 0
+	num1 = num1[::-1]
+	num2 = num2[::-1]
+	for i, x in enumerate(num1):
+		tmp = 0
+		for j, y in enumerate(num2):
+			tmp += int(x) * int(y) * 10 ** j
+		result += tmp * 10 ** i
+	return str(result)
+</code></pre></div></div>
+
+<h4 id="31驼峰命名法转下划线">31.驼峰命名法转下划线</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def get_trans_name(text):
+    length=len(text)
+    lst=[]
+    for i in range(length):
+        # 前一个字母大写，后一个字母小写，将该字母从大写转换成小写
+        if i+1&lt;length and  text[i].isupper() and not text[i+1].isupper():
+            lst.append(text[i].lower())
+        else:
+            lst.append(text[i])
+        # 前一个字母是小写，后一个字母是大写的情景
+        if not text[i].isupper() and i+1&lt;length and text[i+1].isupper():
+            lst.append("_")
+        # 前两个字母是大写，后一个字母是小写的情景
+        if text[i].isupper() and i+2&lt;length and text[i+1].isupper() and not text[i+2].isupper():
+            lst.append("_")
+    return "".join(lst) 
+</code></pre></div></div>
+
+<h4 id="32移除k位数字">32.移除K位数字</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def removeKdigits(num, k):
+	stack = []
+	remain = len(num)-k
+	for digit in num:
+		while k and stack and stack[-1] &gt; digit:
+			stack.pop()
+			k -= 1
+		stack.append(digit)
+	return "".join(stack[:remain]).lstrip("0")#合法的数字要去掉之前的“0”
+</code></pre></div></div>
+
+<p>TIPS：<a href="https://leetcode-cn.com/problems/remove-duplicate-letters/solution/yi-zhao-chi-bian-li-kou-si-dao-ti-ma-ma-zai-ye-b-4/">单调栈问题</a></p>
+
+<h4 id="33双指针的基础经典题">33.<a href="https://hackerxiaobai.github.io/2020/10/30/%E5%8F%8C%E6%8C%87%E9%92%88%E5%B0%BD%E9%87%8FO-n-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%A7%A3%E9%A2%98/#more">双指针的基础经典题</a></h4>
+
+<p>TIPS: 以单链表为主的快慢指针问题+以二分查找为主的左右指针</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

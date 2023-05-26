@@ -1,0 +1,193 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[Optimization]大规模机器学习优化算法的想法启发</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2017/04/09/idea-from-bottou/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[Optimization]大规模机器学习优化算法的想法启发</h1>
+    <p class="meta">Apr 9, 2017</p>
+  </header>
+
+  <article class="post-content">
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<p>首先，在摘要部分，作者提到了现在的两个主流研究方向：<strong>减小随机方向的噪声(Noise Reduction)</strong>和<strong>利用目标函数的二阶导数近似(Second-Order Methods)</strong>。下面是我根据论文中的内容和部分图示做的一个相对全面的图：</p>
+
+<p><img src="http://wx4.sinaimg.cn/mw690/aba7d18bgy1fecyxswg57j20h30dl74a.jpg" alt="optimization framework" /></p>
+
+<p>Schematic of a two-dimensional spectrum of optimization methods for machine learn- ing.</p>
+
+<p>关于上述schematic的注解：</p>
+
+<p><em>1.</em> The horizontal axis represents methods designed to control stochastic noise; the second axis, methods that deal with ill conditioning.</p>
+
+<p><em>2.</em> The dotted arrows indicate the eﬀective regime of each method: the ﬁrst three methods can employ mini-batches of any size, whereas the last two methods are eﬃcient only for moderate-to-large mini-batch sizes.</p>
+
+<p><em>3.</em> Along this horizontal axis, one ﬁnds other methods as well. In our investigation, we classify two main groups as <strong>dynamic sample size</strong> and <strong>gradient aggregation methods</strong>, <strong>both of which aim to improve the rate of convergence from sublinear to linear</strong>. These methods do not simply compute mini-batches of ﬁxed size, nor do they compute full gradients in every iteration. Instead, <strong>they dynamically replace or incorporate new gradient information</strong> in order to construct a more reliable step with smaller variance than an SG step.An algorithm that optimizes the empirical risk R has access to an additional piece of information: <strong>it knows when a gradient estimate is evaluated on a training example that has already been visited during previous iterations</strong>.gradient aggregation methods make use of this information and improve upon the lower bound for the optimization of the empirical risk (though not for the expected risk). These algorithms enjoy linear convergence with low computing times in practice. Dynamic sampling approach, which, as we shall see, can match the optimal asymptotic eﬃciency of SG in big data settings. Employing a more aggressive stepsize sequence—of order \(O(1/\sqrt{k})\) rather than \(O(1/k)\), which is appealing in itself—it is this sequence of <strong>averaged iterates</strong> that converges to the solution. These methods are closer in spirit to SG and their rate of convergence remains sublinear, but it can be shown that the variance of the sequence of average iterates is smaller than the variance of the SG iterates.For this reason, we refer to the methods along the horizontal axis as noise reduction methods.</p>
+
+<p><em>4.</em> Along the second axis, in a broad sense, people attempt to <strong>overcome the adverse eﬀects of high nonlinearity and ill-conditioning</strong>.These methods improve <strong>convergence rates of batch methods</strong> or <strong>the constants involved in the sublinear convergence rate of stochastic methods</strong>, For such algorithms, we use the term second-order methods, which encompasses a variety of strategies;We discuss well known inexact Newton and quasi-Newton methods, as well as (generalized) Gauss-Newton methods, the natural gradient method,natural gradient method, which deﬁnes a search direction in the space of realizable distributions, rather than in the space of the real parameter vector w. Newton’s method is invariant to linear transformations of the variables, the natural gradient method is invariant with respect to more general invertible transformations. <strong>Scaled gradient iterations such as RMSprop and AdaGrad are included</strong>.<strong>The primary advantage of Gauss-Newton</strong> is that it constructs an approximation to the Hessian using only ﬁrst-order information, and this approximation is guaranteed to be positive semideﬁnite, even when the full Hessian itself may be indeﬁnite. The price to pay for this convenient representation is that it ignores second-order interactions between elements of the parameter vector w, which might mean a loss of curvature information that could be useful for the optimization process.(因为这篇文章是针对SGD的大规模优化问题的探讨，故在上图中没有给出Deep Learning中的相关梯度优化算法，他们主要是<strong>基于动量的方法</strong>，这部分内容在优化体系中占有非常重的位置！)</p>
+
+<p>作者将两个主流研究方向展开为三个更为具体的问题：</p>
+
+<p>(i) noise reduction methods that attempt to borrow from the strengths of batch methods, such as their fast convergence rates and ability to exploit parallelism;</p>
+
+<p>作者认为noise reduction方法是借鉴BGD(batch gradient method)的快速收敛和易并行特点。实际上，BGD确实是易并行的，并且由于利用了更多的样本信息，精度较高以至于全局最优，在博客中有关于自己实践的基于MPI的逻辑回归并行化，优化方法采用BGD，但是相比于SGD，SGD有更快的收敛速率，但是精度略差。</p>
+
+<p>(ii) methods that incorporate approximate second-order derivative information with the goal of dealing with nonlinearity and ill-conditioning;</p>
+
+<p>利用二阶导数信息来解决非线性问题和病态问题。</p>
+
+<p>(iii) methods for solving regularized problems designed to avoid overﬁtting and allow for the use of high-dimensional models;</p>
+
+<p>对含有正则项的方法的研究。</p>
+
+<p>自己的研究方向是大规模机器学习系统，所以我对ml(optimization)+system(parallelism)的idea相对比较关注：</p>
+
+<p>1.dynamic sampling方法。作者在文中提到，动态的mini-batch size可以做为步长衰减的替代，利用可变的mini-batch size可以在并行化的同时，充分发挥硬件的计算能力。</p>
+
+<p>2.非凸问题的研究。作者给出了针对<strong>Strongly Convex Objective/Nonconvex Objective,Fixed/Diminishing Stepsizes</strong>的SG的bound分析，并提出analyzing the SG method when minimizing nonconvex objectives is more challenging than in the convex case since such functions may possess multiple local minima and other stationary points.针对非凸问题的研究，saddle point总是绕不过去的问题。</p>
+
+<p>3.找到针对SGD的线性收敛算法依然具有吸引力，例如SVRG,SAG,本质是对梯度上界的改进(此处可参照上一篇博文)。</p>
+
+<p>4.针对含有特殊regularizer的目标函数的优化，例如li Ita@Zhihu的NIPS 2016投稿。</p>
+
+<p>5.SGD在分布式环境下对w的高频访问导致了通信负载，这对这个问题，现在有一些松弛后的同步算法或者一些异步算法。</p>
+
+<p>6.纯优化问题：SG的渐近性能的脆弱性, SG与目标病态的关系, second-order methods improve the <strong>constants</strong> involved in the sublinear convergence rate of stochastic methods,Hessian matrix和generalized Gauss-Newton matrix的问题研究，典型的比如矩阵近似问题等。</p>
+
+<p>7.针对坐标下降的非梯度算法的并行化(已经有人做过相关工作，比如利用CD求解LASSO问题),从直觉上来看，CD同样的简单，而且似乎CD也可以很好的做并行化。</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

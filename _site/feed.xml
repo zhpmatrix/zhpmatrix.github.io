@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ZHPMATRIX blog</title>
+    <description>致力于算法，数据和工程的全链路打通</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Thu, 25 May 2023 23:07:04 +0800</pubDate>
+    <lastBuildDate>Thu, 25 May 2023 23:07:04 +0800</lastBuildDate>
+    <generator>Jekyll v4.3.2</generator>
+    
+      <item>
+        <title>[思考]关于医疗NLP的讨论</title>
+        <description>&lt;p&gt;二零二三年的春天比以往显得更加美丽婀娜，窗外的细雨纷纷洒落，樱花和着泥土的芬芳，悄悄地叩打着落地窗。笔者沏茶静坐，开始写一篇很早就很想写的文章。&lt;/p&gt;
+
+&lt;p&gt;开篇先给出笔者自己的一个认识：&lt;strong&gt;假设将构建业务系统作为容器创建，构建数据系统作为给容器加水，建立智能系统作为烧水。现阶段多数处于容器创建阶段，会需要加水的系统，但是刚需的场景比较少。会需要烧水，但是刚需的场景更少。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;由此，用于烧水的医疗NLP到底面临哪些更具体的现实的问题？&lt;/p&gt;
+
+&lt;p&gt;（1）面向评级的销售的底层逻辑&lt;/p&gt;
+
+&lt;p&gt;国家意志层面是“以评促建”，面向评级意味着一定程度上的自顶向下，但是实际落地过程中，是自底向上的。这样会导致一个问题，对于院方而言，有一个东西比有一个好用的东西重要。这样的话，乙方的建设目标也不是高标准的，导致乙方的产品和服务逐渐降级。“评级”的逻辑能够带来间接价值，但无法带来直接价值。&lt;/p&gt;
+
+&lt;p&gt;（2）价值交换体系中，项目和服务重于产品&lt;/p&gt;
+
+&lt;p&gt;医疗的需求方的需求是多样且层次化的，这样导致需求的标准化程度较低，产品的标准化难度较高。如果无法有一个好用的产品体系能够支持交付能力的提升，会逐渐使得项目属性增加，服务比重增加。在组织上，这会带来产研侧和交付侧的边界问题。&lt;/p&gt;
+
+&lt;p&gt;在&lt;a href=&quot;https://mp.weixin.qq.com/s/9v-mw0cj2gp2HG5X3hOqYQ&quot;&gt;《数据智能的历史机遇与现实困境》&lt;/a&gt;一文中有一个观点，“如果从项目角度入手，往往目标会设定成项目的验收回款，且公司的组织配套也会往复杂项目管理，行业咨询的方向偏移，后续再往产品型公司转，难度可谓是非常之大。”&lt;/p&gt;
+
+&lt;p&gt;（3）决策体系复杂，价值传导链路冗长&lt;/p&gt;
+
+&lt;p&gt;对于院内业务，用户和客户的利益不一致。决策需要层层上传和层层下达，当涉及多个中间方的时候，导致信息在传播过程中的损耗增加。价值链路在一定程度上和信息链路保持一致。&lt;/p&gt;
+
+&lt;p&gt;（4）闭环构建难度高&lt;/p&gt;
+
+&lt;p&gt;由于并非直接解决用户的问题，同时信息传导链路长，导致用户的反馈多数时候无法快速到达产品侧，产品无法快速迭代。数据和算法的闭环也较难实现。由于院内的数据不能出院，导致如果想要有效利用院内的数据，需要配套的数据的基础设施也要同步到院内，与数据的交互行为同时发生在院内，这一切在现实环境下，实现难度很高。&lt;/p&gt;
+
+&lt;p&gt;（5）研究对象自身的问题&lt;/p&gt;
+
+&lt;p&gt;针对关键研究对象，“&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&amp;amp;mid=2247484311&amp;amp;idx=1&amp;amp;sn=51c8761ac9231f8860a2aa2d1e9d1f54&amp;amp;chksm=fc740adecb0383c85e93dfc4b73123355b2f3579c3bf2d15714db44b2bda42209b9744d040e8&amp;amp;token=1707195428&amp;amp;lang=zh_CN#rd&quot;&gt;医疗大数据&lt;/a&gt;”和“&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&amp;amp;mid=2247484361&amp;amp;idx=1&amp;amp;sn=65f0728f6c9e58664179b31dc14cc7c5&amp;amp;chksm=fc740a80cb0383965fcf53ace7f6ae705bde89f02a7f7255eb95e3c9194ce0a94eafbf2fda59&amp;amp;token=1707195428&amp;amp;lang=zh_CN#rd&quot;&gt;医疗NLP&lt;/a&gt;”，笔者之前均写过文章进行分析和讨论。医疗NLP是以结构化能力为核心的应用方向，能力和内容都很重要，数据和知识都需要。但是如何实现这样的目标，在现实落地过程中，会遇到诸多的挑战。&lt;/p&gt;
+
+&lt;p&gt;回想两年前，笔者刚刚切入医疗NLP方向时写的文章&lt;a href=&quot;https://zhpmatrix.github.io/2021/03/10/medical-survey/&quot;&gt;《NLP人误闯医疗界》&lt;/a&gt;，兴奋中夹杂着隐约的担忧。两年后，对很多问题的理解和认识也在逐渐加深。医疗人工智能还存在较大的发展空间，但是从现阶段的时间点切入，为时尚早。&lt;/p&gt;
+
+&lt;p&gt;雨一直下，满眼的绿树新芽，好一派生机勃勃的模样。&lt;/p&gt;
+</description>
+        <pubDate>Mon, 20 Mar 2023 19:40:00 +0800</pubDate>
+        <link>http://localhost:4000/2023/03/20/thoughts-about-medical-algorithm/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023/03/20/thoughts-about-medical-algorithm/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>[产品]病历质控产品观</title>
+        <description>&lt;p&gt;从公众号迁移过来，直接给出文章链接：&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&amp;amp;mid=2247484157&amp;amp;idx=1&amp;amp;sn=959cdea822122a306327be226ff3b638&amp;amp;chksm=fc740bb4cb0382a21f7493594b960c54a0b87826e129b8d9f93652ed5b2a1d41ca4f2c5fef3c&amp;amp;mpshare=1&amp;amp;scene=23&amp;amp;srcid=0113KR0RE3zZ55CrJ3QiGBgJ&amp;amp;sharer_sharetime=1642247746745&amp;amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b#rd&quot;&gt;阅读文章&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 15 Jan 2022 19:40:00 +0800</pubDate>
+        <link>http://localhost:4000/2022/01/15/mrqc/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/01/15/mrqc/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>[生活感悟]年终总结：2022=2021+1</title>
+        <description>&lt;p&gt;直接从个人的公众号转载至博客，如下:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&amp;amp;mid=2247484135&amp;amp;idx=1&amp;amp;sn=476a8f6a876d47561ce3fafe1468ef7a&amp;amp;chksm=fc740baecb0382b87a97bd2aa828448305805321fef983b69d1b6f7a2ad139da8503016aa1f5&amp;amp;mpshare=1&amp;amp;scene=23&amp;amp;srcid=1231Ztcy7xNCUTmI6GqiHFer&amp;amp;sharer_sharetime=1641534491215&amp;amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b#rd&quot;&gt;年终总结：2022=2021+1&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 07 Jan 2022 19:40:00 +0800</pubDate>
+        <link>http://localhost:4000/2022/01/07/2021-review/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/01/07/2021-review/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>[思考]问答系统的结构化探索</title>
+        <description>&lt;p&gt;在之前的文章，&lt;a href=&quot;https://zhpmatrix.github.io/2021/10/01/zhuanbingku/&quot;&gt;专病库方法论&lt;/a&gt;中，讨论了专病库相关的思考逻辑。本质上，专病库是医疗领域电子病历系统的结构化。&lt;/p&gt;
+
+&lt;p&gt;对比问答系统，由于问答系统的各个形态已经趋于成熟，因此很多工作以文字稿件的方式发布出来，典型的，比如DataFunTalk的工作。总结这些文字稿件，存在两个显著的特点：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;多。包含各厂的问答系统，涉及多个行业，包括多个组件&lt;/li&gt;
+  &lt;li&gt;标准化程度高。由于问答系统的成熟度较高，因此技术标准化的程度也较高，继而相关文字稿的标准化程度高&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;由于上述两个特点的存在，这是一个天然适合做结构化的场景。我们可以做三件有意思的事情，如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;整理一个文字稿数据库（工业界+智能客服）。&lt;/li&gt;
+  &lt;li&gt;梳理一个结构化字段列表（有价值的字段）。&lt;/li&gt;
+  &lt;li&gt;构建一个问答系统的结构化数据库（人工）。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;这里有一些必要的说明。首先，我们的研究对象是工业界的工作。因为，工业界这样的工作，在我们的信息范围内，还没有人做过。相比学术界，学术界的一些综述文章，会从一个又小又细的角度对比学术上的工作。这不是我们擅长的，也不是我们认为我们能够做的有价值的工作。&lt;/p&gt;
+
+&lt;p&gt;即使是问答系统一个方向，仍旧存在大量的细分领域。比如，独立APP的内置问答系统和SaaS化的问答组件，电商领域的客服机器人或者金融保险问答机器人等。这里，我们的定位是智能客服。一个我们认为成熟度较高，商业化相对成功的细分方向。&lt;/p&gt;
+
+&lt;p&gt;既然是结构化，定义结构化的维度是最为核心的工作。这里也是业务思考可以有效注入的地方。一个专病库的维度定义可以消耗一个团队近三年的时间。在我们的工作中，梳理出一个有价值的字段列表，也将是我们最为重要的工作。在和不同的小伙伴聊这个想法的时候，大家都对此有疑问。一个基本的想法是：字段列表基本代表了字段提议者对问答系统的技术审美水平。&lt;/p&gt;
+
+&lt;p&gt;最后一个定位是，人工完成结构化的工作。这里的思考是相关文字稿多，但是没有多到需要自动化的程度。这些文字稿内含的信息量巨大，单纯从统计的观点来阅读这些文字稿，在价值呈现上并不理想。类似的工作，包括医疗领域的OMAHA（年费巨高）。&lt;/p&gt;
+
+&lt;p&gt;问答系统的结构化数据库可以提供的价值是什么？我们认为整个事情可以提供多个价值输出点，&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;文字稿数据库&lt;/li&gt;
+  &lt;li&gt;一个观察智能客服问答系统的能够代表我们观点的维度体系&lt;/li&gt;
+  &lt;li&gt;一个结构化数据库（快速信息检索和结论发现）&lt;/li&gt;
+  &lt;li&gt;想法的延伸：一个知识图谱类的结构化数据库（但是难度更高一些，后面有机会再讨论）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;基于上述思考，可以真正的开始动手推进了。目前，我们的文字稿数据库的构建主要由以下来源构成：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Github的开源文字稿收集整理&lt;/li&gt;
+  &lt;li&gt;DataFunTalk的相关文稿爬虫获取&lt;/li&gt;
+  &lt;li&gt;网页搜索结果的分类整合&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;具体的类别包括如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;文章&lt;/li&gt;
+  &lt;li&gt;论文&lt;/li&gt;
+  &lt;li&gt;PPT&lt;/li&gt;
+  &lt;li&gt;视频&lt;/li&gt;
+  &lt;li&gt;音频&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;有了文字稿数据库，我们可以结合这些内容定义一个维度体系。这里给出截止目前，我们的工作：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://s3.bmp.ovh/imgs/2021/11/353c19c8a77461ee.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;整个探索中，最具争议性的内容就存在与此。基于上述文字稿数据库和定义的维度体系，我们做了一个基本的结构化数据库，截图如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://s3.bmp.ovh/imgs/2021/11/642c74263c06cea1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;整体事情仍在进行中，尚未取得最终结果。但是，通过这次脑洞实验，加深了对结构化进一步的理解。到底什么场景需要结构化？什么是结构化？为什么要做结构化？结构化什么内容？&lt;/p&gt;
+
+&lt;p&gt;从信息提供的粒度大小来看，文字稿提供了最为丰富的粒度，最为细节的刻画，结构化其实淡化了这种表达。但是结构化，通过对核心要素的抽取，勾画了一个完整事件的全貌。能够提供我们获取有效信息的效率。此外，结构化对于统计场景下的问题，有巨大的价值。所谓，从N=1来看，一无是处，从N=无穷大来看，价值无限。&lt;/p&gt;
+
+&lt;p&gt;但是，结构化也是提升可理解性的一个技术手段，一种细粒度信息获取的途径，这个时候，我们并不关心研究对象的规模。&lt;/p&gt;
+</description>
+        <pubDate>Mon, 15 Nov 2021 19:40:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/11/15/qa-survery/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/11/15/qa-survery/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>[思考]一个想象的搜索系统</title>
+        <description>&lt;p&gt;这篇文章尝试从脑暴一个搜索系统开始，讨论搜索系统的大组件，进而讨论推荐和搜索的联系和区别，以及笔者个人对推荐和搜索以及广告方向中机会存在的理解，最后回到NLP，讨论与前三者的关系。&lt;/p&gt;
+
+&lt;p&gt;输入一个Query，浏览器立刻返回一个相关结果列表。从这句描述中，我们尝试拆分出关键要素：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;input：Query&lt;/li&gt;
+  &lt;li&gt;output：结果（相关+快速+有限）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;搜索引擎是F，其中output = F(input)。搜索系统是用工程的方法，协同数据和引擎的建设。&lt;/p&gt;
+
+&lt;p&gt;所有上述的关键要素，决定了搜索系统的问题定义是明确且清晰的。信息检索在数据激增的互联网时代具备不可估量的商业价值，也就是说互联网时代（PC+移动）带来了数据，继而激发了对搜索的刚需。因而搜索是一个极具价值的方向。搜索系统是工程+算法+数据的协同，从这个角度来看，和推荐系统类似。&lt;/p&gt;
+
+&lt;p&gt;但是，搜索系统的黄金年代已经过去。正如推荐系统的黄金年代正在逝去一样。&lt;/p&gt;
+
+&lt;p&gt;既然是搜索，首先要解决的是从哪儿搜的问题？这是一个数据建设问题。我们尝试想一下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;全网。大规模分布式爬虫爬全网数据（通用+规模大+反爬/版权）&lt;/li&gt;
+  &lt;li&gt;自有。数据源由自有业务产生，不依赖第三方数据内容（垂直+规模小+无版权问题）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;第一种，数据是卡脖子问题（见百度的百家号，自建内容体系）。第二种，只满足垂域搜索需求。&lt;/p&gt;
+
+&lt;p&gt;所以，数据建设问题是一个标准的工程问题。&lt;/p&gt;
+
+&lt;p&gt;理论上，用户想要搜索的所有结果都会存在于这个数据源中。因此，接下来要考虑的是，用户想要搜索什么？这是一个Query理解问题。既然要理解首先要关注Query的类型。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;常见Query+长尾Query（长尾ROI低，解决常见Query）&lt;/li&gt;
+  &lt;li&gt;长Query+短Query（长Query意味着Context丰富，有助于精确理解用户意图）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在搜索的场景中，用户画像对Query理解是有帮助的，但是也许并不如推荐系统中的影响。本质上，是input和数据源两侧的信息量存在巨大的空隙，用户画像带来的信息量，不足以显著缩小二者的距离。&lt;/p&gt;
+
+&lt;p&gt;既然是理解问题，就可以转化为一个标准的自然语言理解问题。这里，纠错，分词，意图识别，命名实体识别，将单一Query作为研究对象，以结构化为目标。考虑到与数据源关系的建立，改写也将是一个重要的基础NLP问题。&lt;/p&gt;
+
+&lt;p&gt;上文，讨论了Query+数据源，之后就可以讨论如何搜的问题了？在output侧，我们的目标之一是相关，也就是找到数据源中与Query最相关的元素，这里可以被定义的问题是相关性，又是一个经典的NLP问题。在SIGIR中，有大量的工作是围绕相关性展开的。&lt;/p&gt;
+
+&lt;p&gt;但是我们的另外一个目标是快速。考虑我们搜索的场景，给定Query，返回相关的结果列表，这里以URL作为表示。一种轻量的方案是，我们在数据源到位的时候，就从数据源出发，构建好很多的可能的Query，转化为一个问题生成任务（NLG），然后将问题-数据源的pair提前离线存储好。这样就可以直接通过计算Query和问题的相似性，返回数据源作为结果列表。从问答系统的角度来看，将搜索转为一个问答过程，或者一个FAQ问题。这里，也从一个角度回答了搜索和问答系统的关系。&lt;/p&gt;
+
+&lt;p&gt;但是，问题生成是一个很难的问题，本质上仍旧是一个理解问题，容易由该环节的noise导致下游的noise。能不能不要理解环节？&lt;/p&gt;
+
+&lt;p&gt;直接从数据源中抽取一些句子，短语或者词。三种形态对应Query的常见形态。这样，直接通过硬匹配，就可以找到”相关“的结果了。为了保证最大的灵活性，可以以最小粒度的词作为抽取对象。这样，通过对Query分词，然后以词的粒度去数据源中匹配，就可以找到相关的结果。&lt;/p&gt;
+
+&lt;p&gt;最重要的，建立词和数据源的映射关系，是可以离线计算的。这里讨论的其实是倒排索引。&lt;/p&gt;
+
+&lt;p&gt;搜索的核心环节是在一个索引结构中查找的过程。快速的查找+结果合并（相关性提升）是该过程中的核心亮点。&lt;/p&gt;
+
+&lt;p&gt;围绕最后一个目标是有限，本质上是一个TopK问题（相关性问题）。&lt;/p&gt;
+
+&lt;p&gt;综上，一个搜索系统的核心组件=数据源+Query+搜索过程（索引构建+查询+结果合并+相关性排序）就讨论完了。&lt;/p&gt;
+
+&lt;p&gt;接下来，我们想要讨论的问题是，搜索和推荐的联系和区别是什么？&lt;/p&gt;
+
+&lt;p&gt;不同(v.s.):&lt;/p&gt;
+
+&lt;p&gt;搜索（人找item） v.s. 推荐（item找人）&lt;/p&gt;
+
+&lt;p&gt;搜索（理解query+信息量少）v.s. 推荐(理解人+信息量丰富)&lt;/p&gt;
+
+&lt;p&gt;相同(=):&lt;/p&gt;
+
+&lt;p&gt;搜索（数据源+理解）= 推荐（item库+理解）&lt;/p&gt;
+
+&lt;p&gt;搜索（数据源+query的相关性）= 推荐（item库+人的相关性）&lt;/p&gt;
+
+&lt;p&gt;搜索（query和数据源的链接） = 推荐（人和item的链接）&lt;/p&gt;
+
+&lt;p&gt;还有很多比较的维度，不再陈述。这里想讨论的核心论点是：搜索和推荐系统存在很多的共性，也许从低层技术基础建设来说，二者是可以共享的。其实，包括广告系统，在核心技术上存在与搜索和推荐系统的共享组件。不过，各个方向都具有自己独特的特点，比如广告的定价/计费系统。&lt;/p&gt;
+
+&lt;p&gt;通用搜索的价值&amp;gt;垂域搜索的价值，Google和Baidu做的是通用搜索，但是垂域搜索仍旧是一个刚需，只是空间不大，天花板不高。本质上与搜索解决的核心问题有关，在数据源足够大的时候，更能凸显搜索的价值，垂直的本质缺陷是数据源小。只所以仍旧是刚需，是因为这个小的数据源相比人类的搜索能力而言，仍旧太大了。2021年的今天进入搜索领域，能够学习到一个完整的系统，算法加数据的经典技术方向，但是对个人而言，机会应该不是很大了。&lt;/p&gt;
+
+&lt;p&gt;垂域推荐的价值&amp;gt;通用推荐的价值。仍旧与推荐解决的核心问题有关，item找人，需要对人有丰富的理解。通用推荐的核心难点是无法对人进行充分的理解，本质上仍旧是item和人两侧的信息量的空隙过大导致建立二者的映射是一件非常困难的事情（假设空间爆炸）。垂域推荐典型的电商推荐，音乐推荐，图书推荐，视频推荐等。垂域推荐的机会在于域的规模很大，对于搜索而言，数据源所有厂家都可以共用一个，但是item库却是每家都不同，每个域都不同。推荐系统由于item和人建立假设的空间足够大，也就是探索的空间足够大，也使得推荐领域可以吸纳很多的同学参与其中。总结一句，垂域推荐在技术侧已经基本收敛，机会在于业务价值（利好做业务的同学），做不同的域推荐。通用推荐正如通用问答系统一样，个人还看不到价值。&lt;/p&gt;
+
+&lt;p&gt;对于个人而言，机会价值排序：推荐&amp;gt;搜索&amp;gt;广告（吸金但是似乎是可以放进博物馆的技术名词），而NLP是各个系统中关键环节的关键技术，是单点能力，而非系统性的解决方案。由此导致NLP是一个纯粹的技术方向，无法直面业务，直接解决问题本身（利好做技术的同学）。&lt;/p&gt;
+
+&lt;p&gt;相关文章：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://cloud.tencent.com/developer/article/1048646&quot;&gt;沈剑的文章&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s/bdWPZCcGKlMSstmxlaTQ4g&quot;&gt;搜索+推荐+广告系统的区别&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Thu, 28 Oct 2021 19:40:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/10/28/search-system/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/10/28/search-system/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>[RecSys]再议推荐系统</title>
+        <description>&lt;p&gt;最近在阅读Ricci的&lt;a href=&quot;https://book.douban.com/subject/26437066/&quot;&gt;《Recommender Systems Handbook》&lt;/a&gt;，顺道阅读了公众号《炼丹笔记》的所有文章，公众号《机器学习与推荐系统》的所有文章，翻了RecSys等相关会议的一大坨纸，其中，不乏该方向上业界比较资深的大佬的观点和认识。这篇博客是笔者自己的一个笔记和心得。心得总述如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;推荐系统是一个算法，工程，业务强耦合的方向。其中，算法上的定义是良好且清晰的（定义简单，目标复杂），工程上需要多方数据联动，效率和稳定性保障，对业务的理解深度是影响推荐效果提升的重要变量（强业务属性）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;作为搜索，推荐，广告三驾马车之一，是商业变现的重要手段之一。NLP作为原子能力，通过支持三驾马车，间接赋能业务场景（NLP作为核心能力直面业务的场景极其稀有，在笔者之前的博客中有谈到类似问题）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Bias&amp;amp;Debias是推荐方向上一个非常核心且特色的课题，兼具理论价值和实际意义。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;推荐的工业属性决定在模型创新上进度慢于NLP，NLP的角色是隐藏在推荐背后的信号。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在接下来的内容中，详细探讨在阅读中的各种发现和想法。&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;做一个推荐系统，我们的方向在哪里？
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;以项亮的观点，包含以下五个方面：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;准确。推荐的内容，希望尽可能都被用户采纳。（exploit）&lt;/li&gt;
+  &lt;li&gt;覆盖。在候选内容池中，被推荐的内容的比例。（保守和激进的系统属性）&lt;/li&gt;
+  &lt;li&gt;新颖。推荐给用户一些用户之前没有见过的内容。（explore）&lt;/li&gt;
+  &lt;li&gt;惊喜。推荐给用户一些能够给用户带来惊喜的内容。（business）&lt;/li&gt;
+  &lt;li&gt;可解释。推荐理由。（reasoning）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;整体上，借助召回-粗排-精排-重排四个阶段的工作，实现从全部内容推荐出TopN个内容的目的。其中，召回阶段的主流做法是双塔模型，该阶段要求快速，高召回。典型地以Youtube的工作为例。整体上，业界围绕召回阶段的工作并不是很多，整体上主要围绕排序做。这里的问题：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;为什么推荐系统要分为召回+排序两阶段？（类似的问题，张俊林也有提到；在笔者自己的一个问答系统经历中，我们并没有采用这种划分方案）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;为什么相比排序，召回的相关工作较少？&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;一个相关的延伸问题是：搜索，推荐和广告本质上都在解决信息过载的问题，各自解决的手段，目标不相同，各自诞生在产品生命周期不同阶段，以至于系统实现不尽相同。但是，三者能否统一呢？（借邢无刀的问题）
+，我们知道搜索是站在用户角度识别用户想要什么（搜索求准），推荐是站在平台角度看想要引导什么（推荐求新），广告是以局外人看广告主、平台、用户分别想要什么（广告求财）。&lt;/p&gt;
+
+&lt;p&gt;沿着一个技术脉络展开，主流的技术方向包括：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;协同过滤&lt;/li&gt;
+  &lt;li&gt;矩阵分解&lt;/li&gt;
+  &lt;li&gt;深度学习&lt;/li&gt;
+  &lt;li&gt;树（TDM）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;决定是否上线的方式包括：A/B测试和Bandit算法，前者是业界的主流方式。&lt;/p&gt;
+
+&lt;p&gt;下文开始，将对主流的技术方向做一个宏观的总结和思考。首先，再次定义一个标准的推荐问题：&lt;/p&gt;
+
+&lt;p&gt;给定M个物品，N个用户的数据，只有部分用户和部分数据之间是有评分数据的，其它部分评分是空白，此时我们要用已有的部分稀疏数据来预测那些空白的物品和数据之间的评分关系，找到最高评分的物品推荐给用户。&lt;/p&gt;
+
+&lt;p&gt;具体怎么实现呢？&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;回到本质。推荐的本质是猜你喜欢。既然是猜，就存在猜的维度。按照维度的复杂度，可以基于规则，按照比较硬的维度做推荐。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;协同过滤
+    &lt;ul&gt;
+      &lt;li&gt;user-based：计算user的相似度。核心假设：相似的user喜欢相似的item&lt;/li&gt;
+      &lt;li&gt;item-based：计算item的相似度。核心假设：对于相同的user，喜欢相似的item&lt;/li&gt;
+      &lt;li&gt;区别：前者关注点在人，人的计算空间大，有利于实现”千人前面“；后者的关注点在物，物的计算空间小，有利于实现相对稳定的离线计算&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;基于模型&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;关联规则+分类+聚类&lt;/li&gt;
+  &lt;li&gt;矩阵分解：SVD为代表&lt;/li&gt;
+  &lt;li&gt;FM:
+    &lt;ul&gt;
+      &lt;li&gt;二阶特征的各自Embedding的内积作为二阶特征的weight，以一种soft的方式缓解大规模场景下的二阶组合特征的稀疏性问题（hard的方式分配weight/等价于多项式核SVM），更好的泛化能力的来源是Embedding。&lt;/li&gt;
+      &lt;li&gt;本质思想和矩阵分解类似（训练完成后，获取user和item各自的矩阵，可以作为各自的Embedding）。&lt;/li&gt;
+      &lt;li&gt;FM=MF+Side Info，都是针对二阶特征组合的，FM的二阶特征候选更大，MF只有user和item两类。&lt;/li&gt;
+      &lt;li&gt;一种演化路径：LR-&amp;gt;FM-&amp;gt;DeepFM&lt;/li&gt;
+      &lt;li&gt;FM实用性的关键步骤：O(KxNxN)-&amp;gt;O(KxN),K=Embedding Dim, N=Feature Num&lt;/li&gt;
+      &lt;li&gt;召回：多路+策略+模型&lt;/li&gt;
+      &lt;li&gt;排序：特征&lt;/li&gt;
+      &lt;li&gt;假设能够将召回模型和排序模型都统一到特征的视角，一个有意思的想法&lt;/li&gt;
+      &lt;li&gt;Deep&amp;amp;Wide：Wide部分是LR模型，Deep部分是一个Deep模型&lt;/li&gt;
+      &lt;li&gt;DeepFM（D&amp;amp;W的升级版）
+        &lt;ul&gt;
+          &lt;li&gt;Wide-&amp;gt;FM&lt;/li&gt;
+          &lt;li&gt;Deep和Wide共享共享原始特征（FM的必要条件）&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;DIN：Attention首次用于CTR问题&lt;/li&gt;
+      &lt;li&gt;TDM：基于Tree，item是叶子节点，解决召回阶段的TopK问题。树的非叶子节点有独特的特征含义。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;除了上述讨论的话题，还有其他比较重要的问题：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;EdgeRec&lt;/li&gt;
+  &lt;li&gt;序列/跨域/多模态推荐&lt;/li&gt;
+  &lt;li&gt;冷启动&lt;/li&gt;
+  &lt;li&gt;Exploit&amp;amp;Explore&lt;/li&gt;
+  &lt;li&gt;隐私计算：联邦学习+安全多方计算+可信计算，见&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzA3MTU2ODMzNA==&amp;amp;mid=2247499159&amp;amp;idx=1&amp;amp;sn=b75ce5f7fbdd8c74a011c89d9b2ca31f&amp;amp;chksm=9f292336a85eaa207bfca8a90c062332475df4b87e1cebb4047c172c1d4b95dd21efface9be3&amp;amp;mpshare=1&amp;amp;scene=23&amp;amp;srcid=1024zw56ptrAEP4wD9O4Im4q&amp;amp;sharer_sharetime=1635076861126&amp;amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd&quot;&gt;同盾的工作&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Bias&amp;amp;Debias
+    &lt;ul&gt;
+      &lt;li&gt;针对开篇中的（3），各种Bias中最重要的是样本选择偏置，具体地将是负样本选择问题。比如常见的策略包括直接使用曝光数据作为负例，全局随机负例，Batch内负例，曝光+随机，Popularity-Based， Hard-Based的方法。在CTR问题中，正样本通过日志即可获得，负样本就需要通过构造的方式，因此构成了一个经典的只有正样本的场景（学术上PU-Learning）。&lt;/li&gt;
+      &lt;li&gt;《Bias and Debias in Recommender System: A Survey and Future Directions》&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在阅读过程中，夹杂着各种大问题，比如：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;数据挖掘模型+深度模型的融合， Deep&amp;amp;Wide为代表的工作，二者互为特征补充&lt;/li&gt;
+  &lt;li&gt;推荐+NLP的融合&lt;/li&gt;
+  &lt;li&gt;推荐中召回+排序的融合， 俊林的观点&lt;/li&gt;
+  &lt;li&gt;搜索+推荐+广告的融合，《Information Seeking: Convergence of Search, Recommendations and Advertising》&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;相关文章:&lt;/p&gt;
+
+&lt;p&gt;具体模型技术：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/67795161&quot;&gt;FFM及DeepFFM模型在推荐系统的探索&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/100019681&quot;&gt;推荐系统技术演进趋势：从召回到排序再到重排&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/59528983&quot;&gt;推荐系统召回四模型之二：沉重的FFM模型&lt;/a&gt;，这篇文章比较符合笔者当下的品味，开篇提出了两个有意思的问题：
+    &lt;ul&gt;
+      &lt;li&gt;是否我们能够使用一个统一的模型，将多路召回改造成单模型单路召回策略？如果不能，那是为什么？如果能，怎么做才可以？这样做有什么好处和坏处？&lt;/li&gt;
+      &lt;li&gt;是否存在一个模型，这个模型可以将召回阶段和排序阶段统一起来，就是把两阶段推荐环节改成单模型单环节推荐流程？就是说靠一个模型一个阶段把传统的两阶段推荐系统做的事情一步到位做完？如果不能，为什么不能？如果能，怎么做才可以？什么样的模型才能担当起这种重任呢？而在现实世界里是否存在这个模型？这个思路真的可行吗?&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/58160982&quot;&gt;推荐系统召回四模型之：全能的FM模型&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.slideshare.net/xamat/recsys-2016-tutorial-lessons-learned-from-building-reallife-recommender-systems&quot;&gt;Recsys 2016 tutorial: Lessons learned from building real-life recommender systems&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=Mzg4MzU1NjQ2Mw==&amp;amp;mid=2247510505&amp;amp;idx=1&amp;amp;sn=a5b21ec251388c107ca9d03a92c7f1c8&amp;amp;chksm=cf4740e9f830c9fffc13f8c4a1c1e67262dd3aad0618b49ce009e25cedf315b50d0f816fe0e2&amp;amp;mpshare=1&amp;amp;scene=23&amp;amp;srcid=1025A8cmTfdKSsmVtAsKsJMo&amp;amp;sharer_sharetime=1635169333535&amp;amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd&quot;&gt;推荐系统中的特征集列表&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzA4NTUxNTE4Ng==&amp;amp;mid=2247507256&amp;amp;idx=1&amp;amp;sn=4eac18f14dc69e04975f7ae16e82a052&amp;amp;chksm=9fd453e5a8a3daf32ccf10a2ca62390c35540aa769939d52566a92e15427ccdd4a9808651740&amp;amp;mpshare=1&amp;amp;scene=23&amp;amp;srcid=1025C69Np1I9XxLeAvJGa12L&amp;amp;sharer_sharetime=1635121397281&amp;amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd&quot;&gt;2021年推荐系统论文&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Mon, 25 Oct 2021 19:40:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/10/25/rec-sys-ideas/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/10/25/rec-sys-ideas/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>[RecSys]2021年的推荐系统杂文</title>
+        <description>&lt;p&gt;距离第一次写推荐系统的&lt;a href=&quot;https://zhpmatrix.github.io/2018/06/25/recsys-rethinking/&quot;&gt;博客&lt;/a&gt;，已经过去了两年多。近期读了一些推荐方向上比较有深度的文章，因此，想借助此篇博客梳理推荐系统方向上的部分工作，另一方面也是对所读文章的一个学习笔记。&lt;/p&gt;
+
+&lt;p&gt;什么是推荐？和搜索对比，搜索解决的是用户寻找物品的问题，而推荐解决的是物品找人的问题。前者是多对一，多个用户去搜索一个巨大的物品库。后者是一对多的问题，一个巨大的物品库分别推送给各自的潜在用户。场景的变化推动技术的演进。在PC时代，机器由于无法获取全面的用户信息，对于用户的理解是存在偏差的，但是到了移动互联网时代，通过手机终端，可以获取全面的用户信息，这让推荐有了实施的数据基础。至于PC时代为什么无法获取更全面的用户信息，也许是一个关于OS的技术问题，又或是一个用户习惯养成的问题，再或者是互联网的群体还不够大，积累的数据量不足以做出好的推荐效果问题。&lt;/p&gt;
+
+&lt;p&gt;在进入一个方向之前，首先要从整体上看到该方向上做的事情。这篇&lt;a href=&quot;https://zhuanlan.zhihu.com/p/95350982&quot;&gt;文章&lt;/a&gt;给予博主很大的启发。文章的主要内容是给出了对待推荐系统的三个视角。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;矩阵视角&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;矩阵的行是物品，矩阵的列是用户，矩阵中的元素是用户对物品的评分。矩阵中存在的空值填充，就是推荐系统要做的事情。既然将推荐问题用一个矩阵得以描述，就给了推荐问题一个形式化的定义，借助量化/数值计算的方式解决该问题。相关的方法比如User/Item-Based的各种具体算法，进而包括各种用户表征，商品表征算法等，基于矩阵分解(SVD)的方法等。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;图视角&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;用户和商品通过各种交互行为（浏览，点赞，收藏，评论等），可以形成一个天然的图的结构，继而可以很自然的将推荐问题定义为图的链接预测问题。这里既可以基于图的拓扑结构，演化出传统的图算法，比如swing算法，或者利用深度学习的技术，将该问题转化为图表征+连接预测问题。&lt;/p&gt;
+
+&lt;p&gt;既然可以将推荐问题转化为一个图问题，而从数学上看，图是可以用矩阵来描述的，所以本质上，矩阵视角和图视角在数学上存在本质的相似性。清华的唐杰组基于图表征的问题出发，有对二者的关系给出一个数学上的描述。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;时间线&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;矩阵和图，是一种静态的观察视角，不过，如果能够在图上添加时间的维度，就可以用一种静态的方式处理动态的信息，不过这种方式是隐式的。一种显式的方式则是将推荐问题定义为：已知用户历史时间中购买的物品序列，计算下一时刻用户可能会购买的物品。这样就将推荐问题转化为一个经典的序列预测问题，类似可能的方法论都得以应用。&lt;/p&gt;
+
+&lt;p&gt;本质上该视角是一种动态的观察角度。相关的方法包括Translation-Based推荐等，相关工作《Sequential Recommender Systems: Challenges, Progress and Prospects》等。&lt;/p&gt;
+
+&lt;p&gt;明确方法上的大方向之后，就可以深入到细分方向。这篇&lt;a href=&quot;https://zhuanlan.zhihu.com/p/34004488&quot;&gt;文章&lt;/a&gt;给出了一份要阅读的具体的工作，&lt;a href=&quot;https://github.com/hongleizhang/RSPapers&quot;&gt;这里&lt;/a&gt;是一份具体的阅读清单。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/398041971?utm_source=wechat_session&amp;amp;utm_medium=social&amp;amp;utm_oi=758077317837783040&amp;amp;s_r=0&quot;&gt;文章&lt;/a&gt;中作者以一个资深广告算法专家的身份讲述了广告算法发展的宏观视角，围绕召回+排序（粗排+精排）的框架，结合具体的CTR问题，以系统和算法协同设计的思路，讲述了广告系统发展的波澜壮阔的宏大历史图景。这其中夹杂着作者对于代际变换的思考，对于数据+算力+算法三要素的认知和实质性的工作推进。敢想敢干的品质，在文章中有很多地方可以体现。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/446993392&quot;&gt;阿里妈妈搜索广告预估模型2021思考与实践&lt;/a&gt;，这篇文章的行为风格和思路同上篇文章。&lt;/p&gt;
+
+&lt;p&gt;相关文章：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/xzz_hust/article/details/102873312&quot;&gt;CTR模型一览&lt;/a&gt;，这篇文章梳理了经典的CTR模型系列，具体包含LR/GBDT/GBDT+LR/FM/FFM/Deep&amp;amp;Wide/DeepFM/Deep&amp;amp;Cross/NFM/DIN/FTRL等。这些模型的发展脉络包含一下思想：&lt;/li&gt;
+  &lt;li&gt;特征低维-&amp;gt;特征高维&lt;/li&gt;
+  &lt;li&gt;特征离散-&amp;gt;特征连续&lt;/li&gt;
+  &lt;li&gt;交叉特征的手工构建-&amp;gt;交叉特征的自动构建&lt;/li&gt;
+  &lt;li&gt;参数的离线更新-&amp;gt;参数的在线更新&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;除了上述核心思想外，也有其他的一些思想指导。但是从这个维度来看，主流思想是围绕特征的各种花式玩儿法。&lt;/p&gt;
+
+&lt;p&gt;相关文章：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/418943291&quot;&gt;NLP方向是否有前景&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MTM2ODM0ODYyMQ==&amp;amp;mid=2651537793&amp;amp;idx=1&amp;amp;sn=5c4b3f8184760981de9cdb2fb7212f6b&amp;amp;chksm=624f41235538c835781213762ce017f8eac805cb9d6cf8aceb9e03a6f9787c1f37704fb68e6a&amp;amp;mpshare=1&amp;amp;scene=23&amp;amp;srcid=1013BCYrd4eOBY6WxShst0bN&amp;amp;sharer_sharetime=1634117019555&amp;amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd&quot;&gt;那些用推荐引擎改变世界的人&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sat, 16 Oct 2021 19:40:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/10/16/rec-sys/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/10/16/rec-sys/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>[杂文]数据中台注</title>
+        <description>&lt;p&gt;按照一贯的文风，首先需要思考的是数据中台是个什么东西？数据中台不仅仅是技术，也不仅仅是产品，而是 一套完整的让数据用起来的机制。也就是说，数据中台=产品+技术+人。数据中台兼具业务价值和技术价值。站在技术角度观察，给出场景和计算能力的列表如下：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;编号&lt;/th&gt;
+      &lt;th&gt;计算能力&lt;/th&gt;
+      &lt;th&gt;场景&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;离线计算能力&lt;/td&gt;
+      &lt;td&gt;报表需求&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;实时流式计算能力&lt;/td&gt;
+      &lt;td&gt;准实时的指标统计和实时推荐&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;即席计算能力&lt;/td&gt;
+      &lt;td&gt;圈人&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;在线计算能力&lt;/td&gt;
+      &lt;td&gt;用户画像&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;业务价值的实现需要依托一个价值框架：业务-&amp;gt;（业务数据化）-&amp;gt;数据-&amp;gt;(数据资产化)-&amp;gt;资产-&amp;gt;(资产服务化)-&amp;gt;服务-&amp;gt;服务业务化-&amp;gt;业务。整体上形成一个价值的闭环。&lt;/p&gt;
+
+&lt;p&gt;好了，我要搞一个数据中台，咋搞？&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;数据汇聚&lt;/li&gt;
+  &lt;li&gt;数仓构建&lt;/li&gt;
+  &lt;li&gt;标签体系：面向具体对象构建的全维度数据标签，是面向业务视角的数据组织方式，标签体系要具备服务能力&lt;/li&gt;
+  &lt;li&gt;应用数据&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;具体的，以某地产公司为例的数据中台数据体系架构，如下：
+&lt;img src=&quot;https://s3.bmp.ovh/imgs/2021/10/bccab5fb1222d5a0.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ODS：业务系统数据的汇集&lt;/li&gt;
+  &lt;li&gt;DW: DWD+DWS，业务系统是按照业务流程方便操作的方式来组织数据的，而DW是从业务易理解的视角来组织数据的&lt;/li&gt;
+  &lt;li&gt;TDM: 通过ID-Mapping把各个业务板块，各个业务过程中的同一对象的数据打通&lt;/li&gt;
+  &lt;li&gt;ADS：按照业务的需要从统一数仓层，标签数据层抽取数据，并面向业务的特殊需要加工业务特定数据，以满足业务及性能需求，向特定应用组装应用数据&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;对整个数据体系架构而言，ODS和ADS没有统一的构建规范，但是DW和TDM有统一的构建规范，同时TDM也是体现大数据能力的层。&lt;/p&gt;
+
+&lt;p&gt;在整个数据体系中，存在各种各样的数据。其中围绕元数据的各种应用比较有特色，具体应用如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;元数据浏览和搜索&lt;/li&gt;
+  &lt;li&gt;数据血缘：表A由表B，表C和表D级联得到，如果表A的数据不准确，可以追溯到表B，表C和表D&lt;/li&gt;
+  &lt;li&gt;影响性分析：判断当表A改变之后，是否会影响到与之相关的表B，表C和表D&lt;/li&gt;
+  &lt;li&gt;数据冷热度分析&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;除了元数据之外，主数据的构建和管理也是整个数据体系中的关键，并不是本篇文章讨论的重点。&lt;/p&gt;
+
+&lt;p&gt;基于数据体系的服务体系，主要包含四种服务方式，如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;查询服务：取数&lt;/li&gt;
+  &lt;li&gt;分析服务：算法分析&lt;/li&gt;
+  &lt;li&gt;推荐服务：主动的数据找人的过程&lt;/li&gt;
+  &lt;li&gt;圈人服务：基于标签&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;围绕数据中台，最上层的数据应用包括数据大屏，智能应用和数据报表。&lt;/p&gt;
+
+&lt;p&gt;扯了这么多，与NLP有什么关系呢？一个NLP的同学如何理解数据中台的概念。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;数据中台的研究对象是数据，文本是数据的一部分。由于数据的异质性，数据中台的活儿多是脏活儿累活，但是距离业务近，能够产生直接的业务价值，且有相对较长的研发周期，数据中台的活儿又是一个好活儿。&lt;/li&gt;
+  &lt;li&gt;数据中台可以包含算法中台，或者算法中台建立在数据中台之上。&lt;/li&gt;
+  &lt;li&gt;标准化能力构建对于数据中台的建立很重要，是数据打通的核心能力，但是不同的标准化，解决的难度不同。&lt;/li&gt;
+  &lt;li&gt;NLP通过对非结构化数据的理解，能够扩展数据中台的数据颗粒度，更细的粒度在一定场景中能够产生更多的价值&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;相关文章和书籍：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;《数据中台：让数据用起来》，数澜科技中台团队的作品，个人还是比较喜欢这本书的写作风格。有对问题的严格化的定义，也有手记之类的有趣的场景对话。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;《大数据之路：阿里巴巴大数据实践》&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.caict.ac.cn/kxyj/qwfb/bps/201906/P020190604471240563279.pdf&quot;&gt;《数据资产管理白皮书4.0》&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzIzOTU0NTQ0MA==&amp;amp;mid=2247506718&amp;amp;idx=1&amp;amp;sn=dd437ac302c2cad743dbfe611b7df917&amp;amp;chksm=e92ae611de5d6f07600d21d447a341d76462f25a095228f2a9d5d052eea4f17b42923d487dca&amp;amp;mpshare=1&amp;amp;scene=23&amp;amp;srcid=1227St8iO16IxvK0HMrn4ISB&amp;amp;sharer_sharetime=1640565716101&amp;amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd&quot;&gt;《数据质量漫谈》&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/qq_28666081/article/details/104686822&quot;&gt;基础概念：维表与事实表&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sat, 16 Oct 2021 19:40:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/10/16/data-platform/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/10/16/data-platform/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>[NLP]因果推断+NLP</title>
+        <description>&lt;p&gt;《Causal Inference in Natural Language Processing: Estimation, Prediction, Interpretation and Beyond》，相关的&lt;a href=&quot;https://zhuanlan.zhihu.com/p/419734891&quot;&gt;中文解读&lt;/a&gt;，对应的&lt;a href=&quot;https://github.com/causaltext/causal-text-papers&quot;&gt;参考文献列表&lt;/a&gt;。在该文章中，讨论了两个方向的关系：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;NLP有助于因果推断&lt;/li&gt;
+  &lt;li&gt;因果推荐有助于NLP：interpretation&amp;amp;explanation/sensitivity&amp;amp;robustness&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;其中，第一个方向的研究对象是因果推断，NLP是辅助手段。第二个方向和第一个方向恰恰相反。下文中的例1表明第一个方向，例2表明第二个方向，其中涉及的具体因果概念如下（例子原文来自网络，表格和分析来自博主本人）：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;例 1&lt;/strong&gt; 一个在线论坛允许其用户在他们的个人资料中用一个图标表示性别。他们注意到，图标为「女性」的用户所发的帖子得到的点赞量要少一些。为了评估这一政策（允许用户在资料中提供性别信息），他们问了一个问题：被认为是女性会降低帖子的受欢迎程度吗？&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Treatment&lt;/th&gt;
+      &lt;th&gt;Outcome&lt;/th&gt;
+      &lt;th&gt;Confounding&lt;/th&gt;
+      &lt;th&gt;Counterfactual Question&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;被认为是女性&lt;/td&gt;
+      &lt;td&gt;帖子得到的点赞量&lt;/td&gt;
+      &lt;td&gt;话题（图标为女性的用户所发的帖子可能更多的是关于某个话题的，而该话题本身就很难吸引人点赞）&lt;/td&gt;
+      &lt;td&gt;如果我们操控了一个帖子的性别图标，它能得到多少个赞？&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;在例1中，借助于NLP相关的技术，能够刻画Confounding，比如话题分析技术等，继而有利于因果分析。在本例中，文本作为Confounding，其他场景下，文本也可以作为Treatment或者Outcome，或者Mediator。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;例 2&lt;/strong&gt;
+一家医学研究中心想要构建一个分类器，用于从病人医疗记录的文本叙述中检测临床诊断。这些记录汇总在多个医院站点，目标临床状况的频率和叙述的写作风格都有所不同。当分类器应用于训练集之外的站点的记录时，它的准确率会下降。事后分析表明，这个分类器在看起来不相关的特性上投入了很高的权重，比如格式标记。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Treatment&lt;/th&gt;
+      &lt;th&gt;Outcome&lt;/th&gt;
+      &lt;th&gt;Confounding&lt;/th&gt;
+      &lt;th&gt;Counterfactual Question&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;医疗记录文本&lt;/td&gt;
+      &lt;td&gt;分类器的预测&lt;/td&gt;
+      &lt;td&gt;医院站点（写作风格）&lt;/td&gt;
+      &lt;td&gt;如果我们改变医院站点，同时保持真实的临床状态不变，分类器的预测是否会改变？（我们希望分类器依靠那些表达临床状况的短语来作出判断，而不是写作风格。）&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;在例2中，反映了NLP模型的鲁棒性差的问题。借助于因果推断，分析影响NLP模型鲁棒性的因素，比如这里的写作风格，通过特定的提升鲁棒性的方法，比如对抗训练等，从而有助于NLP。&lt;/p&gt;
+
+&lt;p&gt;相关文章和工作：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2002.02770&quot;&gt;《A Survey on Causal Inference》&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/uber/causalml&quot;&gt;CausalML&lt;/a&gt;/PyLift/grf(uplifting models)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在读过一些文章，看过一些工作之后，博主形成的基本结论是：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;因果推断在一些更好的场景下有着实际的落地价值，比如A/B实验，营销定价策略等&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;NLP赋能因果推断，其实是一个NLP问题，和赋能哪个方向没有关系&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;因果推断赋能NLP，是做NLP的同学要格外关注的一个方向，但是从目前赋能的问题看，理论性&amp;gt;实践性，短期内看不到特别的价值&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Fri, 15 Oct 2021 19:40:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/10/15/causal-inference-for-nlp/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/10/15/causal-inference-for-nlp/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>[NLP]NLP中的范式转移</title>
+        <description>&lt;p&gt;NLP的主流范式约有七种，包括分类，匹配，序列标注，阅读理解等，而在解决具体问题时，可以从一种范式转移到另外一种范式，甚至多种范式的综合使用，这称之为NLP的范式转移。具体如下：&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://s3.bmp.ovh/imgs/2021/10/54cae8f24fd05f34.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;上图来自文章Xuanjing Huang组的《Paradigm Shift in Natural Language Processing》，其中的（f），全称为sequence-to-action-sequence，形式的表达为：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;A = CLS(ENC(X),C)&lt;/strong&gt;, 其中A是action的序列，C是configuration的序列。在每个时间步，模型基于当前text和当前的configuration，预测action。&lt;/p&gt;
+
+&lt;p&gt;这种方式主要应用于结构化预测任务，比如Parser相关。感兴趣可以读陈丹琦老板Manning或者西湖大学Yue Zhang的工作。&lt;/p&gt;
+
+&lt;p&gt;既然有了这些范式，那么范式之间是如何转移的呢？具体如下(图片来自&lt;a href=&quot;https://txsun1997.github.io/nlp-paradigm-shift/&quot;&gt;这里&lt;/a&gt;)：&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://s3.bmp.ovh/imgs/2021/10/7f0942a3f685efb4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;以文本分类为例，传统的文本分类采用Class范式，该范式分为one-hot和multi-hot两种，对于multi-hot的问题，Class范式是一种次优范式。而通过将Class转化为Seq2Seq范式，有效利用label之间的交互信息。此外，label本身的语义信息在Class范式中也并未被充分的利用，而通过将Class范式转化为Matching范式,可以充分利用label中的先验信息,尤其是在数据资源较少的前提下。在预训练任务流行的现在，将Class范式转化为（M）LM的方式，可以充分利用预训练语言模型本身的能力。&lt;/p&gt;
+
+&lt;p&gt;除此之外，多种范式的组合也是范式迁移的范畴。&lt;/p&gt;
+
+&lt;p&gt;在将其他范式迁移到(M)LM的时候，其中一类非常重要的工作是Prompt-Learning。具体文章《Pre-train， Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing》，文章一作也是Xuanjing Huang老师组的，对应的&lt;a href=&quot;https://zhuanlan.zhihu.com/p/395115779&quot;&gt;知乎文章&lt;/a&gt;，评论区也有很多互动的观点很有意思。&lt;/p&gt;
+
+&lt;p&gt;这篇文章中，作者的思考问题的方式值得学习。其中一个总结是：在Fine-tuning的年代，我们希望语言模型能够尽可能的向下游任务靠近，而Prompting的年代，则是下游任务向语言模型靠近。我们经历了从使用预训练语言模型到使用了更强的预训练语言模型，到更好的使用了预训练语言模型的过程。整体上看，二者越来越近！&lt;/p&gt;
+
+&lt;p&gt;以Huang老师组的这两篇文章，具体可以展开非常多该方向上的研究，在此不再陈述。围绕上述工作，引发的一些思考如下。&lt;/p&gt;
+
+&lt;p&gt;（1）模态之间的范式转移是否存在？&lt;/p&gt;
+
+&lt;p&gt;一个典型的例子是2021年1月份的文章《Named Entity Recognition in the Style of Object Detection》，这篇文章将目标检测的思路用于NER任务，取得了和NLP传统方法相比comparable的结果。其中，目标检测中的方式是two-stage方法，NER是传统的标准方式。整体上，是CV的范式转向NLP的范式。&lt;/p&gt;
+
+&lt;p&gt;2021年9月的Hinton组的文章《PIX2SEQ : A LANGUAGE MODELING FRAMEWORK FOR OBJECT DETECTION》，用一个语言模型做目标检测。其中，语言模型是NLP中的标准范式。整体上，是NLP的范式转移到CV的范式。&lt;/p&gt;
+
+&lt;p&gt;这些探索能否将我们引向一个结论：一个统一的范式用于多种模态的问题求解。&lt;/p&gt;
+
+&lt;p&gt;（2）Prompt为什么会成为转移至(M)LM的关键操作？&lt;/p&gt;
+
+&lt;p&gt;在Fine-tuning的年代，我们倾向于将预训练语言模型作为一个更强的Encoder，但是随着探索的加深，我们认识到这个Encoder非常强，为了更好地挖掘Encoder的潜力，需要将焦点从下游任务转向Encoder自身。其中最简单的一条路径是适应Encoder的训练模式。比如对BERT而言，我们构造Mask的方式，而这就是Prompt的一种方式。范式转移过程中，考虑到Prompt和下游任务的适配，又会引发一系列的工作。&lt;/p&gt;
+
+&lt;p&gt;与之相关的一个角度是，研究中心从输出侧转移到输入侧，而对BERT的花式玩法，其实也正是存在于这两端。&lt;/p&gt;
+
+&lt;p&gt;其实，核心的思想都和朴素，都很直接。正如网络结构的设计，无论怎样，组件的选择有时候会受到维度对齐的影响，任何能够被设计的结构，都有自己的偏置。&lt;/p&gt;
+
+&lt;p&gt;（3）面向具体问题的范式选择逻辑是什么？&lt;/p&gt;
+
+&lt;p&gt;在上述两篇文章中，都没有找到比较有说服力的结论。不过，针对预训练语言模型，我们的逻辑是：用+用更强的+更好地用。但是，更多时候的问题是，PLM是不在选择空间中的。虽然文章中给出了各种范式的优缺点，但是只能成为一个出发点，并不能成为一个结论。&lt;/p&gt;
+
+&lt;p&gt;这也许很难得到一个结论。&lt;/p&gt;
+
+&lt;p&gt;不管怎样，这些范式，以及范式转移的逻辑，定义了一个有趣且庞大的探索空间，NLP的各种可能性均发生于此。&lt;/p&gt;
+</description>
+        <pubDate>Sat, 02 Oct 2021 19:40:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/10/02/thinking-in-nlp-paradigm/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/10/02/thinking-in-nlp-paradigm/</guid>
+        
+        
+      </item>
+    
+  </channel>
+</rss>

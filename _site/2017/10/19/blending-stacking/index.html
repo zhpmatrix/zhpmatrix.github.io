@@ -1,0 +1,193 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[ML]关于Blending和Stacking的讨论</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2017/10/19/blending-stacking/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[ML]关于Blending和Stacking的讨论</h1>
+    <p class="meta">Oct 19, 2017</p>
+  </header>
+
+  <article class="post-content">
+  <p>看了很多的比赛方案，大家经常谈到特征工程和模型融合，模型融合部分常用的策略是<strong>voting</strong>和<strong>averaging/weight</strong>，而且不同模型的weight是根据线上成绩手动得到。其实这个weight是可以通过学习的方式得到的，这是一种非常朴素的建模。今天复盘IJCAI-2017口碑商家流量预测大赛，对融合的理论做了进一步思考，同时分析了blending和stacking之间的关系，开了stacking和神经网络的脑洞。</p>
+
+<p>模型融合要求<strong>模型之间精度相近，模型之间差异性大</strong>。在模型融合的时候，经常面临的一种场景是队伍中单独训练了三个不同的模型，例如SVM, XGBoost, RandomForest,每个模型都会在测试集上得到一个结果，这个时候可以给每个模型的预测加一个权重，并且使得权重之和为1。</p>
+
+<p>问题是如何选择权重？很多比赛选手根据线上成绩反馈手动设置，本博客讨论机器学习的方式获得权重。</p>
+
+<p>下图是线性Blending的示意图。</p>
+
+<p><img src="http://wx3.sinaimg.cn/mw690/aba7d18bgy1fknjijl84nj20nv0asmxc.jpg" alt="Linear Blending" /></p>
+
+<p>假设数据集分割如下：</p>
+
+<p><img src="http://wx3.sinaimg.cn/mw690/aba7d18bgy1fknjyoqxtzj20e602swed.jpg" alt="Split Data" /></p>
+
+<p>利用训练集和验证集1分别训练三个模型A,B,C。在这种划分中，固定了训练集/验证集，当然可以采用CV进行模型选择和参数训练。使用训练好的三个模型分别预测验证集2，得到预测结果。假设验证集2的样本数目为N，预测后可以得到一个Nx3的矩阵，为了得到每个模型的预测权重，可以将该矩阵作为训练样本，验证集2的真实标签作为label/target, 采用线性回归进行参数学习。</p>
+
+<p>模型是不是很简单？这样是否合理？线性回归模型得到的特征系数(模型参数)表明了该特征对结果的贡献（重要性）。得到系数之后，预测阶段的操作很显然，每个模型单独预测测试集，然后按照上一步学习到的特征系数给每个模型的预测结果进行加权，求和之后得到最终的预测结果。</p>
+
+<p>假设三个模型的预测结果相同，则三个系数都为1/3，也就是三个模型预测结果的平均值。这里的平均值是在模型预测结果相同的前提假设下成立的。在模型预测结果差异性大的前提下，摘要提到的averaging，理论上效果不好，而在此前提下，线性回归能够自动调节系数，可以得到更加合理，解释性更强的结果。</p>
+
+<p>很显然，Linear Blending也有缺点，那就是增加了一次训练过程，在第二层的训练过程中，如果模型相对简单，比如说使用线性回归模型，训练代价是可以接受的。但是如果使用比较复杂的模型，则会引入新的学习参数，增加新的调参负荷。但是结合实际情况，在我看来，选择LR模型应该可以了，因为通常情况下，既然做模型融合，单个模型的结果应该已经很不错了，也就是满足预测结果差异性小的前提假设，这种情况下只需要对模型预测权重进行微调。</p>
+
+<p>从上述描述过程中，提到了”层”的概念。通常认为单模型训练为第一层训练过程，将第一层训练得到的模型预测结果作为训练样本，也就是输入，训练线性回归模型，称为第二层训练过程。对于Linear Blending，线性回归模型的表达式清晰且模型解释性很好。</p>
+
+<p>怎么样，个人以为，Linear Blending已经可以在比赛中使用了。</p>
+
+<p>下面再看一个看似比较复杂的融合方式，称为Any Blending，或者说Stacking，或者说堆栈泛化(可能此处学术概念不太准确)。</p>
+
+<p><img src="http://wx1.sinaimg.cn/mw690/aba7d18bgy1fknjij3onvj20od0auta6.jpg" alt="Any Blending" /></p>
+
+<p>上图也是一个两层训练融合方式。对模型A，假设对训练集进行4折划分，这样遍历完整个数据集(一个Epoch)，会得到四个子模型，可以记做A0, A1, A2, A3, 为啥？每个子模型的输入训练数据不同。每个子模型单独预测测试集合，最后对四个子模型的预测结果求平均得到一个列表记为PA，同时合并每个子模型对剩下一折的样本的预测结果。合并的意义是把每个预测结果放入一个列表，记为FoldPA，列表的长度和原始训练集的长度就一样了。假设训练数据样本个数为N，测试数据样本个数为M，则FoldPA的shape为(N，1)，PA的shape为(M,1)。</p>
+
+<p>对模型B和C同理可以得到PB,PC,FoldPB,FoldPC。</p>
+
+<p>精彩的来了，来到第二层训练。</p>
+
+<p>合并FoldPA, FoldPB, FoldPC,得到训练集合。合并PA, PB, PC得到测试集合。也就是模型D的训练数据的shape为(N,3), 测试数据的shape为(M,3)。<strong>训练好的模型D直接预测测试数据。</strong>是不是觉得和Linear Blending类似呢？</p>
+
+<p>假设对训练数据集分成2折，模型D采用线性回归模型，就是Linear Blending了。其实<strong>Any Blending是对Linear Blending的扩展，个人认为从两个方面进行了扩展，第一是对数据集的划分上，采用多折划分，可以有效防止overfitting，另一个方面是从第二层训练模型的选择和使用上。</strong></p>
+
+<p>在Linear Blending中，当我们采用线性回归模型的时候，获得了可解释的模型参数，也就是每个模型预测结果的贡献。但是如果模型D的选择在解释性上并不太好呢？我们或许不需要得到模型D对测试集预测结果的清晰的数学描述，直接将PA,PB,PC合并而成的测试样本喂给模型D就可以了。模型D本来就是特征和label/target的映射关系的表达，何必在意这种映射关系具体是怎样的呢？类比线性回归和多层神经网络在模型可解释性上的差异。</p>
+
+<p>这种找到方法之间本质联系的感觉是不是特别棒？嗯，让我们继续开开脑洞，不保证下述所谈内容的正确性，需要实验结果支撑。</p>
+
+<p>这个东西是不是和多层神经网络类似呢？从第一层来看，可以通过加模型来扩展神经网络层的宽度。深度的扩展当然是加层，上文中谈到的Any Blending才仅仅2层，可能的一种扩展为3层的方式如下。第一层用四个模型，第二层训练的时候分别训练两个模型，其中第一个模型使用第一层的前两个模型的预测结果，第二个模型使用后两个模型的预测结果。对第二层的训练数据进行多折划分，可以在第三层训练一个模型。其实当想到对第二层的训练数据进行划分的时候，这个多层训练的结构已经可以扩展下去了。和神经网络模型相比，该模型需要每次得到前一层的结果才可以进行下去，而神经网络模型利用BP算法更新参数。由于ensemble多个模型，每个模型的复杂度都很高，这种方式有利于local方式分模块调参，而神经网络模型其实是一个广义递归线性模型，适合global方式的参数更新。</p>
+
+<p>……嗯，还有很多，停止YY。</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

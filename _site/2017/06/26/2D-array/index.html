@@ -1,0 +1,246 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[C/C++]细数二维数组的坑</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2017/06/26/2D-array/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[C/C++]细数二维数组的坑</h1>
+    <p class="meta">Jun 26, 2017</p>
+  </header>
+
+  <article class="post-content">
+  <h4 id="二维数组作为函数参数">二维数组作为函数参数</h4>
+
+<p>先上代码如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;stdio.h&gt;
+void disp(int a[][2]){printf("%d\n",a[0][0]);}
+int main(){
+    int a[][2] = {1,2,3,4};
+    disp(a);
+    return 0;
+}
+</code></pre></div></div>
+
+<p>这是naive的实现，假设disp函数的定义如下呢？</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void disp(int *a[2]){printf("%d\n",a[0][0]);}
+</code></pre></div></div>
+
+<p>编译提醒(没有错误)如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>main.c:6:8: warning: incompatible pointer types passing 'int [2][2]' to
+  parameter of type 'int **' [-Wincompatible-pointer-types]
+    disp(a);
+
+main.c:3:17: note: passing argument to parameter 'a' here
+void disp(int *a[2]){printf("%d\n",a[0][0]);}
+            ^
+
+1 warning generated.
+</code></pre></div></div>
+
+<p>从编译结果来看，只是产生了warning，没有error，但是运行的时候出现<strong>段错误</strong>!这也从一方面验证了对于代码的warning也要保持足够警惕。</p>
+
+<p>在Ubuntu下的提示如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>note: expected ‘int **’ but argument is of type ‘int (*)[2]’
+</code></pre></div></div>
+
+<p>究其原因是上述函数声明的是指向2个元素的一维数组，每个元素类型为指向int的指针类型。为什么会导致这样的理解？<strong>’[]’</strong>的优先级比<strong>’*‘</strong>高。修正如下:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void disp(int (*a)[2]){printf("%d\n",a[0][0]);}
+</code></pre></div></div>
+
+<p>此时声明了一个指针，指向具有2个元素的一维数组。2表示的是二维数组的列，这样就满足了expected int。</p>
+
+<h4 id="返回数组">返回数组</h4>
+
+<p>先看代码：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;stdio.h&gt;
+int* func(int* a,int len){
+    //int* tmp = new int[len];
+    for(int i = 0;i &lt; len;i++){a[i]++;}
+    return a;
+}
+int main(){
+    int len = 4;
+    int a[] = {1,2,3,4};
+    int *b = func(a,len);
+    for(int i = 0;i &lt; len;i++){printf("%d ",b[i]);}
+    return 0;
+}
+</code></pre></div></div>
+
+<p>假设代码中取消注释行，重写函数func有:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int* func(int* a,int len){
+    int tmp[len];
+    for(int i = 0;i &lt; len;i++){tmp[i]=a[i];}
+    return tmp;
+}
+</code></pre></div></div>
+
+<p>编译提示：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>main.cpp:6:9: warning: address of stack memory associated with local variable
+  'tmp' returned [-Wreturn-stack-address]
+    return tmp;
+           ^~~
+1 warning generated.
+</code></pre></div></div>
+
+<p>很显然，从函数调用过程来说，当函数返回时，调用栈的空间全部释放。相比与原来的定义，是直接在传入的数组空间进行操作，所以直接返回即可。</p>
+
+<p>解决的方法就比较清楚了，在局部函数内开辟在堆上的空间。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int* func(int* a,int len){
+    int* tmp = new int[len];
+    for(int i = 0;i &lt; len;i++){tmp[i]=a[i];}
+    return tmp;
+}
+</code></pre></div></div>
+
+<p>注意，在调用该函数后进行内存空间的释放。考虑到空间的开辟和释放不在同一个位置，很容易出现忘记释放内存的情况，因此另外一种情况是在main函数中开辟一个空间，将该空间作为函数参数传递到func中，赋值后返回，这种方式和原始定义类似。</p>
+
+<p>总结：参数传递要指定列数，返回要手动开辟和释放内存空间。</p>
+
+<p>重要参考：</p>
+
+<p><a href="https://www.cnblogs.com/SarahZhang0104/p/5749680.html">C++中数组的定义和初始化</a></p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

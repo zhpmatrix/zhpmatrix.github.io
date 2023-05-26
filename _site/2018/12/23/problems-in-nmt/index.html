@@ -1,0 +1,254 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]论文思考-神经机器翻译中的六个挑战</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2018/12/23/problems-in-nmt/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]论文思考-神经机器翻译中的六个挑战</h1>
+    <p class="meta">Dec 23, 2018</p>
+  </header>
+
+  <article class="post-content">
+  <p>首先给出文章地址吧。<a href="https://arxiv.org/abs/1706.03872">Six Challenges for Neural Machine Translation</a></p>
+
+<p>Google的翻译模型在上线神经机器翻译(NMT)之前是使用统计机器翻译(SMT)的。SMT一般指基于phrase的翻译，NMT通常指端到端的翻译。假设在<strong>二哈语言-人类语言</strong>翻译任务中，SMT是首先将输入的二哈的“语言”和人类的语言分别切分成phrase，然后对每个二哈的phrase，<strong>对齐</strong>到人类语言的phrase，最后<strong>重新组合</strong>成人类的语言作为二哈“语言”的翻译结果。而NMT的方式是直接将二哈的“语言”输入到一个神经网络结构中，输出就是人类的语言。</p>
+
+<p>NMT的出现大大提升了翻译质量，围绕NMT的工作非常多，同时来自NMT的研究成果对其他任务的辐射效果也很明显，因此研究NMT不一定是为了做一个很棒的翻译系统，可能更多的是带来一些具有启发意义的想法。虽然NMT成果显著，但是NMT方法仍然面临很多基础性问题，这些文章主要采用<strong>经验分析</strong>(<em>较多的实验+一定的理论解释，可能理解的有偏颇。</em>)的方式讨论这些问题。</p>
+
+<h4 id="domain-mismatch">Domain Mismatch</h4>
+
+<p>该问题是指，基于法律领域语料训练的翻译模型在翻译来自医学领域的文本时，可能效果不佳。看下图，</p>
+
+<p><img src="http://wx4.sinaimg.cn/mw690/aba7d18bgy1fyfu0flfpzj20vq0kfjup.jpg" alt="image" /></p>
+
+<p>图中横坐标表示训练集的领域文本，纵坐标表示测试集的领域文本，绿色是SMT的BLEU值，蓝色是NMT的BLEU值。比较特殊的是，表格中最上一行表示该行之下的所有文本的并集。</p>
+
+<p>从上表中可以得出结论：除第一行，对角线上表示same domain的测试结果，显著高于其他cross domain的结果。同时，从某行来看，面对cross domain时，NMT模型的degrade比SMT要显著，BLEU值比same domain要<strong>低的快</strong>，说明相对于SMT，NMT模型对domain更加的敏感。看第一行，不同domain的训练集合并时，相比于单一domain作为训练集，SMT模型的在多个domain的测试集效果要更好，NMT模型除了IT domain，其余指标均有下降。虽然，从直观上看，合并训练集增加了数据的规模，但是从上述实验结果来看，该数据规模的增加，只是提升了SMT的效果，但是NMT的效果却下降了。这里要格外注意的前提是，<strong>测试集是训练集中的一个domain！</strong>，但是，即使测试集也是cross-domain的，测试指标仍然有所下降。同时SMT和NMT相比，从上图可以看出，多数情况下NMT效果优于SMT，<strong>显著优于</strong>。</p>
+
+<p>这好像和我们对于DL中增加数据规模的效果，印象不同啊？</p>
+
+<h4 id="amount-of-training-data">Amount of Training Data</h4>
+
+<p>给定一个任务，在选定模型的时候，我们需要多少训练数据？看下图，SMT和NMT对比性能和语料规模的关系。</p>
+
+<p><img src="http://wx2.sinaimg.cn/mw690/aba7d18bgy1fyfurtg7nwj20g10nhn15.jpg" alt="img2" /></p>
+
+<p>其中，<strong>phrase-based</strong>是指SMT，<strong>with Big LM</strong>表示使用预训练语言模型。上图说明，在小规模语料下，SMT效果远比NMT要好，同时带有预训练LM的SMT比不带预训练的SMT要好，同时三者随着语料规模的增加，性能都有提升。重要的不同是，NMT对语料规模表现的相对敏感，也就是性能更快的变好，最终可以超过其他两个模型，”强劲”！</p>
+
+<p>虽然作者没有明确给出到底需要多少数据，但是给出了一种关系的描述。由此得到的两个启发是，第一，小数据规模下，尝试一下SMT或许不错，基于统计的方法可能不会弱与基于神经网络的方法（实际上在<a href="https://zhpmatrix.github.io/2018/12/17/chinese-spell-checker/">中文检错任务</a>上，也可以得到证明。）；第二，对于基于神经网络的方法，数据多点总没有错。</p>
+
+<h4 id="rare-words">Rare Words</h4>
+
+<p>针对词分布的问题，经常被讨论的是<strong>OOV</strong>和<strong>稀有词</strong>的问题。针对NLP各个任务中的OOV问题，相当多的方法已经提出来了。这里需要讨论的是稀有词，实际上，虽然OOV问题可能更重要一些。我们用一个更好听的名字来命令，称为<strong>低频词</strong>吧。SMT和NMT对于低频词的处理都有困难，特别是对于一些<strong>highly-inflected</strong>的词。</p>
+
+<p>为此，作者探讨了输入端词频对于翻译质量的影响。使用BPE编码的NMT在处理低频词问题上表现的比SMT系统要好，因此BPE可以将低频词分解，当然这种分解方式不一定按照形态学边界。</p>
+
+<p>其实，低频词当频率为0时，就会导致OOV问题。经常会看到的一种情况是，句子中出现的命名实体。将词分成更小的粒度，小粒度的组合可以成为词，预测在小粒度上进行。类似的思路包括中文领域的按词预测还是按字预测等，如果按字预测，会基本解决基于词的OOV问题，同时词典更小，对计算和存储都是一件好事，理论上，对模型性能或许也有一定程度的提升，更小的词典意味着更小的搜索空间。</p>
+
+<p>除了上述的问题，一般在预处理阶段，也会去做命令实体的替换或者删除，以此减少对下游任务的影响。</p>
+
+<h4 id="long-sentences">Long Sentences</h4>
+
+<p>基于RNN的模型会经常讨论的一个问题是，梯度消失和爆炸，本质原因在于连乘的性质。放在输入端，就要考虑输入的长度了，因此也就是NLP中常常讨论的句子长度的处理。SMT和NMT对于句子长度的反应是怎样的？</p>
+
+<p><img src="http://wx1.sinaimg.cn/mw690/aba7d18bgy1fyfv2rnhtbj20km0men0y.jpg" alt="img3" /></p>
+
+<p>上图很明确的表达了句子长度对两类模型的影响。在最优句子长度之前，NMT的效果一直优于SMT。虽然BLEU的峰值相同，但是相同峰值，SMT可以处理更长的句子。对于NMT来说，随着句子长度的增加，性能持续下降，<strong>还很厉害呀!</strong>但是看SMT，虽然有一定程度的下降，但是某个地方峰回路转，效果回升。当超过最佳句子长度，NMT系统性能的下降，作者给出的解释是：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The quality of the NMT system is dramatically lower for these since it produces too short translations.
+</code></pre></div></div>
+
+<p>注意，上图中给出的最佳句子长度为60左右，是基于subword的统计。理论上，基于word的统计要小于60，不过现在多数seq2seq系统的实现都是支持BPE的，所以句子长度设置的时候，注意一下长度的粒度。虽然在超过最佳句子长度的时候，NMT表现弱与SMT，但是实际上我们看到在NLP的具体问题中，有不同的方式去处理句子长短不一致的问题，因此这并不意味着当句子很长时，SMT就是一个合理的选择。在最佳句子长度之前，NMT随着句子长度的增加，是持续优于SMT的。</p>
+
+<p>Bengio在2014年的一篇文章中<a href="https://arxiv.org/pdf/1409.1257.pdf">《Overcoming the Curse of Sentence Length for Neural Machine Translation using Automatic Segmentation》</a>针对句子长度对NMT的影响给出的原因如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Training on long sentences is difficult because few available training corpora include sufficiently many long sentences, and because the computational overhead of each update iteration in training is linearly correlated with the length of training sentences.
+
+Additionally, by the nature of encoding a variablelength sentence into a fixed-size vector representation, the neural network may fail to encode all the important details.
+</code></pre></div></div>
+
+<p>总之，在翻译任务中，句子长度需要合理选择！</p>
+
+<h4 id="word-alignment">Word Alignment</h4>
+
+<p>Attention虽然在一定程度上可以实现词对齐，但是二者之间的关系到底是什么？看下图，</p>
+
+<p><img src="http://wx2.sinaimg.cn/mw690/aba7d18bgy1fyfw5e3edpj20jh0nigof.jpg" alt="img4" /></p>
+
+<p>这是一张非常棒的图，也就是说Attention一定程度上可以实现词对齐的作用。既然是一定程度上，那就是不完全吗，看下图，竟然偏移一个单位。</p>
+
+<p><img src="http://wx4.sinaimg.cn/mw690/aba7d18bgy1fyfw7jtibpj20jt0mjdia.jpg" alt="img5" /></p>
+
+<p>针对这种情况，作者给出了一个建议：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Note that the attention model may produce better word alignments by guided alignment training where supervised word alignments(such as the ones produced by fast-align) are provided to model training.
+</code></pre></div></div>
+
+<p>也就是说，虽然Attention能够一定程度上实现词对齐，但是这个词对齐不是很对齐呀。更好的方式是通过监督学习的方式帮助Attention来学习到更好的词对齐。</p>
+
+<h4 id="beam-search">Beam Search</h4>
+
+<p>在decoding阶段，使用Beam Search可以在得到不差的结果的同时，减少计算成本和节约存储空间。通常认为，Beam Size越大，可以扩大翻译空间从而得到更好的翻译结果。在SMT中，Beam Size确实可以提高翻译得分(BLEU)，但是当增大到一定程度时，会损害BLEU得分。那么在NMT的结果是怎样的呢？</p>
+
+<p><strong>影响和SMT一样。</strong></p>
+
+<p>作者基于English和其他语言的互译，做了四组实验，最佳beam size的范围在<strong>4-30</strong>之间。该区间范围的启发是合适的beam size找到之后，再去调整找到一个最优的beam size的成本很大，但是收益较小。通过增加对输出句子长度的正则化，一般情况下可以进一步增加BLEU值，但是对应的最优的beam size的区间范围也会扩大，基于作者实验给出的区间范围是30-50，超过该区间，BLEU的值会下降。作者给出的原因是<strong>较宽的beam会导致较短的翻译结果。</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The main cause of deteriorating quality are shorter translations under wider beams.
+</code></pre></div></div>
+
+<p>此处挖坑，具体原因需要后续探讨。直观地思考，Beam Search算法是Greedy Search和Viterbi Search的中间版，更宽的beam size，使得Beam Search的搜索空间更加地接近Viterbi的搜索空间，由于转移概率的值小于1，故越短的序列预期得到更高的分数。</p>
+
+<p>具体实验结果如下：</p>
+
+<p><img src="http://wx4.sinaimg.cn/mw690/aba7d18bgy1fyftvbdcxjj20kk0qwgse.jpg" alt="实验结果如下" /></p>
+
+<h4 id="interpretable">Interpretable</h4>
+
+<p>可解释性是基于Neural Network的工作的硬伤，不瞒您说，秘密都藏在模型的参数矩阵中。虽然围绕可解释性的研究无论在CV还是NLP社区都有一些成果，但是距离我自己想要的解释性似乎还有很多距离。自己希望得到的是模型本身的可解释性，这种可解释性可以去指导我们做模型结构设计和改良，虽然目前可解释性的相关研究也有相关作用，但是还是距离还是很远的。想到冯博说的一句话：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>“在机器学习里，Explainable 和 Interpretable 是不一样的。Explainable ML指的是构建另一个模型来解释一个黑盒模型，而Interpretable ML指的是模型本身在设计的时候就具备解释自己的功能。 ”
+</code></pre></div></div>
+
+<p>我想，我希望的是Interpretable而不是Explainable吧。</p>
+
+<p>总结：围绕<strong>Domain Mismatch</strong>，迁移学习相关的同学讨论的最多。理解这个问题，能够帮助我们更好的去准备训练语料，是选择什么语料的问题？<strong>Amount of Training Data</strong>，是选择多大的语料的问题？这两个都是在准备数据阶段相当重要的问题。<strong>Rare Words</strong>无论在预处理阶段还是在解码阶段都是要去考虑的问题，重视OOV问题就没错了。<strong>句子长度</strong>在NLP的任务中常常是一个超参数，而且是不经常被调节的那个参数，好的句子长度选择或许会带来一定程度的增益。<strong>Word Alignment</strong>在传统SMT中被讨论了很多了，近年来的NLP模型中，Attention已经成为标配组件，虽然Attention能够一定程度上实现词对齐，但是这种实现不是完全等价的，我们需要更好的Attention，比如有一波人是研究稀疏化的Attention。围绕解码算法，beam size也不是越大越好。</p>
+
+<p>对文章的感受是，主要通过对比SMT和NMT，探讨一下我们一直以为的问题是否是一个问题吧。</p>
+
+<p>最后推荐一篇文章《Massive Exploration of Neural Machine Translation Architectures》，对比了NMT中不同组件和模型超参的实验影响。</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

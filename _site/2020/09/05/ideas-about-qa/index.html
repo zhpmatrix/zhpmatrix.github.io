@@ -1,0 +1,392 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[思考]电商问答系统的产品侧讨论</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2020/09/05/ideas-about-qa/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[思考]电商问答系统的产品侧讨论</h1>
+    <p class="meta">Sep 5, 2020</p>
+  </header>
+
+  <article class="post-content">
+  <p>智能客服线的市场空间是有的，一方面按照乐言沈李斌的计算方式，如下：</p>
+
+<blockquote>
+  <p>中国当前的客服人员超过1000万人，按照人均6-8万/年的人力成本计算，整个客服市场规模每年约7000亿。若其中15-20%被智能客服替代，整个市场空间就有1000-1400亿。</p>
+</blockquote>
+
+<p>其他数据，可以借助《2018中国智能客服行业研究报告》补充。</p>
+
+<p>另一方面，智能客服的发展主线：从大客服到普惠问答，最后可以到海外。</p>
+
+<h4 id="问题分类">问题分类</h4>
+
+<h5 id="1无效问题过滤">（1）无效问题过滤</h5>
+
+<p>用户在输入“嗯”，“是”等无意义的问题的时候，对于目前的单轮问答系统来说，会给用户一个反馈，因为当前的系统假定总是要给用户一个反馈。</p>
+
+<h5 id="2重复问题合并">（2）重复问题合并</h5>
+
+<p>用户在短时间内用不同的问题方式表达同样的意图，如果机器人是基于单问题做意图判断，那么回复答案相同。带来的问题是用户判断是机器回复，有厌倦情绪。解决的基本思路：问题侧做相同意图问题合并，答案侧做相同意图的回复多样性思考。</p>
+
+<h5 id="3长难句">（3）长难句</h5>
+
+<p>长难句由于长，会导致一定程度上的难，比如给多意图识别带来的困难。分析客服对话数据：</p>
+
+<ul>
+  <li>这个机器多久换新？保修多久</li>
+  <li>这个机器多久换新？保修有问题，可以保修多久啊</li>
+  <li>你不写着微信视频语⾳聊天⼉吗？我是问你⽀持语⾳聊天⼉，但是⽀不⽀持视频聊天。</li>
+  <li>你好，请帮我查询下后⾯给我寄的快递到哪⾥了，这么多天我还没有收到货呢</li>
+  <li>我烦死你们了，你们能不能发货，⼀直在说尽快发货，可是你们发货了吗</li>
+  <li>亲，我的货到底有没有发出来呀，怎么没有物流信息，显示，包裹正在等待揽收。</li>
+  <li>换机器不申请售后？直接寄给您？您收到机器以后再返我运费？在发⼀台给我？</li>
+  <li>在吗？有安装视频吗？</li>
+  <li>收藏你店铺不是减五块吗？怎么没有减呢？</li>
+  <li>手机已经拿到了，但是，为什么用不了呢？手机卡放进去，显示“可拨打紧急电话”。已经试用了家人的三张手机卡了，都是如此显示，为什么会这样？</li>
+</ul>
+
+<p>针对该问题，平安寿险的做法如下（语法树分析+关键词典）：</p>
+
+<p>第一步，通过标点或空格分割长句成若干个短句，然后对短句分类，去掉口水语句。</p>
+
+<p>第二步，基于概率和句法分析的句子压缩方案，只保留主谓宾等核心句子成分。配合保险关键词典，确保关键词被保留。</p>
+
+<p>实际上，当用户一次输入多个意图，但是机器只回复其中一个问题的时候，用户会再次单独询问该问题。本质上将一个多轮的对话转化为单轮。</p>
+
+<h5 id="4错别字">（4）错别字</h5>
+
+<p>错别字问题是必须要解的吗？取决于具体的场景。比如，在情感分析任务中，比起是否含有“不”的问题，错别字带来的困扰似乎不是很多。如果必须解，实际上，基于词典的方案可能就可以解的不错。在分析很多语料之后，可以看到：优惠卷（优惠券），冲电（充电），锁频（锁屏），视屏（视频），定单（订单），是经常出错的例子，当然存在一定程度上的长尾错误。个人基于错别字做了很多工作，可以在之前的博客中看到。整体的感受是：要结合具体问题具体分析，通用纠错的ROI非常低，当然不能否认错别字相关工作的技术价值。</p>
+
+<h4 id="问题推荐">问题推荐</h4>
+
+<p>在之前的博客中，讨论过答案推荐的一些问题，<a href="https://zhpmatrix.github.io/2020/08/02/learning-to-rank/">Learning to Rank用于问答匹配/答案推荐建模</a>和<a href="https://zhpmatrix.github.io/2020/08/02/answer-recommend-metric/">答案推荐的评估指标设计</a>。问答系统的研究对象简而言之就是问题和答案，从目前的进展来看，多数工作是围绕问题展开的，关注对问题的理解，而对答案，可以通过问题-答案的简单映射关系确定。不过，这里讨论的是问题侧。产品上希望的一种形态是：用户还没问，系统就知道用户想问啥？用户说不清楚，系统也可以理解用户想表达什么意思？用户还没说，系统就会表达用户想说的意图。</p>
+
+<p>在这篇<a href="https://juejin.im/entry/6844903653107564552">文章</a>中，描述的比较清楚：</p>
+
+<blockquote>
+  <p>在这个过程中，算法不外乎要做的就是两件事：猜你所想，答你所问
+我们先说猜这件事，类似推荐，在用户还没有做出任何输入时，我们会根据用户的信息、当前上下文信息以及咨询的产品信息来猜测用户进入咨询界面时想问什么问题，从而得到一堆问题的排序展示给用户。如果第一步没有猜到用户想要的问题，用户就会通过输入框来简单描述自己的情况和想要咨询的问题，在用户输入的过程中，我们也会结合用户输入的内容通过算法来实时猜测用户可能咨询的问题，并以input suggestion的方式给到用户。若上述都无法让用户找到自己想要的答案，那就是答这件事要解决的。</p>
+</blockquote>
+
+<h5 id="1猜你想问">（1）“猜你想问”</h5>
+
+<p>支付宝的客服系统是基于强化学习做的。</p>
+
+<h5 id="2输入问题时的实时推荐">（2）输入问题时的实时推荐</h5>
+
+<p>智能推荐在输入法场景下应该是一种比较常用的范式了。</p>
+
+<h5 id="3多轮对话中的用户意图澄清">（3）多轮对话中的用户意图澄清</h5>
+
+<p>可以划归到问题推荐这个维度，不过更适合在多轮对话中做，围绕该方向，蚂蚁金服同样做了很多工作</p>
+
+<h4 id="基于店铺对话语料的观点挖掘">基于店铺对话语料的观点挖掘</h4>
+
+<h5 id="1通用评价分析">（1）通用评价分析</h5>
+
+<p>比较常见的是淘系产品对于宝贝的评价，对话语料也是一种获取评价的来源，而且是一种更直接的反馈。</p>
+
+<h5 id="2买家不满情绪分析">（2）买家不满情绪分析</h5>
+
+<p>除去通用评价，使用客服系统多数情况下是为了解决问题，而买家不满情绪挖掘则是一个重要问题。例如
+客服对话数据：</p>
+
+<ul>
+  <li>浙江杭州到我这⼀半物流第⼆天就到，你这个是顺⻛的吗？怎么⽐⼀办物流还慢</li>
+  <li>在你家买了好多次了，麻烦快点发货可以吗？你家的发货速度真是太慢了</li>
+  <li>为什么我的u盘才⽤了2个⽉左右，传输速度极慢，传个视频10分钟啊。</li>
+  <li>东⻄已收到，试了⼀下，数据传输速度太慢了，插⼊电脑USB接⼝，识别时间也⻓，实际存储量只有29.2G。</li>
+  <li>请不要发圆通快递，其他都可以，圆通太慢！已经付款，请尽快发货，谢谢</li>
+  <li>发出来的⼀件物流也没有更新啊，为什么这么慢啊，帮忙查⼀下，谢谢</li>
+  <li>同样时间从⼴东发货，你家为啥慢那么多？是什么原因导致？</li>
+</ul>
+
+<p>总结买家不满情绪的原因如下：</p>
+
+<ul>
+  <li>服务态度：售后服务</li>
+  <li>物流：发错，太慢</li>
+  <li>投诉</li>
+  <li>催回复</li>
+  <li>产品：是否正品，某个部件坏了，衣服扎人</li>
+  <li>催退款：退货运费</li>
+  <li>差评</li>
+</ul>
+
+<p>该环节的一个极端表现是如京东智能客服挽救欲自杀的女孩（对话理解），天眼系统帮助追踪到在逃十年的案犯等问题（行人重识别），且不论是否有PR嫌疑，如果为真，这样的案例就是智能客服系统中的“黑天鹅”。</p>
+
+<h4 id="服务体验调查">服务体验调查</h4>
+
+<p>主要目的是两个：</p>
+
+<p>（1）获取用户对于系统的反馈</p>
+
+<p>（2）珍贵的标注数据。如果是细粒度的反馈，则数据价值更高，但是或许会给用户体验带来负反馈</p>
+
+<p>该环节也是系统生命周期管理的重要一环。在一些大的客户产品中已经可以看到，诸如平安保险等。</p>
+
+<h4 id="用户显式要求转人工">用户显式要求转人工</h4>
+
+<p>通常用户要求转人工，主要包含以下四种情况：</p>
+
+<p>（1）用户请求人工服务，并非机器回答的不好，只是单纯的想要转人工，也许是用户对于机器回复的反感</p>
+
+<p>（2）用户以为是机器，其实是人工，要求转人工（用户质疑人工或者机器）</p>
+
+<p>比如用户吐槽：“一直机器回复！哪怕人工回复，也跟机器回复一样！！！！”</p>
+
+<p>比如用户质疑：“是真人还是机器？”</p>
+
+<p>（3）用户知道如何切换到人工，显式指令请求转人工（该用户是砸场子的？）</p>
+
+<p>（4）用户情绪化反应</p>
+
+<p>用户要求转人工，对于一个智能客服系统而言，并不是一件好事，因此结合上述情况，讨论如何求解是一种有意义的问题。</p>
+
+<p>针对该点，讨论关于用户预期的管理：</p>
+
+<p>（1）用户对于AI的预期是走在AI技术之前的，因为大家都知道一个好的AI产品是什么样子的。这样带来的问题之一是AI从业者一定程度上是苦逼的，该观点在之前的博客中也有提过</p>
+
+<p>（2）对于搜索引擎来说，当搜索结果不好的时候，用户会通过改变搜索关键词得到预期结果，但是对于不好的问答系统，用户吐槽，客户流失</p>
+
+<h4 id="客服对话摘要">客服对话摘要</h4>
+
+<p><a href="https://www.leiphone.com/news/201908/ONKkZHFyT52hLWdR.html">滴滴的工作</a></p>
+
+<h4 id="客服质量检查">客服质量检查</h4>
+
+<p><a href="http://www.yuyidata.com/blog">杭州语忆科技</a>，该公司有好多有趣的博文可以读。阿里的<a href="https://developer.aliyun.com/article/161436">“慧眼”项目</a>，也可以参照。</p>
+
+<h4 id="标准问生成">标准问生成</h4>
+
+<p><a href="https://zhuanlan.zhihu.com/p/149429784?utm_source=qq&amp;utm_medium=social&amp;utm_oi=52727124066304">基于GPT的标准问生成</a></p>
+
+<h4 id="技术侧研究啥不是只讨论产品想法吗">技术侧研究（啥？不是只讨论产品想法吗？）</h4>
+
+<h5 id="1强化学习的应用">（1）强化学习的应用</h5>
+
+<ul>
+  <li>
+    <p><a href="https://plmsmile.github.io/2018/05/03/44-reinforce-nlp/">阿里小蜜</a></p>
+  </li>
+  <li>
+    <p><a href="https://mp.weixin.qq.com/s/6wSz8wAi0vrHebZ0EJ2sZA">任务导向型对话系统——对话管理模型研究最新进展</a></p>
+  </li>
+</ul>
+
+<h5 id="2基于知识图谱的问答系统">（2）基于知识图谱的问答系统</h5>
+
+<ul>
+  <li>
+    <p><a href="https://blog.nowcoder.net/n/630128e8e6dd4be5947adbfde8dcea44">中文知识图谱问答的比赛调研</a></p>
+  </li>
+  <li>
+    <p><a href="https://zhuanlan.zhihu.com/p/92317079">CCKS2019（第三名的工作）</a></p>
+  </li>
+  <li>
+    <p><a href="https://blog.csdn.net/c9Yv2cf9I06K2A9E/article/details/86110121">NLPCC2016的工作</a></p>
+  </li>
+  <li>
+    <p>《Open Domain Question Answering System Based on Knowledge Base》</p>
+  </li>
+  <li>
+    <p><a href="https://www.infoq.cn/article/hf8eT8AXksGEsThWsWIp">美团的实践</a></p>
+  </li>
+</ul>
+
+<h5 id="3问答匹配">（3）问答匹配</h5>
+
+<ul>
+  <li>
+    <p><a href="https://zhuanlan.zhihu.com/p/136971135">关键方案</a></p>
+  </li>
+  <li>
+    <p><a href="https://zhuanlan.zhihu.com/p/39920446">QA匹配的传统工作总结</a></p>
+  </li>
+  <li>
+    <p><a href="https://zhuanlan.zhihu.com/p/111380177">基于CNN网络，用排序学习的思路解决QA匹配的问题</a></p>
+  </li>
+  <li>
+    <p><a href="https://blog.csdn.net/zp563987805/article/details/104350670">一个基于投资信息的问答匹配模型实验结果</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/NTMC-Community/MatchZoo">匹配相关模型</a></p>
+  </li>
+</ul>
+
+<h5 id="4对话挖掘和预处理服务">（4）对话挖掘和预处理服务</h5>
+
+<ul>
+  <li>
+    <p><a href="https://www.secrss.com/articles/4587">文本挖掘技术在客服对话数据分析中的应用与实践</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/zhanzecheng/Chinese_segment_augment">新词发现</a></p>
+  </li>
+  <li>
+    <p><a href="https://kexue.fm/archives/6920">新词发现</a></p>
+  </li>
+  <li>
+    <p><a href="https://blog.csdn.net/c9Yv2cf9I06K2A9E/article/details/89348286">专业词汇挖掘</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.matrix67.com/blog/archives/5044">matrix67的工作</a></p>
+  </li>
+  <li>
+    <p><a href="https://zhuanlan.zhihu.com/p/54375522">电力领域专业词汇挖掘</a></p>
+  </li>
+  <li>
+    <p><a href="https://zhuanlan.zhihu.com/p/44890664">基于LTP的无监督信息抽取模块</a></p>
+  </li>
+  <li>
+    <p><a href="https://www.cnblogs.com/lovychen/p/6701214.html">数据预处理服务</a></p>
+  </li>
+  <li>
+    <p><a href="https://blog.csdn.net/a214704/article/details/81664699">过滤中英文标点符号</a></p>
+  </li>
+  <li>
+    <p><a href="https://blog.csdn.net/nanbei2463776506/article/details/82967140">标点转换</a></p>
+  </li>
+  <li>
+    <p><a href="https://zhuanlan.zhihu.com/p/55973055">繁简转换</a></p>
+  </li>
+  <li>
+    <p><a href="https://blog.csdn.net/Eastmount/article/details/50323063">TF-IDF计算</a></p>
+  </li>
+</ul>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

@@ -1,0 +1,224 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[技术思考]NLP，吹爆与落地</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/11/03/thoughts-about-nlp-in-industry/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[技术思考]NLP，吹爆与落地</h1>
+    <p class="meta">Nov 3, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <p>“卧槽，这届标注人员不行啊，打标一致性不足50%，搞个锤子！”，隔壁工位的老吴面部通红，愤愤吐槽着。听道，带着厚厚黑色眼镜框的小李凑上来，“有可能这个打标任务太难了？”。“说多了都是泪，上次我的一个标注任务，一个标注同学给所有样本都打了正标签！”，对面老王补充道。这时，慢慢走过来一个身型微胖的人，用力拍打着老吴的肩膀，“兄弟，我要基于你的数据做模型，求你千万不要挖坑埋我，我还木有妹子呢…”</p>
+
+<p>“哎……“，老吴长长地叹了一口气，起身泡枸杞菊花茶去了。</p>
+
+<p>上述场景应该对大多数工业界NLP团队来说，应该都挺熟悉的吧。虽说不知道何方大佬说的“NLP是人工智能皇冠上的明珠”，但是依然存在很多类似这样的问题，“为什么NLP领域难出独角兽？”等。当写下这段文字时，作为CV领域的Face++正在准备上市。</p>
+
+<p>这篇博客想从场景和技术上聊一聊最近的一些观察和思考，尝试回答一下上面的问题。</p>
+
+<p><strong>缺乏相对独立且足够大的场景</strong>。这句话是吕正东说的，个人表示非常同意。比如，CV领域的安防就是一个符合上述两个条件的场景。杭州的海康，宇视，大华正是安防三巨头。当然，这样的场景需要添加一个外部条件，“中国特色”。国内产品的海外市场化，需要去“中国特色”。这是另外一个问题了。</p>
+
+<p>那么，NLP领域有没有接近上述条件的场景？</p>
+
+<p>（1）机器翻译。可以用独立的方式提供服务，比如提供在线实时多语种的翻译功能。比如翻译专用的硬件产品。</p>
+
+<p>（2）对话系统。智能客服，对话机器人（用软的方式呈现能力），智能音箱类（用硬的方式呈现能力）。</p>
+
+<p>但是，你真的需要一个机器翻译的硬件吗？你经常和小冰谈人生聊理想？遇到问题和一个客服机器人扯淡半天，还不停地问你，你要解决的是问题是A/B/C?</p>
+
+<p><strong>其实，我是不需要的。</strong>这里谈的是独立但不大的问题。</p>
+
+<p>但从另外一个方面讲，搜索，广告和推荐满足非独立但场景足够大，是头部公司的现金牛业务。这里，NLP更多地担当整个技术链条中的一个环节。个人的一个观点，在这些场景下，工程要求远大于算法要求。</p>
+
+<p>通过对比，就可以看到。<strong>为什么强调独立？</strong>和大业务耦合在一块儿，脱离了头部公司，玩儿个锤子。要玩儿，得先建立一个大盘子，这个能力不是所有团队都具有的。<strong>为什么强调场景足够大？</strong>不大，怎么融资骗钱，挣钱？</p>
+
+<p>当满足上述两个条件时，可以直接做出面向C端的产品。不严格地讲，现在多数国内NLP创业公司打着做面向C端的产品，实际上是面向B端，且这种面向B端的能力无法规模化扩展。要知道，不是所有团队都有拿到大B的能力。实际上，B还是C本来也是一个大问题，是一种选择，并非哪种一定是最优的。只不过个人立场一直在C端而已。</p>
+
+<p>但是，为什么会造成<strong>缺乏相对独立且足够大的场景</strong>的问题？这里想表达的一个观点是：虽然场景（这里基本等同了需求）与技术本来没有直接的关系，但是技术的突破会带来更有想象力的场景。</p>
+
+<p>因此，这里的结论是：<strong>NLP的技术成熟度还不足以支撑满足上述条件的场景。</strong></p>
+
+<p><strong>到底技术上欠了哪些债？</strong></p>
+
+<p>（1）认知层面上的数据标注问题。</p>
+
+<p>在文章开头描述的场景几乎是一个NLP团队每天都会遇到的，问一个算法工程师做什么最花时间？一般回答可能都是处理数据。在数据处理之前，需要数据标注，那么如何设计一个科学友好的标注指南可能就是一个非常重要的问题。由于大多数NLP问题是认知层面的问题，因此主观性就比较强。对于同样的输入，不同背景和经历的标注者的认知不同，因此得到的数据标签也就不同。而对于DL场景下的模型训练，Data Hungry和Data Unefficient几乎是一个无法避免的问题。</p>
+
+<p>主观性导致的标注不一致，标注昂贵。老吴困晕在厕所。这几乎是工业界做NLP经常会遇到的第一个重要且难度较高的问题。对学术界刷公有数据集的读者来说，这个问题不存在的。</p>
+
+<p>（2）部分问题缺乏科学有效的评估指标。</p>
+
+<p>BLEU的出现极大地推动了机器翻译的进展。但是对于一些任务，现行指标包括BLEU等仍旧不是对于相应任务的最佳指标，特别对于生成类任务。因此，多数时候，发现模型指标比较好的时候，预测结果较差，不一定是过拟合呀。</p>
+
+<p>在现在绝大多数生成类任务的论文中，都会包括人类评估指标，目的是人肉评估生成文本的质量。对于黑心团队，去你大爷的。</p>
+
+<p>（3）模型，策略的进展问题。</p>
+
+<p>假设有了（1）和（2）问题的解决，剩下的靠（3）就行了。多数学术界的工作目前都围绕在（3）来开展。虽然BERT流给NLP的发展带来了新一轮春天（个人围绕BERT做了很多工作），但是不得不承认，目前绝大多数模型，仍旧是黑盒模型，解释性不强。数据驱动的模型，多数情况下需要对特殊样本进行hotfix，但这种hotfix目前尚不能直接反馈在模型中。模型不够，规则来补。没写够一万条规则的人工智能工程师不是好工程师。</p>
+
+<p>上述三者，均需要大量人力！所以，“有多少人力，就有多少智能”不是一句空话。回到场景下，这也是限制2B产品规模化扩展的一个方面。</p>
+
+<p><strong>技术不行，咋办？</strong></p>
+
+<p><strong>用好的设计拟补算法的不足。</strong>是我司老板的一个观点，也是个人目前比较认同的观点。比如，在纠错场景下，由直接替换模型认为的错误文本改为推荐正确替换文本，将决定权交给人而非机器。但是，显然并非所有场景都可以用产品设计上的长处来拟补模型的短处。做不好模型，产品妹子和设计小哥都会来揍你的呀！他们就想问问，“怎么用好的设计拟补算法的不足？”，逃。</p>
+
+<p>只见一产品妹子轻轻地走过来，“hi，小哥哥，小哥哥！你把这个需求做一下吧，根据用户手机壳颜色变换APP主题颜色！”</p>
+
+<p>总结一下上面讨论的问题。<strong>没有理想的独立且大的场景，技术上似乎还不太行。不管怎样，在给定一个小场景下，似乎总还是可以用产品设计上的长处掩盖技术不行的短处。</strong></p>
+
+<p>对于国内目前的一些NLP领域创业公司，挂“羊头”这种事是必须的，资本应该不太会直接给“狗头”买账。不过，卖“狗肉”也是必须的，这是短期落地的一个可行方式，先活着，“羊肉”转正才有可能。</p>
+
+<p>作为一个NLP技术从业人员，当然希望NLP无论在技术上还是在商业上都能取得成功。对于目前的NLP领域的创业公司，也保持有最大的敬意，他们是变革的引领者。”世之奇伟，瑰怪，非常之观，常在于险远。“如果这个世界到处都是CV的创业公司，那会多么无趣呀。</p>
+
+<p>“一群学阀，同样的一波人，这个会开完，开另外一个会。想问下今年的报告PPT和去年有啥区别？”，洗手间门口刚洗完手的愤青老李大声叫道。</p>
+
+<p>“哇靠，关注两年多的NLP公众号都特码慢慢变成广告，补习班招生贴了，还有一个竟然给我推霸王洗发水，日。”大飞顺手摸了摸头上不多的毛发。</p>
+
+<p>……</p>
+
+<p>……</p>
+
+<p>最后，真心祝愿“二十一世纪是生物的世纪”的落寞不会出现在“NLP是人工智能皇冠上的明珠”上。</p>
+
+<p>相关文章：</p>
+
+<p>1.<a href="https://mp.weixin.qq.com/s?__biz=MzIzNjc1NzUzMw==&amp;mid=2247538571&amp;idx=4&amp;sn=fa3df61e7fb319a1d5e6ce9bc8f85faa&amp;chksm=e8d0e0f9dfa769ef85ffece00308bb31b9cab11bb169d9a40a57efc19776c729ed0e95d1e608&amp;mpshare=1&amp;scene=23&amp;srcid&amp;sharer_sharetime=1583812320502&amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd">毛利率低，难以形成通用解决方案，难以形成技术壁垒</a></p>
+
+<p>2.<a href="https://zhuanlan.zhihu.com/p/147943017?utm_source=qq&amp;utm_medium=social&amp;utm_oi=52727124066304">推荐系统的天时地利</a></p>
+
+<p>为啥算法能够在推荐系统领域发挥作用的一个总结。</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

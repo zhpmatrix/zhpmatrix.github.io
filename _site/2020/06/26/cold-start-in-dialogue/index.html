@@ -1,0 +1,247 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]冷启动，知多少？</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2020/06/26/cold-start-in-dialogue/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]冷启动，知多少？</h1>
+    <p class="meta">Jun 26, 2020</p>
+  </header>
+
+  <article class="post-content">
+  <p>我想要做一个问答机器人，但是我只有问答库，咋搞？在一般的政府网站等，经常有一个栏目：问答栏目。该栏目就是一问一答。从产品交互上，对比如下：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>交互方式</th>
+      <th>优点</th>
+      <th>缺点</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>下拉列表，展示所有</td>
+      <td>信息冲击力强（电影院总是在印象城的最高层）</td>
+      <td>用户需要多次下拉，才可能找到需要答案，路径长</td>
+    </tr>
+    <tr>
+      <td>搜索框</td>
+      <td>较少搜索空间，是上述方式的泛化</td>
+      <td>需要增加搜索环节，模糊匹配答案，召回优化</td>
+    </tr>
+    <tr>
+      <td>问答机器人</td>
+      <td>直达答案本身</td>
+      <td>呈现给用户的信息量少</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>按照标准的数据驱动建模方式，需要提前有对话数据才能建模。但是还没有一个对话机器人，怎么获取对话数据呢？（别问我：先有鸡还是先有蛋）</p>
+
+<p>嗯。一般说来，先有一个问答机器人。当用户开始使用的时候，就有了对话数据，最重要的是获取用户想要问的问题，这样就可以形成一个迭代闭环。问答机器人上线，总是要能工作的，也就是对用户的输入有反馈，要能在一定程度上理解用户问题。这就是冷启动的场景之一。</p>
+
+<h4 id="基于规则">基于规则</h4>
+
+<p>对于问答机器人，可以直接基于编辑距离，如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from nltk.metrics import distance
+distance.edit_distance('中国的首都', '中国的首都在哪')
+</code></pre></div></div>
+
+<p>计算用户输入和问答库中问题的相似程度。这种方式简单，可控，具有一定的可解释性。</p>
+
+<p>对于任务型对话机器人，Slot Filling过程中，需要找到对应的槽和槽值。比如有下述的一些样本：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>北京的天气
+明天的天气
+杭州气温
+查询明天北京天气情况
+请问一下明天北京天气如何
+请问后天上海天气怎么样
+</code></pre></div></div>
+
+<p>想要抽取出日期和城市两个槽对应的槽值？看到一条正则：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.{0,2}[请问[一下]][${日期}][${城市}][的](天气|气温)[如何|怎么样].{0,2}
+</code></pre></div></div>
+<p>这条正则不包含实体和通配符，可表示144个句子。如果对话系统能够run起来，就可以收集到用户的真实问题，继而可以采用序列标注的方案等进一步提升效果。规则方案一般而言是高精确，低召回。</p>
+
+<p>在其他场景中，比如可以做这样的变化，既而进入一个规则引擎。也就是过通用NER模型后，拿到类型信息，融合原始句子中的字符串，共同作为新句子的表示。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[LOC]的天气
+[DATE]的天气
+[LOC]气温
+查询[DATE][LOC]天气情况
+请问一下[DATE][LOC]天气如何
+请问[DATE][LOC]天气怎么样
+</code></pre></div></div>
+
+<p>补充：</p>
+
+<p>1.<a href="https://blog.csdn.net/malefactor/article/details/52166235">聊天机器人中对话模板的高效匹配方法</a>，总结了三种规则范式，同时给出了一个加速模板检索的方案（基于倒排索引的方案）。</p>
+
+<p>2.<a href="https://www.zhihu.com/question/42988490/answer/153685380?utm_source=wechat_session&amp;utm_medium=social&amp;s_s_i=T8t%2BkZBClNuN%2FxlGmH%2FFbC1oUw6vIlOGjjPwhUdG7QA%3D&amp;s_r=1&amp;from=singlemessage">知乎：目前，人工智能机器人能够在多大程度上代替企业客服？</a>，郑一轩同学关于长短期记忆那块内容。</p>
+
+<p>3.<a href="https://mp.weixin.qq.com/s?__biz=MzU2ODY2MTUwNQ==&amp;mid=2247484059&amp;idx=1&amp;sn=f10fd8232df41452e17a749ac0e13ecb&amp;chksm=fc8bc1f5cbfc48e36426ed593e6ee834f5793898d968e2a02a0f86b16af5f60f74c9085bc021&amp;mpshare=1&amp;scene=23&amp;srcid&amp;sharer_sharetime=1593437525269&amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd">小爱的单轮/多轮判不停策略</a></p>
+
+<p>4.<a href="https://blog.csdn.net/weixin_34292287/article/details/91882974">基于词性的序列匹配</a></p>
+
+<h4 id="多轮对话中的用户模拟器">多轮对话中的用户模拟器</h4>
+
+<p>在多轮对话系统中，拿到多轮对话的真实数据是一件成本巨高的事情。因此，可以借助用户模拟器在冷启动阶段产生训练数据，基于该训练数据得到相关模型之后，就可以得到一个基本的具有和人类进行对话能力的机器人，继而拿到人类的真实数据。混合机器和人类数据之后，重新训练优化相关模型。至于在线优化，是一个完全基于真实对话数据的优化过程。</p>
+
+<p>该方向的工作，具体可以参考<a href="https://blog.csdn.net/c9Yv2cf9I06K2A9E/article/details/98549007">最新综述：对话系统之用户模拟器</a>。</p>
+
+<h4 id="few-shot-learning">Few Shot Learning</h4>
+
+<p>上述讨论的问题是没有样本，这里讨论的问题是有一些样本，但是这些样本不足以训练一些对话系统中需要的模型，因此FSL就是一种解决问题的可能的方案。可以参考之前的文章<a href="https://zhpmatrix.github.io/2020/02/14/shot-learning/">Few/Zero Shot Learning简单梳理</a>。</p>
+
+<p>当然，FSL并非是解决少样本的唯一方法。数据少，那就搞更多的数据。<a href="https://cloud.tencent.com/developer/article/1648459">⽂本增强、半监督学习， 谁才是 NLP 少样本困境问题更优的解决⽅案？</a></p>
+
+<p>除此之外，<a href="https://zhuanlan.zhihu.com/p/112877845">平安科技的数据增强技术用于冷启动问题。</a></p>
+
+<p>参考:</p>
+
+<p>1.<a href="https://zhuanlan.zhihu.com/p/100084125">Lambda，柯里化与聊天机器人</a></p>
+
+<p>2.阿⾥云⼩蜜对话机器⼈背后的核⼼算法</p>
+
+<p>3.《Generalizing from a Few Examples：A Survey on Few-Shot Learning》，最近比较新的综述文章</p>
+
+<p>4.<a href="https://mp.weixin.qq.com/s?__biz=MzU1NTMyOTI4Mw==&amp;mid=2247507605&amp;idx=2&amp;sn=d4cfd8834f03a77936300536f4667769&amp;chksm=fbd76cf9cca0e5effd671ebcf1bbde3bca4e141ef9ed42cd3723d094b65e6d5f227e1f1e8dd5&amp;mpshare=1&amp;scene=23&amp;srcid=1129HUwTr4VcmjhR0aMPfwJ9&amp;sharer_sharetime=1606586665741&amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd">柔性多模正则匹配引擎</a></p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

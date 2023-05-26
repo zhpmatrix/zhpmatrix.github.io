@@ -1,0 +1,304 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]MRC is All you Need?</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2020/05/07/mrc-is-all-you-need/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]MRC is All you Need?</h1>
+    <p class="meta">May 7, 2020</p>
+  </header>
+
+  <article class="post-content">
+  <p><strong>总结：</strong></p>
+
+<p>MRC是一个非常general的框架，多个NLP领域的经典任务都可以用MRC的方式来做。不谈MRC的思路为啥work，本质上，还是将一个复杂任务变为多个简单任务。或者说，将旧有分类器的压力分担到新的input端和新的分类器端。</p>
+
+<p>但是这里有几个问题值得思考：</p>
+
+<p>（1）如何构建Query，保证引入更多先验的信息？</p>
+
+<p>（2）如何高效地解决inference时的N倍时间复杂度问题？（价值一个亿的问题）</p>
+
+<p>（比如直接工程上并行；一次inference算多个结果；分两次算，先粗筛再细选）</p>
+
+<p>（3）样本构建时的正负样本如何平衡处理？</p>
+
+<p>（4）T5据说效果不错，我有想法，你有卡和时间吗？来个基于MRC的多任务预训练吧。</p>
+
+<h3 id="文本分类">文本分类</h3>
+
+<p><a href="https://arxiv.org/pdf/2002.03067.pdf">《Description Based Text Classification with Reinforcement Learning》</a>,<a href="https://mp.weixin.qq.com/s?__biz=MzUzODcyNjY5Ng==&amp;mid=2247485727&amp;idx=1&amp;sn=a6f4d590d763f67a2492cdcb32230151&amp;chksm=fad21158cda5984e9182ed0ce471f5086150c1022aa50bcfbc5216a9c3161f39b3ed7a1b54a6&amp;xtrack=1&amp;scene=90&amp;subscene=93&amp;sessionid=1591590405&amp;clicktime=1591590411&amp;enterid=1591590411%23rd">ICML2020，竟然中了？</a></p>
+
+<p>给定一个文本，进行多分类。如何改造成用MRC的方式做呢？对于每个类别，构造针对该类别的描述作为query，原始待分类文本作为context，联合query和context作为input，做二分类。</p>
+
+<p>query如何构造？这篇文章提供了三种方式：</p>
+
+<ul>
+  <li>基本模板：找到类别对应的维基百科的解释。（也就是该类别的定义描述）</li>
+  <li>抽取式：从原始文本中抽取一些语句。（符合分类的经验性规律，只有关键语句有贡献）</li>
+  <li>生成式：原始文本的摘要。（文本压缩或者简化的一种方式）</li>
+</ul>
+
+<p>比如可以用于aspect-based情感分类任务。当然，input端不一定只可以使用一个Query，可以同时合并多个Query和一个Context作为input端，具体方式取决于你想怎么玩儿？（基于BERT的input端和output端的花式玩儿法已经腻了，溜了。）</p>
+
+<p>沿着这个思路，重新思考brightmart的<a href="https://github.com/brightmart/multi-label_classification">将多标签分类转换成句子对任务</a>，是不是有新的理解？（记得第一次看到的时候，觉得好有意思的想法）</p>
+
+<h3 id="命名实体识别">命名实体识别</h3>
+
+<p>《A Uniﬁed MRC Framework for Named Entity Recognition》</p>
+
+<p>传统的序列标注模型适合处理flat ner问题，但是对于nested ner问题处理较差（一个token对应多个标签，也可以通过multi-label解决），采用MRC的方式适合处理nested ner的问题。</p>
+
+<p>思路同上，对每种标注类别，构建Query，和Context共同作为模型的input，预测该Query对应的实体位置。比如，对于LOC类别，可以构建的Query如：“请标注出文本中的地点，位置等词。”，同样Query的构建方式比较灵活，比如直接按照标注指南中的描述等。</p>
+
+<p><a href="https://zhuanlan.zhihu.com/p/103779616">这篇文章</a>在具体中文任务上验证了该方法的有效性。除此之外，与该任务相关的另外一篇文章是《Dice Loss for Data-imbalanced NLP Tasks》，值得一提，但是超纲了。我自己在中文OntoNotes上亲测，显著提升。</p>
+
+<p>其他两篇包括（这篇文章一脉相承，思想和上述类似）：</p>
+
+<p>《Scaling up Open Tagging from Tens to Thousands: Comprehension Empowered Attribute Value Extraction from Product Title》</p>
+
+<p>《OpenTag: Open Attribute Value Extraction from Product Profiles》</p>
+
+<h3 id="关系抽取">关系抽取</h3>
+
+<p>《Entity-Relation Extraction as Multi-turn Question Answering》，ACL2019</p>
+
+<p>多数情况下，关系抽取最终的服务目标是填表。类似如下：</p>
+
+<p>给定上下文：“zhpmatrix就职于地表最强科技有限公司，职位是NLP算法工程师。老张就职于京东，任职算法实习生。”</p>
+
+<p>希望得到的结构化数据是：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>姓名</th>
+      <th>职位</th>
+      <th>公司</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>zhpmatrix</td>
+      <td>NLP算法工程师</td>
+      <td>地表最强科技有限公司</td>
+    </tr>
+    <tr>
+      <td>老张</td>
+      <td>算法实习生</td>
+      <td>京东</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>通常的做法：第一步找到实体，人名，职位和公司；第二步：关系分类。</p>
+
+<p>基于MRC的做法可以是这样滴，整体上更偏多轮对话的感觉。</p>
+
+<p>Query0：文章中的人名都有啥？结果：zhpmatrix，老张</p>
+
+<p>Query1：zhpmatrix为哪个公司工作？ 结果：地表最强科技有限公司</p>
+
+<p>Query2：老张为哪个公司工作？结果：京东</p>
+
+<p>……</p>
+
+<p>对于职位，依次类推。那么，对于Query1和Query2，就可以用一个模型的形式表示：e_i为哪个公司工作？</p>
+
+<p>另外的一个工作更早一些，《Zero-Shot Relation Extraction via Reading Comprehension》，在建模方式上更加的直白。输入端由zhpmatrix+zhpmatrix为哪个公司工作？+Context，输出端：地表最强科技有限公司。输出端就可以使用找start/end的方式，比如按照二者乘积的最大值作为筛选条件，至于None的情况，在之前的博客中有讨论过，一定要考虑的细节。</p>
+
+<p>除此之外，比较相关的两个工作（对怎样解决多次inference有启发）：</p>
+
+<p><a href="http://tcci.ccf.org.cn/summit/2019/dlinfo/1104-ljq.pdf">LIC2019-第一名</a></p>
+
+<p>基本思路：第一步做多分类，找出文本中包含的所有关系；第二步合并关系三元组的Schema和文本作为输入，输出S和O。</p>
+
+<p><a href="https://kexue.fm/archives/6671">LIC2019-第七名</a></p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>基本思路：P(S,P,O) = P(S)P(O</td>
+      <td>S)P(P</td>
+      <td>S,O)（怎么具体实现是一个有意思的课题。）</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a href="https://zhuanlan.zhihu.com/p/115851256">“之江杯”-电商评论观点挖掘第二名</a></p>
+
+<h3 id="指代消解">指代消解</h3>
+
+<p>《Coreference Resolution as Query-based Span Prediction》，ACL2020</p>
+
+<p>之前的指代消解的工作多是，第一步找到候选实体和指代词；第二步关系判断，是不是表示同一个含义？将MRC的思想用于指代消解的方式很简单。</p>
+
+<p>基于候选mention构建实体作为Query，标注Context中指代的那个mention。</p>
+
+<h3 id="为啥非要用mrc的方式传统的方式不香吗">为啥非要用MRC的方式？传统的方式不香吗？</h3>
+
+<p>（1）构建的Query其实引入了一种先验，包含我们想要抽取的或者分类的信息。按照相关工作作者的观点，其实一种hard attention。当然在有些任务上，我们可以用其他方式来表达相同的含义，比如某种embedding，但是这种方式终究只能满足区分意图的目的，不能满足引入先验的目的。</p>
+
+<p>（2）domain adaptation/zero-shot learning</p>
+
+<p>对于命名实体识别任务，假设已经训练好了PER的模型，现在想抽取MAN后者WOMAN的实体，直接基于二者构建Query做抽取，不需要训练，试试看？</p>
+
+<p>（3）灵活</p>
+
+<p>想要啥，都写在Query中了。对于NER的传统模型，每次inference，有啥就抽啥？不想要啥，还得加个后处理。这种可插拔的特性的确很诱人。</p>
+
+<p>（4）一套统一的框架做多个NLP任务</p>
+
+<p>能用一套框架解的问题,个人不想用第二套来解。这样的另外一个好处是便于做多任务。</p>
+
+<p>总体上，这种思路可以用于多个子任务还是会带来很多启发，注意细节，模型的设计还是比较灵活的，可以有很多有意思的做法。另外，多种想法是可以互相借鉴的，能够融会贯通，就能灵光一现。比如，谁说标注的时候一定要按照经典MRC的方式找start/end呢？BIO也OK啊，任务上就是序列标注。关键是要能够理解不同组件和策略的配合使用，空谈误国，干就完事儿了（最近莫名丧的不得了）。</p>
+
+<p>补充：</p>
+
+<p><a href="https://joeddav.github.io/blog/2020/05/29/ZSL.html">Zero-Shot Learning in Modern NLP</a></p>
+
+<p>非常棒的总结，同时算是对文本分类任务在modeling方式上的一个探讨。当然可以用完形填空的方式做文本分类的任务。</p>
+
+<p>重要文献：《The Natural Language Decathlon: Multitask Learning as Question Answering》</p>
+
+<p>补充：</p>
+
+<p>1.《LANGUAGE MODEL IS ALL YOU NEED: NATURAL LANGUAGE UNDERSTANDING AS QUESTION ANSWERING》</p>
+
+<p>2.《Enhanced Language Representation with Label Knowledge for Span Extraction》，针对MRC的方案在解决inference时O(N)复杂度的问题。</p>
+
+<p>3.《Named Entity Recognition as Dependency Parsing》，针对MRC的方案在解决inference时O(N)复杂度的问题。</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

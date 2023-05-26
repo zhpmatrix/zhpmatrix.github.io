@@ -1,0 +1,250 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[Python]算法开发中的设计模式</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2020/03/22/design-pattern/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[Python]算法开发中的设计模式</h1>
+    <p class="meta">Mar 22, 2020</p>
+  </header>
+
+  <article class="post-content">
+  <p><strong>前言：</strong>写算法Pipeline，或许同样需要设计模式的加持。当一个模型的完整生命周期结束的时候，如果不想留下一地鸡毛，那么或许可以向设计模式求助。这篇博客，只梳理结合自己实践，个人比较感兴趣的一些设计模式（所以，不全）。</p>
+
+<h4 id="工厂模式">工厂模式</h4>
+
+<p>该模式实在是一个常用的模式，可以使用的场景很多，在众多的设计模式中，排名第一，当之无愧。算法Pipeline经常面临的一个问题是：<strong>要处理不同格式的数据。</strong>通常情况下，总是要为每种格式的数据写特定的处理逻辑，针对不同格式的数据，调用特定的逻辑，但是这样的代码组织会显得有点“散”。</p>
+
+<p>需要一个接口能够统一不同的处理逻辑：这个接口负责接收不同格式的数据输入，返回对应的数据。就像一个工厂一样，甲方大大给需求就OK，具体的产品生产交给对应的车间同学。写出的核心代码，类似如下（以一个能够处理JSON和XML格式的工厂接口为例）：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def data_factory(filepath):
+	if filepath.endswith('json'):
+		chejian = JSONCheJian
+	elif filepath.endswith('xml'):
+		chejian = XMLChejian
+	else:
+		raise ValueError('对应车间还没成立呢！')
+	return chejian(filepath)
+</code></pre></div></div>
+
+<p>观察上述代码，核心逻辑就是<strong>转发控制</strong>。具体的实现方式是：借助文件后缀，返回对应的类。设计模式更多时候是一种设计思想，具体实现与编程语言有一定关系。如C++/Java/Python等。</p>
+
+<p>在Caffe的源码中，工厂模式也是核心设计模式。</p>
+
+<p>回顾算法开发过程，用统一的接口处理不同格式的数据是场景之一。那么，同样的数据，不同的metric逻辑，如何设计统一接口呢？预训练过程中，不同的BERT变种作为基础模型呢？</p>
+
+<h4 id="建造者模式">建造者模式</h4>
+
+<p>多数情况下，算法开发实际上是在做一套能够找到最优解的系统，而这套系统具有“Pipeline”的特点，是一个线性的组织流程。比如：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def run():
+	[step() for step in (load_data, train_data, eval_data, test_data)]
+</code></pre></div></div>
+<h4 id="原型模式">原型模式</h4>
+
+<p>copy.copy和copy.deepcopy()，该模式主要用于创建对象的clone。因为个人见到的场景不是很多，且不谈。印象中，在实现论文《Learning without Forgetting》的时候，有用过model的clone。除此之外，为了防止数据污染，要小心谨慎的使用深浅copy。</p>
+
+<h4 id="适配器模式">适配器模式</h4>
+
+<p>该模式也是非常有趣的啊。假设有三种动物，如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Dog:
+	def wang():
+		print('wang')
+class Duck:
+	def ga():
+		print('ga')
+class Chicken():
+	def ji():
+		print('ji')
+</code></pre></div></div>
+<p>现在，想只调用wang()函数，就能实现实际调用三种动物的叫声函数，怎么办？对Dog而言，直接调用wang()就是实际调用wang()函数，但是对Duck和Checken而言，需要实际调用的是ga和ji函数。<strong>因此，这里需要一层转发：(Duck, wang)-&gt;ga和(Chicken,wang)-&gt;ji，而执行这个转发逻辑的就是适配器。</strong>如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Adapter:
+	def __init__(self, obj, adapted_method):
+		self.obj = obj
+		self.__dict__.update(adapted_method)
+duck = Duck()
+new_duck = Adapter(duck, dict(wang=duck.ga))
+chicken = Chicken()
+new_chicken = Adapter(chicken, dict(wang=chicken.ji))
+</code></pre></div></div>
+
+<p>或者简单理解为：函数重命名。这里需要理解<strong>self.__dict__</strong>。</p>
+
+<h4 id="装饰器模式">装饰器模式</h4>
+
+<p>计算一个函数的执行时间，用装饰器来实现，想必很多人已经很熟悉了。示例代码如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def timer(func):
+    def inner(*args, **kwargs):
+        start = time.time()
+        func(*args, **kwargs)
+        end = time.time()
+        print(end-start)
+    return inner
+    
+def func():
+	pass
+
+#调用func函数并统计函数的运行时间
+@timer
+func()
+    
+</code></pre></div></div>
+
+<h4 id="享元模式">享元模式</h4>
+
+<p>该模式是Cache思想在OOP编程中的体现。主要目的在于优化性能和内存使用，因而不是个人目前关注的重点。</p>
+
+<h4 id="解释器模式">解释器模式</h4>
+
+<p>这种模式非常有用。针对解释器，从字面含义上来看，就是编译原理中的解释器。通过读取编辑器写的字符串，经过词法，句法，语义解析等，转化为机器能够理解的语言，之后汇编，链接，可执行等（对C是这样）。因此，这里也是这样的，使用上的体验是：通过定义字符串的方式，操作类和类方法等。这套字符串语言也称DSL。本质上是建立字符串到类或者类方法的mapping关系。</p>
+
+<p>上文提到的适配器模式中的两条规则，其实也可以写成这样。从另外一个角度来说，设计模式是可以结合使用的。</p>
+
+<h4 id="策略模式">策略模式</h4>
+
+<p>解决一个问题时，可以有多种解法，每种解法各有优缺点。当希望在用户端对后端解法切换没有明显感知的时候，就需要策略模式了。典型的例子如：Python中的sorted函数，通过设定key的值，采用不同的排序策略。<strong>在算法开发中，由于针对每个目的的Trick都很多，因此采用该模式实在是一个很朴素的做法了。</strong></p>
+
+<h4 id="模板模式">模板模式</h4>
+
+<p>主要目的是<strong>消除代码冗余</strong>。将不同算法中相同的部分抽取出来，形成一个模板。通过将不同的部分作为一个参数action传入模板函数，实现不同的算法。同时，不建议用id作为参数传入模板函数，因为这样模板函数要不断修改，同时id的含义不明确。</p>
+
+<p>实际上，和策略模式一样，在日常的算法开发中，该模式同样可以被很广泛的应用。</p>
+
+<p><strong>总结：</strong>结合算法开发的日常，设计模式对于算法Pipeline的管理应该是有效的。此外，在很多开源框架的源码中，实现了各种各样的设计模式。本质上，是基于设计思想，利用语言Feature做实现。这些设计模式可以方便的clone对象，实现Cache以提升性能，消除冗余设计，提升复用性和更加灵活的控制代码等。每隔一段时间，重新思考一下自己的开发过程，看是否是一个模块被自己改了N多次，一个逻辑被自己以各种方式写了M多次，每次需要更新代码的时候，找不到自己写的逻辑去哪里了…（对，说的是我啦。）</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

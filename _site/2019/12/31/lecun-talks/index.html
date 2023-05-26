@@ -1,0 +1,247 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[Talk理解]《Energy-Based Self-supervised Learning》</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/12/31/lecun-talks/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[Talk理解]《Energy-Based Self-supervised Learning》</h1>
+    <p class="meta">Dec 31, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <p>       在之前的一篇文章，<a href="https://zhpmatrix.github.io/2019/11/05/mlm/">《用Masked Language Model搞事情》</a>中系统梳理了一些围绕MLM做的事情，一直觉得MLM还有很多可以深挖的东西，恰逢看到LeCun最近的一个Talk，这篇博客就围绕Talk，做一个简单的梳理。</p>
+
+<p>       LeCun认为，“预测是智能的本质。”，围绕预测，监督学习范式要求预先标注一定规模的数据，强化学习需要在模拟环境下的较多试错，在游戏和模拟环境下工作良好，在真实环境下不一定。有没有其他的方式呢？</p>
+
+<p>       自监督学习。</p>
+
+<p>       在早期，很多时候大家更多用无监督来描述语言模型。但是，自监督是一个更合适的表达，首先承认了是有监督的学习方式。什么是自监督学习？</p>
+
+<p>       自监督学习=填空</p>
+
+<p>具体的表现形式有：</p>
+
+<ul>
+  <li>从past预测future</li>
+  <li>从visible预测masked</li>
+  <li>等等</li>
+</ul>
+
+<p>总而言之：用输入中的一部分，预测输入中的另一部分。举两个例子，分别是自回归语言模型和自编码语言模型。</p>
+
+<p>自回归：给定一个句子的前半部分，预测下一个字</p>
+
+<p>自编码：随机mask掉句子中的一些token，预测这些token</p>
+
+<p>虽然连续性空间，例如图片，视频，语音等都可以使用上述两种方式，但是，离散空间下的文本问题，还是最有效的。</p>
+
+<p>一些证明自监督学习很有效的其他一些场景，如下：</p>
+
+<ul>
+  <li>Word2Vec</li>
+  <li>FastText</li>
+  <li>BERT</li>
+  <li>Cloze-Driven Auto-Encoder</li>
+  <li>等等</li>
+</ul>
+
+<p>从反馈强度上看，LeCun认为增强学习，监督学习和自监督学习的排序为：</p>
+
+<p>自监督学习 &gt; 监督学习 &gt; 强化学习</p>
+
+<p>从每个样本可以提供的信息量上来排序，如下：</p>
+
+<p>自监督学习(millions of bits) &gt; 监督学习(10-&gt;10000 bits) &gt; 强化学习(a few bits)</p>
+
+<p>围绕自监督学习，LeCun提出了两个方向：</p>
+
+<ul>
+  <li>low-resource场景下的层次特征学习</li>
+  <li>massive networks场景下的层次特征学习</li>
+</ul>
+
+<p>除了自监督学习，这次Talk聊的另外一个话题是，基于能量的模型。为了训练一个基于能量的模型，有两类方法：</p>
+
+<ul>
+  <li>contrastive methods</li>
+  <li>arch methods</li>
+</ul>
+
+<p>其中，BERT正是属于第一种，本质上是:</p>
+
+<p>train a function that maps points off the data manifold to points on the data manifold.</p>
+
+<p>Talk给出了七种策略去学习一个能量函数，而这些目前并不准备进一步研究，所以暂且不谈。</p>
+
+<p>从整个Talk来看，围绕自监督学习可以说明下面两点：</p>
+
+<ul>
+  <li>LeCun在赌自监督学习的未来</li>
+  <li>自监督学习已经用一些很强的工作证明了自己</li>
+</ul>
+
+<p>       虽然一直以来，大家都希望在无监督方向上做出一些工作，但是无监督一直没有特别亮眼的结果。自监督尤其在NLP任务上大放异彩。想象一下，只要拿到海量的数据，就可以直接做一个强有力的模型，这个模型可以learn到句法和语义的信息，可以作为多个下游任务的base模型，实在是一件特别fancy的事情！那么，围绕如何让这个基于自监督学习的模型学到更多自己想要的信息，很多人做了很多工作，<a href="https://zhpmatrix.github.io/2019/11/05/mlm/">《用Masked Language Model搞事情》</a>中谈到一些，包括ICLR20，王威廉组仍旧会有一些工作，在这篇博客中同样有提到。</p>
+
+<p>       但是，自监督应该不是唯一的方法，尤其是自编码。可能在后续，会有一些更强有力，更加fancy的方法出现。</p>
+
+<p>参考：</p>
+
+<p>1.<a href="http://helper.ipam.ucla.edu/publications/mlpws4/mlpws4_15927.pdf">Energy-Based Self-Supervised Learning</a></p>
+
+<p>2.<a href="https://www.bilibili.com/video/av79356369">From System 1 Deep Learning to System 2 Deep Learning，Bengio, NeurIPS20</a></p>
+
+<p>3.<a href="https://amitness.com/2020/05/self-supervised-learning-nlp/">Self Supervised Representation Learning in NLP</a></p>
+
+<p>用可视化的方式讲解了SSL在NLP中的几种范式。</p>
+
+<p>4.<a href="https://lilianweng.github.io/lil-log/2019/11/10/self-supervised-learning.html">Self-Supervised Representation Learning</a></p>
+
+<p>5.<a href="https://www.zhihu.com/question/380119832?utm_source=qq&amp;utm_medium=social&amp;utm_oi=52727124066304">自监督在NLP领域中的应用</a></p>
+
+<p>6.<a href="https://zhuanlan.zhihu.com/p/150224914?utm_source=qq&amp;utm_medium=social&amp;utm_oi=52727124066304">自监督学习的一些思考</a></p>
+
+<p>讨论自监督学习在CV上的应用，讨论了关于SSL的几个关键问题：</p>
+
+<p>（1）如何定义自监督学习（没有标注数据；通过proxy task希望学到一些能够泛化的feature）</p>
+
+<p>（2）为什么自监督学习能够学到信息？（先验；连贯；数据内部结构）</p>
+
+<p>（3）设计一个自监督学习任务还需要考虑什么？（shortcut；歧义；任务难度）</p>
+
+<p>7.<a href="https://zhuanlan.zhihu.com/p/108906502?utm_source=qq&amp;utm_medium=social&amp;utm_oi=52727124066304">Self-supervised Learning 再次入门</a></p>
+
+<p>提出一个核心问题：如何将SSL和特定任务结合是一个有价值的方向。</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

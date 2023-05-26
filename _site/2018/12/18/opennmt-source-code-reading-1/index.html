@@ -1,0 +1,361 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[OpenNMT]训练模块源码剖析</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2018/12/18/opennmt-source-code-reading-1/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[OpenNMT]训练模块源码剖析</h1>
+    <p class="meta">Dec 18, 2018</p>
+  </header>
+
+  <article class="post-content">
+  <p><a href="https://zhpmatrix.github.io/2018/12/17/opennmt-source-code-reading-0/">预处理模块代码剖析</a>已经梳理过了，建议在读这篇博客前先浏览一下预处理模块的文章。</p>
+
+<p>本部分是OpenNMT最大的模块，也是OpenNMT的核心。<strong>OpenNMT-py的参数共有100+</strong>，其中最多的参数也是集中在该部分，通过给train.py传递不同的参数，可以搭建各种各样的模型，简而言之，“只用参数搭模型”。</p>
+
+<p>调用下述命令，开始训练：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python train.py -world_size 1 -gpu_ranks 0 -data data/demo -train_steps 200 -save_model demo-model
+</code></pre></div></div>
+
+<p>上述命令会进入train.py中，具体路径：OpenNMT/train.py。该文件主要包括两块逻辑，第一设备选择和GPU多卡处理；第二进程错误捕获。进程错误捕获是服务于GPU多卡处理的。当训练在多张卡上进行的时候，创建进程队列(torch.multiprocessing)，同时用进程错误捕获器(ErrorHandler)监控队列。逻辑组织如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    nb_gpu = len(opt.gpu_ranks)
+
+    if opt.world_size &gt; 1:
+        mp = torch.multiprocessing.get_context('spawn')
+        # Create a thread to listen for errors in the child processes.
+        error_queue = mp.SimpleQueue()
+        error_handler = ErrorHandler(error_queue)
+        # Train with multiprocessing.
+        procs = []
+        for device_id in range(nb_gpu):
+            procs.append(mp.Process(target=run, args=(
+                opt, device_id, error_queue, ), daemon=True))
+            procs[device_id].start()
+            logger.info(" Starting process pid: %d  " % procs[device_id].pid)
+            error_handler.add_child(procs[device_id].pid)
+        for p in procs:
+            p.join()
+
+    elif nb_gpu == 1:  # case 1 GPU only
+        single_main(opt, 0)
+    else:   # case only CPU
+        single_main(opt, -1)
+
+</code></pre></div></div>
+
+<p>从上述代码可以看到，</p>
+
+<p>if语句是GPU多卡处理，简而言之，每块GPU处理一个进程；</p>
+
+<p>elif是单卡GPU处理，相比前者，代码显得清爽很多，不需要初始化和错误捕获，多进程本来就是个大问题；</p>
+
+<p>else是CPU处理。</p>
+
+<p>针对if中的逻辑，提一个有趣的问题，<strong>如何为OpenNMT添加单机跨卡BatchNorm的逻辑代码？</strong></p>
+
+<p>j按图索骥，进入single_main函数看一下核心逻辑。该函数的逻辑在OpenNMT-py/onmt/train_single.py中，该函数接受的参数包括两个：客户端传入的参数和设备号。train_single.py给出了模型训练整个生命周期的过程：</p>
+
+<p>1.判断是否需要加载checkpoint？如果需要，加载；不需要，设置checkpoint=None；</p>
+
+<p>2.加载数据；</p>
+
+<p>3.构建模型，build_model(model_opt, opt, fields, checkpoint)；</p>
+
+<p>4.构建优化器，build_optim(model，opt，checkpoint)；</p>
+
+<p>5.构建模型保存器，build_model_saver(…)；</p>
+
+<p>6.构建训练器，build_trainer(…)；</p>
+
+<p>7.开始训练；</p>
+
+<p>8.训练结束，如果TensorBoard开着，则关闭TensorBoard；</p>
+
+<p>核心代码如下(清理掉一些logging代码，不影响对核心逻辑的理解)：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+def main(opt, device_id):
+    opt = training_opt_postprocessing(opt, device_id)
+    # Load checkpoint if we resume from a previous training.
+    if opt.train_from:
+        checkpoint = torch.load(opt.train_from,
+                                map_location=lambda storage, loc: storage)
+        model_opt = checkpoint['opt']
+    else:
+        checkpoint = None
+        model_opt = opt
+
+    # Peek the first dataset to determine the data_type.
+    # (All datasets have the same data_type).
+    first_dataset = next(lazily_load_dataset("train", opt))
+    data_type = first_dataset.data_type
+
+    # Load fields generated from preprocess phase.
+    fields = _load_fields(first_dataset, data_type, opt, checkpoint)
+
+    # Report src/tgt features.
+
+    src_features, tgt_features = _collect_report_features(fields)
+    
+    # Build model.
+    model = build_model(model_opt, opt, fields, checkpoint)
+    n_params, enc, dec = _tally_parameters(model)
+    _check_save_model_path(opt)
+
+    # Build optimizer.
+    optim = build_optim(model, opt, checkpoint)
+
+    # Build model saver
+    model_saver = build_model_saver(model_opt, opt, model, fields, optim)
+
+    trainer = build_trainer(opt, device_id, model, fields,
+                            optim, data_type, model_saver=model_saver)
+
+    def train_iter_fct(): return build_dataset_iter(
+        lazily_load_dataset("train", opt), fields, opt)
+
+    def valid_iter_fct(): return build_dataset_iter(
+        lazily_load_dataset("valid", opt), fields, opt, is_train=False)
+
+    trainer.train(train_iter_fct, valid_iter_fct, opt.train_steps,
+                  opt.valid_steps)
+
+    if opt.tensorboard:
+        trainer.report_manager.tensorboard_writer.close()
+</code></pre></div></div>
+
+<p>也就是说，上述代码描述了训练过程的一个生命周期。上文中关于设备选择和并行化处理的逻辑是第一层抽象，生命周期的描述是第二层抽象，那么具体的实现就是第三层抽象了，也就是模型是怎么构建的，优化器是怎么构建的，模型和优化器都很多，又是如何组织的？</p>
+
+<h4 id="构建模型">构建模型</h4>
+
+<p>构建模型的实现在OpenNMT-py/onmt/model_builder.py中，核心逻辑围绕下面一行代码完成，</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>model=onmt.models.NMTModel(encoder,decoder)
+</code></pre></div></div>
+
+<p>主要处理的逻辑包括，不同的数据类型对应不同的encoder方式；embedding的不同使用方式，预训练或者随机初始化，是否共享；部分NMT相关Trick(如copy的实现)等。从引入的模块，可见一斑，</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from onmt.encoders.rnn_encoder import RNNEncoder
+from onmt.encoders.transformer import TransformerEncoder
+from onmt.encoders.cnn_encoder import CNNEncoder
+from onmt.encoders.mean_encoder import MeanEncoder
+from onmt.encoders.audio_encoder import AudioEncoder
+from onmt.encoders.image_encoder import ImageEncoder
+
+from onmt.decoders.decoder import InputFeedRNNDecoder, StdRNNDecoder
+from onmt.decoders.transformer import TransformerDecoder
+from onmt.decoders.cnn_decoder import CNNDecoder
+
+from onmt.modules import Embeddings, CopyGenerator
+
+</code></pre></div></div>
+
+<p>也即是说，该部分逻辑将模型拆解成多个组件，分为编码器，解码器，embedding，以copy机制为代表的相关Trick等。</p>
+
+<h4 id="构建优化器">构建优化器</h4>
+
+<p>构架优化器的实现在OpenNMT-py/onmt/utils/optimizers.py中，该部分主要是调用PyTorch内置的优化器(torch.optim)。围绕优化器的扩展也可以做的很大，我本机的代码将该模块放在工具utils目录中，感觉优化器有点受冷落的感觉呀。不过，从另一方面来看，PyTorch的优化器扩展如果做的很好，OpenNMT中的封装确实可以做的相对薄一些，毕竟应该不需要单纯针对NMT任务的优化器设计。</p>
+
+<h4 id="构建训练器">构建训练器</h4>
+
+<p>训练器执行真正的训练过程，包括参数更新，梯度回传等，代码所在路径OpenNMT-py/onmt/trainer.py。</p>
+
+<p>其实，到此为止，第三层抽象已经结束。假设以使用PyTorch的内置函数为标准，也就是抽象的底层，则优化器和训练器都已经触底。但是模型层面显然尚未触底，这也是OpenNMT的特色所在，假设称之为第四层抽象吧。</p>
+
+<p>在OpenNMT-py/onmt/目录下，有三个目录，分别是encoders，decoders和modules。其中，可以分别从两个层面对encoders进行分类，从<strong>模型类型</strong>角度，分别是CNN，RNN，Transformer；从<strong>数据类型角度</strong>分别是text，image，audio。每种类型的实现都是基于PyTorch重新定义了一个模型，所以需要实现初始化操作，前向操作。这里可以看到，抽象到第四层，终于触底，回到了比较熟悉的基于PyTorch定义模型的阶段。</p>
+
+<p>decoders可以分为CNN，RNN和Transformer。其中最常见的RNN作为解码端实现了InputFeedRNNDecoder，StdRNNDecoder，对应了两种训练方式，分别是teacher-forcing和non teacher-forcing。<strong>此处抛出一个问题，怎么添加professor-forcing的训练方式？</strong></p>
+
+<p><em>提示:本机版本代码提到StdRNNDecoder目前还没有coverage和copy机制的支持！</em></p>
+
+<p>值得一提的是，decoder目录中给出了模型融合的实现emsemble.py!!!</p>
+
+<p>长吁一口气，至此，四层抽象结束，训练过程的主要逻辑也整理通顺了。还有一些边角的东西没有提到，比如由于RNN/CNN的多样性，用工厂模式来组织，但是由于目前类型受限，虽然代码中体现了，但是逻辑还没有写的很大，所以暂时不提。相关评估指标的实现，例如困惑度等。</p>
+
+<p>总结一下，总共有四层抽象，其实也可以没有第四层。如下，</p>
+
+<p>第一层：设备判断和并行处理；</p>
+
+<p>第二层：生命周期描述；</p>
+
+<p>第三层：优化器，训练器等组件实现；</p>
+
+<p>第四层：模型组件实现；</p>
+
+<p>利用Python的抽象，封装，继承等特性，实现了四层的模块组织结构，具有良好的扩展性。虽然，个人认为架构上尚不完美，但是已经可以学到很多了。在实现一个新的Trick或者组件的时候，需要能够走通四层抽象并按照架构设计来完成，比如父类继承等。有了清晰的抽象层次，自顶向下实现和自底向上实现都是可行的。另一方面，通过梳理架构，也看到了很多需要继续完善的地方。</p>
+
+<p>除了预处理和训练模块，还有一个模块是翻译模块，入口代码是<strong>translate.py</strong>，这块内容较少，不准备单开一篇博客来写。从整体上看，translate.py中实现了三部分的逻辑，第一是translate的入口逻辑，第二是batch条件下的translate，第三是评估指标报告，包括score、bleu和rouge等。</p>
+
+<p>其中batch条件下的translate实现源码中给出了详细的注释，步骤包括准备search组件，src通过encoder，重复beam_size次src，使用beam_search运行decoder生成句子，从beam中提取句子。</p>
+
+<p>需要注意的是，一些特殊Trick的实现例如copy机制等，需要在解码端有配合实现。所以，如果有修改源码的需求，主要同时处理预处理模块和翻译模块。</p>
+
+<p>此外，值得提到的一点是，多用公认的第三方评测工具。例如，</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def _report_bleu(self, tgt_path):
+        import subprocess
+        base_dir = os.path.abspath(__file__ + "/../../..")
+        # Rollback pointer to the beginning.
+        self.out_file.seek(0)
+        print()
+
+        res = subprocess.check_output("perl %s/tools/multi-bleu.perl %s"
+                                      % (base_dir, tgt_path),
+                                      stdin=self.out_file,
+                                      shell=True).decode("utf-8")
+
+        msg = "&gt;&gt; " + res.strip()
+        return msg
+
+    def _report_rouge(self, tgt_path):
+        import subprocess
+        path = os.path.split(os.path.realpath(__file__))[0]
+        res = subprocess.check_output(
+            "python %s/tools/test_rouge.py -r %s -c STDIN"
+            % (path, tgt_path),
+            shell=True,
+            stdin=self.out_file).decode("utf-8")
+        msg = res.strip()
+        return msg
+</code></pre></div></div>
+
+<p>总结：通过两篇博客梳理了OpenNMT-py的代码架构，对自己来说，大概有三方面的意义，第一是学习架构。涉及到抽象，接口，继承，层次等概念；第二是能够有机会基于OpenNMT-py的源码实现一些想法，框架使用是浅层的意义，更重要的是能够基于框架做代码的二次开发；第三是能够从OpenNMT-py中学习到一些实现上的启发可以用到OpenNMT-tf等框架上。</p>
+
+<p>就这样，回去洗澡了。</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

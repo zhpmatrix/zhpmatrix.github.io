@@ -1,0 +1,251 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[Pytorch]基于混和精度的模型加速</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/07/02/model-mix-precision-acceleration/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[Pytorch]基于混和精度的模型加速</h1>
+    <p class="meta">Jul 2, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <p>这篇博客是在<strong>pytorch中基于apex使用混合精度加速</strong>的一个偏工程的描述，原理层面的解释并不是这篇博客的目的，不过在参考部分提供了非常有价值的资料，可以进一步研究。</p>
+
+<p><strong>一个关键原则：“仅仅在权重更新的时候使用fp32，耗时的前向和后向运算都使用fp16”。</strong>其中的一个技巧是：<strong>在反向计算开始前，将dloss乘上一个scale，人为变大；权重更新前，除去scale，恢复正常值。</strong>目的是为了减小激活gradient下溢出的风险。</p>
+
+<p><a href="https://github.com/NVIDIA/apex">apex</a>是nvidia的一个pytorch扩展，用于支持混合精度训练和分布式训练。在之前的博客中，<a href="https://zhpmatrix.github.io/2019/05/06/low-memory-for-nn/">神经网络的Low-Memory技术</a>梳理了一些low-memory技术，其中提到半精度，比如fp16。apex中混合精度训练可以通过简单的方式开启自动化实现，组里同学交流的结果是：<strong>一般情况下</strong>，自动混合精度训练的效果不如手动修改。分布式训练中，有社区同学心心念念的syncbn的支持。关于syncbn，在去年做CV的时候，我们就有一些来自民间的尝试，不过具体提升还是要考虑具体任务场景。</p>
+
+<p><strong>那么问题来了，如何在pytorch中使用fp16混合精度训练呢？</strong></p>
+
+<p><strong>第零：混合精度训练相关的参数</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>parser.add_argument('--fp16',
+                        action='store_true',
+                        help="Whether to use 16-bit float precision instead of 32-bit")
+parser.add_argument('--loss_scale',
+                        type=float, default=0,
+                        help="Loss scaling to improve fp16 numeric stability. Only used when fp16 set to True.\n"
+                             "0 (default value): dynamic loss scaling.\n"
+                             "Positive power of 2: static loss scaling value.\n")
+</code></pre></div></div>
+
+<p><strong>第一：模型参数转换为fp16</strong></p>
+
+<p>nn.Module中的half()方法将模型中的float32转化为float16，实现的原理是遍历所有tensor，而float32和float16都是tensor的属性。也就是说，一行代码解决，如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>model.half()
+</code></pre></div></div>
+<p><strong>第二：修改优化器</strong></p>
+
+<p>在pytorch下，当使用fp16时，需要修改optimizer。类似代码如下（代码参考<a href="https://github.com/huggingface/pytorch-pretrained-BERT/blob/dad3c7a485b7ffc6fd2766f349e6ee845ecc2eee/examples/run_classifier.py">这里</a>）：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Prepare optimizer
+    if args.do_train:
+        param_optimizer = list(model.named_parameters())
+        no_decay = ['bias', 'LayerNorm.bias', 'LayerNorm.weight']
+        optimizer_grouped_parameters = [
+            {'params': [p for n, p in param_optimizer if not any(nd in n for nd in no_decay)], 'weight_decay': 0.01},
+            {'params': [p for n, p in param_optimizer if any(nd in n for nd in no_decay)], 'weight_decay': 0.0}
+            ]
+        if args.fp16:
+            try:
+                from apex.optimizers import FP16_Optimizer
+                from apex.optimizers import FusedAdam
+            except ImportError:
+                raise ImportError("Please install apex from https://www.github.com/nvidia/apex to use distributed and fp16 training.")
+
+            optimizer = FusedAdam(optimizer_grouped_parameters,
+                                  lr=args.learning_rate,
+                                  bias_correction=False,
+                                  max_grad_norm=1.0)
+            if args.loss_scale == 0:
+                optimizer = FP16_Optimizer(optimizer, dynamic_loss_scale=True)
+            else:
+                optimizer = FP16_Optimizer(optimizer, static_loss_scale=args.loss_scale)
+            warmup_linear = WarmupLinearSchedule(warmup=args.warmup_proportion,
+                                                 t_total=num_train_optimization_steps)
+
+        else:
+            optimizer = BertAdam(optimizer_grouped_parameters,
+                                 lr=args.learning_rate,
+                                 warmup=args.warmup_proportion,
+                                 t_total=num_train_optimization_steps)		
+</code></pre></div></div>
+
+<p><strong>第三：backward时做对应修改</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> if args.fp16:
+ 	optimizer.backward(loss)
+ else:
+      loss.backward()
+</code></pre></div></div>
+
+<p><strong>第四：学习率修改</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if args.fp16:
+      # modify learning rate with special warm up BERT uses
+      # if args.fp16 is False, BertAdam is used that handles this automatically
+     lr_this_step = args.learning_rate * warmup_linear.get_lr(global_step, args.warmup_proportion)
+     for param_group in optimizer.param_groups:
+            param_group['lr'] = lr_this_step
+     optimizer.step()
+     optimizer.zero_grad()
+</code></pre></div></div>
+
+<p>根据参考3，值得重述一些重要结论：</p>
+
+<p><strong>（1）深度学习训练使用16bit表示/运算正逐渐成为主流。</strong></p>
+
+<p><strong>（2）低精度带来了性能、功耗优势，但需要解决量化误差（溢出、舍入）。</strong></p>
+
+<p><strong>（3）常见的避免量化误差的方法：为权重保持高精度（fp32)备份；损失放大，避免梯度的下溢出；一些特殊层（如BatchNorm）仍使用fp32运算。</strong></p>
+
+<p>参考资料：</p>
+
+<p>1.<a href="https://github.com/NVIDIA/DeepLearningExamples">nv官方repo给了一些基于pytorch的apex加速的实现</a></p>
+
+<p>实现是基于fairseq实现的，可以直接对比<a href="https://github.com/NVIDIA/DeepLearningExamples/blob/master/PyTorch/Translation/Transformer/fairseq/optim/adam.py">代码1-apex版</a>和<a href="https://github.com/pytorch/fairseq/blob/master/fairseq/optim/adam.py">代码2-非apex版(fairseq官方版)</a>，了解是如何基于apex实现加速的。</p>
+
+<p>2.<a href="https://docs.nvidia.com/deeplearning/sdk/mixed-precision-training/index.html">nv官方关于混合精度优化的原理介绍</a></p>
+
+<p>按图索骥，可以get到很多更加具体地内容。</p>
+
+<p>3.<a href="http://market.itcgb.com/Contents/Intel/OR_AI_BJ/images/Brian_DeepLearning_LowNumericalPrecision.pdf">低精度表示用于深度学习
+训练与推断</a></p>
+
+<p>感谢团队同学推荐。</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

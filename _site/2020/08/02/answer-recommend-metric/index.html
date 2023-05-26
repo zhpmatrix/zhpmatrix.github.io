@@ -1,0 +1,404 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]答案推荐的评估指标设计</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2020/08/02/answer-recommend-metric/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]答案推荐的评估指标设计</h1>
+    <p class="meta">Aug 2, 2020</p>
+  </header>
+
+  <article class="post-content">
+  <p>智能问答系统中知识库的构建是重中之重。问答库的构建可以分为三个阶段。第一个阶段：人工构建问题-答案对；第二个阶段：自动挖掘问题，人工填写答案；第三个阶段：自动构建问答对。第一个阶段多见于现在的通用问答平台，第二个阶段是目前问答系统落地的主流，特别是针对长尾问题的解决；第三个阶段是问答库构建的高阶。</p>
+
+<p>假设问答对能够自动构建，由于自动化的方案无法保证绝对的正确，因此对于答案的使用，采用推荐的思路，本质上决定权交给人。假设自动化构建的问答库是高准确的，那么就可以不用推荐的思路了。</p>
+
+<p>问题的定义：给定一个问题，基于自动构建的问答库，推荐了N个答案，如何衡量推荐答案的效果呢？</p>
+
+<p>方法论：既然是一个推荐问题，那么理论上就可以采用推荐领域的指标，但是同时要考虑答案推荐场景的特殊性，合理选用的同时，适当改造。</p>
+
+<p>这篇博客主要讨论第一步要思考的问题，哪些推荐领域的指标可以用于答案推荐的场景？</p>
+
+<p>先看下我们要评估的对象吧，数据如下：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>问题</th>
+      <th>推荐答案</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>你们家发货有点慢啊</td>
+      <td>（1）亲，我们在催货了；（2）谢谢，亲亲。（3）还没收到货吗？亲亲。</td>
+    </tr>
+    <tr>
+      <td>买家咨询打折</td>
+      <td>（1）您是想要买什么牌子的？（2）亲亲，建议看下商品详情页哦</td>
+    </tr>
+    <tr>
+      <td>这件T恤多大码的？</td>
+      <td>（1）亲亲，你是要退货吗？</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>如何评估推荐系统在答案推荐上的效果？思考的出发点是：从业务指标到模型指标，评估维度从粗到细。业务侧的同学只需要理解业务指标，业务指标也是业务落地的北极星，直观的特点是：简单粗暴。这里，可以定义的一个业务指标是答案采纳率，如下：</p>
+
+<p>给定一个问题，推荐的答案中，是否有可用答案？基于上述数据，可以得到标注结果如下：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>问题</th>
+      <th>推荐答案</th>
+      <th>是否采纳</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>你们家发货有点慢啊</td>
+      <td>（1）亲，我们在催货了；（2）谢谢，亲亲。（3）还没收到货吗？亲亲。</td>
+      <td>是</td>
+    </tr>
+    <tr>
+      <td>买家咨询打折</td>
+      <td>（1）您是想要买什么牌子的？（2）亲亲，建议看下商品详情页哦</td>
+      <td>是</td>
+    </tr>
+    <tr>
+      <td>这件T恤多大码的？</td>
+      <td>（1）亲亲，你是要退货吗？</td>
+      <td>否</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>因此，答案采纳率=2/3。为什么是合理的？想象一个业务同学在审核推荐答案的时候，当推荐答案的数量小于K（其中K是一个很小的数）时，快速浏览一下，就可以选择自己想要的答案了。该指标评估的是：推荐答案到底有没有用？</p>
+
+<p>简单粗暴并不意味着不可用，所有指标的选择依据在于想通过该指标评估系统的具体哪个方面。那么，该指标有什么地方没有考虑到？</p>
+
+<p>（1）给定一个问题和推荐答案列表，采纳1个和采纳多个不一样吧？（如何设计指标呢？）</p>
+
+<p>（2）能否把优质的答案排在靠前的位置，很重要吧？（推荐内容的位置很重要）</p>
+
+<p>这里主要讨论（2），传统的推荐或者搜索系统，返回结果量级大，需要翻页处理，因此最有可能被采纳的结果放在靠前的位置是一个重要的因素，但是对于答案推荐的场景，总共推荐的答案量级非常小，用户第一眼就可以全部浏览完，相比之下，对位置的要求不太严苛，但是绝大多数用户都是从上向下浏览，并且用户习惯默认排在前的答案是优质答案，当结果不符合预期的时候，用户体验就会变差，因此在答案推荐的场景下，对答案位置的考察也是必要的。</p>
+
+<p>这里直接借鉴推荐的三个指标：MAP, MRR和NDCG。</p>
+
+<p>（1）平均准确率（MAP）</p>
+
+<p>为了计算该指标，按照既定格式给上述数据重新打标，假设结果如下：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>问题</th>
+      <th>推荐答案</th>
+      <th>是否采纳</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td>你们家发货有点慢啊</td>
+      <td>（1）亲，我们在催货了；</td>
+      <td>是</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>（2）谢谢，亲亲。</td>
+      <td>否</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>（3）还没收到货吗？亲亲。</td>
+      <td>是</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>买家咨询打折</td>
+      <td>（1）您是想要买什么牌子的？</td>
+      <td>否</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>（2）亲亲，建议看下商品详情页哦</td>
+      <td>是</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>这件T恤多大码的？</td>
+      <td>（1）亲亲，你是要退货吗？</td>
+      <td>否</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>MAP首先计算每个问题的推荐准确率，其次对所有问题取平均。具体计算过程如下：</p>
+
+<p>P（你们家发货有点慢啊） = (1/1+2/3)/3 = 5 /9，其中1/1表示，前1个位置的采纳率；2/3表示前3个位置的采纳率；因此，这里就是对推荐位置考察的体现，分母的3表示推荐答案总数。</p>
+
+<p>依次类推，可以得到：</p>
+
+<p>P（买家咨询打折）= (1/2)/2  = 1/4</p>
+
+<p>P（这件T恤多大码的？）= 0</p>
+
+<p>则，MAP = （5/9+1/4+0）/3 = 29/108，该值的范围为[0,1]，且越大越好。</p>
+
+<p>（2）平均倒数序（MRR）</p>
+
+<p>为了计算该指标，按照既定格式给上述数据重新打标，假设结果如下：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>问题</th>
+      <th>推荐答案</th>
+      <th>采纳答案序号</th>
+      <th>倒数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>你们家发货有点慢啊</td>
+      <td>（1）亲，我们在催货了；（2）谢谢，亲亲。（3）还没收到货吗？亲亲。</td>
+      <td>1</td>
+      <td>1/1</td>
+    </tr>
+    <tr>
+      <td>买家咨询打折</td>
+      <td>（1）您是想要买什么牌子的？（2）亲亲，建议看下商品详情页哦</td>
+      <td>2</td>
+      <td>1/2</td>
+    </tr>
+    <tr>
+      <td>这件T恤多大码的？</td>
+      <td>（1）亲亲，你是要退货吗？</td>
+      <td> </td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>MRR=(1/1+1/2+0)/3=1/2</p>
+
+<p>标准的MRR计算是从推荐答案中选择一个最佳的答案，当可以选择多个答案的时候，如何计算MRR呢？</p>
+
+<p>（3）NDCG（normalized discounted cumulative gain）</p>
+
+<p>对比（1）中的MAP，对于每个答案，只关心采不采纳，但是更细粒度的评估是这个答案有多好？（用量化的方式表达）</p>
+
+<p>为了计算该指标，按照既定格式给上述数据重新打标，假设结果如下：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>问题</th>
+      <th>推荐答案</th>
+      <th>有多好？</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td>你们家发货有点慢啊</td>
+      <td>（1）亲，我们在催货了；</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>（2）谢谢，亲亲。</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>（3）还没收到货吗？亲亲。</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>买家咨询打折</td>
+      <td>（1）您是想要买什么牌子的？</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>（2）亲亲，建议看下商品详情页哦</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>这件T恤多大码的？</td>
+      <td>（1）亲亲，你是要退货吗？</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>为了计算NDCG，可以按照CG,DCG,NDCG的计算顺序。</p>
+
+<p>CG（你们家发货有点慢啊） = 5+0+3 = 8</p>
+
+<p>但是CG没有考虑顺序，添加对顺序的考察，计算DCG。这里是一种对顺序的考察：</p>
+
+<p>对有多好？的评分，做变换：（2^评分-1）/log2(位置+1)。那么，可以得到：</p>
+
+<p>DCG（你们家发货有点慢啊） = （2^5-1）/log2(2)+(2^0-1)/log2(3)+(2^3-1)/log2(4)</p>
+
+<p>从上述标注结果可以看到，虽然有的答案排在第三位，但是用户给出的评分确实第二位的。这里可以计算IDCG，其中I表示理想的。和DCG的计算区别在于：需要按照评分从大到小排序后计算DCG。</p>
+
+<p>IDCG（你们家发货有点慢啊） = （2^5-1）/log2(2)+(2^3-1)/log2(3)+(2^0-1)/log2(4)</p>
+
+<p>那么，NDCG = DCG/IDCG,该值的范围为[0,1]，且越大越好。当然，NDCG是针对给定一个问题计算的，可以对所有问题取平均。</p>
+
+<p>对上述指标的深入讨论暂不展开，围绕答案推荐场景，综合来看，MAP是一个相对合适的指标。</p>
+
+<p>综上，针对答案推荐，指标选择如下：业务侧采用采纳率；模型侧采用MAP。还有其他的一些想法吗？</p>
+
+<p>参考:<a href="http://sofasofa.io/forum_main_post.php?postid=1002561">怎么理解推荐系统中的NDCG？</a>，<a href="https://www.cnblogs.com/ywl925/archive/2013/08/16/3262209.html">信息检索中的评价指标</a>,<a href="https://www.infoq.cn/article/Hz_w4DA4RdeBvdBVVfbX">怎么评估工业级推荐系统的效果？</a></p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

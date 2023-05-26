@@ -1,0 +1,211 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]你的样本OOD啦</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2020/02/14/ood/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]你的样本OOD啦</h1>
+    <p class="meta">Feb 14, 2020</p>
+  </header>
+
+  <article class="post-content">
+  <p><strong>前言：</strong></p>
+
+<p>原来打算自己整理的，但是在整理过程中，读到知乎的一篇文章，见相关参考中的1，能够满足给我自己科普的目的，因此暂且就不写很多。另外，个人对OOD问题的关注是从Bengio开始的，其实学术上，基本可以认为OOD=Novelty Detection=Outlier Detection，这样的话，类似的工作应该就相对比较多了。理论上，既然IID是一个很强的假设，那么就应该有对OOD的研究。实际上，围绕OOD的工作确实挺多的。此外，该方向上的工作，也可以作为AutoML的一个子分支。</p>
+
+<p>因此，建议直接移步相关参考1。</p>
+
+<p>1.《Can You Trust Your Model’s Uncertainty? Evaluating Predictive Uncertainty Under Dataset Shift》,NeurIPS 2019</p>
+
+<p>什么时候讨论uncertainty？输入分布和训练分布不一致的时候。这里说为什么会不一致？OOD和Data Shift。怎么检测OOD(Out of Distribution)的样本本来就是一个有意思的问题，模型要具有拒识的能力。比如模型是用来做金融文本分类的，用户输入文学文本做分类。Data Shift也是一个有意思的问题，可能的一个场景是：模型的训练数据是采样自春天，但是实际测试的数据是冬天的，这里有OOD的感觉，但是实际上有明显的Shift的过程。除此之外，一些广告，搜索，推荐领域类似问题应该较多。文章举了一个简单的例子：</p>
+
+<p>针对多分类问题，对OOD，输入测试样本的类别不是训练样本的类别。对Data Shift，测试样本的类别是训练样本的类别中的，但是有样本损坏或者扰动，文章并没有量化这种扰动或者损坏。</p>
+
+<p>这篇文章可以认为是一篇Review，比较了几种相对流行的校准方法。</p>
+
+<ul>
+  <li>
+    <p>最大化softmax概率是一个baseline。</p>
+  </li>
+  <li>
+    <p>用于分类任务的Temperature Scaling。实现起来相对简单，给定验证集，将softmax中的logit除上一个温度系数，学习这个温度系数。Temperature Scaling可以用在很多场景，除此之外，包括蒸馏技术，用于OOD检测的其他工作，如这篇<a href="https://link.zhihu.com/?target=https%3A//arxiv.org/abs/1706.02690">文章</a>等。</p>
+  </li>
+  <li>
+    <p>Ensemble也可以归为一种代表方法，围绕Ensemble的讨论工作很多，这里不再展开。</p>
+  </li>
+  <li>
+    <p>Inference时打开Dropout开关。本质上也是一种Ensemble的实现方式。</p>
+  </li>
+  <li>
+    <p>Bayes相关的方法。</p>
+  </li>
+</ul>
+
+<p>文章的结论是：Ensemble最好。但是实际上工业界在考虑落地时，由于该类方法开销较大，因此基本不考虑。</p>
+
+<p>2.《A Baseline For Detecting MisClassified And Out Of Distribution Examples In Neural Networks》，ICLR2017</p>
+
+<p>这篇文章做了很多基础性的工作，给出了OOD的基本假设，评测，Baseline等。文章认为：模型的概率输出不能当做模型的置信度。提出一个Baseline，用统计的方法卡阈值得到OOD。</p>
+
+<p>3.《Likelihood Ratios for Out-of-Distribution Detection》，NeurIPS2019</p>
+
+<p>这篇文章提出了一个数据集，并用深度生成模型的方法做OOD问题。其实，将OOD当成一个异常值检测问题也是合理，因此用生成方法做似乎也可以理解。因为个人目前的兴趣点并不在生成模型，因此略过。<a href="Improving Out-of-Distribution Detection in Machine Learning Models">Google的Blog介绍</a>。</p>
+
+<p>4.《From System 1 Deep Learning to System 2 Deep Learning》Yoshua Bengio，NeurIPS 2019，AAAI2020，Bengio又做了一次几乎相同的Talk</p>
+
+<p>该Talk中，OOD是重点讨论的内容之一。</p>
+
+<p>总结：看到一些文章说OOD在<strong>安全问题</strong>上很重要，的确是的，如果模型给OOD一个很高的置信度，怕会不开心吧。在相关参考2的Review中，给出了其他相关场景下的应用。</p>
+
+<p>5.《Generalized ODIN: Detecting Out-of-distribution Image without Learning from Out-of-distribution Data》</p>
+
+<p>这篇工作的泛化版本：《Enhancing the reliability of out-of-distribution image detection in neural networks》。
+文章中提到：</p>
+
+<blockquote>
+  <p>In recent years, a popular neural network-based baseline is to use the max value of class pos- terior probabilities output from a softmax classiﬁer, which can in some cases be a good indicator for distinguishing in-distribution and out-of-distribution inputs.</p>
+</blockquote>
+
+<p>正是上文中2提到的工作。</p>
+
+<p>相关参考：</p>
+
+<p>1.<a href="https://zhuanlan.zhihu.com/p/102870562">知乎的文章</a>，这篇文章主要讨论了OOD的基本概念，解决OOD的四种经典的路子，相关的代表性文章及其部分细节。</p>
+
+<p>2.《A Review of Novelty Detection》，2014年</p>
+
+<p>3.<a href="https://github.com/ashafaei/out-of-distribution-detection">github-awesome系列</a></p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

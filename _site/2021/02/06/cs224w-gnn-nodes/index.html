@@ -1,0 +1,241 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[CS224W]GNNs</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2021/02/06/cs224w-gnn-nodes/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[CS224W]GNNs</h1>
+    <p class="meta">Feb 6, 2021</p>
+  </header>
+
+  <article class="post-content">
+  <h4 id="零前言">零.前言</h4>
+
+<p>整体上看，在学术上，围绕GNN的工作在Learning的大框架并没有改变多少，绝大多数的工作都是在填一些小坑，比如将传统NN的问题放在GNN上再做一遍；工业上，PinSAGE算是一个经典的案例，百度有朋友做过一些Pre-train的工作，阿里做过一些Graph Embedding的工作给上游的搜广推提供一个底层信号，不过研究的图相对简单（节点和关系的个数都较少）。<a href="https://mp.weixin.qq.com/s?__biz=MjM5ODkzMzMwMQ==&amp;mid=2650420503&amp;idx=4&amp;sn=c533fa34a6ddcd6ab6680e8029a7c666&amp;chksm=becdb34d89ba3a5b2c5e61cfaf0aa7e9a8125eda901027597ae3fbb45ed68d740cfe2ecb3bf5&amp;scene=0&amp;xtrack=1&amp;key=df2d4dfee3314e28a3d3560931d3ecdbbcac0c0403f0e9afe6c9ec56c28166d3c6cb3e5dd8f0e9198b0a3042d0c661f9579066f3873710d1c3e183066df28f25a80741c64a0dc57b04a89ffabe9ffd4c4ffc5c571ffe450c722a785cf6cbe1d1d2632e34f3008c2f1894b0e577167fbc79144e4c2795145e9ffabd44dba2da55&amp;ascene=0&amp;uin=MTg2NTIxNzUxNw%3D%3D&amp;devicetype=iMac+MacBookAir7%2C2+OSX+OSX+10.15.2+build(19C57)&amp;version=11020201&amp;lang=zh_CN&amp;exportkey=A%2BE7o4n9E1C5ahdcuGieoeQ%3D&amp;pass_ticket=AXvgvOFBueFBxBvUbXzSE47TlUFb0tnZHySXW%2F2nJID9ZEg6Rk%2FUbPUHeGHU7Aug&amp;wx_header=0">这里的一些思路是有启发性的。</a></p>
+
+<h4 id="一node-embedding的思想">一.Node Embedding的思想</h4>
+
+<p>将节点映射到一个低维向量，目的是在图中相似的节点，在嵌入空间中也是close的。为了得到这个低维向量，需要一个Encoder，Encoder分为两种：Shallow和Deep。但是Shallow有三个缺点：</p>
+
+<p>（1）节点之间参数不共享，每个节点有自己的Embedding（想一想，啥是shared params？）</p>
+
+<p>（2）内生transductive的：不能产生在train的过程中没有看到过的节点的Embedding（inductive和transductive在GNNs中是一个不断讨论的问题，取决于场景，可能inductive的方式是一般不了解GNNs的同学更亲切的一种方式）</p>
+
+<p>（3）不能利用node feature。回归到图的构建上，节点属性，边属性都是可以利用的信息，而非只有网络的拓扑结构中内含丰富的信息（本质是共现关系的学习和推理）。</p>
+
+<p>那啥是Deep的？对图结构的多层非线性转换。这里要对比一下CV的研究对象图片，NLP的研究对象文本序列,三者有啥区别呢?（可以参考<a href="https://mp.weixin.qq.com/s?__biz=MjM5ODkzMzMwMQ==&amp;mid=2650420503&amp;idx=4&amp;sn=c533fa34a6ddcd6ab6680e8029a7c666&amp;chksm=becdb34d89ba3a5b2c5e61cfaf0aa7e9a8125eda901027597ae3fbb45ed68d740cfe2ecb3bf5&amp;scene=0&amp;xtrack=1&amp;key=df2d4dfee3314e28a3d3560931d3ecdbbcac0c0403f0e9afe6c9ec56c28166d3c6cb3e5dd8f0e9198b0a3042d0c661f9579066f3873710d1c3e183066df28f25a80741c64a0dc57b04a89ffabe9ffd4c4ffc5c571ffe450c722a785cf6cbe1d1d2632e34f3008c2f1894b0e577167fbc79144e4c2795145e9ffabd44dba2da55&amp;ascene=0&amp;uin=MTg2NTIxNzUxNw%3D%3D&amp;devicetype=iMac+MacBookAir7%2C2+OSX+OSX+10.15.2+build(19C57)&amp;version=11020201&amp;lang=zh_CN&amp;exportkey=A%2BE7o4n9E1C5ahdcuGieoeQ%3D&amp;pass_ticket=AXvgvOFBueFBxBvUbXzSE47TlUFb0tnZHySXW%2F2nJID9ZEg6Rk%2FUbPUHeGHU7Aug&amp;wx_header=0">这里</a>）</p>
+
+<ul>
+  <li>
+    <p>图有任意的大小和复杂的拓扑结构(非欧,不同于图片,没有空间局部性)</p>
+  </li>
+  <li>
+    <p>没有固定的节点序列(不同于文本序列)</p>
+  </li>
+  <li>
+    <p>动态且有多模态特征(图片和文本都是单模态的研究对象)</p>
+  </li>
+</ul>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2021/02/efcf9fe012c4a774.png" alt="img1" /></p>
+
+<p>那咋处理呢？来看一个朴素的方法（大家很容易想到）。</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2021/02/57468bee06901ab6.png" alt="img2" /></p>
+
+<p>只所以不用这种思路，自然是存在一些缺点的，想一想？（参数个数，能否适用于不同大小的图呢，对节点序列是否是敏感的）</p>
+
+<blockquote>
+  <p>启发：神经网络的结构设计发展历史，也是一个各种模态信息处理中，各种对齐方式的实现历史。在能够对齐的基础上，加点孜然（比如不变性），加点麻椒（比如更强的特征学习能力）等。</p>
+</blockquote>
+
+<h4 id="二gcngraphsage">二.GCN/GraphSAGE</h4>
+
+<p>GCN的核心思想是啥？如下图：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2021/02/6166333bb8638b53.png" alt="img3" /></p>
+
+<p>学习的主要目的是通过图学习如何传播信息以致能够得到不错的节点特征。为了说清楚咋学的，这里引入一个概念，叫做Layer。如下：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2021/02/ced38f758be22ce1.png" alt="img4" /></p>
+
+<p>在之前的<a href="https://zhpmatrix.github.io/2021/02/05/cs224w-graph-learning-notes/">博客</a>中，已经讨论了很多关于计算图的概念，这里照例放出经典图镇楼。那么Layer的参数如何学习呢？</p>
+
+<ul>
+  <li>
+    <p>无监督的方式。基于Random Walk的方式，图分解，图中节点的近邻性等</p>
+  </li>
+  <li>
+    <p>有监督的方式。下游挂载一个节点分类任务等。</p>
+  </li>
+</ul>
+
+<p>在具体train的时候，可以将计算子图打包成一个Batch。同时，由于shared params（体现在聚合函数），具有inductive能力。那么，这里聚合函数就是重点研究的对象了。常见的变种有三类：</p>
+
+<p>（1）Mean</p>
+
+<p>（2）Pool</p>
+
+<p>（3）LSTM</p>
+
+<blockquote>
+  <p>启发：在该部分并没有用数学化的方式将motivation转换为代码的路径描述出来。这里想谈的是，一般的比较适用的逻辑是将motivation转化为求和类似的容易理解的数学语言，然后将该数学语言向量化，继而代码化。很多文章直接采用矩阵的描述语言，但是要真正理解，需要把矩阵拆散，理解计算过程，这样能够加深理解。</p>
+</blockquote>
+
+<h4 id="三gat">三.GAT</h4>
+
+<p>在近邻聚合的实现上，Mean/Pool/LSTM尚且粗暴，能不能用一种更加soft的方式去聚合近邻特征呢？倘若从近邻节点重要性的观点去看，那么采用Attention机制实现，就是比较自然的方式了。那么理论上存在的优点包括：计算高效/存储高效/较容易实现的Localized/Inductive性质。具体阐述如下：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2021/02/99018c731655c15b.png" alt="img5" /></p>
+
+<blockquote>
+  <p>启发：Learning的框架定了之后，剩下的工作在大方向上是雷同的，不过具体实现不同，侧重的方面也不同。由于需求和观察角度方差较大，也是大量Paper可以做的地方，这是一个填坑的过程。</p>
+</blockquote>
+
+<h4 id="四tips调参吧">四.Tips（调参吧）</h4>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2021/02/873aefbdfe999ae0.png" alt="img6" /></p>
+
+<blockquote>
+  <p>启发：非Pre-train的工作，调参这种吃经验的工作，还是要看一下前辈们的结论。</p>
+</blockquote>
+
+<p>补充：提供两个可以研究的工业界的数据：</p>
+
+<p>（1）<a href="https://www.kesci.com/mw/dataset/5e01c2852823a10036af1fcc">京东商品知识图谱</a></p>
+
+<p>（2）<a href="https://tianchi.aliyun.com/competition/entrance/231506/information">淘宝穿衣搭配大赛</a>，可以当成一个基于Graph的推荐问题来研究</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

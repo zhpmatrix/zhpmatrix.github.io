@@ -1,0 +1,211 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[LeetCode]从最优装载看贪心</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2016/11/11/optimal-load-problem/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[LeetCode]从最优装载看贪心</h1>
+    <p class="meta">Nov 11, 2016</p>
+  </header>
+
+  <article class="post-content">
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<p>有一批集装箱要装上一艘载重量为\(C\)的轮船，其中集装箱\(i\)的重量为\(w_i\)。最优装载问题要求确定，在装载体积不受限制的情况下，应该如何装载才能将尽可能多的集装箱装上轮船。该问题形式化描述为：</p>
+
+\[\begin{align}
+&amp;max\quad \sum\limits_{i=1}^nx_i\\\\
+&amp;s.t.\quad
+    \begin{cases}
+        \sum\limits_{i=1}^nw_ix_i \leq C \\\\
+        x_i \in\lbrace0,1\rbrace,1 \leq i \leq n
+    \end{cases}
+    (*)
+\end{align}\]
+
+<p>对于这道题目，直觉上的想法就是从集装箱重量小的开始装。因为我们的目标函数是可装船的集装箱的数目，而非重量。恰巧，这正是贪婪的想法。</p>
+
+<p>最优子结构性质的证明如下：</p>
+
+<p>设\(x_1,x_2,\cdots,x_n\)是最优装载问题的一个满足最优贪心选择性质的最优解，则容易知道，\(x_1=1,(x_2,x_3,\cdots,x_n)\)是轮船载重量为\(C-w_1\)且待装船集装箱为\({2,3,\cdots,n}\)时相应最优装载问题的一个最优解。</p>
+
+<p>最优子结构性质是可以利用贪心和动态规划思想解决的题目都具有的性质。对于几乎所有问题都具有相同的证明思路而且相对容易。只要证明原问题的最优解包含子问题的最优解就可以搞定。</p>
+
+<p>来看看贪心选择性质的证明(是对王晓东老师教材证明的补充和理解)：</p>
+
+<p>设集装箱已经依其重量从小到大排序，\((x_1,x_2,\cdots,x_n)\)是最优装载问题的一个最优解。设：</p>
+
+\[\begin{align}
+k = min\lbrace i|x_i=1\rbrace\quad 1 \leq i \leq n
+\end{align}\]
+
+<p>容易知道，如果给定的最优装载问题有解，则\(1 \leq k \leq n\)。\(x_i=1\)表示第\(i\)个集装箱装船，则\(k\)的含义是第一个装船的集装箱的序号(有序排列下)。这样的话，在问题有解的情况下，必然有集装箱要装船，也就有了\(k\)的取值范围。</p>
+
+<p>当\(k=1\)的时候，\((x_1,x_2,\cdots,x_n)\)是一个满足贪心选择性质的最优解。原因是这是一个按照从小到大排列的序列,\(k=1\)表示序号为1(重量最小)的集装箱装船，显而易见的结论。</p>
+
+<p><strong>当某个最优解满足第一个装船的集装箱的重量不是最小的时候，如果能够证明从重量最小的集装箱(序号为1)装船
+也是一个最优解，那么便可以证明贪心选择性质。</strong>因为从贪心选择的定义上，试图一步步贪心选择达到最终全局最优（虽然贪心不一定会得到全局最优）。我们就是要证明可以回到最初选择（选择重量最小，序号为1的集装箱）进而一步步达到最优解。</p>
+
+<p>为了证明这个想法，先要构造一个一般情况，也就是最优解满足第一个装船的集装箱的重量不是最小的情况。</p>
+
+<p>当\(k&gt;1\)的时候，取\(y_1=1;y_k=0;y_i=x_i,1 \le i \leq n,i\not=k\)</p>
+
+<p>\(k&gt;1\)就是一般情况，对应装船策略记为X。此时，序号为\(1至(k-1)\)的集装箱没有装船。此时假设的另外一种装船策略就是用\(y_i\)来表示的序列，记为Y，后续会证明这个序列是可行解，同时也是最优解。观察这个策略的特征：</p>
+
+<p>\(y_1=1\)表示第一个重量最轻的集装箱装船。\(y_k=0\)表示策略X中第一个装船的集装箱在策略Y中不装船。\(y_i=x_i,1 \le i \leq n,i\not=k\)
+表示除了上述两个集装箱状态变动外，对于其余集装箱，策略Y和策略X相同。上图：</p>
+
+<p><img src="http://ww2.sinaimg.cn/mw690/aba7d18bgw1f9nb8vckf9j20hj09agly.jpg" alt="图片" /></p>
+
+<p>策略X和策略Y的装船对比图，第一行为策略X，第\(k\)个集装箱装船；第二行为策略Y，第1个集装箱装船，第\(k\)个集装箱不装船，其余集装箱装船状态同策略X。</p>
+
+<p>构造策略X和Y之后，只要证明Y也是最优解这个问题就算搞定，证明最优解，从可行解开始，也就是新的策略Y能够满足重量限制。</p>
+
+\[\sum\limits_{i=1}^nw_iy_i=w_1-w_k+\sum\limits_{i=k}^nw_ix_i \leq \sum\limits_{i=k}^nw_ix_i \leq C\]
+
+<p>观察上式，对策略X，第\(k\)个集装箱装船，而在策略Y中没有装船。此外，由于集装箱是按照重量大小进行排序，则\(w_1 \leq w_k\)。</p>
+
+<p>上式两边同时加上\(\sum\limits_{i=1}^{k-1}w_ix_i\),就是王晓东老师教材上的表达了。
+为什么？回到对\(k\)的定义，序号为\(k\)的集装箱是第一个装船的集装箱，则第\(k\)个集装箱前边的集装箱都没有装船，也就是\(\sum\limits_{i=1}^{k-1}w_ix_i=0\)，故有：</p>
+
+\[\sum\limits_{i=1}^nw_iy_i=w_1-w_k+\sum\limits_{i=1}^nw_ix_i \leq \sum\limits_{i=1}^nw_ix_i \leq C\]
+
+<p>由于策略X和策略Y只是交换了第\(1\)和第\(k\)个集装箱的装船状态，故两种策略装船的集装箱的数目相同，也就是策略Y也是一个最优策略，得到的装船序列也是一个最优解。即：</p>
+
+\[\sum\limits_{i=1}^ny_i = \sum\limits_{i=1}^nx_i\]
+
+<p>额，说了这么多，个人认为亮点只有一个，就是给定策略X，策略Y的构造方式。当然如何想到用这种方式去证明贪心策略，似乎也不是那么显而易见。</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

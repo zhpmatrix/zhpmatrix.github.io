@@ -1,0 +1,302 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[知识图谱]神经关系抽取</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/07/01/neural-relation-extraction/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[知识图谱]神经关系抽取</h1>
+    <p class="meta">Jul 1, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <p>前言：主要总结最近关于关系抽取的一些工作和思考。</p>
+
+<h3 id="从一个具体例子了解信息抽取">从一个具体例子了解信息抽取</h3>
+
+<p>信息抽取是一个大的研究方向，从ACL2019的文章录用可以看到。近年来，围绕知识图谱的研究也是一个热点，包括我们组里在知识图谱都有相关人力投入，围绕知识图谱的相关工作也是非常的有意思。而信息抽取相关技术则是知识图谱构建的基础。</p>
+
+<p>一般认为信息抽取有三个基本任务：</p>
+
+<p>（1）实体识别</p>
+
+<p>（2）关系抽取(分类)</p>
+
+<p>（3）事件抽取</p>
+
+<p>或者更加一般地认为前两个任务。为了直观地理解上述概念，下面通过一个纽约时报的新闻实例，演示上述过程(<em>例子引用参考文献1</em>)：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+(1) 实体标注： 
+
+[Julian Hill]&lt;人名&gt; , a research chemist whose accidental discovery of a tough , taffylike compound revolutionized everyday life after it proved its worth in warfare and courtship , died on [Sunday]&lt;日期&gt; in [Hockessin , Del]&lt;城镇名&gt; . He was 91. 
+
+[Hill]&lt;人名&gt; died at the ［Cokesbury Village］&lt;城镇名&gt; retirement community , where he had lived in recent years with his wife of [62 years]&lt;时段&gt; , [Polly]&lt;人名&gt; . 
+......... 
+[Julian Werner Hill]&lt;人名&gt; was born in [St. Louis]&lt;城镇名&gt; , graduated from [Washington University]&lt;学校名&gt; there in [1924]&lt;年代&gt; and earned a doctorate in organic chemistry from the [Massachusetts Institute of Technology]&lt;学校名&gt; in [1928]&lt;年代&gt; . 
+......... 
+
+(2) 关系抽取： 
+
+职位: research chemist ← Julian Hill 
+年龄: 91 ← Hill 
+出生地: St. Louis ← Julian Werner Hill 
+工作单位: Du Pont Co. ← Julian Werner 
+毕业学校: Washington University ← Julian 
+毕业学校: Massachusetts Institute of Technology ← Julian 
+配偶: Polly ← Julian Hill 
+特长: an accomplished squash player and figure-skater ← Julian 
+
+(3) 事件抽取： 
+
+&lt;死亡事件&gt; 何人：Julian Werner Hill 何时：Sunday 何地：Hockessin , Del 
+&lt;发明事件&gt; 何人：Julian Hill 何物：nylon　何时：1930s 
+&lt;毕业事件&gt; 学校：Washington University 何时: 1924 何地：St. Louis 
+......... 
+</code></pre></div></div>
+
+<p>那么，通过上述三个过程，可以得到最终想要的一个结果，如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>【Julian Hill 概览】
+ 
+姓名：Julian Werner Hill 
+年龄：91 
+性别：MALE 
+职务：research chemist 
+工作单位：DuPont Co. 
+教育背景：Washington University; Massachusetts Institute of Technology 
+配偶：Polly 
+儿女：Louisa Spottswood; Joseph ; Jefferson 
+特长：an accomplished squash player and figure-skater 
+相关事件： &lt;死亡事件&gt; ；&lt;发明事件&gt;；&lt;毕业事件&gt; ；
+......... 
+</code></pre></div></div>
+
+<p>从整体上看，输入是一段文本，输出是结构化的信息。那么，目前的技术水平是怎样的呢？(引用同上，从最近读的一些文章来看，这些指标基本合理)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>三大任务中，专名标识是基础，也是最成熟和已经得到广泛应用的技术。
+
+(1)如果领域已经确定，标识的准确度可以达到90％左右，已经接近人工标注的水平。
+
+(2)实体关系的抽取近年来有长足的发展，抽取的准确度可达80％。
+
+(3)复杂事件由于其动态性，抽取难度最大，抽取准确率大体在50％－60％徘徊，尚不足以投入应用。
+但是单纯的事件，比如高管变动，恐怖事件，以及抽取一般事件中的谁做了什么及其事件的时间地点等，
+抽取的质量也可以达到70%到80%。
+
+(4)事件抽取系统的真正难点在领域的移植性（domain portability），一个开发了多年的系统一旦应用领域变换，重新定义了目标模板，非动大手术不能适应。
+</code></pre></div></div>
+
+<h3 id="解决的思路">解决的思路</h3>
+
+<p>关系抽取是一个研究了很长时间的问题，自己做的内容偏向于DL的方法，这里暂且不讨论事件抽取，围绕实体识别和关系抽取两个事情。为了解决这两件事情，有两个大的思路方向：</p>
+
+<p>第一：一个模型解决两件事情；</p>
+
+<p>这个思路上的尝试，主要基于这篇文章，《Joint entity recognition and relation extraction as a multi-head selection problem》，这篇文章也是百度2019年在信息抽取赛道上第一名主要采用的一个方案。</p>
+
+<p>第二：两个模型分别解决实体识别和关系抽取；</p>
+
+<p>这里，可以把实体识别理解为一个sequence labeling任务，关系抽取理解为一个multi-classification或者multi-label问题（更加倾向于前者）。</p>
+
+<p>那么，这里思路就相对清晰了，bert的参与应该少不了。实际上，在2019年的一些文章中正是基于bert来做的。</p>
+
+<p>实体识别直接基于bert来做，可以后接一个crf层，这里不是关注的重点。而关系抽取这块主要参考实现的文章是acl2019年的《Matching the Blanks_Distributional Similarity for Relation Learning》，同时会融合一些其他文章的想法，具体包括两篇文章：</p>
+
+<p>1.AKBC2019，《Improving Relation Extraction by Pre-trained Language Representations》</p>
+
+<p>2.《Simple BERT Models for Relation Extraction and Semantic Role Labeling》，arXiv，2019</p>
+
+<p>严格意义上的神经关系抽取，按照读的一些文章的形式上的定义，是给定句子或者段落，以及两个或者多个实体，给出实体间的关系。其实这句话中，已经给出了两种setting：context和实体个数。一般研究较多的setting是一个句子+两个实体，给出关系。其中，针对context，需要特别提出的是，刘知远团队等在今年的acl2019上给出了一个文档级的关系抽取任务数据集，具体文章《DocRED: A Large-Scale Document-Level Relation Extraction Dataset》，<strong>一句话总结：传统的数据集解决句子级的关系抽取，可以解决60%左右的问题，剩下的40%的关系需要从多个句子中挖掘。</strong></p>
+
+<h3 id="具体的模型">具体的模型</h3>
+
+<p>针对神经关系抽取，在《Simple BERT Models for Relation Extraction and Semantic Role Labeling》中，具体做法如下：</p>
+
+<p><img src="http://wx4.sinaimg.cn/mw690/aba7d18bly1g4ilg9r9ecj20vc0p2dk4.jpg" alt="img1" /></p>
+
+<p>比较值得一提的有两个地方：</p>
+
+<p>第一是mask操作，作者在文中写道：“To prevent overﬁtting, we replace the entity mentions in the sentence with masks, comprised of argument type (subject or object) and entity type (such as location and person), e.g., S-LOC, denoting that the subject entity is a location.”</p>
+
+<p>第二是position embedding操作。文章采用的position emebdding方式在多篇文章中也被用到，具体就不列举了。</p>
+
+<p>分析上述思路，整体上是一个multi-classification任务，但是与常见的句子分类任务相比，比较特别的地方在于需要显式建模entity的表示，也就是output representation需要有conext+entity的信息。其中entity的表示需要好的position emebdding。这点基本上是最近实现的一些工作中得到的最关键的感受了。</p>
+
+<p>沿着上述思路，就可以聊《Matching the Blanks_Distributional Similarity for Relation Learning》这篇文章了。看下图：</p>
+
+<p><img src="http://wx2.sinaimg.cn/mw690/aba7d18bgy1g47p0g5ln3j210n0drtas.jpg" alt="img2" /></p>
+
+<p>自己实现了基于pytorch的代码，稍后有机会开源，给出在semeval2010 task8和tacred上的具体评测结果，同时会有一些新的策略。</p>
+
+<p>额，相关思路还有，不过工作相对较早，《Improving Relation Extraction by Pre-trained Language Representations》使用的是gpt。</p>
+
+<p><img src="http://wx2.sinaimg.cn/mw690/aba7d18bly1g4ilvkkau7j21aq0u045u.jpg" alt="img3" /></p>
+
+<p>这个需要提到的是，文章写道：“since our model processes the input left-to-right, we add the relation arguments to the beginning, to bias the attention mechanism towards their token representation while processing the sentence’s token sequence.”</p>
+
+<p>那么，看了上述三篇文章需要预先给定entity，实际上我们更希望直接从句子中抽取关系而非预先给定entity，同时也是个人更加喜欢的一个思路。这里的一个代表是《Joint entity recognition and relation extraction as a multi-head selection problem》，看下图：</p>
+
+<p><img src="http://wx4.sinaimg.cn/mw690/aba7d18bly1g4j5odbhc8j212i0u0tj6.jpg" alt="img4" /></p>
+
+<p>从结构上看，比较暴力的方法应该要遇到outupt端的计算复杂度过高的问题。的确，在较大的数据集上跑官方代码的时候，非常慢。具体的，semeval 2010 task8上跑的时间可以接受，tacred上跑就慢的难以接受了，需要进一步优化。原始代码是基于tf实现的，这里给出一个朋友基于pytorch的<a href="https://github.com/WindChimeRan/pytorch_multi_head_selection_re">实现</a>。</p>
+
+<p>从建模体验上，类似的在实体识别中，acl2017的工作《Joint Extraction of Entities and Relations Based on a Novel Tagging Schem》，也是相同的。虽然暴力，但是通过简单的建模方式去解决问题，而且效果不差，的确是个人目前比较喜欢的方式（比起拍脑袋组合的奇怪的策略）。</p>
+
+<p>类似地，在这个工作中，《Extracting Multiple-Relations in One-Pass with Pre-Trained Transformers》，架构如下：</p>
+
+<p><img src="http://wx2.sinaimg.cn/mw690/aba7d18bly1g4j6g5lw1fj20uy0n0td4.jpg" alt="img5" /></p>
+
+<p>具体可以看下论文，在苏剑林的<a href="https://spaces.ac.cn/archives/6736">工作1</a>和<a href="https://spaces.ac.cn/archives/6671">工作2</a>同时尝试了一个模型解决关系抽取的问题，也可以看到类似思想的使用，同样应该是一个很自然的想法。</p>
+
+<h3 id="反思">反思</h3>
+
+<p>这篇博客总结了18年，特别是19年最近的一些关于实体识别和关系抽取的文章。从大方向上，可以考虑较强的backbone（bert），好的position embedding（变种非常多）。考虑任务之间的关系，一步或者两步解决。从context的长度，考虑单个句子或者多个句子。从entity和relation的个数考虑，要考虑多个entity和relation的建模。部分描述只给出了个人认为的关键部分，细节不清楚的可以具体读文章，此外，相关工作的实现难度上应该不算大。</p>
+
+<p>参考文献：</p>
+
+<p>1.<a href="https://mp.weixin.qq.com/s?__biz=MzIyODExNDgxOA==&amp;mid=402669092&amp;idx=1&amp;sn=b91c2c413b74e27ecbbbd72109e064c4&amp;chksm=75a276c942d5ffdf4f1f22fe4843ac4066d56df3388cdb4ccfdc32dd59e516d97b2fab06d7e8&amp;mpshare=1&amp;scene=23&amp;srcid=0612H0vYaFGB77kJZOQ3PZ0K%23rd">自然语言处理与信息抽取</a></p>
+
+<p>2.<a href="https://github.com/yuanxiaosc/Multiple-Relations-Extraction-Only-Look-Once">相关开源实现</a></p>
+
+<p>3.<a href="https://arxiv.org/pdf/1905.08284.pdf">Enriching Pre-trained Lanuage Model with Entity Information for Relation Classification</a></p>
+
+<p>阿里巴巴的文章，属于应用上的工作。基本没有太大的创新，不过算是博客中讨论内容的一个补充。</p>
+
+<p>4.<a href="https://blog.csdn.net/Kaiyuan_sjtu/article/details/90071703">中文神经关系综述</a></p>
+
+<p>相对系统的梳理了一些关系抽取的文章。</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

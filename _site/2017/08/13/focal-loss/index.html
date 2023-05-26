@@ -1,0 +1,209 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[paper]针对密集目标检测的焦点损失函数</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2017/08/13/focal-loss/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[paper]针对密集目标检测的焦点损失函数</h1>
+    <p class="meta">Aug 13, 2017</p>
+  </header>
+
+  <article class="post-content">
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<p>关于问题提出的背景，想法直觉，实验验证等内容可以具体读论文，这篇博客只讨论Focal Loss的问题，也就是怎样将不平衡性引入到loss函数的讨论中。</p>
+
+<p>对于二分类问题，交叉熵损失函数如下：</p>
+
+\[CE(p,y)=
+\begin{cases}
+    -log(p)\quad\quad   if\quad y = 1\\\\
+    -log(1-p)\quad otherwise.
+\end{cases}\]
+
+<p>其中\(p\in[0,1]\)是模型预测类标签为1的概率(sigmoid函数),\(y\)是真实标签，其中\(y\in\{+1,-1\}\)。在文章中，作者简化写法如下：</p>
+
+\[p_{t}=
+\begin{cases}
+    p\quad\quad   if\quad y = 1\\\\
+    1-p\quad otherwise.
+\end{cases}\]
+
+<p>其中\(CE(p,y)=CE(p_{t})=-log(p_{t})\)</p>
+
+<p>为了解决正负样本不均衡的问题，在loss函数中引入参数\(\alpha_{t}\),如下：</p>
+
+\[CE(p_{t})=-\alpha_{t} log(p_{t})\]
+
+<p>其中，对类标签为1的样本，\(\alpha_{t}=\alpha,\alpha\in[0,1]\),对类标签为-1的样本，\(\alpha_t = 1 - \alpha\)。为什么这种方式可以解决正负样本不平衡的问题？</p>
+
+<p>假设1类样本比-1类样本多好多，则可以设\(\alpha\in[0,0.5]\)，这样就可以减少1类样本对loss函数的误差贡献，相对的，-1类样本的贡献增加。</p>
+
+<p>为了解决难易分类样本对loss函数权重贡献的问题，在loss函数中引入参数\(\gamma\)和项\((1-p_{t})^\gamma\)，自认为难分的样本容易被错分，常被错分的样本比较难分，对于易分样本，同理。</p>
+
+\[FL(p_{t})=-(1-p_{t})^\gamma log(p_{t})\]
+
+<p>为啥可行呢？(假设\(\gamma=1\))</p>
+
+<p>\(y=1\)时，当样本被错分，则\(p_{t}=p\leq 0.5\),故\((1-p_{t})接近1\)，对loss函数的值贡献大；当样本被正分，则\(p_{t}=p\geq 0.5\),故\((1-p_{t})接近0\)，对loss函数的值贡献小。</p>
+
+<p>当\(y=-1\)时，结论显然。</p>
+
+<p>假设\(\gamma=0\),退化为传统交叉熵函数。在这里，关于\(\gamma\)这个参数，至少可以看到两点：第一保证了FL和CE的一脉相承，第二对\((1-p_{t})\)的数值意义。</p>
+
+<p>此处，有木有想到万有引力公式的发现？是的，乘在一块儿就OK！当当当，我们的Focal Loss函数闪亮登场：</p>
+
+\[FL(p_{t})=-\alpha_{t}(1-p_{t})^\gamma log(p_{t})\]
+
+<p>总结：其实，关于不平衡学习的研究成果已经有好多，在我的这篇<a href="https://zhpmatrix.github.io/2017/02/20/learning-from-imbalanced-data/">博客</a>中，就写了一篇关于不平衡处理的review的论文笔记，在这篇文章中，作者总结提到Cost Sensitive Method即代价敏感方法及其具体例子，在我看来，Focal Loss也是一种具体的代价敏感方法，将正负样本的不均衡性，同时将难易样本的不均衡性引入到目标函数中，并且通过naive的方法进行目标函数的构造。难能可贵的地方在于从解决的具体问题中能够洞察到问题本质，比如观察分析出One-stage Detectors的Accuracy不能提升的原因之一是样本不平衡问题，然后用简单漂亮的方法去解决。关于这个方法能否用到其他的应用场景中，还有待讨论。</p>
+
+<p>同时提供一些别人的讨论：</p>
+
+<p>1.<a href="http://blog.csdn.net/u014380165/article/details/77019084">Focal Loss</a></p>
+
+<p>2.<a href="https://baijiahao.baidu.com/s?id=1575357531487121&amp;wfr=spider&amp;for=pc">何凯明团队提出Focal Loss，目标检测精度打破现有记录</a></p>
+
+<p>3.<a href="https://www.zhihu.com/question/63581984">知乎关于这篇paper的讨论</a></p>
+
+<p>4.<a href="https://mp.weixin.qq.com/s?__biz=MzA3MzI4MjgzMw==&amp;mid=2650730755&amp;idx=4&amp;sn=6ad8339fdf1bddaeb9671fb72755e5dc">CMU研究者探索新卷积方法：在实验中可媲美基准CNN（附实验代码）</a></p>
+
+<p>这篇博客中，作者利用在交叉熵损失函数中添加新的regularizer，使得学习到列向量正交的filter，方便神经网络的可解释性，同时解决conv靠近顶层时大部分weight为0的情况。</p>
+
+<p>5.<a href="https://medium.com/mlreview/experiments-with-a-new-loss-term-added-to-the-standard-cross-entropy-85b080c42446">Center Loss from ECCV的blog</a></p>
+
+<p>按照作者在小规模和大规模数据集上的测试，center loss确实会提高模型的表现(知乎er说不能，真JB扯，参数没有调好？)。</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

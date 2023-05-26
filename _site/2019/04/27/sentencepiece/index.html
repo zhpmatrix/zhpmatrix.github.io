@@ -1,0 +1,339 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]sentencepiece</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/04/27/sentencepiece/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]sentencepiece</h1>
+    <p class="meta">Apr 27, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<h3 id="一前言">一.前言</h3>
+
+<p>为了对<a href="https://github.com/google/sentencepiece">sentencepiece</a>有一个宏观的认识，在这篇博客中先给出sentencepiece，subword-nmt和wordpiece的对比情况，具体对比结果如下（表格来自sentencepiece的readme）：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Feature</th>
+      <th style="text-align: center">SentencePiece</th>
+      <th style="text-align: center"><a href="https://github.com/rsennrich/subword-nmt">subword-nmt</a></th>
+      <th style="text-align: center"><a href="https://arxiv.org/pdf/1609.08144.pdf">WordPiece</a></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Supported algorithm</td>
+      <td style="text-align: center">BPE, unigram, char, word</td>
+      <td style="text-align: center">BPE</td>
+      <td style="text-align: center">BPE*</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">OSS?</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">Google internal</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Subword regularization</td>
+      <td style="text-align: center"><a href="#subword-regularization">Yes</a></td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">No</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Python Library (pip)</td>
+      <td style="text-align: center"><a href="python/README.md">Yes</a></td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">N/A</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">C++ Library</td>
+      <td style="text-align: center"><a href="doc/api.md">Yes</a></td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">N/A</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Pre-segmentation required?</td>
+      <td style="text-align: center"><a href="#whitespace-is-treated-as-a-basic-symbol">No</a></td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">Yes</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Customizable normalization (e.g., NFKC)</td>
+      <td style="text-align: center"><a href="doc/normalization.md">Yes</a></td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">N/A</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Direct id generation</td>
+      <td style="text-align: center"><a href="#end-to-end-example">Yes</a></td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">N/A</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>为了简化后续的描述，用sp来简写sentencepiece。在这篇博客中，主要讨论的内容如下：</p>
+
+<p><strong>第一：和subword-nmt，wordpiece对比，sp的特色</strong></p>
+
+<p><strong>第二：sp实现了两个subword算法，bpe和unigram language model</strong></p>
+
+<p><strong>第二：sp为了实现subword regularization，实现了subword sampling算法</strong></p>
+
+<p><strong>第四：重要参数</strong></p>
+
+<h3 id="二sp的特色">二.sp的特色</h3>
+
+<p>(1)token的数目需要预先指定（词典大小）</p>
+
+<p>通常nlp的任务都会在训练之前得到一个固定大小的词典。但是，多数无监督分词算法都假设词典大小不固定并且是无限的。虽然sp也是无监督分词，但是通过预先指定词典的大小，可以得到一个固定大小的词典。</p>
+
+<p>(2)不需要预先分词，直接在原始句子上训练</p>
+
+<p>其他的无监督分词器需要预先分词，这样的话就会形成语言依赖，也就是对于不同的语言需要不同的分词器，如果考虑分词器本身的效果不理想，势必会造成后续过程的结果不理想。而sp可以直接在原始句子上训练，这就大大提高了sp的可用性。</p>
+
+<p>（3）tokenized和detokenized的可逆交换</p>
+
+<p>之前的一些分词器将whitespace看做特殊的符号，会导致tokenized后的文本不能恢复到原始文本。但是sp把序列看作是unicode字符序列，这样whitespace就和其他字符一样都是基础符号了，这就实现了可逆性。举一个具体的例子：</p>
+
+<p>输入：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello World.
+</code></pre></div></div>
+
+<p>sp看到的序列：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello▁World.
+</code></pre></div></div>
+
+<p>tokenized之后的结果：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Hello][▁Wor][ld][.]
+</code></pre></div></div>
+
+<p>对上述piece做detokenized的过程：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>''.join(piece).replace('_','')
+</code></pre></div></div>
+
+<h3 id="三两种subword算法介绍">三.两种subword算法介绍</h3>
+
+<p>1.bpe算法</p>
+
+<p>该算法全称为byte pair encoding，原始是一种压缩算法。放在nlp的setting下，就是将一个大词典可以压缩为一个小词典，这样有助于解决rare和unknown词的问题。想一想中文场景下，基于字的词典大概2000+，但是基于词的字典大小就大多了。既然是压缩算法，自然少不了huffman encoding了，不过和前者比起来，subword具有更好的解释性，同时基于这些subword，网络可以产生新词！（基于组合）具体细节可以读论文《Neural Machine Translation of Rare Words with Subword Units》</p>
+
+<p>作者在原始论文中给出了对应的python实现代码：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+import re, collections
+
+def get_stats(vocab):
+
+	pairs = collections.defaultdict(int)
+	for word, freq in vocab.items():
+		symbols = word.split()
+	for i in range(len(symbols)-1):
+		pairs[symbols[i],symbols[i+1]] += freq
+	 return pairs
+
+def merge_vocab(pair, v_in):
+	v_out = {}
+	bigram = re.escape(' '.join(pair))
+	p = re.compile(r'(?&lt;!\S)' + bigram + r'(?!\S)')
+	for word in v_in:
+   		w_out = p.sub(''.join(pair), word)
+		v_out[w_out] = v_in[word]
+	return v_out
+	
+if __name__ == '__main__':
+
+	vocab = {'l o w &lt;/w&gt;' : 5, 'l o w e r &lt;/w&gt;' : 2, 'newest&lt;/w&gt;':6,'widest&lt;/w&gt;':3}
+	num_merges = 10
+	for i in range(num_merges):
+		pairs = get_stats(vocab)
+		best = max(pairs, key=pairs.get)
+		vocab = merge_vocab(best, vocab)
+		print(best)
+
+</code></pre></div></div>
+
+<p>2.unigram language model算法</p>
+
+<p>subword sampling和基于unigram的language model算法都是kudo在一篇文章中提出来的，《Sub word Regularization: Improving Neural Networks Translation Models with Multiple Subword Candidates》，这里可以简单的描述。</p>
+
+<p>给一个序列，假设可以切分为一个subword序列，那么可以通过语言模型对subword序列打分选出比较重要的subword。比如可以通过删除一个subword，计算删除前后的语言模型得分的变化来确定。</p>
+
+<p>具体细节可以参考文章中相应的讨论。</p>
+
+<h3 id="四subword-regularization">四.subword regularization</h3>
+
+<p>1.subword sampling</p>
+
+<p>给定一个序列，假设可以切分为多个subword序列，那么当对应subword序列用于下游任务时，则可以实现正则化效果，相关的思想非常多，故不再赘述。</p>
+
+<h3 id="五重要参数">五.重要参数</h3>
+
+<p>1.vocab_size</p>
+
+<p>该参数是sp的特色，需要在训练之前指定，比如经验值8000，16000，32000等。</p>
+
+<p>2.character_coverage</p>
+
+<p>模型覆盖的字符数量比例。对于日文和中文这种有着丰富字符的语言，一个好的默认值是0.9995；对于其他有着较少字符集的语言，可以设置为1.0。对该参数的理解是对sentencepiece理解的核心，可以这样理解，给定词表的前提下，希望对一段文本切词之后的词有多少落在词表中，这样的目的是为了减少oov问题的出现。</p>
+
+<p>3.model_type</p>
+
+<p>模型类型，从上述表格也可以看出，总共有四种，分别是默认的基于unigram的，bpe，char和word，当指定word类型时，必须提前做分词，此时就需要考虑分词器的效果。针对上述四种模型类型，代码组织层是通过factory来实现的，<a href="https://github.com/google/sentencepiece/tree/master/src">具体代码地址这里</a>。word类型是通过whitespace进行tokenize，char类型是直接将序列变为char序列。</p>
+
+<p>在tensor2tensor中，subword的生成过程是不同于上述的，简单而言是通过对序列的所有词组合进行排列组合，然后通过词频过滤掉一部分不常见的词。并且tensor2tensor中，并没有采用第三方的subword生成工具，而是自己实现了自己的逻辑。</p>
+
+<p>补充材料：</p>
+
+<p><a href="https://blog.floydhub.com/tokenization-nlp/">Tokenizer: How machines read</a></p>
+
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzIwNzc2NTk0NQ==&amp;mid=2247485705&amp;idx=2&amp;sn=383b7ca2db3b3a635b26de835f3661ea&amp;chksm=970c21dfa07ba8c95513bfbe8c9041d64a1ebfddece4bb8409289565c92504288447e7e2616c&amp;mpshare=1&amp;scene=23&amp;srcid=0425Vgrv7zQo3ryUJ5iIkRzm&amp;sharer_sharetime=1587800482089&amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd">NLP Subword三大算法原理：BPE, Wordpiece, ULM</a></p>
+
+<p><a href="https://medium.com/rapids-ai/preprocess-your-training-data-at-lightspeed-with-our-gpu-based-tokenizer-for-bert-language-models-561cf9c46e15#cid=av01_so-twit_en-us">基于GPU的分词器</a></p>
+
+<p>补充：Huggingface也写了一个分词器，有同学实测比Transformers内置的要快。</p>
+
+<p>补充：《Fast WordPiece Tokenization》,EMNLP2021的工作，“8.2x faster than HuggingFace Tokenizers and 5.1x faster than TensorFlow Text on average for general text tokenization.“</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

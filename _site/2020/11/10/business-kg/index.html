@@ -1,0 +1,299 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]一种电商域知识图谱的构建方法</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2020/11/10/business-kg/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]一种电商域知识图谱的构建方法</h1>
+    <p class="meta">Nov 10, 2020</p>
+  </header>
+
+  <article class="post-content">
+  <p>一般认为，通用（百科）领域的图谱核心问题在结构化，因为非结构化信息的比重较大；特定域内的图谱核心问题在标准化，因为在特定域内形成的业务规则标准化程度已经较高，图谱的构建是拉进业务标准和技术标准的距离。当然，结构化意味着标准化，区别在于孰轻孰重？</p>
+
+<p>回顾知识图谱相关的问题，如下：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>层级</th>
+      <th>内容</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>模型层</td>
+      <td>实体抽取，实体链接，关系抽取，事件抽取，知识融合（多源异构），知识补全，知识去噪，知识表示和知识推理</td>
+    </tr>
+    <tr>
+      <td>应用层</td>
+      <td>搜索（知识卡片），推荐（可解释/推理式，上下位关联/组合属性关联），问答</td>
+    </tr>
+    <tr>
+      <td>关键问题</td>
+      <td>样本不均衡，新领域样本少，推理技术</td>
+    </tr>
+    <tr>
+      <td>关键技术</td>
+      <td>领域迁移，众包去噪，标注工作</td>
+    </tr>
+    <tr>
+      <td>通用性问题</td>
+      <td>给定知识候选集（结构化/非结构化/多模态），如何快速且规模化的构建一个特定域的知识图谱？</td>
+    </tr>
+    <tr>
+      <td>应用场景</td>
+      <td>阿里云官方给出的范例：欺诈检测场景，知识图谱场景，网络运维场景，推荐场景，社交应用场景。王在<a href="http://reader.epubee.com/books/mobile/cc/cc219bda88f77cd8612c76540dd98cef/text00014.html">知识图谱应用案例</a>中整理了更多的应用场景。此外，有刘<a href="https://github.com/liuhuanyong/ProductKnowledgeGraph">基于京东商品搭建的知识图谱</a>，<a href="https://www.kesci.com/mw/dataset/5e01c2852823a10036af1fcc">相关文档</a>，<a href="https://www.4paradigm.com/competition/kddcup2020">KDD Cup2020: The 1st AutoGraph Challenge</a>，是AutoML在图上的尝试，基于节点分类的任务，挑战自动化图表示学习的能力边界。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>这篇博客围绕CIKM2020的文章《AliMe KG: Domain Knowledge Graph Construction and Application in E-commerce》,讨论电商域的知识图谱构建，实际上也是博主目前正在做的工作。从整体上看，工作分为两个方面：节点挖掘和链接预测。节点挖掘分为三个部分：Problem，POI, CPV&amp;IPV三个方面，通过链接预测建立三种节点之间的关系。在开始分模块梳理之前，先看一个具体的例子，如下:</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2020/11/f13d1ef9922b9100.png" alt="img_example" /></p>
+
+<h4 id="1problem">(1)Problem</h4>
+
+<p>Problem挖掘的流程如下：</p>
+
+<p>（1）标注数据准备。基于售前对话数据，通过启发式规则和短语挖掘技术挖掘“问题短语”</p>
+
+<p>（2）数据标注</p>
+
+<p>（3）训练二分类模型。在AliMe中，是利用BERT做二分类模型的，具体输入为：[CLS]候选短语[SEP]原始句子[SEP]。</p>
+
+<p>通过序列标注的方式来做，也是可以的。这种方式的问题在于任务分为两个阶段，有误差累积的问题；同时在inference的时候，inference的时间复杂度正比于候选短语的个数，为O(N)；而前者的时间复杂度为O(1)。</p>
+
+<p>这里的一个技术点是短语挖掘，相关技术方案很多，可以参考韩家炜组的系列工作。这里关注文章中的短语挖掘方法。整个流程的输入是待抽取短语的原始语料和日常积累的100万级的词库，输出是原始语料中的高质量短语集。整体流程如下：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2020/11/5526426606145859.png" alt="img_problem" /></p>
+
+<p>该模块的难点在于：Problem的定义和候选数据的准备。在AliMe KG中，共有1K+的Problem，在质量控制环节，需要全部通过人工检查。（如果有业务专家定义，应该就不需要上述过程了。Problem的稀疏性带来了一定的实现难度。）文章中对Problem的定义如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a phrase as a user problem if it describes a problematic state that users want to find out solutions for (e.g., “pimple 长痘痘”)
+</code></pre></div></div>
+
+<h4 id="2poipoint-of-interest">(2)POI(Point of Interest)</h4>
+
+<p>POI和Problem类似，文章中对POI的定义如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>as a user POI if it reveals user interests or potential needs (e.g, “anti-acne 清痘抑痘”)
+</code></pre></div></div>
+
+<p>具体例子有：</p>
+
+<p>服装行业的亲肤，美妆行业的清痘抑痘和餐具行业的安全无毒等。</p>
+
+<p>从整体上看，POI的挖掘和Problem的挖掘在技术思路上类似（不再赘述），不过Problem的挖掘在AliMe KG的工作中是基于对话数据的，而POI的挖掘是基于商品详情页数据。从文章中给到的数据来看，POI的规模在365K+，远远多于Problem的量级。</p>
+
+<h4 id="3cpvcategory-property-valueipvitem-property-value">(3)CPV(Category-Property-Value)&amp;IPV(Item-Property-Value)</h4>
+
+<p>一般而言，C/I的结构化程度较高，可以直接利用关系型数据库中的数据，但是在该模块要关心的主要问题是：属性值缺失的问题。</p>
+
+<p>怎么填充缺失的属性值？（1）针对可枚举的属性值，利用IPV挖掘的方式填充。IPV挖掘主要是基于售前对话数据，通过对关于Item的QA对做NER，抽取属性值。（2）针对不可枚举的属性值，缺就缺吧。当然，要满足该属性缺失的频率高于一定阈值。</p>
+
+<p>具体流程图如下：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2020/11/5973bb4e8b211bc4.png" alt="img_ipv" /></p>
+
+<p>在业务侧需要关注商品的属性维度，梳理如下：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>字段名称</th>
+      <th>类型</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>名字</td>
+      <td>string</td>
+      <td>商品名字存在部分缺失的属性值，可以通过模型的方式抽取，见OpenTag相关工作</td>
+    </tr>
+    <tr>
+      <td>分类</td>
+      <td>string</td>
+      <td>商品四级分类体系，展开为四个字段</td>
+    </tr>
+    <tr>
+      <td>价格</td>
+      <td>string</td>
+      <td>具体属性中同样字段，可能存在冲突</td>
+    </tr>
+    <tr>
+      <td>颜色</td>
+      <td>string</td>
+      <td>具体属性中同样字段，可能存在冲突</td>
+    </tr>
+    <tr>
+      <td>品牌</td>
+      <td>string</td>
+      <td>具体属性中同样字段，可能存在冲突</td>
+    </tr>
+    <tr>
+      <td>链接</td>
+      <td>string</td>
+      <td>具体属性中同样字段，可能存在冲突</td>
+    </tr>
+    <tr>
+      <td>具体属性</td>
+      <td>string</td>
+      <td>关于商品的具体描述信息</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="4poi-relational-knowledge-mining">(4)POI Relational Knowledge Mining</h4>
+
+<p>该模块在技术上主要是一个神经关系抽取模型，建立CPV&amp;IPV和POI之间的关系，那么Problem和POI之间的关系是如何建立的呢？该模块的一个具体例子如下：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2020/11/43c9d0f944f5bf87.png" alt="img_poi" /></p>
+
+<p>(⊙o⊙)…，终于梳理完了第一遍，看一下整体的技术框架：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2020/11/32bd6ef2036e09e0.png" alt="img_all" /></p>
+
+<p>上文所有的东西的核心出发点都是本体设计，因为一点儿哲学的意味，因此自己给自己做的事情命名为苏格拉底，另外一个原因是因为在Eigen的时候，我们的知识图谱项目也是同样的名字，总觉得屌屌的。如下：</p>
+
+<p><img src="https://ftp.bmp.ovh/imgs/2020/11/252c04e947eacf4b.png" alt="img_ontology" /></p>
+
+<p>总结一下，AliMe KG需要的基础NLP技术包括：Phrase Mining，NER, Relation Extraction，同样在质检环节需要大量人力的参与。在应用层面，包括导购，KBQA，推荐理由生成等。</p>
+
+<p>有观点认为，下一代知识图谱是事理图谱，在<a href="https://www.tmtpost.com/4156399.html">作为下一代知识图谱，事理图谱有哪些创业投资机会？</a>中，有对事理图谱的基本判断。知识图谱回答谁，什么时间，在哪里，干了啥等静态问题，事理图谱回答为啥，怎样做的等动态问题。<a href="http://eeg.8wss.com/main">哈工大金融事理图谱</a>和<a href="https://xueji.datahorizon.cn/?search=原油暴跌">学迹</a>都是比较有意思的产品，后者孵化自<a href="https://magi.com">Magi</a>，Magi同样是优秀的想法实现。</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

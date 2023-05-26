@@ -1,0 +1,269 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]snorkel相关论文阅读</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/06/06/snorkel/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]snorkel相关论文阅读</h1>
+    <p class="meta">Jun 6, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <p>为了得到一个实体识别和关系抽取的模型，这里假设通过一个模型可以完成两件事情。我们需要有标注的数据，为了得到数据，可以有两种方式：</p>
+
+<p>（1）人工打标签。缺点是成本巨大，优点是噪音较少。<em>一个具体的例子：腾讯的一个文档级关系抽取的工作，打标签5000篇文章，在标注工具辅助下，花了大概十多万。</em></p>
+
+<p>（2）弱监督数据。利用如distant supervision的方式等。缺点是噪音较大，优点是成本较小。</p>
+
+<p>在理想情况下，我们希望通过（1）拿到数据。但是实际情况下，需要从（2）着手拿到数据。因此，<a href="https://github.com/HazyResearch/snorkel">snorkel</a>主要是为(2)服务的一个框架。</p>
+
+<p><strong>重点提示：虽然有噪音，但是不影响我们借助于snorkel可以得到一个效果很不错的模型，相关论文中多次提到snorkel在多个机构和场景下的应用取得的不错的效果！</strong></p>
+
+<p><strong>重点提示：目前snorkel在关系抽取上的应用也是只关注关系抽取，实体识别的模型应该还是要单独来做。因为snorkel在数据端需要先得到候选实体。</strong></p>
+
+<p>如果想对snorkel建立一个直观印象，1和6是不错的论文，之后可以读7，完了之后过snorkel的tutorial，其余论文可以后期跟进。</p>
+
+<p><strong>1.《Snorkel: Fast Training Set Generation for Information Extraction》</strong></p>
+
+<p>这是要读的第一篇论文，短短四页，用一个具体的关系抽取的例子解释了snorkel的多个概念等，通俗易懂，可以帮助建立对snorkel的直观印象。</p>
+
+<p>整体上看，snorkel将劳动力从标注数据和特征工程的泥淖中解放出来，投放到写标签函数的任务中。snorkel可以让用户通过写标签函数的方式产生大量的带有噪音的训练数据。注意，得到的数据有两个特点：第一是量大，第二是有噪音。这里的核心概念是<strong>标签函数</strong>。标签函数的输入是候选三元组(关系抽取的背景知识不再介绍)，输出是关系是否成立？标签函数的实现分为三大类，如下：</p>
+
+<p>（1）启发式</p>
+
+<p>（2）规则</p>
+
+<p>（3）弱监督的方式。具体包括：distant supervision，crowdsourcing，ensembling of less accurate classifiers</p>
+
+<p>一般而言，在snorkel框架下，用户会定义很多的标签函数。那么这些标签函数会表现出三种行为：</p>
+
+<p>（1）较低的准确率。比如，单一靠写规则的方式判断一个关系是否成立还是有些不靠谱的。</p>
+
+<p>（2）冲突。在一个标签函数中判断成立的关系，在另外一个标签函数中判断就不成立了。</p>
+
+<p>（3）重叠。一个关系在多个标签函数中被判断成立。</p>
+
+<p>既然用户自定义标签函数，那么需要对标签函数的质量进行评估。评估的内容主要也是包含上述三个方面，除此之外，标签函数的输出是估计标签，因此对估计标签的分布的评估也是需要的。但是，不要担心，snorkel会自动地根据标签函数的行为，得到最终的关系标签。具体是通过<strong>学习</strong>的方式。</p>
+
+<p>snorkel是什么已经有了大致的印象了。那么这里简单谈一谈snorkel的设计哲学。<strong>snorkel的设计基于data programming paradigm，并且认为我们可以将训练数据的标注建模为一个随机过程。</strong></p>
+
+<p>那么什么是data programming paradigm？这里暂时不做过多展开，感兴趣可以阅读相关论文。简单来说，该paradigm可以划分为两个阶段：</p>
+
+<p>（1）用一个生成模型建模标签函数的输出，得到估计的标签。</p>
+
+<p>（2）用估计的标签训练最终的模型。</p>
+
+<p>在此设计哲学下，snorkel的系统设计分为三个部分：</p>
+
+<p>（1）预处理</p>
+
+<p>该阶段可以自动地把输入数据表示为一个<strong>非结构化上下文</strong>的<strong>层级</strong>结构。例如，一篇文章可以被分割为标题和内容部分，内容部分又可以被分割为段落和句子。</p>
+
+<p>（2）写标签函数</p>
+
+<p>标签函数是简单的python函数，把候选三元组作为input，输出是True,False或者None。</p>
+
+<p>（3）自动化建模和训练</p>
+
+<p>有了大量，带有噪音的数据，自然就可以训练下游模型了。</p>
+
+<p>2.<strong>《Data Programming: Creating Large Training Sets, Quickly》,NIPS2016</strong></p>
+
+<p>这篇文章和上篇文章的作者基本相同，上篇偏重于实践，这篇偏重于理论。文章共27页，正文8页，其余都是理论证明。文章总体上阐述了data programming的motivation，概念和关键技术点：如何对标签函数之间的依赖进行建模。在最后的实验部分，通过三个实验证明三个结论：</p>
+
+<p>（1）在真实世界的三个关系抽取任务上，证明了data programming是有效的paradigm；</p>
+
+<p>（2）该paradigm可以和下游自动特征生成方法(或者说下游模型，如LSTM)一块工作；</p>
+
+<p>（3）该paradigm对domain-expert用户非常友好（有助于写标签函数）；</p>
+
+<p>3.<strong>《Learning the Structure of Generative Models without Labeled Data》，ICML2017</strong></p>
+
+<p>延续上篇工作的主要内容。生成模型的依赖结构直接影响估计标签的质量，但是在没有标注数据的前提下自动选择一个结构是有挑战性的。这篇文章提出一个结构估计方法，通过<strong>最大化可观测数据的L1正则化边缘伪似然</strong>来自动选择一个好的结构。</p>
+
+<p>相关工作还有这篇，《Inferring Generative Model Structure with Static Analysis》，都是围绕依赖结构的选择问题。</p>
+
+<p>4.<strong>《Training Complex Models with Multi-Task Weak Supervision》，AAAI2019</strong></p>
+
+<p>浏览了摘要部分，扩展了弱监督学习的setting，提出多任务弱监督的setting。实验部分在三个细粒度分类问题（实体分类，关系分类和文档分类）上，取得了很不错的结果（都是和有监督的方法来比较）。</p>
+
+<p>相关工作还有这篇，《The Role of Massively Multi-Task and Weak Supervision in Software 2.0》。</p>
+
+<p>5.<strong>《Learning to Compose Domain-Specific Transformations for Data Augmentation》</strong></p>
+
+<p>在数据增强上的一个应用，有意思。</p>
+
+<p>6.<strong>《Snorkel Fast Training Set Generation with Weak Supervision》</strong></p>
+
+<p>主要内容和1相似，不过内容更加丰富。这篇论文中的系统overview做的很不错。</p>
+
+<p>7.<strong>《Data Programming with DDLite_Putting Humans in a Different Part of the Loop》</strong></p>
+
+<p>DDLite可以认为是snorkel的前身。这篇文章主要讨论了标签函数的开发流程，文章中的迭代流程图做的很不错。同时给出了进一步的三个工作，有意PR的同学可以关注：</p>
+
+<p>（1）userful metics</p>
+
+<p>（2）data exploration and rule suggestion</p>
+
+<p>（3）principled management of labeled data</p>
+
+<p>8.<strong>《Fonduer: Knowledge Base Construction from Richly Formatted Data》</strong></p>
+
+<p>在知识图谱补全方面的一个工作，从富文本中提取知识。文章中提出了一个多模态的LSTM用于候选实体，特征设计上有意思。从我们目前自己的工作来看，知识图谱的构建正处于第一个阶段：直接从网页上提取带有结构标签的数据；可能稍后的工作包括：从非结构化文本中提取；从富文本中提出；知识图谱的去噪等展开。</p>
+
+<p>9.<strong>《Snorkel DryBell: A Case Study in Deploying Weak Supervision at Industrial Scale》</strong></p>
+
+<p>snorkel的工业级应用，由snorkel的主创和google的同学共同研发，特性之一是：分布式，大规模。</p>
+
+<p>10.<strong><a href="http://baijiahao.baidu.com/s?id=1634469710561301933">《弱监督系统snorkel在法律场景的应用》</a></strong></p>
+
+<p>snorkel的另外一个应用，用于法律文本的要素识别任务。</p>
+
+<p>11.<a href="https://blog.csdn.net/b0Q8cpra539haFS7/article/details/79563143">阿里神马知识图谱构建中DeepDive的应用</a></p>
+
+<p>12.《How to Invest my Time: Lessons from Human-in-the-Loop Entity Extraction》,KDD2019, Applied Data Science Track</p>
+
+<p>active learning+weakly learning</p>
+
+<p>13.<a href="https://holoclean.github.io/gh-pages/blog/holoclean.html">HoloClean:Weakly Supervised Data Repairing</a></p>
+
+<p>用PGM的方式做数据清洗，目前只能用于表格数据。可以集成在Snorkel中。</p>
+
+<p>14.<a href="https://dawn.cs.stanford.edu/2019/03/22/glue/">Massive Multi-Task Learning with Snorkel MeTaL: Bringing More Supervision to Bear</a></p>
+
+<p>Snorkel在弱监督，多任务场景下的应用。</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

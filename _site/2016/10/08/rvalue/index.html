@@ -1,0 +1,256 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[C++]尚方宝剑之右值引用</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2016/10/08/rvalue/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[C++]尚方宝剑之右值引用</h1>
+    <p class="meta">Oct 8, 2016</p>
+  </header>
+
+  <article class="post-content">
+  <h4 id="总结有一个传说总结放在文章开头可以">总结(<em>有一个传说，总结放在文章开头，可以…</em>)</h4>
+
+<hr />
+
+<p>C++11标准之前存在两个问题：</p>
+
+<p><em>1.</em><font color="red">生成临时对象时耗时地copy操作</font></p>
+
+<p><em>2.</em><font color="red">模板函数不能按照参数实际类型转发</font></p>
+
+<p>C++11标准提出<strong>右值引用</strong>，作用如下：</p>
+
+<p><em>1.</em><font color="green">语义转移</font></p>
+
+<p><em>2.</em><font color="green">完美转发</font></p>
+
+<h4 id="从swap函数的四种实现聊到语义转移上代码">从swap函数的四种实现聊到语义转移，上代码：</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/**
+* Desc: compare different swap functions including passing values directly,pointer,reference,rvalue reference
+* Author: zhpmatrix
+* Date: 2016-10-06 09:25
+* Comments: My own swap function with tag showing 'z'
+*/
+
+ 
+template &lt;typename T&gt;
+void zSwap_1(T a,T b){
+    T tmp;
+    tmp = a;
+    a = b;
+    b = tmp;
+}
+</code></pre></div></div>
+
+<p><strong>传值方式</strong>，由于存在临时对象的copy操作(copy了实参值)，交换了临时对象的值，并未交换实参的值。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>template &lt;typename T&gt;
+void zSwap_2(T* a,T* b){
+    T tmp;
+    tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
+</code></pre></div></div>
+
+<p><strong>指针(传址)方式</strong>，由于存在临时对象的copy操作(copy了实参地址)，交换了实参的值。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>template &lt;typename T&gt;
+void zSwap_3(T&amp; a,T&amp; b){
+    T tmp;
+    tmp = a;
+    a = b;
+    b = tmp;
+}
+</code></pre></div></div>
+
+<p><strong>引用方式</strong>，给实参取别名，交换了实参的值（<em>本质上和指针方式类似</em>）。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>template &lt;typename T&gt;
+void zSwap_4(T&amp; a, T&amp; b){
+    /* Move a to tmp and clear the space of a */    
+    T tmp(move(a));
+    a = move(b);    
+    b = move(tmp);
+}
+</code></pre></div></div>
+
+<p><strong>右值引用方式</strong>，”不copy，直接移动实参值!”</p>
+
+<p>语义转移利用<strong>右值引用</strong>，结合关键字<strong>move</strong>，避免了临时对象的产生，也就避免了赋值构造函数和析构函数的调用，从而减小了函数调用开销，提高程序的运行效率。此外，还可用在<a href="http://www.cnblogs.com/qicosmos/p/4283455.html">增加右值生存期</a>上等。</p>
+
+<h4 id="关于完美转发上代码">关于<strong>完美转发</strong>，上代码：</h4>
+
+<hr />
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>template&lt;typename T&gt;
+void processValue(T&amp; val){ cout &lt;&lt; "lvalue:" &lt;&lt; val &lt;&lt;  endl; }
+
+template&lt;typename T&gt;
+void processValue(T&amp;&amp; val){ cout &lt;&lt; "rvalue:" &lt;&lt; val &lt;&lt; endl; }
+
+template &lt;typename T&gt;
+void forwardValue(T&amp;&amp; val){
+    processValue(std::forward&lt;T&gt;(val));
+}
+
+void test(){
+    float i = 0.6;
+    forwardValue(i);
+    forwardValue(0.6); 
+}
+</code></pre></div></div>
+
+<hr />
+<p>由上述代码可知，根据传入的类型，左右值类型，利用<strong>右值引用</strong>，结合关键字<strong>forward</strong>可以实现精确转发。</p>
+
+<p>在STL中，有一个数据结构pair，表示数据对，在头文件utility中包含。其声明是：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>template &lt;class T1,class T2&gt;
+ pair&lt;V1,V2&gt; make_pair(T1&amp;&amp; x,T2&amp;&amp; y);
+</code></pre></div></div>
+
+<p>下面是clang在编译时执行的模板实现：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>return pair&lt;typename __make_pair_return&lt;_T1&gt;::type, typename __make_pair_return&lt;_T2&gt;::type&gt;
+</code></pre></div></div>
+
+<p>下面是<a href="http://www.cplusplus.com/reference/utility/make_pair/">C++官网</a>给出的实现：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pair&lt;V1,V2&gt;(std::forward&lt;T1&gt;(x),std::forward&lt;T2&gt;(y))
+</code></pre></div></div>
+
+<p>从源码中可以看到，支持完美转发。</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

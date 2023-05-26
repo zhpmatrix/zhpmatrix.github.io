@@ -1,0 +1,232 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[思考]一个想象的搜索系统</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2021/10/28/search-system/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[思考]一个想象的搜索系统</h1>
+    <p class="meta">Oct 28, 2021</p>
+  </header>
+
+  <article class="post-content">
+  <p>这篇文章尝试从脑暴一个搜索系统开始，讨论搜索系统的大组件，进而讨论推荐和搜索的联系和区别，以及笔者个人对推荐和搜索以及广告方向中机会存在的理解，最后回到NLP，讨论与前三者的关系。</p>
+
+<p>输入一个Query，浏览器立刻返回一个相关结果列表。从这句描述中，我们尝试拆分出关键要素：</p>
+
+<ul>
+  <li>input：Query</li>
+  <li>output：结果（相关+快速+有限）</li>
+</ul>
+
+<p>搜索引擎是F，其中output = F(input)。搜索系统是用工程的方法，协同数据和引擎的建设。</p>
+
+<p>所有上述的关键要素，决定了搜索系统的问题定义是明确且清晰的。信息检索在数据激增的互联网时代具备不可估量的商业价值，也就是说互联网时代（PC+移动）带来了数据，继而激发了对搜索的刚需。因而搜索是一个极具价值的方向。搜索系统是工程+算法+数据的协同，从这个角度来看，和推荐系统类似。</p>
+
+<p>但是，搜索系统的黄金年代已经过去。正如推荐系统的黄金年代正在逝去一样。</p>
+
+<p>既然是搜索，首先要解决的是从哪儿搜的问题？这是一个数据建设问题。我们尝试想一下：</p>
+
+<ul>
+  <li>全网。大规模分布式爬虫爬全网数据（通用+规模大+反爬/版权）</li>
+  <li>自有。数据源由自有业务产生，不依赖第三方数据内容（垂直+规模小+无版权问题）</li>
+</ul>
+
+<p>第一种，数据是卡脖子问题（见百度的百家号，自建内容体系）。第二种，只满足垂域搜索需求。</p>
+
+<p>所以，数据建设问题是一个标准的工程问题。</p>
+
+<p>理论上，用户想要搜索的所有结果都会存在于这个数据源中。因此，接下来要考虑的是，用户想要搜索什么？这是一个Query理解问题。既然要理解首先要关注Query的类型。</p>
+
+<ul>
+  <li>常见Query+长尾Query（长尾ROI低，解决常见Query）</li>
+  <li>长Query+短Query（长Query意味着Context丰富，有助于精确理解用户意图）</li>
+</ul>
+
+<p>在搜索的场景中，用户画像对Query理解是有帮助的，但是也许并不如推荐系统中的影响。本质上，是input和数据源两侧的信息量存在巨大的空隙，用户画像带来的信息量，不足以显著缩小二者的距离。</p>
+
+<p>既然是理解问题，就可以转化为一个标准的自然语言理解问题。这里，纠错，分词，意图识别，命名实体识别，将单一Query作为研究对象，以结构化为目标。考虑到与数据源关系的建立，改写也将是一个重要的基础NLP问题。</p>
+
+<p>上文，讨论了Query+数据源，之后就可以讨论如何搜的问题了？在output侧，我们的目标之一是相关，也就是找到数据源中与Query最相关的元素，这里可以被定义的问题是相关性，又是一个经典的NLP问题。在SIGIR中，有大量的工作是围绕相关性展开的。</p>
+
+<p>但是我们的另外一个目标是快速。考虑我们搜索的场景，给定Query，返回相关的结果列表，这里以URL作为表示。一种轻量的方案是，我们在数据源到位的时候，就从数据源出发，构建好很多的可能的Query，转化为一个问题生成任务（NLG），然后将问题-数据源的pair提前离线存储好。这样就可以直接通过计算Query和问题的相似性，返回数据源作为结果列表。从问答系统的角度来看，将搜索转为一个问答过程，或者一个FAQ问题。这里，也从一个角度回答了搜索和问答系统的关系。</p>
+
+<p>但是，问题生成是一个很难的问题，本质上仍旧是一个理解问题，容易由该环节的noise导致下游的noise。能不能不要理解环节？</p>
+
+<p>直接从数据源中抽取一些句子，短语或者词。三种形态对应Query的常见形态。这样，直接通过硬匹配，就可以找到”相关“的结果了。为了保证最大的灵活性，可以以最小粒度的词作为抽取对象。这样，通过对Query分词，然后以词的粒度去数据源中匹配，就可以找到相关的结果。</p>
+
+<p>最重要的，建立词和数据源的映射关系，是可以离线计算的。这里讨论的其实是倒排索引。</p>
+
+<p>搜索的核心环节是在一个索引结构中查找的过程。快速的查找+结果合并（相关性提升）是该过程中的核心亮点。</p>
+
+<p>围绕最后一个目标是有限，本质上是一个TopK问题（相关性问题）。</p>
+
+<p>综上，一个搜索系统的核心组件=数据源+Query+搜索过程（索引构建+查询+结果合并+相关性排序）就讨论完了。</p>
+
+<p>接下来，我们想要讨论的问题是，搜索和推荐的联系和区别是什么？</p>
+
+<p>不同(v.s.):</p>
+
+<p>搜索（人找item） v.s. 推荐（item找人）</p>
+
+<p>搜索（理解query+信息量少）v.s. 推荐(理解人+信息量丰富)</p>
+
+<p>相同(=):</p>
+
+<p>搜索（数据源+理解）= 推荐（item库+理解）</p>
+
+<p>搜索（数据源+query的相关性）= 推荐（item库+人的相关性）</p>
+
+<p>搜索（query和数据源的链接） = 推荐（人和item的链接）</p>
+
+<p>还有很多比较的维度，不再陈述。这里想讨论的核心论点是：搜索和推荐系统存在很多的共性，也许从低层技术基础建设来说，二者是可以共享的。其实，包括广告系统，在核心技术上存在与搜索和推荐系统的共享组件。不过，各个方向都具有自己独特的特点，比如广告的定价/计费系统。</p>
+
+<p>通用搜索的价值&gt;垂域搜索的价值，Google和Baidu做的是通用搜索，但是垂域搜索仍旧是一个刚需，只是空间不大，天花板不高。本质上与搜索解决的核心问题有关，在数据源足够大的时候，更能凸显搜索的价值，垂直的本质缺陷是数据源小。只所以仍旧是刚需，是因为这个小的数据源相比人类的搜索能力而言，仍旧太大了。2021年的今天进入搜索领域，能够学习到一个完整的系统，算法加数据的经典技术方向，但是对个人而言，机会应该不是很大了。</p>
+
+<p>垂域推荐的价值&gt;通用推荐的价值。仍旧与推荐解决的核心问题有关，item找人，需要对人有丰富的理解。通用推荐的核心难点是无法对人进行充分的理解，本质上仍旧是item和人两侧的信息量的空隙过大导致建立二者的映射是一件非常困难的事情（假设空间爆炸）。垂域推荐典型的电商推荐，音乐推荐，图书推荐，视频推荐等。垂域推荐的机会在于域的规模很大，对于搜索而言，数据源所有厂家都可以共用一个，但是item库却是每家都不同，每个域都不同。推荐系统由于item和人建立假设的空间足够大，也就是探索的空间足够大，也使得推荐领域可以吸纳很多的同学参与其中。总结一句，垂域推荐在技术侧已经基本收敛，机会在于业务价值（利好做业务的同学），做不同的域推荐。通用推荐正如通用问答系统一样，个人还看不到价值。</p>
+
+<p>对于个人而言，机会价值排序：推荐&gt;搜索&gt;广告（吸金但是似乎是可以放进博物馆的技术名词），而NLP是各个系统中关键环节的关键技术，是单点能力，而非系统性的解决方案。由此导致NLP是一个纯粹的技术方向，无法直面业务，直接解决问题本身（利好做技术的同学）。</p>
+
+<p>相关文章：</p>
+
+<ul>
+  <li>
+    <p><a href="https://cloud.tencent.com/developer/article/1048646">沈剑的文章</a></p>
+  </li>
+  <li>
+    <p><a href="https://mp.weixin.qq.com/s/bdWPZCcGKlMSstmxlaTQ4g">搜索+推荐+广告系统的区别</a></p>
+  </li>
+</ul>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

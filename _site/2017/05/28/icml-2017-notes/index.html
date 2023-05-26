@@ -1,0 +1,242 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[paper]ICML 2017论文马拉松</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2017/05/28/icml-2017-notes/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[paper]ICML 2017论文马拉松</h1>
+    <p class="meta">May 28, 2017</p>
+  </header>
+
+  <article class="post-content">
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<p>吸引力指数：指数类型为整型，取值范围[0-5]，值越大表明在浏览完文章后想要精读的冲动程度大小。</p>
+
+<h4 id="模型">模型</h4>
+
+<p>1.《Fast and Provably Good Seedings for k-Means》</p>
+
+<p>(<em>这篇文章是NIPS 2016上的文章，同一拨人还做了一篇AAAI的文章。</em>)</p>
+
+<p>关于K-means算法的研究有两个主要问题：第一个是初始中心点的选择，第二个是聚类个数的选择。这篇文章作者提出了<strong>Assumption-free K-MC^2</strong>算法解决第一个问题。k-menas++算法已经是state-of-art的算法了，但是该算法内在的要求遍历K轮整个数据集，因而不适合大数据集。有人提出使用Markov Chain Monte Carlo采样来近似k-means++中seeding的选择，但是该方法要求对数据分布有要求。作者就是在该算法基础上提出了对数据分布没有假设依赖的算法，同时给出了理论和实验的保证。作者已经在Gihub上放出了代码(Cython)。</p>
+
+<p>2.《How close are the eigenvectors and eigenvalues of the sample and actual covariance matrices?》</p>
+
+<p>这篇文章主要提供了一种潜在的降维技术，作者通过分析部分样本的特征值和特征向量与全部样本的特征值和特征向量之间的gap，讨论要达到和全部样本几乎相同的特征值和特征向量需要的样本数量。文章有大量的数学推理和证明，不过基本概念并不复杂，对降维技术感兴趣可以读。</p>
+
+<p>3.《Communication-eﬃcient Algorithms for Distributed Stochastic Principal Component Analysis》</p>
+
+<p>PCA降维技术的改进分布式方案</p>
+
+<p>4.《Canopy – Fast Sampling using Cover Trees》</p>
+
+<p>一种基于cover tree的快速采样算法，可以用于大数据背景下的搜索和聚类环境。记得之前有基于cover tree的最近邻搜索算法。</p>
+
+<p>5.《Learning Gradient Descent: Better Generalization and Longer Horizons》</p>
+
+<p>Learning to Learn的又一作品。可以和DeepMind的那篇文章结合看，同样今年DeepMind又出了一篇类似的文章。作者提出了一种新的模型<strong>RNNProp</strong>，此外有一个重要的trick是Random Scaling,据文章说可以有效提高模型的泛化性能。</p>
+
+<h4 id="优化">优化</h4>
+
+<p>1.《SARAH: A Novel Method for Machine Learning Problems Using Stochastic Recursive Gradient》</p>
+
+<p>提出了一种新的梯度优化算法SAPAH,改进SAGA和SVRG。该算法的step方向并不是沿着随机梯度方向，而是由历史随机梯度信息（类似SAGA）和随机完全梯度信息(类似SVRG)合成的方向。文章证明了对光滑且凸的目e标函数，为次线性收敛；对强凸，线性收敛且计算复杂度和SVRG与SAG一致。同时证明比起SVRG，SAPAH有更小的收敛常数和更好的稳定性。</p>
+
+<p>2.《How to Escape Saddle Points Efficiently?》</p>
+
+<p>吸引力指数: 3</p>
+
+<p>这篇文章提出一个“Dimension Free”的分析，文章证明，<strong>带扰动的梯度下降</strong>收敛到<strong>二阶驻点</strong>需要的迭代次数满足对维度的多项式对数依赖，同时该过程的收敛率和<strong>梯度下降收敛到一阶驻点</strong>相同。结论的得出依赖于对saddle point附近的几何特征的分析。文章的成果应用于矩阵分解任务中可以获得一个更快的全局收敛率。</p>
+
+<p>3.《An Efficient,Sparsity-Preserving,Online-Algorithm For Data Approximation》</p>
+
+<p>吸引力指数: 3</p>
+
+<p>这是一篇数值优化的文章，提出了一个算法<strong>SRLU</strong>,是LU分解算法的一个variants。据作者描述，该算法有诸多好的性质，比如高效，准确，稀疏性保持，保持重要数据特征的能力，此外文中有大量详细的数学证明。</p>
+
+<p>4.《Lazifying Conditional Gradient Algorithms》</p>
+
+<p>对Frank-Wolfe方法(条件梯度算法)的改进，在对该方法<strong>Lazifying</strong>后，计算时间明显降低。这种文章个人感觉很数值优化，但是发在了ICML上，在abstract中作者说这种方法在Online Learning中用到。</p>
+
+<p>5.《Conditional Accelerated Lazy Stochastic Gradient Descent》</p>
+
+<p>这篇文章和上篇文章的作者基本保持一致，同一个会两篇内容类似的文章，囧。文章中作者得到了一个更好的界比起基于随机梯度下降的Online Frank-Wolfe方法。</p>
+
+<h4 id="高性能">高性能</h4>
+
+<p>1.《Deep Tensor Convolution on MultiCores》</p>
+
+<p>文章基于CPU的上下文，提出了更快的卷积方案。卷积和互信息之间有没有关系？如果有，可否将卷积用于图像配准？</p>
+
+<p>2.《Efficient Softmax Approximation For GPUs》</p>
+
+<p>Facebook AI Research的文章，提出了高效训练基于语言模型的神经网络的方法。这种方法称为<strong>Adaptive Softmax</strong>，insights在于模型架构的优化和矩阵向量间操作的优化，使之更好的发挥GPU的计算能力。</p>
+
+<p>3.《Fast k-Nearest Neighbour Search via Prioritized DCI》</p>
+
+<p>采用动态连续索引改进K近邻在大数据环境下的搜索。</p>
+
+<h4 id="其他">其他</h4>
+
+<p>1.《Developing Bug-Free Machine Learning Systems With Formal Mathematics》</p>
+
+<p>刚开始没看的太明白。</p>
+
+<p>2.《Dance Dance Convolution》</p>
+
+<p>作者基于语言模型开发了舞蹈学习的游戏。</p>
+
+<p><strong>参考:</strong></p>
+
+<p>0.<a href="https://github.com/xiaojudou/ICML2017_arXiv">ICML2017_arXiv</a></p>
+
+<p>Accepted list刚放出，有人写了一个爬虫爬到了arXiv上已经放出的文章。因为官方网站还不提供下载，注意这只是预印版，如果要精读文章，最好还是官网下载（我都是人肉从arXiv上下载）。</p>
+
+<p>1.<a href="https://medium.com/@karpathy/icml-accepted-papers-institution-stats-bad8d2943f5d">ICML accepted papers institution stats</a></p>
+
+<p>Andrej Karpathy做的一个stats，关于论文机构，关于学术界和工业界的对比，可以看到工业界虽然发挥了很大的贡献(部分顶级工业界实验室文章频数高)，但是学术界依然是主力(主要集中在长尾)。</p>
+
+<p>2.<a href="https://2017.icml.cc/Conferences/2017/AcceptedPapersInitial">ICML@Sydney</a></p>
+
+<p>论文接受列表</p>
+
+<p>3.<a href="https://zhuanlan.zhihu.com/p/21362413">让计算机学会学习Let Computers Learn to Learn</a></p>
+
+<p>DeepMind ICML 2017的文章 Learning to learn without gradient descent by gradient descent</p>
+
+<p>4.<a href="https://zhuanlan.zhihu.com/p/25037146">关于K-MC^2的讨论</a></p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

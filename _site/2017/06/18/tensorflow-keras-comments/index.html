@@ -1,0 +1,174 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[DL]关于tensorflow和keras的思考点</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2017/06/18/tensorflow-keras-comments/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[DL]关于tensorflow和keras的思考点</h1>
+    <p class="meta">Jun 18, 2017</p>
+  </header>
+
+  <article class="post-content">
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<p>对Eve的优化是第一篇深度入坑博文，后续实验表明Eve++在cifar10和cifar100上的表现不输于Eve，但是在一篇博文中也说明了背后的intuition，感觉没办法写文章，作罢。研一快要结束，考虑还是要给机器学习找一个应用点去做，遂入坑CV。之前梳理了<a href="https://zhpmatrix.github.io/2017/06/01/something-about-dl/">CNN</a>的一些概念，这篇站在工具层上去考虑一些有意思的事情。关于tf和keras，在做<a href="https://zhpmatrix.github.io/2017/05/05/sgd-with-feedback/">Eve++</a>的时候已经接触到相关工具，不过鉴于Eve++想法的实现主要在于Optimizer的自定义实现，在跑实验的那段时间不需要对这些工具做深入研究。</p>
+
+<p><em>此处聊轶事。Android开源的时候，我几乎是学院最早跑Android Demo的那批同学之一，等毕业的时候，正是O2O大火的时期。2016年上半年，Google开源tensorflow，我正在杭州实习，当时Github上的trend中，MXNET还在前10名，一路看着tensorflow的star增加，冲到TOP1。Keras刚开源，室友是个做深度学习的家伙，给他推荐了Keras做课程大作业，直到我自己做Eve++的实验，看到Keras在ICLR的paper中出现。作为一个码农，静静地观察着技术变迁，做技术里程碑的见证者，其实挺幸福。</em></p>
+
+<p>下图是<a href="http://mxnet.io/architecture/program_model.html?highlight=programming%20models%20deep%20learning">MXNET</a>官方文档中的一张图:</p>
+
+<p><img src="https://raw.githubusercontent.com/dmlc/web-data/master/mxnet/prog_model/comp_graph_backward.png" alt="symbolic program" /></p>
+
+<p>上图反映的是<strong>符号计算</strong>在MXNET中的应用，其他的一些开源框架在自动微分(求导)上必须要用到，在图分割的时候我利用符号计算做目标函数的分解，反映在代码层面多是<strong>字符串处理</strong>的内容(可能直觉有误)，使用符号计算的原因在于我比较关于目标函数的<strong>形式</strong>。在MXNET中谈到，符号计算具有在<strong>存储</strong>和<strong>计算</strong>方面的优良特性，由于可以看到整体的计算过程和依赖关系，所以可以进行优化。例如上图左侧的C和D作为临时变量产生会导致存储和计算开销，在C++11之前，这也是C++被人诟病的一点，所以可以怎么做？利用A和B的空间存储C和D，因为计算的最后比较关注D的值。tf中的两个基本抽象是tensor和operation，也就是说可以进行<strong>operation folding</strong>，注意，folding后得到一个新的operation=B*A+1，tf的分布式计算是依托于对tensor和operation的考虑来完成的，folding后可能将原来需要两个GPU的计算图变成了只需要一个GPU的计算图，通信的减少是优点之一。如下图：
+<img src="https://raw.githubusercontent.com/dmlc/web-data/master/mxnet/prog_model/comp_graph_fold.png" alt="operation folding" /></p>
+
+<p>自动微分的计算图如上上图右侧所示。关于计算图有没有联想到编译原理中的语法分析？在MXNET中有这么一段话给出了支持自动微分的原因：</p>
+
+<p><strong>In the past, whenever someone defined a new model, they had to work out the derivative calculations by hand. While the math is reasonably straightforward, for complex models, it can be time-consuming and tedious work. All modern deep learning libraries make the practitioner/researcher’s job much easier, by automatically solving the problem of gradient calculation.</strong></p>
+
+<p>今年(2017)上半年，tf开始支持<a href="https://openreview.net/pdf?id=ryrGawqex">动态图计算</a>，自己还不是太明白。不过很明显，在上文中谈到的计算图是一种静态的方式，因为在把数据灌进计算图中之前，计算图的结构已经确定，所以我们可以做很多全局的优化trick。刘思聪在<a href="https://zhuanlan.zhihu.com/p/25216368">以静制动的TensorFlow Fold</a>中谈了关于动态图计算的内容。直观上的感受还是静态图的方式，通过对多个静态图的共有结构(tensor和operation)的整合，加上控制模块，实现动态计算。微观静态，宏观动态。</p>
+
+<p>在Keras的官方文档中说道：<strong>符号主义的计算首先定义各种变量，然后建立一个“计算图”，计算图规定了各个变量之间的计算关系。建立好的计算图需要编译已确定其内部细节，然而，此时的计算图还是一个”空壳子”，里面没有任何实际的数据，只有当你把需要运算的输入放进去后，才能在整个模型中形成数据流，从而形成输出值。</strong></p>
+
+<p>Keras的出现简化了定义网络结构的方式，简单的说，在写代码的时候可以使用更加直白的方式来定义网络结构。在写这篇文章的时候，我特意读了一些tf和keras的toy code，个人以为tf对于网络结构定义的抽象已经足够好，但是需要不太习惯这种定义的同学适应一段时间，但是Keras对于新手更加的友好。Keras的官方io写的很棒，按照在文档中的描述，Keras和它的backend(tf,theano)相处的足够融洽，当然有数据挖掘背景的同学，keras也为sklearn提供了一定程度的wrapper。</p>
+
+<p>补充材料：</p>
+
+<p>1.<a href="http://www.cnblogs.com/neopenx/p/6213818.html">从NNVM看2016年深度学习框架发展趋势</a></p>
+
+<p>这篇文章的计算图优化章节有相对更加细致的讨论。不过自己对作者在结尾给出的观点并不完全赞同，理由是在对概念把握比较详细的时候，对框架的使用不存在特别障碍。重构在一定程度上并不能减少代码量，似乎在提高生产力上也不是完美。把握通用和专用的trade off以及与业务问题的良性融合，比无缝更有价值和诱惑力。</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

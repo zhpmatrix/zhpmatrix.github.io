@@ -1,0 +1,217 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[论文阅读]《A Neural Compositional Paradigm for Image Captioning》</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/01/31/image-captioning-0/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[论文阅读]《A Neural Compositional Paradigm for Image Captioning》</h1>
+    <p class="meta">Jan 31, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <p>近年来关注度比较高的是神经图片描述(Neural Image Captioning，简称NIC)。从模型架构上，是一个encoder-decoder框架，encoder端利用一个大的网络结构对图片进行编码，得到图片的表示向量。然后将该图片向量作为decoder端的第一个时间步的输入，从第二个时间步开始，decoder端的输入变成caption文本。</p>
+
+<p>这篇文章从整体上没有采用端到端的思路，而是将caption过程分为两个阶段。</p>
+
+<p>第一，从给定图片中提取显式的语义表示(encoder端的任务，非隐式)。</p>
+
+<p>第二，基于一个递归组合过程，用自底向上的方式构建caption文本(decoder端的任务)。</p>
+
+<p>那么，问题来了。啥是显式的语义表示？怎么做递归组合？为什么自底向上，对谁自底向上？</p>
+
+<p>语义是对图片内容的理解，表示一种描述方式。显式可以用一句话具体来描述。具体而言，给定下边一张图片，</p>
+
+<p><img src="http://wx1.sinaimg.cn/square/aba7d18bly1fzoo1o19v5j207q040acr.jpg" alt="dog" /></p>
+
+<p>第一阶段可以输出，”一片草地”，”一只小狗”，”一个足球”等，这就是显式的语义表示。具体怎么来做？</p>
+
+<p>多标签分类。这个多标签分类模型的输入是图片，输出是”一片草地”(a field)，”一只小狗”(a small dog)，”一个足球”(a football)等多个标签。</p>
+
+<p>印象中第一次有类似想法的是师弟在分享视频问答的解决方案时，然后就是这次了。虽然从任务建模上略显怪怪的，但是是可行的。</p>
+
+<p>分析上述给定的三个标签，都是名词短语。也就是强调对名词的修饰，描述了名词的数量和大小等。作者观察到MS-COCO虽然有120K的图片，但是caption文本中只有3K的名词短语。</p>
+
+<p>因此，无论从语义上，还是数量上，都可以通过一个多标签分类的模型实现对图片语义的提取。(<em>个人非常喜欢这种解决问题的思路。通过对数据集的具体观察，使用一个旧的建模方式解决一个新的任务，而且这种建模方式是简单的。</em>)</p>
+
+<p>这里存在几个需要考虑的细节，需要提一下。</p>
+
+<p>第一，如何提取名词短语？</p>
+
+<p>第二，3K的多标签分类模型设计？</p>
+
+<p>第三，模型泛化性的思考。MS-COCO虽然足够大，但是3K的标签能否作为常见数据集的名词短语上的描述，也就是一个任务开闭的问题。</p>
+
+<p>关于第三，在VQA中同样是一个值得思考的问题。</p>
+
+<p>OK，这块可以写代码了。</p>
+
+<p>第二阶段的实现需要借助两个模块，分别是连接模块(The Connecting Module)和评估模块(The Evaluation Module)。</p>
+
+<p>连接模块用于连接名词短语和连接短语。名词短语就是上文中提到的名词短语，那么连接短语呢？同样从caption中提取到的连接短语是数目有限的(1K左右)。</p>
+
+<p>所谓连接短语，如”正在玩儿···”(playing with)等，连接模块得到的结果可以是：</p>
+
+<p>一只小狗正在玩儿一个足球。(a small dog playing with a football)</p>
+
+<p>让我们看看这里做的事情。输入是两个名词短语，输出是一个连接短语。由于连接短语池固定，因此显然，这里又可以可构建一个分类模型搞定。</p>
+
+<p>这里值得思考的是，如果只是使用两个名词短语作为输入，则由于名词短语较短，本身含有的语义信息较少，很难得到最终的连接短语。</p>
+
+<p>因此这里不能免俗，将图片的特征也作为输入。在输入输出确定的时候，如何设计一个分类模型，并不是这里想要讨论的问题。具体可以参照论文给出的一个模型设计，主要基于LSTM和Attention机制。同时需要考虑顺序问题，包括以下两个方面：</p>
+
+<p>第一，分类模型中两个名词短语的先后顺序；</p>
+
+<p>第二，一张图片对应多个标签，也就是多个名词短语。对该张图片的描述需要遍历对应的多个名词短语；</p>
+
+<p>这个模块同样存在需要考虑泛化的问题。因为标签的设计和名词短语一样，都是取自caption文本。</p>
+
+<p>由上述分析可知，一张图片会有多种caption候选描述，那么要选择最合适的caption文本，需要评估模块的参与。既然是评估文本的合理性，这就回到NLP关心的问题了，有很多思路。这里指的一提的是，文章又是构建了一个基于LSTM的二分类模型，对caption文本的合理性进行评估。</p>
+
+<p>连接模块和评估模块讲完之后，就可以描述第二阶段做的事情了。</p>
+
+<p>给定一张图片，通过第一阶段的分类模型获取名词短语标签。从名词短语标签中取两个名词短语，融合图片特征，送入一个多分类器中，得到连接词短语，也就形成了caption文本。调用评估模块判断该caption文本是否有效，如果有效，结束caption过程；如果无效，将该caption文本放入名词短语标签集中作为候选名词短语。</p>
+
+<p>递归组合和自底向上都在这段话中了。</p>
+
+<p>不考虑技术细节，整体上三个分类器加上一些中间策略完事儿。</p>
+
+<p>阿飞提过一个问题：NIC中描述的对象越多越好，还是对某个对象描述的越具体越好？个人理解，对某个对象描述具体要求比较强的语义理解能力，这里的”具体”也是一个含义丰富的概念。要知道目前大家更多的还是在讨论名词短语中的名词的问题，而非一些修饰词。描述对象的数量按照文章的思路，多标签分类模型不差，就可以做到上限为3K的描述。</p>
+
+<p>作者群来自商汤-港科大联合实验室，Toronto大学向量学院，NVIDIA。按照文章的描述，这种方法要求更少的数据，更好的泛化能力，同时可以产生更加多样化的caption文本。具体的模型细节，评估结果等可以参照原始论文，从流程上讲，复现难度不高。语言是有层次性结构的，这种方法显式的去构造层次性的描述文本，直接通过图像获取属性文本，也就是语言层次的叶子节点，实现了生成的可控。但是正如文章中考虑的那样，结构空间的大小是否受限值得思考。</p>
+
+<p>比起魔改模型细节单纯的端到端，我更加喜欢这种方式。由于不是专门研究NIC问题的，只是CTO推荐了这篇文章，而且和个人品味一致，按照自底向上，通过组合的思路来生成句子，并且放在NIC的任务设定下有效，因此就读一读这篇文章了。能否将该种思路用于NLP的句子生成是最需要思考的问题。</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

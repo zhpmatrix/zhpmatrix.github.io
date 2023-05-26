@@ -1,0 +1,205 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLG]论文阅读-《SeqGAN:Sequence Generative Adversarial Nets with Policy Gradient》</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/02/05/seqgan/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLG]论文阅读-《SeqGAN:Sequence Generative Adversarial Nets with Policy Gradient》</h1>
+    <p class="meta">Feb 5, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<p>主要思想：将生成模型看做RL中的agent，至今已经生成的token看做state，将要产生的下一个token看做action，利用一个判别器评估句子得到reward，将生成模型同时看做随机参数化的policy，用蒙特卡罗搜索近似state-action的值，利用policy gradient去训练policy，也就是生成模型。</p>
+
+<p>作者在文章中的描述如下：SeqGAN extends GANs with the RL-based generator to solve the sequence generation problem, where a reward signal is provided by the discriminator at the end of each episode via Monte Carlo approach, and the generator picks the action and learns the policy using estimated overall rewards.</p>
+
+<p>模型架构如下：</p>
+
+<p><img src="http://wx1.sinaimg.cn/mw690/aba7d18bly1fztmu8iftuj20gi06jjsn.jpg" alt="SeqGAN" /></p>
+
+<p>左侧是判别器(D)，用于区分真实数据和由生成器(G)生成的数据，是二分类器。右侧是SeqGAN的关键部分，对于生成的部分序列，通过蒙特卡罗搜索(MC Search)组成完整序列，将组成后的完整序列作为D的输入获取Reward，通过Policy Gradient更新中间Action值，继而实现G的训练。具体模型设计上，generator是RNN系，discriminator是CNN。由于文本是逐字符生成的，而D的输入是整个序列，因此为了得到每个词的reward，每得到一个新的生成词，就结合之前生成的文本序列作为整句，得到的reward当做当前生成词的reward。显然这样相较于依据于整句直接得到reward，合理了许多。在SeqGAN中，是通过MC Search实现的，而在下文中将要提到的Conditional SeqGAN中，是通过REGS(Reward For Every Generation)实现的。</p>
+
+<p>MC Search的过程是这样的。假设已经生成了部分序列，则基于G，固定部分序列作为前缀，重复生成多个完整序列，将多个完整序列作为D的输入，得到reward的平均作为整体reward的估计。这样带来的问题分别是计算开销大和过拟合(后期部分序列相较于前期部分序列)。</p>
+
+<p>上述过程主要讨论D需要完整输入的情况。序列是逐个字符生成的，中间状态存在部分子序列的问题。而D需要完整的输入，因此必须通过一个方法去构造一个完整序列，这个方法就是MC Search。但是，能不能不要构造完整序列呢？直接将生成的部分子序列作为D的输入。</p>
+
+<p>答案是可以，但是显然这种方法加快了速度，但是减少了精确度。典型的以精度换时间。</p>
+
+<p>要知道，原始GAN在面对离散型数据的时候，D无法将梯度BP给G。本质原因在于损失函数中的JS散度度量。由于文本任务的离散性质，导致原始数据分布和生成数据分布不重叠，JS散度为常量，也就是D丧失学习的意义。这里从数值角度出发，关键在于softmax后得到的vocab大小的概率向量要不要转化为one-hot向量，进而得到对应字典值的问题。针对上述问题，两个典型的工作分别是WassersteinGAN和Gumbel-Softmax。前者用到Wasserstein距离(推土机距离)，解决JS散度的问题。生成数据的概率向量可以不转化为one-hot向量和真实数据对应的one-hot喂给D进行判别。后者则从Softmax出发，寻找一个更好的”Softmax”，使得既不会带来数据分布不重叠的问题，同时避免遇到离散型数据的不可微分问题。</p>
+
+<p>WassersteinGAN是找到一个新的技术直接替代原始的技术；Gumbel-Softmax是使用一个更加通用的Softmax解决原始Softmax遇到的问题。这两种想法个人都是非常喜欢。</p>
+
+<p>SeqGAN的思路则不同以上，借助RL和GAN的思路，避开了离散数据的BP难题。SeqGAN的工作是重要的，是第一次将GAN用于离散文本序列。由此，引发了后续的Conditonal SeqGAN，二者的区别如下(此图找不到来源了)：</p>
+
+<p><img src="http://wx1.sinaimg.cn/mw690/aba7d18bly1fztp0gbh6zj21220aojvf.jpg" alt="img2" /></p>
+
+<p>Conditional SeqGAN的经典使用是对话生成和文本到图片任务。</p>
+
+<p>回顾上述过程，RL可以单独用于对话生成，但是需要人工作为reward的来源。一种可行的方式是提前训练好一个模型作为”人工”用于产生reward，但是该”人工”是静态的。而SeqGAN中借助D作为reward的来源，同时基于GAN的框架来分别训练G和D，这里的”人工”是动态的。从这个角度来看，D是度量的学习器，而度量并不需要一定显式地定义。不严格地说，在NN的世界，所有的事物都是函数，所有的行为都是函数拟合。</p>
+
+<p>在上文中讨论了reward的获取，实际上raward的估计模型本身也是可以被学习的，刚好印证了上述观点。这就是Actor-Critic，其中Actor基于policy gradient优化策略，Critic借助Q-Learning学习action-value值函数。因此，从这个角度也可以认为GAN是一种特殊的Actor-Critic。</p>
+
+<p>值得一提的是，在文章中，提到了一个评估指标NLL(oracle)，其中oracle是一个随机初始化的LSTM，简记为(G_{oracle})，然后用(G_{oracle})生成训练数据训练生成模型(G_{\theta})。训练结束后，用(G_{\theta})随机产生测试数据，用(G_{oracle})检测(G_{\theta})生成的测试数据是否符合自己的分布。</p>
+
+<p>在<a href="https://github.com/geek-ai/Texygen">Texygen平台</a>中，给出了另外一个度量指标NLL(test)和上述指标形成对偶关系。具体表达如下：</p>
+
+\[NLL_{oracle}=-E_{Y_{1:T \sim G_{\theta}}}\left[ \sum_{t=1}^{T}log(G_{oracle}(y_{t}|Y_{1:t-1}))\right]\]
+
+\[NLL_{test}=-E_{Y_{1:T \sim G_{oracle}}}\left[ \sum_{t=1}^{T}log(G_{\theta}(y_{t}|Y_{1:t-1}))\right]\]
+
+<p>从整体上看，GAN可以作为无监督文本生成的模型，而且具有极大的灵活性。LSTM之父和Ian之间没有太大争辩的必要性。而该模型利用无监督文本的方式很特别，通过极度relax的方式构建标签用于判别器D的学习，同时D的输入是另外一个模型G的产出，最终期望生成数据分布和真实数据分布具有一致性。同时从文章来看，SeqGAN的训练似乎并不是一件容易的事情。</p>
+
+<p>Ian在AAAI2019的invited talk中提到：Regarding leveraging GANs for NLP, we currently have not found a good way to deal with the large action space required to generate sentences with RL.</p>
+
+<p>参考资源</p>
+
+<p>1.<a href="https://www.zhihu.com/question/54463527">GAN在自然语言处理方面有哪些有意思的文章和应用？</a></p>
+
+<p>2.《Neural Text Generation：Past，Present and Beyond》</p>
+
+<p>3.<a href="https://zhuanlan.zhihu.com/p/29168803">Role of RL in Text Generation by GAN</a></p>
+
+<p>4.<a href="https://zhuanlan.zhihu.com/p/44729684">SeqGAN的代码解析</a></p>
+
+<p>5.《Policy Gradient Methods for Reinforcement Learning with Function Approximation》</p>
+
+<p>6.《Texygen: A Benchmarking Platform for Text Generation Models》</p>
+
+<p>7.GAN的损失函数构造相关，<a href="https://zhuanlan.zhihu.com/p/26994666">一般情况</a>，<a href="https://kexue.fm/archives/4439">特殊表示</a></p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

@@ -1,0 +1,179 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[目标检测]不同角度认识坐标回归</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2018/05/14/Coordinate-Regression/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[目标检测]不同角度认识坐标回归</h1>
+    <p class="meta">May 14, 2018</p>
+  </header>
+
+  <article class="post-content">
+  <p>在上篇博客中提到RP的概念，这篇博客继续沿用这种表达。首先提出的问题是，给定RP和ground truth，坐标回归要学习什么？怎么学？回顾ground truth的概念，一张图片中的一个物体，该物体对应的类别和位置坐标。</p>
+
+<p>为了方便下述描述，这里一定要给出一组符号，不过足够简单。假设RP的中心点坐标和宽高分别用rpx, rpy, rpw, rph表示，ground truth的对应表达为gx, gy, gw, gh，预测框的对应表达为px, py, pw, ph。</p>
+
+<p>学习目的是获取一个精确的预测框位置，目的都在网络的前向推断过程中体现。抛开具体任务，考虑一个几何问题，给定RP和ground truth，可以怎样表示预测框的位置呢？我们的目的当然是预测框和ground truth非常地接近。为了简化问题讨论，考虑给定RP，怎么将RP变换到ground truth的位置。首先，两者大小可能不一样，需要一个尺度变换；其次中心点位置不一样，需要平移，包括水平和垂直。直接斜着把RP的中心点拉到和ground truth中心重合，还是可以分解为水平和垂直移动。嗯，应该OK了。现在需要形式化表达了。</p>
+
+<p>尺度变换，需要RP的宽高分别乘上一个变换因子，单纯的线性运算，实现宽高的拉伸和压缩；平移变换，需要原始RP的中心点坐标加上平移量，这个平移量还是对应一个变换因子乘上RP的宽高。</p>
+
+<p>给定RP和ground truth，我们想通过两种变换，对RP的位置进行更加精确的表达。而这个过程中，变换因子和平移量不知道具体值是多少？到这里，学习目标很明确了。希望通过坐标回归过程，学习到这个变换过程。</p>
+
+<p>这里明确一下输入和输出。输入是RP对应的卷积特征，输出是要学习的内容，也就是变换因子和平移量。针对坐标回归过程的ground truth就是RP和真实框的位置差了。</p>
+
+<p>这样看来，似乎一切都是顺理成章。</p>
+
+<p>换个角度，跳出来看一看这个问题。坐标回归过程的ground truth能否直接为gx-rpx, gy-rpy, gw- rpw, gh-rph?没毛病，这表明，我们希望网络学习到坐标的位移量。</p>
+
+<p>能够直接为x-rpx, gy-rpy, gw/rpw, gh/rph？没毛病，这表明，我们希望网络学习到宽高的缩放因子。</p>
+
+<p>能够直接为(gx-rpx)/rpw, (gy-rpy)/rph, gw/rpw, gh/rph？没毛病，这表明，我们希望网络学习到中心坐标和宽高的缩放因子。</p>
+
+<p>这些讨论的都是几何上的一些问题，放到数值优化角度，哪种比较不错呢？首先考虑值过大或者过小的问题，这意味着优化的难易程度。(gx-rpx)/rpw, (gy-rpy)/rph，分母上有大于1的值，似乎会比其他更好一些。如果过大，当然可以做纯数值变换，比如log，但是log要求对象&gt;0，从这个角度来看，宽高的减法操作都不能满足，所以选择gw/rpw，gh/rph会比较不错。</p>
+
+<p>这样就有(gx-rpx)/rpw, (gy-rpy)/rph, log( gw/rpw )，log( gh/rph) 。</p>
+
+<p>其实log(gw/rpw) = log(gw) - log(rpw)，从这个角度也可以看做直接多gw和rpw做尺度缩放，因为gx-rpx和gy-rpy的正负性很难保证，虽然不能取log，但是分母上有&gt;1的值，也算OK。</p>
+
+<p>其实上述的所有结果都可以从几何的角度顺推出来，不过形式上，数值的问题无论在正推和顺推时候，都是需要考虑的问题。</p>
+
+<p>写到这里，一切似乎都是顺理成章，水到渠成。理解坐标回归，关键之一就是要理解几何变换和数值优化，看似繁琐的背后，都是科学地推断过程。</p>
+
+<p>补充一张讨论的结果图片：</p>
+
+<p><img src="http://wx3.sinaimg.cn/mw690/aba7d18bgy1fsxv45ndwbj20q60a3wh8.jpg" alt="res" /></p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

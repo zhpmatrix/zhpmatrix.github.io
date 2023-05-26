@@ -1,0 +1,253 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[DL]关于NLG的一个调研</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2018/08/27/NLG/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[DL]关于NLG的一个调研</h1>
+    <p class="meta">Aug 27, 2018</p>
+  </header>
+
+  <article class="post-content">
+  <h4 id="整体框架">整体框架</h4>
+
+<p><strong>刘知远认为的中文NLP发展技术趋势：</strong></p>
+
+<p><img src="http://wx1.sinaimg.cn/mw690/aba7d18bgy1fulvjtwt4gj20k00e90ze.jpg" alt="刘知远" /></p>
+
+<p><strong>对话管理体系：</strong></p>
+
+<p><img src="http://wx4.sinaimg.cn/mw690/aba7d18bgy1fulvjt9it2j20go05xmxl.jpg" alt="对话管理" /></p>
+
+<p>从整体上看，NLP可以分为两大块，分别是NLU和NLG。目前主要的研究和落地集中在NLU这块，而我司除了NLU，NLG也占了相当一部分业务。NLU是从NL中进行信息压缩，目标是得到关键信息；NLG是进行信息扩张，目标是扩张到NL的水平，实际上目前还差很远。这种关系在上图对话管理系统中体现的比较明显。从另外一个角度来看，目前相对成功的应用是从复杂输入到简单输出的任务，这里的输入和输出仅仅是从表层来讲的，比如一些NLU任务，一些CV任务，例如分类，回归等；有一些复杂输入到复杂输出的任务，不严格的说，例如图片风格转换等；难度最大的是简单输入到复杂输出的任务，例如各种生成任务；</p>
+
+<p><strong>NLP的知识体系</strong></p>
+
+<p><img src="http://wx3.sinaimg.cn/mw690/aba7d18bgy1fulzf16u0uj20ya0hqjrr.jpg" alt="NLP的知识体系" /></p>
+
+<p>语言学单词解释: Phonology【音系学，声音】，Morphology【词态学，构词法】，Syntax【句法学，语句结构】，Semantics【语义句法学，理解】，Pragmatics【语用学】</p>
+
+<p>围绕这幅图，左侧分支比较具体，一般文献中讨论更多的是从lexical(词法)，syntactic（句法）到semantic（语义）。另外一种角度是认为NLP主要分为五类技术，具体包括分类（如，情感分类等），匹配（如搜索，问答，基于检索的单轮对话等），翻译（基于生成的单轮对话等），结构预测（NER, POS tagging）和序列决策过程（多轮对话等）。</p>
+
+<p><strong>NLG的体系</strong></p>
+
+<p><img src="http://wx1.sinaimg.cn/mw690/aba7d18bgy1fulzr15alzj20yg0icabn.jpg" alt="NLG的体系" /></p>
+
+<p>一个具体的例子如下，不完全契合，但是基本一致。</p>
+
+<p><img src="http://wx2.sinaimg.cn/mw690/aba7d18bgy1fun7ppksw3j20rf0mmagc.jpg" alt="DEMO" /></p>
+
+<p>阿里的“莎士比亚”系统(搜索事业部-北京)和上述流程契合。</p>
+
+<h4 id="方法">方法</h4>
+
+<p>基于模板，基于NN，<a href="https://zhuanlan.zhihu.com/p/22385421">基于强化学习</a></p>
+
+<h4 id="评价指标">评价指标</h4>
+
+<p>一个具体的评估场景如下，</p>
+
+<p><img src="http://wx2.sinaimg.cn/mw690/aba7d18bgy1fun5oa2g5oj20tf0jlte3.jpg" alt="评估场景" /></p>
+
+<p><strong>Intrinsic Methods主要包括以下两类：</strong></p>
+
+<p>最重要的评测方法（人工）：流畅度，可读性，信息量，正确性，冗余度</p>
+
+<p>次要的评测方法(非人工，基于语料)：基于n-gram的BLUE和ROUGE（<strong>文本长度敏感，该类指标用于更短的文本可能导致更低的分数</strong>），基于字符距离的Edit Distance等，基于内容Coverage比率的Jarcard距离等</p>
+
+<p>一个更具体的列表如下，同时给出了指标来源：</p>
+
+<p><img src="http://wx1.sinaimg.cn/mw690/aba7d18bgy1fun616qwrij20pt0majxs.jpg" alt="Based Corpus-0" /></p>
+
+<p><img src="http://wx4.sinaimg.cn/mw690/aba7d18bgy1fun617b8wbj20pt0cgjv7.jpg" alt="Based Corpus-1" /></p>
+
+<p><strong>Extrinsic Methods</strong>用于评估NLG的生成内容对于目标实现的有效性，NLG的标准体系中含有目标输入。这种评估虽然满足科学性，不过站在一个工程师角度，不具备可行性(个人观点)。</p>
+
+<p>其他生成相关的评价要点，<a href="https://www.zhihu.com/question/60902505/answer/181516454">Yoav Goldberg对GAN for NLG的评价</a></p>
+
+<p>总结：NLG的评估之所以比较难，还是要回到算法的定义本身来看。从算法的输入角度来看，输入是可变的；从输出角度来看，存在多个可能的输出。难但是不一定不能做，只不过在现行的评估体系下，似乎找不到可以借鉴的地方。现有的各种机器评估指标之间存在不一致；同时机器评估指标和人类评估结果存在不一致。所以，目前对NLG的建议是：能用多少指标就用多少指标吧。</p>
+
+<h4 id="参考实现">参考实现</h4>
+
+<p>《Natural Language Processing with TensorFlow》这本书是2018年5月份正式发布，目前没有中文版。这本书中的Demo Code是围绕NLG展开的。</p>
+
+<h4 id="应用案例">应用案例</h4>
+
+<p>1.NLG在房地产领域的应用：<a href="https://zhuanlan.zhihu.com/p/26419996">陈然的公司例子</a>,<a href="https://link.zhihu.com/?target=https%3A//www.trulia.com/blog/tech/nlg-in-real-estate/">技术博客</a></p>
+
+<p>2.<a href="https://zhuanlan.zhihu.com/p/22922261">文因互联鲍捷的一个调研</a></p>
+
+<p>3.用于面试的对话机器人</p>
+
+<p>4.<a href="http://baijiahao.baidu.com/s?id=1597154374378244003&amp;wfr=spider&amp;for=pc">京东”莎士比亚”系统</a></p>
+
+<p><a href="https://zhuanlan.zhihu.com/p/33956907">阿里“莎士比亚”系统的具体技术实践</a></p>
+
+<p>5.相声生成器：捧哏和逗哏</p>
+
+<p>6.<a href="https://www.zhihu.com/question/53959076">如何应用NLP技术屏蔽某些弹幕</a></p>
+
+<p>7.古诗，古词，对联，文章，笑话等生成，为啥没有歇后语呢？</p>
+
+<p>8.解说系统。例如足球解说，天气预报解说，游戏解说，车辆解说(我司合作项目懂车帝)等</p>
+
+<p>9.新闻自动生成系统</p>
+
+<p>10.ui设计转化为代码。<a href="https://zhuanlan.zhihu.com/p/57711298?utm_source=qq&amp;utm_medium=social&amp;utm_oi=52727124066304">参考1</a>，<a href="https://zhuanlan.zhihu.com/p/61039399?utm_source=qq&amp;utm_medium=social&amp;utm_oi=52727124066304">参考2</a></p>
+
+<h4 id="参考资料">参考资料</h4>
+
+<p>1.<a href="https://blog.csdn.net/lizhe_dashuju/article/details/81099900">自然语言处理NLP全领域综述</a></p>
+
+<p>这是一个NLP领域的各种资料的大杂烩。</p>
+
+<p>2.《A Bit of Progress in Language Modeling》</p>
+
+<p>几乎写了关于N-gram的所有相关的内容，附加一个<a href="https://zhuanlan.zhihu.com/p/32829048">参考资料</a></p>
+
+<p>3.<a href="https://blog.csdn.net/abcjennifer/article/details/51232645">QA和NMT的一个论文总结一</a></p>
+
+<p>4.<a href="https://blog.csdn.net/abcjennifer/article/details/53428053">QA和NMT的一个论文总结二</a></p>
+
+<p>5.《Survey of the State of the Art in Natural Language Generation: Core tasks, applications and evaluation》</p>
+
+<p>截止2018年2月的一个survey。</p>
+
+<p>6.<a href="https://mp.weixin.qq.com/s?__biz=MjM5NjQ5MTI5OA==&amp;mid=2651750430&amp;idx=1&amp;sn=7ab5c680f97bc33bd690a312ffeeb035&amp;chksm=bd1259538a65d0454c1420c789c74e07e34e8521d9084bbffadb3d6582383a100f3a32555c59&amp;scene=0&amp;xtrack=1&amp;key=28dc293fbde3bc4d22a7787362b1143d4503047e44b2fdb4741059fa9913b38255a890af957d2f94b1ca7d7356dae3ac7f9bf5d2ce98c2e7cba6a9d63a27847fb654fa9330e7b8e639d8ef3b43626590&amp;ascene=0&amp;uin=MTg2NTIxNzUxNw%3D%3D&amp;devicetype=iMac+MacBookAir7%2C2+OSX+OSX+10.12.6+build(16G29)&amp;version=11020201&amp;lang=zh_CN&amp;pass_ticket=hLODkFUmVHZ%2Fg9yhYS8vhxKA2hgAOAYjIKpK%2BYmIB8PjY0WtI3bxQVFbW7PUmzri">大众点评信息流基于文本生成的创意优化实践</a></p>
+
+<p>这篇文章可以配合阿里的”莎士比亚”系统一块思考。</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

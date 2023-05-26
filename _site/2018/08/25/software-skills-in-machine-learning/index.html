@@ -1,0 +1,209 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[随想]机器学习开发沉思录</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2018/08/25/software-skills-in-machine-learning/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[随想]机器学习开发沉思录</h1>
+    <p class="meta">Aug 25, 2018</p>
+  </header>
+
+  <article class="post-content">
+  <p>最近看到侯晓迪的一个<a href="https://www.zhihu.com/question/23321862/answer/474577863">回答</a>，提到一个看待Learning问题的三层角度，分别是theory，formulation，implementation，其中最关键的是formulation。所谓formulation需要取舍模型的复杂度，针对具体数据设计模型假设，依据假设选择模型，分析算法失效的根本原因等。而这篇博客则关注low level的implementation问题，同时也是受<a href="https://papers.nips.cc/paper/5656-hidden-technical-debt-in-machine-learning-systems.pdf">《Hidden Technical Debt in Machine Learning Systems》</a>的启发，结合最近所做项目做一些工程上的思考。这篇论文整体上风格类似软工，其实读起来并不容易，需要后续结合实践，深入思考和理解。</p>
+
+<p>一个实际的机器学习系统如下图所示，关键是机器学习代码在一个完整的系统中只会占据很少很少的一部分!!!（少却精!!!）</p>
+
+<p><img src="http://wx4.sinaimg.cn/mw690/aba7d18bgy1fukwenbhilj20x00b0abt.jpg" alt="ML System" /></p>
+
+<p>1.正向和逆向思考</p>
+
+<p>对于一个完整的Pipeline，某个stage处理之后，结果不符合预期怎么办？假设该stage阶段时间成本巨高呢？比如耗费一周时间进行特征生成，发现生成的某个特征存在一些不符合预期的错误。面对这种问题，正向处理的手段是定位错误，重新生成；考虑到时间成本，更合理的方式是逆向处理，错误修正。但是要考虑到修正操作的时间成本和重新生成的时间成本，同时对于一个系统工程，新的操作引入是否会引入新的错误同时引发连锁反应，是是否采用错误修正要考虑的问题。很简单的观点，是吗？发现错误的时候，大多数人会立刻产生对重新生成时间的重重担忧(WTF!!!)，也许没有必要呢。</p>
+
+<p>例如，花了一天时间，生成了三个预处理后的train/dev/test文件，但是为了保证i.i.d，需要shuffle并重新划分，这个时候显然不是将shuffle操作放在预处理过程，而是写一个只有几行代码的shell脚本完成。很多时候，Linux不会让你失望！</p>
+
+<p>2.规模效应</p>
+
+<p>任何一个复杂度很高的操作，在面对小规模数据时都不是问题，我们很难觉察到复杂度的问题，这种体验是和复杂度的概念定义相符合的。但是任何一个我们认为复杂度较低的操作，在面临大规模数据时，都会产生规模问题。</p>
+
+<p>例如，在特征生成阶段，创造的规则是各个特征集合的笛卡尔积，首先规则的添加会导致组合爆炸，姑且称之为策略规模；其次数据量增加的时候，会遇到数据规模问题。一种简单的解决方式是多进程处理。</p>
+
+<p>例如，对于两个for-loop，loop的max_size都很大，内部for需要解决一个类型转换的问题，如list(data)，其中data是ndarray类型。当数据规模较大时，通过将类型转换问题移出inner-loop，大大减少了时间消耗。这里涉及一个<strong>程序的局部性</strong>的问题，局部性问题可以体现在软硬件上的方方面面，可以参考《深入理解计算机系统》这本书。不过这里更有趣的一个问题是时间消耗，实际上上述的一个简单操作，最终时间消耗变为原来的1/30而已，但是考虑到base，就很显著了。原来需要30个小时处理，也就是一天多的时间，现在只需要1个小时；假设原来需要30年，现在只需要1年了。<strong>只有深入体验这种时间消耗，才能体会出规模带来的诸多问题。</strong>一天多和30年，会发生很多意想不到的事情。</p>
+
+<p>例如，一个XML文件包含1000W个文本段，每个文本段用两个DOC标签包住。现在遇到的一个问题是，其中有两个文本段各少了一个DOC标签，需要找到文本段并补全。规模的问题这里如何体现呢？假设只有10个文本段，人肉搜索就OK了；100个文本段，线上XML格式检错系统；1000W个呢？可能用VIM能不能打开都是问题，更不要说去复制文本，然后将文本粘贴在线上输入框，线上检错系统是否会Down掉。解决的方式，小心设计一个合理的策略定位文本段。</p>
+
+<p>类似规模问题，遇到的太多了。一个好用，扩展性好的代码或者系统，不能忽略规模问题。评估一个操作的好坏，要考虑到规模问题，其实是时间复杂度的考察。同时从另外一方面，在完成一个机器学习模块的时候，第一位是数据，数据的规模是很重要的一个考察因素，这个因素直接影响到后续的诸多操作和设计。实际上，多数情况下我们不会按照数据，特征和模型的步骤去走流程，而是不断的推翻，反馈，重来。那么每个阶段都会遇到不同的问题，问题在每个阶段都会以不同的方式和面貌呈现出来。这些其实是软件工程的内容了。</p>
+
+<p>3.The Devil is in the Details</p>
+
+<p>从数据角度聊聊这个问题。大多数时候学术界和工业界面对的数据是不太相同的。学术界的刷分是针对于特定数据集，这些数据集通常经过很多年的迭代，被很多人，各种模型检验修正过，可以认为基本没有错误。这里的错误的含义是指：较少的标注错误，较少的格式错误，较少的异常数据等。其实很多时候数据竞赛圈面临的数据要比学术圈的更加真实，但是新比赛出来的时候，往往都会以各种方式发现数据的错误。工业界的数据最为复杂，这种复杂体现在多个方面，来源，类型，格式等。</p>
+
+<p>例如，我的模型NaN了。可能的一种情形是针对检测任务，训练数据中BBox打成一条线了，而不是一个框。在ECCV2018的一个比赛VisDrone Challenge-Image Detection中，就遇到了这种问题。</p>
+
+<p>例如，在1100W的XML文件中，解析的时候挂了。发现文本段中有&lt;&gt;和Y&amp;Y之类的字符。</p>
+
+<p>大多数时候，我们对于数据的假定，起码在格式上是正确的。因此，当出现错误的时候，可能不会怀疑到数据本身，且不说模型假设和数据分布的一致性问题。我猜，大多数人的第一反应是一定是我的模型参数有问题。这种直觉带来的一个巨大的问题是它会将解决的方式和思路引上歧途，定位不到问题，更不要谈及问题的解决。</p>
+
+<p>4.手动和机器</p>
+
+<p>合理评估待解决问题的规模，选择手动或者机器方式解决。人类的惰性决定了人类可能对手动会更加自信，实际上，当你决定手动修正问题的时候，将预估时间乘上50倍（或许这个系数太小了）就是你的实际时间了。在手动修正的过程中，修正单个错误的心理耗费也会越来越贵，直到将自己逼疯。疯过，所以懂得。</p>
+
+<p>5.设计合适的Debug策略</p>
+
+<p>单行Debug多数时候能够解决问题，但是一不定能够高效解决问题。遇到问题时，冷静评估一下问题的难度，设计一个合适的Debug策略，很多时候可以高效解决问题，或许在有些时候，策略设计是必须的。</p>
+
+<p>6.系统边界和工具极限</p>
+
+<p>大多数情况下，我们处理的问题距离系统边界足够远，距离工具极限也是足够的远。但是，距离远并不意味着边界和极限不存在。</p>
+
+<p>例如，原来的一个训练集是30000样本，测试集是5000样本；现在将训练集增加到60W样本，扩大20倍，测试集扩大2倍，使用Tensorflow，原有的Pipeline并未发生改变，出现如下错误：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[libprotobuf FATAL external/protobuf_archive/src/google/protobuf/message_lite.cc:68] CHECK failed:
+(byte_size_before_serialization) == (byte_size_after_serialization): tensorflow.GraphDef was modified concurrently during serialization.                                    
+terminate called after throwing an instance of 'google::protobuf::FatalException' what():  CHECK failed:
+(byte_size_before_serialization) == (byte_size_after_serialization): tensorflow.GraphDef was modified concurrently during serialization.
+</code></pre></div></div>
+
+<p>好吧，将训练集改为30000样本，出现如下错误：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hint: If you want to see a list of allocated tensors when OOM happens,
+add report_tensor_allocations_upon_oom to RunOptions for current allocation info.
+</code></pre></div></div>
+
+<p>这其实也是一个规模问题。我们在一个复杂的软硬件体系下工作，相比下来，触及软件极限可能是个非常有挑战性的问题，然而机器学习尤其是深度学习模块多数场景下触及的是硬件极限。</p>
+
+<p>总结：虽然同属软工，但是机器学习系统的开发有其自身的特点，这些特点决定了开发过程的不同体验。从原型到实际部署上线，后期维护，产品迭代等，一个完整的周期细节较多，希望你玩儿的开心！</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

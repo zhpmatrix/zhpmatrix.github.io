@@ -1,0 +1,225 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[算法设计]计算理论</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2017/11/25/theory-of-computation/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[算法设计]计算理论</h1>
+    <p class="meta">Nov 25, 2017</p>
+  </header>
+
+  <article class="post-content">
+  <p>最近做题总是想着将一个问题先形式化描述成一个数学问题，继而就会带来两个问题，第一是能否转化？第二是转化后是不是有对应的很”数学”的解决方案?数学强大的抽象能力能够描述很多问题，如果上述两个问题得到解决，就意味着我可以用相同的方式解决更多的问题，生产力得到极大解放。这对我而言是一件很有吸引力的事情。</p>
+
+<p>有一个命题是这样的：”John Michael Robson在1983年证明了围棋不存在多项式时间的算法，证明了围棋问题等价于指数时间停机问题。”</p>
+
+<p>这意味着不需要花费很多的精力去寻找一个多项式算法来解决围棋问题，因为不存在。这个结论很显然也很直白，但是很重要。因为它划定了问题解的边界，首先一个问题是不是可解，其次才是怎样解。</p>
+
+<p>为了满足自己的好奇心，我搜索到了<strong>计算理论</strong>。</p>
+
+<p>计算理论关心的三个问题：</p>
+
+<ol>
+  <li>
+    <p>采用什么计算模型？（形式语言，自动机）</p>
+  </li>
+  <li>
+    <p>解决哪些是能计算的，哪些是不能计算的？（可计算性理论及算法）这里的能不能计算，是指该问题能否用计算机来解决(算)。</p>
+  </li>
+  <li>
+    <p>要用多少时间，要用多少存储？（计算复杂性理论）</p>
+  </li>
+</ol>
+
+<p>问题2<strong>部分</strong>可以转换到对3的讨论，能不能算，要考虑存储和时间。存储是物质的概念，可以通过加硬件解决，唯有时间无法完全克服，虽然以存储为代表的硬件技术可以一定程度上改善时间的问题，但是这种改善已经超出计算理论的范畴，是一种具体的改善而已，不能从本质上将一个不可计算的问题变为可计算的问题。</p>
+
+<p>这三个方面的问题用一个问题概括：”计算机的基础能力及限制到什么程度？”。这个问题的意义在于帮助自己跳出目前的思维框架，去思考一下有什么是计算机不能干的？(这个好像已经背离了我的初衷。)</p>
+
+<p>为了研究计算理论，需要一个理论上的计算模型。图灵机是一个理论上的计算机模型，通过读入一系列的0和1解决特定问题，数字代表解决某个问题的步骤。图灵机是理论上的通用机，图灵认为，只保留最简单的指令，把复杂的工作分解为几个最简单的操作就OK。很显然，问题的困难之一在于如何确定最简单的指令集，之二在于如何将复杂问题分解为简单指令的问题。</p>
+
+<p>丘奇-图灵论题：一切合理的计算模型都等同于图灵机。</p>
+
+<p>基于该模型，可以对问题做一些有趣的探讨，比如：</p>
+
+<p>停机问题：编译器能否自动检测程序是否会死机?(不可判定)</p>
+
+<p>编译器能否自动检测程序是否会在一百万步内死机?(可判定)</p>
+
+<p>“x=y?”的通讯复杂性？</p>
+
+<p>给定通讯双方各自N位二进制串X和Y，双方需要交换多少位的信息才能判断X是否等于Y？</p>
+
+<p>[Yao, 1979]需要交换N位信息。简要证明参考<a href="https://basics.sjtu.edu.cn/~chen/teaching/TOC/TOC5.pdf">课件</a></p>
+
+<p>通常对于不搞理论计算机的同学来说，计算复杂性是我们focus的点。而计算复杂性的核心问题是：<strong>P=NP?</strong>某位图灵奖得主曾说P v.s. NP- a gift to mathematics from computer science.</p>
+
+<p>这里首先给出P, NP, NPC的解释，为了避免解释的歧义，直接给出算法导论中的阐述。</p>
+
+<p>NPC:    No polynomial-time algorithm has yet been discovered for an NP-complete problem, nor has anyone yet been able to prove that no polynomial-time algorithm can exist for any one of them.</p>
+
+<p><strong>if a problem is in NP and is as “hard” as any problem in NP</strong></p>
+
+<p>NP:     The class NP consists of those problems that are “veriﬁable” in polynomial time.</p>
+
+<p>P:      The class P consists of those problems that are solvable in polynomial time.</p>
+
+<p><strong>Any problem in P is also in NP,since if a problem is in P then we can solve it in polynomial time without even being supplied a certiﬁcate.</strong></p>
+
+<p>这里的一个关键点是 <strong>if any NP-complete problem can be solved in polynomial time, then every problem in NP has a polynomial-time algorithm。</strong>因为任何一个NP问题都可以在多项式时间内转化它的输入，使之成为一个NPC问题。</p>
+
+<p>补充：</p>
+
+<p>1.NP-hard: at least as hard as the hardest problems in NP Problem.</p>
+
+<p>如何证明一个问题是NPC？通过规约，将一个问题转化为另一个已知问题。比如建立映射，把复杂未知问题拆成复杂已知问题和简单未知问题来解决。。这篇<a href="http://www.zitaoliu.com/cs/algorithm/2011/04/15/introduction-to-algorithm-np-problem/">博客</a>给出了几个具体的例子。</p>
+
+<p>现在回答，如果 NP=P，基本意味这对任何实用的加密系统，存在一个正整数k，有一个运行时间是O(x^k) 的算法可以攻破它。如果这个k足够大，对安全性就没什么影响了。</p>
+
+<p>NP包含成千上万的问题，我们是否要研究所有的问题呢？如果有个多项式时间的图灵机(有限状态自动机)可以求解某个具体NP问题，那么所有的NP问题都有多项式时间的算法。</p>
+
+<p>说这些有什么用？算法导论作者给出如下回答。</p>
+
+<p><strong>To become a good algorithm designer, you must understand the rudiments of the theory of NP-completeness. If you can establish a problem as NP-complete, you provide good evidence for its intractability. As an engineer, you would then do better to spend your time developing an approximation algorithm or solving a tractable special case, rather than searching for a fast algorithm that solves the problem exactly. Moreover, many natural and interesting problems that on the surface seem no harder than sorting, graph searching, or network ﬂow are in fact NP-complete. Therefore, you should become familiar with this remarkable class of problems.</strong></p>
+
+<p>总结: 为了成为一个好的算法设计者，你必须懂得NPC理论的入门知识。如果你能证明一个问题是NPC问题，作为一个工程师，你就可以把时间花在开发近似算法和解决该问题在特殊条件下的变种，而不是花费大量精力开发一个快速算法完全地解决该问题。此外，有些问题虽然看起来并不会比排序，图搜索，网络流更难，但是其实是NPC问题，因此，也需要熟悉一些典型的NPC问题(可以规约转化)。总之，我的疑惑还没有解决，囧。</p>
+
+<p>参考：</p>
+
+<p>1.<a href="https://basics.sjtu.edu.cn/~chen/teaching/TOC/">复旦计算机学院-陈笠佳老师的Theory of Computation课件</a></p>
+
+<p>2.算法导论</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

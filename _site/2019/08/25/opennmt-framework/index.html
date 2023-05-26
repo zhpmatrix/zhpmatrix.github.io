@@ -1,0 +1,210 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[OpenNMT]OpenNMT核心类设计</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/08/25/opennmt-framework/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[OpenNMT]OpenNMT核心类设计</h1>
+    <p class="meta">Aug 25, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <p>整体上看，OpenNMT-py在框架上的设计抽象是比较清楚的，本篇博客主要梳理一下相关的类。目的有两个：第一是进一步熟悉OpenNMT整体上的设计；第二是为后续OpenNMT的扩展做一些准备，方便自己在该框架体系下实现一些想法。</p>
+
+<p>最近和组里同学聊关于框架使用的问题。有的人倾向于不用框架，但是难免从框架中复用一些常用的模块代码，目的是为了最大程度上的灵活性。但是，个人认为源码面前没有秘密，使用框架并不意味着灵活性的丧失，因为灵活性需要从源码中寻找，体现在类设计上，好的框架抽象上。</p>
+
+<p>在之前关于OpenNMT-py源码的博客包括如下：</p>
+
+<p>1.<a href="https://zhpmatrix.github.io/2019/04/23/tensor2tensor/">tensor2tensor源码阅读</a></p>
+
+<p>2.<a href="https://zhpmatrix.github.io/2019/02/01/opennmt-attention-params/">OpenNMT中Attention相关参数</a></p>
+
+<p>3.<a href="https://zhpmatrix.github.io/2018/12/17/opennmt-source-code-reading-0/">预处理模块源码剖析</a></p>
+
+<p>4.<a href="https://zhpmatrix.github.io/2018/12/17/opennmt-source-code-reading-1/">训练模块源码剖析</a></p>
+
+<h4 id="第一framework层的四个核心类分别是modeltrainerloss和optimizer相关">第一：framework层的四个核心类分别是model，trainer，loss和optimizer相关。</h4>
+
+<p>onmt.models.NMTModel(encoder, decoder): 继承自torch.nn.modules，是seq2seq的统一接口，包括encoder和decoder。在forward操作时，输入src，tgt，lengths，返回decoder的output，同时返回attention的结果，类型为[tgt_len，batch，src_len]。</p>
+
+<p>onmt.Trainer: 用于整个训练过程控制的类。onmt.utils.Statistics用于计算与Trainer相关的统计量。</p>
+
+<p>onmt.utils.loss.LossComputeBase: 继承自torch.nn.modules，用于损失计算的策略类。</p>
+
+<p>onmt.utils.Optimizer: 用于优化的控制类。多数时候是对optim的薄薄的一层封装。可以通过继承该类实现grad accu。</p>
+
+<h4 id="第二dataloader相关的类">第二：DataLoader相关的类。</h4>
+
+<p>onmt.inputters.DataReaderBase是数据读取的基类，onmt.inputters.TextDataReader/ImageDataReader/AudioDataReader分别实现文本，图片和声音的读取。</p>
+
+<p>onmt.inputters.Dataset: 继承自torchtext.data.dataset.Dataset，实现从raw数据到tensor数据，最后batch化的工作。在google-bert，pytorch-transformer等框架的实现都可以看到类似的封装，是一个标准过程。</p>
+
+<h4 id="第三基础模块类">第三：基础模块类</h4>
+
+<p>onmt.modules.Embeddings: 同样支持对语言学特征的输入embedding。这对手动添加额外的feature提供了灵活的实现。</p>
+
+<p>onmt.encoders.EncoderBase/MeanEncoder/RNNEncoder/：encoder类</p>
+
+<p>onmt.decoders.DecoderBase/StdRNNDecoder/InputFeedRNNDecoder： decoder类</p>
+
+<p>onmt.modules.AverageAttention/GlobalAttention/: attention相关</p>
+
+<p>onmt.modules.PositionalEncoding等：具体与Transformer实现相关的类。除此之外，还有与Conv2Conv和SRU实现相关的类。</p>
+
+<p>onmt.encoders.AudioEncoder/ImageEncoder: 其他模态的编码。</p>
+
+<p>onmt.modules.CopyGenerator/structured_attention.MatrixTree: 特殊attention的相关实现。其中前者正是pointer generator networks的一个实现。</p>
+
+<h4 id="第四翻译类">第四：翻译类</h4>
+
+<p>onmt.translate.Translator：用saved模型来翻译一个batch的句子。</p>
+
+<p>onmt.translate.DecodeStrategy：生成策略的基类。</p>
+
+<p>onmt.translate.BeamSearch: beam search相关的类。</p>
+
+<p>onmt.translate.RandomSampling：生成时的随机采样相关。</p>
+
+<p>onmt.translate.penalties.PenaltyBuilder: 返回beam search的长度(length)和覆盖(coverage)惩罚。</p>
+
+<p>onmt.translate.GNMTGlobalScorer： 用于nmt任务的re-ranking。</p>
+
+<h4 id="第五server相关的类">第五：server相关的类</h4>
+
+<p>用于模型inference的相关逻辑，包括input端的前处理和后处理等。这块逻辑通常由各个团队的内部serving平台完成。可能是考虑到框架的完整性，实现了一个简易版的功能。</p>
+
+<p>总结：简单梳理了框架类，数据类，模型类和服务类的设计。</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

@@ -1,0 +1,234 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[Python]后知后觉函数式编程</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2017/02/23/python-functional-programming/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[Python]后知后觉函数式编程</h1>
+    <p class="meta">Feb 23, 2017</p>
+  </header>
+
+  <article class="post-content">
+  <h5 id="匿名函数lambda">匿名函数(lambda)</h5>
+
+<p>python中使用lambda关键字创造匿名函数，使用匿名函数，可以在调用时<strong>绕过函数的栈分配</strong>。具体语法：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lambda 参数:表达式
+</code></pre></div></div>
+
+<p>注意：参数可以是无参数，带参数，带参数默认值，变长参数。给出一个变长参数的例子:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>func = lambda *val:set(val)
+func(1,2,2,3)
+func(1,2)
+</code></pre></div></div>
+
+<h5 id="filter">filter</h5>
+
+<p>给出filter的格式声明：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>filter(func,seq)
+</code></pre></div></div>
+
+<p>func函数是一个布尔函数，filter调用这个布尔函数，将每个seq中的元素依次过一遍筛子，选出使func返回值是Ture的元素的序列。很容易想到，如果使用列表推导也可以实现，但是问题在于，你写个复杂的过滤条件试试？filter给我们提供了一个封装复杂过滤条件的方式(函数)。举个栗子：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ages = [12,34,80]
+def age_filter(age):
+    return age &gt;= 10 and age &lt;= 20
+#common method
+filtered_age = []
+for age in ages:
+    if age_filter(age):
+        filtered_age.append(age)
+#filter method
+filter(age_filter,ages)
+#list method
+[age for age in ages if age &gt;= 10 and age &lt;= 20]
+</code></pre></div></div>
+
+<h5 id="map">map</h5>
+
+<p>关于map，首先给出格式声明：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>map(func,seq1[,seq2...])
+</code></pre></div></div>
+
+<p>map()函数的作用是将func作用于seq中的每一个元素，并用一个列表给出返回值。既然谈到了匿名函数，这个func当然可以是匿名函数。注意，当map多个可迭代序列时，是并行处理的。欣赏几段代码：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>print map(lambda x: x+2,range(6))
+
+print [x+2 for x in range(6)]
+
+print map(lambda x,y:x+y,[1,2,3],[4,5,6])
+
+print map(lambda x,y,(x+y,x-y),[1,2,3],[4,5,6])
+</code></pre></div></div>
+
+<p>看到第四行代码，注意到了什么吗？下列三行代码是等价的哦！</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>print map(lambda x,y:(x,y),[1,2,3],[4,5,6])
+
+print map(None,[1,2,3],[4,5,6])
+
+print zip([1,2,3],[4,5,6])
+</code></pre></div></div>
+
+<p>在天池比赛的特征工程处理中，这种用法非常常见，特别是人工特征的时候，需要对每个样本进行特征生成。</p>
+
+<h5 id="reduce">reduce</h5>
+
+<p>reduce的格式是：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>reduce(func,seq[,init])
+</code></pre></div></div>
+
+<p>每次迭代，将上一次的迭代结果（第一次时为init的元素，如没有init则为seq的第一个元素）与下一个元素一同执行一个二元的func函数。在reduce函数中，init是可选的，如果使用，则作为第一次迭代的第一个元素使用。给出常见的代码：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>n = 5
+print reduce(lambda x,y:x * y,range(1,n + 1))  # 120
+
+
+
+m = 2
+n = 5
+print reduce(lambda x,y:x * y,range(1,n + 1),m)  # 240
+</code></pre></div></div>
+
+<p>其中的一个应用场景是：在<a href="https://zhpmatrix.github.io/2017/02/19/speed-up/">代码优化</a>中，我们做了多线程和多进程的处理，比如分成4进程，每个进程处理500个商家的预测，那么由于最终我们需要得到一个总的loss，故整个计算过程其实是sum累和。我估计，mapreduce在分布式场景下原理类似。</p>
+
+<p>参考：</p>
+
+<p>1.<a href="http://blog.jobbole.com/35045/">Charming Python:Functional programming in Python</a></p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

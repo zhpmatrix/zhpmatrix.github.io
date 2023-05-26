@@ -1,0 +1,281 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]医疗NLP:医学对话临床发现阴阳性判别任务</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2021/09/17/chip2021-task1/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]医疗NLP:医学对话临床发现阴阳性判别任务</h1>
+    <p class="meta">Sep 17, 2021</p>
+  </header>
+
+  <article class="post-content">
+  <h4 id="前言">前言</h4>
+
+<p>近期all in在业务的汪洋大海中，突然感觉好久没有写博客了。在之前的公众号中吹牛今年要给CHIP贡献一道赛题，因为各种原因，也被证明确实是吹牛了，明年继续努力。同时，这篇博客也是献给女神大人的中秋礼物（保命要紧），预祝中秋快乐呀~</p>
+
+<h4 id="任务定义">任务定义</h4>
+
+<p>给定春雨医生的互联网在线问诊的文本数据，识别实体的属性。实体包含疾病和症状，属性包含阴性，阳性，其他和不标注共四类。</p>
+
+<p>其中比赛第一阶段提供了共计6000个对话过程。A，B测试阶段分别提供2000个对话过程。</p>
+
+<p><a href="http://www.cips-chip.org.cn/2021/eval1">比赛地址</a></p>
+
+<h4 id="举例说明">举例说明</h4>
+
+<p>患者： 医生您好，从昨天晚上开始肚子一直疼， ，吃了布洛芬有所缓解。（“肚子一直疼”标记<strong>阳性</strong>）</p>
+
+<p>医生： 肚子疼，是上腹部疼么？（“肚子疼”标记<strong>阳性</strong> ，是基于上文推断；“上腹部疼”标记<strong>阴性</strong> ，基于下文推断）</p>
+
+<p>患者：不是，主要是下腹部疼 。（“下腹部疼”标记<strong>阳性</strong>）</p>
+
+<p>医生：是针扎样的疼么？（“针扎样的疼”标注<strong>其他</strong>）</p>
+
+<h4 id="数据格式">数据格式</h4>
+
+<p>针对每个对话过程中的每句文本，具体标注格式如下所示:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> {
+        "text":"胃肠感冒拉水第三天了",
+        "ner":[
+            {
+                "name":"腹泻",
+                "mention":"拉水",
+                "range":[
+                    4,
+                    6
+                ],
+                "type":"clinical_findings",
+                "attr":"阳性"
+            },
+            {
+                "name":"胃肠型感冒",
+                "mention":"胃肠感冒",
+                "range":[
+                    0,
+                    4
+                ],
+                "type":"clinical_findings",
+                "attr":"阳性"
+            }
+        ],
+        "sender":"患者"
+    }
+</code></pre></div></div>
+
+<p>其中，name是实体词标准化之后的结果，但是并不是每个实体词均给出标准化之后的结果。type是实体词的类型，标注结果中的值统一表示为”clinical_findings”。attr是实体词的属性，也就是该任务需要预测的字段。</p>
+
+<h4 id="评测方式">评测方式</h4>
+
+<p><strong>测试数据只需要预测”attr”的部分</strong>。采用Macro-F1作为评估指标。</p>
+
+<p>假设我们有n个类别，C1, ……, Ci, ……, Cn，计算公示如下：</p>
+
+<p>准确率Pi = 正确预测为类别Ci的样本个数 / 预测为Ci类的样本个数。</p>
+
+<p>召回率Ri = 正确预测为类别Ci的样本个数 / 真实的Ci类的样本个数。</p>
+
+<h4 id="建模方式">建模方式</h4>
+
+<p>（1）序列标注建模+空</p>
+
+<p><img src="https://s3.bmp.ovh/imgs/2021/09/9318aed67953fb51.png" alt="" /></p>
+
+<p>如上图，一个对话过程中的连续三句话，分别是患者-医生-患者角色。针对每句话，设计9个标签，分别是<strong>[B,I]笛卡尔积[阳性，阴性，其他，不标注]+[O]</strong>。可以按照自己的设计，将<strong>[PAD,UNK]</strong>也作为标签的一部分。如果是基于BERT的模型，将<strong>[CLS,SEP]</strong>也可以作为标签。</p>
+
+<p>通过这样的方式，我们就可以利用序列标注的经典建模方式做了。比如，轻量级的解决方案：IDCNN/BiLSTM+CRF，重量级的解决方案：BERT+CRF。该方案的量化评估结果如下：</p>
+
+<p><img src="https://s3.bmp.ovh/imgs/2021/09/ca6ac4d58fd4d4b9.png" alt="" /></p>
+
+<p>（2）序列标注建模+上下文</p>
+
+<p>观察上述对话过程中，医生的话。呕吐怎么是阳性呢？单从医生这句话是无法判断的。实际上，图中没有显示的接下来一句患者说的话是：半夜吐了一次不多。由此，可以推理出呕吐为阳性。</p>
+
+<p>医生的话中，发烧为阴性，是从患者说的：没发烧。可以推理得到。</p>
+
+<p>回到对话问诊的主流程（业务视角），患者说的话一般称为主诉，主要内容为症状+伴随症状+持续时间，多为事实性表达，因此对于患者的识别任务，单独从一句话可以得出结论。但是，医生的问诊，意图在于询问更多的症状和疾病相关的信息，单独从一句话较难判别，需要结合患者的陈述确定。患者的陈述包括上文+下文。上图中，对于医生的识别结果，是一个很好的例子。由此，得出结论，要合理利用上下文信息做推断。在上文的举例说明中，也有相关证据。</p>
+
+<p>如何有效利用上下文信息呢？</p>
+
+<ul>
+  <li>
+    <p>角色相关+静态拼接：对于患者的识别，只利用当前文本；对于医生的识别，将医生的话和下文连续N句患者的话拼接作为一个文本做识别。</p>
+  </li>
+  <li>
+    <p>角色无关+静态拼接：对于对话中的每句话，均和上下文的连续N句话拼接。</p>
+  </li>
+  <li>
+    <p>动态拼接：选择哪些话作为拼接，用一个动态机制去选择。动态机制的选择可以是learnable或者静态的，但是通过静态的实现方式，能够获得动态的效果。本质上是对输入敏感的一个选择机制。</p>
+  </li>
+  <li>
+    <p>表征 v.s. 字符：前面是关于基于表征的方式利用上下文，基于字符的上下文信息利用也是一个值得思考的方向。</p>
+  </li>
+</ul>
+
+<p>谈到这里，其实相关的工作，可以在对话系统类的文章中，应该可以找到很多漂亮的解法。这也是该任务最具有特色的地方。</p>
+
+<p>（3）pipeline v.s. jointly</p>
+
+<p>上文中的建模本质上解决两个子任务：实体边界识别+属性判别。利用序列标注的标签设计，可以一次性解决两个问题。但是，在我们之前的“之江杯”-电商评论观点挖掘比赛中，采用两个模型分别做各自的任务，效果也是不错的。先做一个实体边界预测（实体识别类任务的经典Trick），之后基于上一步的预测结果做一个token级的5分类问题（围绕该思想，也有其他的实现，比如转化为一个文本分类问题；比如强化实体边界信息的工作BERTem等。）。本质上是做了任务分解，分而治之。类似的思想包括去年陈丹琦的工作。</p>
+
+<p>这里一个经典的问题：pipeline和jointly各有什么优缺点？</p>
+
+<p>（4）其他Trick</p>
+
+<ul>
+  <li>
+    <p>医学预训练语言模型的应用。目前开源的医学预训练语言模型基本是没有训练充分的工作。在2021年的ACL中，丁香园利用知识图谱+5G的语料，得到一个预训练语言模型，或许值得尝试。</p>
+  </li>
+  <li>
+    <p>对抗训练。对抗训练在NLP领域中的有效性也是得到证明的。在笔者之前参加同花顺的最后一轮面试，就是要复现几个经典的对抗训练算法。</p>
+  </li>
+  <li>
+    <p>文本增强。具体工作参照EMNLP2021的AEDA工作，在句子中添加一些符号，但是并不改变句子的原意，在口语化的场景下，或许是一个简单有效的工作。</p>
+  </li>
+  <li>
+    <p>业务侧的思考。通过分析每个属性标签的特性做的业务侧思想融入。</p>
+  </li>
+  <li>
+    <p>通用NER的技巧。既然建模为一个经典的NER任务，那么通用的NER技术自然值得思考，比如MRC的技术。</p>
+  </li>
+</ul>
+
+<h4 id="后记">后记</h4>
+
+<p>下午搭建了Baseline，也就是文章中的想法一。晚上回来写博客，总结了可能的其他优化方案。笔者的博客中有大量比赛方案指导，写多了就会发现，一旦问题被定义，NLP的广度足够，就会有很多的方案和优化技巧可以采用。我们希望能够用最合适的锤子解决问题，但是对数据的理解，无论怎样都会有bias，这个时候，其实拼的是代码实现能力，能够在相同的时间内，尝试更多的方案，剩下的就交给运气了。</p>
+
+<p>无论怎样，每一次方案设计，都是一场舒适的思维体操。跳起来！</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

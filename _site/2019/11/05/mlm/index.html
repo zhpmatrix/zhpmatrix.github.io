@@ -1,0 +1,275 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[NLP]用Masked Language Model搞事情</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/11/05/mlm/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[NLP]用Masked Language Model搞事情</h1>
+    <p class="meta">Nov 5, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <p><strong>提示：</strong></p>
+
+<p>博客图有时候会挂掉，如果挂掉，可以直接访问，<a href="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/_posts/2019-11-05-mlm.md">这里</a>。另外，文末挂出了完整PPT地址。</p>
+
+<h3 id="理论层">理论层</h3>
+
+<h4 id="一完型填空">一.完型填空</h4>
+
+<p>维基百科对完型填空任务的解释是：</p>
+
+<blockquote>
+  <p>A cloze test (also cloze deletion test) is an exercise, test, or assessment consisting of a portion of language with certain items, words, or signs removed (cloze text), where the participant is asked to replace the missing language item. … The exercise was first described by W.L. Taylor in 1953.”</p>
+</blockquote>
+
+<p>从上述定义可以看到，该项任务从1953年已经开始，延续至今。对于国内同学而言，中文和英文两个语种的学习几乎伴随整个学生生涯。这里的完形填空可以认为就是四六级英语考试中的完型填空。该任务可以认为是下述工作的起源。</p>
+
+<p>一直以来的一个不太成熟的想法：小学六年级的语文试卷或者英文试卷可以为NLP任务的设计带来一些很有启发性的思考。不妨随便找一张试卷看一看，我就尝试过。</p>
+
+<h4 id="二word2vec">二.Word2Vec</h4>
+
+<p>大概13/14年的工作，在个人心中地位崇高。个人认为该方法是一种对序列进行有效量化表达的工具。其中两个典型的范式CBOW和Skip-Gram。其中CBOW是给定中心词前后的词，预测中心词。Skip-Gram在范式上相反。从直观上讲，BERT蕴含了两种范式，原因如下：</p>
+
+<p>给定原始输入句子，如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>习大大 参加 进博会 。
+</code></pre></div></div>
+
+<p>第一种MASK策略如下(类比CBOW)：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>习大大 [MASK] 进博会 。
+</code></pre></div></div>
+
+<p>第二种MASK策略如下(类比Skip-Gram)：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[MASK] 参加 [MASK] 。
+</code></pre></div></div>
+
+<p>原始论文：《Efficient Estimation of Word Representations in Vector Space》</p>
+
+<h4 id="三data-noising">三.Data Noising</h4>
+
+<p>ICLR2017的文章《Data Noising As Smoothing in Neural Network Language Models》提出了一些数据加噪的方式，如下：</p>
+
+<p>unigram noising：随机替换</p>
+
+<p>blank noising：用’_‘来替换</p>
+
+<p>对于blank noising来说，大概是MASK策略最早的雏形了，因为在这里第一次用显式的符号来占位。对比Word2Vec，是一种不同的实现。因此，可能对于BERT流来说，有另外的学习方式哦。不过，由于BERT基于MLM做训练，本质上是自编码的范式，那么怎么实现对齐就是需要考虑的问题了。</p>
+
+<h4 id="四bert">四.BERT</h4>
+
+<p>BERT的训练包含两个任务，第一是Masked LM；第二是下一句预测。在第一个任务上，对于给定一句话，选择15%要处理的Token，对于15%要处理的Token，80%的Token用[MASK]替换，10%随机替换，10%保持不变。</p>
+
+<p>对于fine-tune而言，近期的一些工作，经验性表明不是特别需要。对于要处理的15%的Token，其中的20%是为了保证训练和测试的一致性。</p>
+
+<h4 id="五electra">五.ELECTRA</h4>
+
+<p>该工作是ICLR2020正在Review的工作，《ELECTRA: Pre-Training Text Encoders as Discriminators Rather Than Generators》，作者是Kevin Clark, Thang Luong, Quoc Le, Chris Manning
+.</p>
+
+<p><a href="https://openreview.net/forum?id=r1xMH1BtvB">ICLR的Review地址</a></p>
+
+<p>其实，在BERT之前，他们的工作《Semi-Supervised Sequence Modeling with Cross-View Training》
+也是非常值得思考的。</p>
+
+<p>这篇文章的Motivation在于希望找到更加高效的预训练语言模型的方式，包括样本高效，计算/参数高效。文章认为在MLM训练阶段，只计算15%的Token的损失函数，是一种样本不高效的做法。计算高效是指给定FLOP，模型大小一致，数据规模一致的前提下，在任务测试集上的评测指标要高。FLOP作为评估的指标，也是文章的卖点之一，以上只是个人粗浅的理解，不保证正确。</p>
+
+<p>训练时，生成器和判别器同时训练；测试时只要判别器。</p>
+
+<p>该工作是Manning在前两天的北京智源大会上讲的，对该工作的一些分析，可以参考<a href="https://zhuanlan.zhihu.com/p/89763176">知乎文章</a>，因为这并不是这篇博客的目的。整体上，实验做的算是比较扎实。</p>
+
+<h3 id="应用层">应用层</h3>
+
+<h4 id="一风格迁移">一.风格迁移</h4>
+
+<p>《Mask and Inﬁll: Applying Masked Language Model to Sentiment Transfer》,IJCAI 2019的工作，是非并行情感迁移任务下的SOTA，整体思路比较简单。</p>
+
+<p>从个人的实现来看，Mask阶段做不好对后续的工作影响非常大。值得注意的点包括：</p>
+
+<p>第一：如何将target sentiment的信号输入给模型？</p>
+
+<p>第二：如何将预训练情感分类器的feedback传递给Infill阶段的MLM?或者，这种feedback信息是必要的吗？</p>
+
+<p>补充 Tianxiao Shen的一篇文章《Blank Language Models》。</p>
+
+<h4 id="二拼写纠错">二.拼写纠错</h4>
+
+<p>爱奇艺的工作，《FASPell: A Fast, Adaptable, Simple, Powerful Chinese Spell Checker Based on DAE-Decoder Paradigm》
+，整体工作中规中矩，不过，作为后处理的CSD模块做了很多工作。主要考虑三个维度的信息：置信度，字音相似性和字形相似性。</p>
+
+<h3 id="三知识发现">三.知识发现</h3>
+
+<p>《Language Models as Knowledge Bases?》
+这篇主要讨论一个有意思的观点：预训练的语言模型有没有可能已经存储了很多结构化的知识信息？那么对该知识的提取比较简单，整体上是一个类似于MLM的方式。</p>
+
+<p>ICLR2020的文章《PRETRAINED ENCYCLOPEDIA: WEAKLY SUPERVISED KNOWLEDGE-P RETRAINED LANGUAGE MODEL》。这篇文章通过设计预训练任务，希望guide模型去learn到更多的fact。整体思路是：对于一句话，找到话中的实体，用其他类型相同，但是内容不同的实体替代，然后训练模型，训练目标是多任务形式，实体有没有被替换+MLM。至于这样做的原因，文章中提到：</p>
+
+<blockquote>
+  <p>Compared to the language modeling objective, entity replacement is deﬁned at the entity level and introduces stronger negative signals. When we enforce entities to be of the same type, we pre- serve the linguistic correctness of the original sentence while the system needs to learn to perform judgment based on the factual aspect of the sentence.</p>
+</blockquote>
+
+<p>类似思想其实可以用在很多其他地方。</p>
+
+<p>《K-BERT: Enabling Language Representation with Knowledge Graph》，AAAI2020的工作，融合KG的信息，类似想法印象中有几篇。</p>
+
+<h4 id="四模型蒸馏">四.模型蒸馏</h4>
+
+<p>基于MLM的蒸馏，《Pseudolikelihood Reranking with Masked Language Models》
+。</p>
+
+<h4 id="五机器翻译">五.机器翻译</h4>
+
+<p>EMNLP2019的工作，《Mask-Predict: Parallel Decoding of Conditional Masked Language Models》，主要讨论MLM用于non-autoregressive的机器翻译任务。整体上将decoding过程建模为一个迭代过程，第一步对所有Token全部MASK掉，第二步，对Token的对应输出按照置信度排个序，<strong>选择置信度较低的Token，MASK后</strong>作为第二个迭代过程的输入，<strong>置信度高的输出</strong>直接作为第二个迭代过程的输入，依次类推。</p>
+
+<h3 id="总结">总结</h3>
+
+<p>综合上述的几个工作，形成的几个结论如下：</p>
+
+<p>（1）Masked LM是预训练语言模型的一个方式，但是不是唯一的方式。BERT的embedding分为contextual embedding和word embedding两种，多数时候在下游任务fine-tune的时候，使用的是前者。但是很难说，contextual embedding是好的，还是不好的。因为contextual embedding会遇到<a href="https://towardsdatascience.com/visualisation-of-embedding-relations-word2vec-bert-64d695b7f36">一字多义问题</a>。其实，ELECTRA就是提供了一种细粒度modeling的方式。</p>
+
+<p>(2)MLM通常要结合前处理步骤和后处理步骤。比如在拼写纠错中，是配合一个后处理操作实现；在一些场景下，使用前处理的操作可能是更加合理的一个方式，这种方式通常分为两个阶段：召回+排序。</p>
+
+<p>（3）以语言模型为代表的自监督学习，潜力很大。无论是通过auto-regressive的方式，还是通过denoising autoencoder的方式，值得进一步探索。</p>
+
+<p>最后，附上完整PPT下载地址。</p>
+
+<p>链接: https://pan.baidu.com/s/1clOhcnxWA6zln3GB_RqGXQ</p>
+
+<p>提取码: smte</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

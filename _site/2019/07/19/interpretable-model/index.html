@@ -1,0 +1,240 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[读书笔记]《Interpretable Machine Learning》</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2019/07/19/interpretable-model/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <a class="site-title" href="/project.html">项目</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+        
+          <a class="page-link" href="/about/">关于我</a>
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>[读书笔记]《Interpretable Machine Learning》</h1>
+    <p class="meta">Jul 19, 2019</p>
+  </header>
+
+  <article class="post-content">
+  <p>看到这本书，特意翻了下微博<strong>妖僧老冯_</strong>之前的一条微博，这样写道：<strong>“在机器学习里，Explainable 和 Interpretable 是不一样的。Explainable ML指的是构建另一个模型来解释一个黑盒模型，而Interpretable ML指的是模型本身在设计的时候就具备解释自己的功能。 ​​​​”</strong></p>
+
+<p>所以，乍一看书名，齐了。暂且不去纠结到底该用哪个术语来表达问题，专注一下内容。想到上个月在微博乱写，<strong>“当谈到解释性时，都在讨论什么？[doge]决策树，线性（Logistic）回归，Attention，Conv可视化，知识图谱(表示和推理)… ​​​​”</strong>，恰巧看到这本书，就简单浏览一下，写了点笔记。</p>
+
+<h3 id="0可解释方法的评判标准">0.可解释方法的评判标准</h3>
+
+<blockquote>
+  <p>第一个角度：intrinsic or post hoc?</p>
+</blockquote>
+
+<p>intrinsic是指：模型内在具有可解释性。比如一个决策树模型。这类模型一般称为intrinsically interpretable models。</p>
+
+<p>post hoc是指：	先去训练一个黑盒模型，比如一个深度模型，然后应用一些可解释性的方法，比如度量特征的重要性。故又称之为model-agnostic interpretablility methods。</p>
+
+<blockquote>
+  <p>第二个角度：outcome of the interpretability method</p>
+</blockquote>
+
+<p>从解释性的输出来判断，可以输出为特征重要性统计，可视化，输入/输出对的分析等。</p>
+
+<p>个人理解，能够从第一个角度做区分就可以了。那么知道如何区分之后，就可以具体看看这件事如何做了？分为三个路子，具体如下。</p>
+
+<h3 id="1intrinsically-interpretable-models">1.intrinsically interpretable models</h3>
+
+<p>具体包括Linear Model, Logistic Regression, Decision Tree, Decision Rule(if-then), RuleFit(不严格地，可以当成Tree来理解)，Naive Bayes, K-Nearest Neighbours等。</p>
+
+<h3 id="2model-agnostic-interpretablility-methods">2.model-agnostic interpretablility methods</h3>
+
+<p>好的的model-agnostic explanation system的三个特点：</p>
+
+<p>(1)model flexibility: 不但对随机森林适用，同样适用于深度模型；</p>
+
+<p>(2)explanation flexibility: 不受限于特定的解释形式，可以是线性，树形，和图；</p>
+
+<p>(3)representation flexibility: 用来解释的特征表示形式是灵活的；</p>
+
+<p>具体可用的方法包括如下：</p>
+
+<p><strong>第一:</strong>partial dependence plot</p>
+
+<p>也就是衡量单一特征对output的影响。</p>
+
+<p><strong>第二:</strong>individual conditional expectation</p>
+
+<p>衡量特征变化和实例预测输出的关系。</p>
+
+<p><strong>第三:</strong>feature interaction</p>
+
+<p><strong>第四:</strong>feature importance</p>
+
+<p>三和四不做过多说明了。</p>
+
+<p><strong>第五:</strong>global surrogate models</p>
+
+<p>这个比较有意思一些。用全局代理模型来解释一个黑盒模型。也就是用相同的数据训练一个intrinsically interpretable model，比如决策树等，假设输入和预测相同，就可以通过这个容易解释的模型来解释黑盒模型。</p>
+
+<p><strong>第六:</strong>local surrogate models</p>
+
+<p>整体思路同上，不过是基于感兴趣样本进行的。通过在<strong>距离感兴趣样本附近的一些样本上</strong>重新训练一个容易解释的模型来实现目标。</p>
+
+<p><strong>第七:</strong>shapley value explanations</p>
+
+<p>与博弈论有关的一个方法。每个特征是’game’中的一个’player’，预测是’payout’，通过shapley value可以告诉我们怎样公平地将’payout’分布到每个’player’上。</p>
+
+<h3 id="3example-based-explanations">3.example-based explanations</h3>
+
+<p><strong>第一:</strong> counterfactual explanations</p>
+
+<p><strong>第二:</strong> adversarial examples</p>
+
+<p>对抗样本和反事实解释的方法类似，目的不同。前者希望构造样本去欺骗一个模型，后者希望去解释一个模型。不过对模型理解都是可行的。</p>
+
+<p><strong>第三:</strong> the cybersecurity perspective</p>
+
+<p>与黑盒模型的攻击和防御相类似的是，网络安全的攻防。</p>
+
+<p><strong>第四:</strong> prototype和criticism</p>
+
+<p>prototype是数据中最具有代表性的样本，criticism是数据中最不具有代表性的样本，后者对与insight的提供非常有帮助。</p>
+
+<p><strong>第五：</strong>influential instances</p>
+
+<p>一些样本从训练数据中删除之后，对模型的参数影响较大，该类样本就是influential instances了。</p>
+
+<p><strong>总结：</strong>个人理解，对于容易解释的模型，一种是直接使用，另一种是辅助黑盒模型的解释。那么除此之外，对于黑盒模型的解释，可以“推推动动，拨拨转转”。需要考虑“推”什么？“拨”什么？这个可以从样本和特征的维度来做。“动”成什么样了？“转”到哪儿了？可以通过可视化的方式来做。目的是考虑“如何动”？和“如何转”？函数表达以及可能的因果关系。</p>
+
+<p>这篇笔记中讨论了很多可行的方向。多数情况下，个人觉得比较实际的是做Case分析带来一些insight，有助于过程迭代，模型改进，模型解释。</p>
+
+<p>参考：</p>
+
+<p>1.<a href="https://leanpub.com/interpretable-machine-learning">书的地址</a></p>
+
+<p>开源图书，同时有售卖。整体上的一个感受是，内容组织上有些乱，不过算是相对全面的该方向上的总结。</p>
+
+<p>2.<a href="http://www.heatmapping.org/slides/2017_GCPR.pdf">用Attention机制作为解释性的手段</a></p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+  </div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>
