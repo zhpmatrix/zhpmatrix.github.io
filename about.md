@@ -12,16 +12,10 @@ permalink: /about/
 - 致力于数据，算法和工程的全链路打通
 - 追求业务和技术的平衡
 
----
 
 
-    联系方式（欢迎聊一聊）
-
-微信公众号：《KBQA沉思录》，这里有你好奇的医疗NLP的点滴
 
 
-Github:[@zhpmatrix](https://github.com/zhpmatrix/)
 
 
-微博:[@zhpmatrix](https://www.weibo.com/u/2879902091/home)
 
