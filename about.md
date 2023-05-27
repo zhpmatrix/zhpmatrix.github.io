@@ -25,6 +25,11 @@ permalink: /about/
 - 《海外独角兽》组织的Huggingface&ML茶话会
 - 中国卫生杂志-[《ChatGPT能给医疗行业带来什么》](https://mp.weixin.qq.com/s/15z3AL2UQvARW1Sfh7yMQA)，获该杂志2023年4月份最高分重点稿件
 
+**浪迹天涯**
+
+全是好看的景色|游记
+:-------------------------:|:-------------------------:
+![PIC_01](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/WechatIMG6103.jpeg){:height="300px" width="400px"}  |莫干山，位于浙江省湖州市德清县。主要特点是群山绿树，山上有很多政要曾经居住过的房子等。一路上，拍了很多自然条件下的高饱和度的图片。
 
 
 
