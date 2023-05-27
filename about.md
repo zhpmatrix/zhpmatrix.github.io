@@ -12,6 +12,14 @@ permalink: /about/
 
 ---
 
+**聆听自然**
+
+都是好听的声音|记录
+:-------------------------:|:-------------------------:
+<audio id="audio" controls="" preload="none">
+      <source id="mp3" src="https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/20220502_%E8%9B%90%E8%9B%90.m4a">
+</audio>|2022年5月份，晚上在小区楼下跳绳时，遇到一只絮絮叨叨的蛐蛐🦗。
+
 **浪迹天涯**
 
 全是好看的景色|游记
