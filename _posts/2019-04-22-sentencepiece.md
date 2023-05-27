@@ -149,7 +149,7 @@ subword sampling和基于unigram的language model算法都是kudo在一篇文章
 补充：《Fast WordPiece Tokenization》,EMNLP2021的工作，“8.2x faster than HuggingFace Tokenizers and 5.1x faster than TensorFlow Text on average for general text tokenization.“
 
 
-
+补充：[中文LLaMA&Alpaca大语言模型词表扩充+预训练+指令精调](https://mp.weixin.qq.com/s/ZS1w8-JLrT0U-5v2nk4w8Q)
 
 
 
