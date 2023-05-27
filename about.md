@@ -20,6 +20,10 @@ permalink: /about/
 - 致力于数据，算法和工程的全链路打通
 - 追求业务和技术的平衡
 
+**采访&活动**
+
+- 《海外独角兽》组织的Huggingface&ML茶话会
+- 中国卫生杂志-[《ChatGPT能给医疗行业带来什么》](https://mp.weixin.qq.com/s/15z3AL2UQvARW1Sfh7yMQA)，获该杂志2023年4月份最高分重点稿件
 
 
 
