@@ -18,6 +18,7 @@ permalink: /project/
 
 - 《海外独角兽》组织的Huggingface&ML茶话会
 - 中国卫生杂志-[《ChatGPT能给医疗行业带来什么》](https://mp.weixin.qq.com/s/15z3AL2UQvARW1Sfh7yMQA)，获该杂志2023年4月份最高分重点稿件
+- HIT Webinar,[《"生理时序数据"和"中文医疗大模型"双主题分享》](https://mp.weixin.qq.com/s/hGgsAHkorzHuzNN57YxclA)
 
 **比赛经历**
 
