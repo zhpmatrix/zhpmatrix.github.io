@@ -37,3 +37,8 @@ permalink: /project/
 - **Estimating Difficulty Score of Visual Search in Images for Semi-supervised Object Detection**<br>Dongliang Ma, **Haipeng Zhang**, Hao Wu, Tao Zhang, Jun Sun<br>Pacific Rim Knowledge Acquisition Workshop(PKAW 2019)<br>[paper](https://link.springer.com/chapter/10.1007/978-3-030-30639-7_1)
 
 - **VisDrone-DET2018: The Vision Meets Drone Object Detection in Image Challenge Results**<br>Pengfei Zhu,Longyin Wen, ..., **Haipeng Zhang**,etc<br>European Conference on Computer Vision Workshop(ECCV 2018 Workshop)<br>[paper](https://openaccess.thecvf.com/content_ECCVW_2018/papers/11133/Zhu_VisDrone-DET2018_The_Vision_Meets_Drone_Object_Detection_in_Image_Challenge_ECCVW_2018_paper.pdf),[code](https://github.com/zhpmatrix/VisDrone2018)
+
+
+**发明专利**
+
+- **《一种细粒度各场景通用的医疗文本结构化信息抽取方法》**<br>**张海鹏**;詹威;郭立超<br>专利号:ZL202310113159.3
