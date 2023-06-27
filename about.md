@@ -28,7 +28,7 @@ permalink: /about/
 ![PIC_02](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/WechatIMG102.jpeg){:height="300px" width="400px"}  |总统府，位于江苏省南京市玄武区。是在一个下雨的天气去的，加上自身有江南园林景观，也有民国的建筑风格，显得别有一番风味。这张图片中，融合了当代的高楼建筑，气质上的差异性，给人一种时光错乱的恍惚感～
 ![PIC_03](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/WechatIMG103.jpeg){:height="300px" width="400px"}  |雪花洞，位于河南省巩义市。主要是灯光渲染下的钟乳石，一个地下溶洞。
 ![PIC_04](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/WechatIMG104.jpeg){:height="300px" width="400px"}  |大明山，位于浙江省。选择在一个能够拍出很多高饱和度的照片的天气去的。上山的时候选择走楼梯，差点没回的来。不过，下山的滑道，不要太开心～
-![EFC](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/efc.jpeg)|浙江杭州，欧美金融城，2023年6月25日晚上7:00的EFC，太爱这种色调了。
+![EFC](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/efc.jpeg){:height="300px" width="400px"}|浙江杭州，欧美金融城，2023年6月25日晚上7:00的EFC，太爱这种色调了。
 
 
 
