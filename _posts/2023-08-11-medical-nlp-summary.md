@@ -9,7 +9,9 @@ date: 2023-08-11 11:40:00
 
 围绕产品&技术这个话题，一张算法架构图基本可以表达我们在过去很长一段时间做的工作，具体如下图：
 
-<img src=https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/算法能力架构图4.0.drawio.png width=60% />
+算法架构图|
+:-------------------------:|:-------------------------:
+![PIC_01](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/算法能力架构图4.0.drawio.png){:height="400px" width="700px"}  |
 
 
 
@@ -17,7 +19,11 @@ date: 2023-08-11 11:40:00
 
 基于这套底层能力和工程基建，可以构建行业算法层。面向医疗行业的核心能力包括三个方面，分别是医疗数据挖掘，结构化和医疗知识图谱。结构化的能力能够支持医疗数据挖掘，同时用于知识图谱的构建。知识图谱通过内容提供，用于结构化的知识增强。其中的最核心的内容是结构化，具体能力包括段落解析，医疗实体识别，医疗关系抽取，术语标准化能力等。对于通用结构化能力的认识演化如下：
 
-![通用结构化的认识演化](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/通用结构化的理解.drawio.png)
+通用结构化的认识演化|
+:-------------------------:|:-------------------------:
+![PIC_02](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/通用结构化的理解.drawio.png){:height="400px" width="700px"}  |
+
+
 
 基于上述认识，我们落地了具体的方案，分为段落结构化和段落内结构化。
 
