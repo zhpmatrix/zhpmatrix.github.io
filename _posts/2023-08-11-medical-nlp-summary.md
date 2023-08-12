@@ -23,13 +23,13 @@ date: 2023-08-11 11:40:00
 :-------------------------:|:-------------------------:
 ![PIC_02](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/通用结构化的理解.drawio.png){:height="400px" width="700px"}  |
 
-
-
 基于上述认识，我们落地了具体的方案，分为段落结构化和段落内结构化。
 
 段落结构化能力的主要目的是将一个HTML的病历文书按照特定段落划分。以入院记录为例，需要结构化为主诉，既往史，现病史，家族式，疾病史等。技术需求看似简单，需要支持的实际院内的业务则非常广泛，如科研检索产品，患者360产品，数据上报业务，互联互通业务等。具体方案如下：
 
-![段落结构化](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/段落结构化.png)
+段落结构化|
+:-------------------------:|:-------------------------:
+![PIC_03](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/段落结构化.png){:height="400px" width="700px"}  |
 
 实际上，基于上述方案开发了一套病历结构化产品，能够使得研发和交付分离，显著提升了研发效能，释放了算法的资源投入。
 
@@ -40,11 +40,16 @@ date: 2023-08-11 11:40:00
 
 方案的具体架构如下图所示：
 
-![结构化的具体实现](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/结构化的具体实现.png)
+结构化的具体实现|
+:-------------------------:|:-------------------------:
+![PIC_04](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/结构化的具体实现.png){:height="400px" width="700px"}  |
 
 当然，我们也需要从能力视角切换到内容视角（业务角度），从关心怎么抽到关心抽什么。
 
-![通用结构化的多维视角](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/通用结构化的多维视角.drawio.png)
+通用结构化的多维视角|
+:-------------------------:|:-------------------------:
+![PIC_05](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/通用结构化的多维视角.drawio.png){:height="400px" width="700px"}  |
+
 
 结构化的能力构建除了实体，属性和关系的抽取，还有术语标准化的能力。主要功能如下：
 
@@ -60,13 +65,24 @@ date: 2023-08-11 11:40:00
 
 围绕术语标准化的离线和在线能力构建如下：
 
-![标准化能力-离线](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/标准化能力-离线.png)
 
-![标准化能力-在线](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/标准化能力-在线.png)
+标准化能力-离线|
+:-------------------------:|:-------------------------:
+![PIC_06](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/标准化能力-离线.png){:height="400px" width="700px"}  |
+
+
+标准化能力-在线|
+:-------------------------:|:-------------------------:
+![PIC_07](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/标准化能力-在线.png){:height="400px" width="700px"}  |
 
 通过整合上述能力，在算法演示平台的呈现效果如下所示：
 
-![算法演示平台](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/算法演示平台.png)
+
+算法演示平台|
+:-------------------------:|:-------------------------:
+![PIC_08](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/算法演示平台.png){:height="400px" width="700px"}  |
+
+
 
 基于上述这套算法体系，可以构建业务应用层。具体如下:
 
@@ -84,7 +100,21 @@ date: 2023-08-11 11:40:00
 
 医疗大模型的整体推进阶段，分为司内和司外。司内主推模型和应用两条线，司外和知名三甲医院结合具体场景共创。整体架构如下:
 
-![cmllm-架构](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/cmllm-架构.png)
+cmllm-架构|
+:-------------------------:|:-------------------------:
+![PIC_09](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/cmllm-架构.png){:height="400px" width="700px"}  |
+
+关于中文医疗大模型，我们关心的问题主要是三个：
+
+**为什么需要构建中文医疗大模型？**
+
++ 日益增长的需求和技术存在瓶颈的矛盾 	+ 需求在增长，场景在丰富，但是技术不可用 	+ 技术突破在解决原有需求的同时，倒逼新场景和新机会的发现+ 通用和专用的矛盾	+ ChatGPT是面向通用领域的模型	+ 医疗领域的问题具有高度的专业性，ChatGPT效果有限	+ 尚没有效果好且支持私有化部署的中文医疗大模型+ 中心化和去中心化的矛盾	+ ChatGPT的公有服务调用	+ 医疗数据不能出医院+ 模型研发成本高 	+ 传统方式需要较多的标注数据，一个问题需要多个模型
+什么是中文医疗大模型？
+
+怎么训练？
+
+
+
 
 
 
