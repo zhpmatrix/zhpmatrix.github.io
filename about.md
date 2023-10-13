@@ -8,7 +8,7 @@ permalink: /about/
 
 卡通少年|生活中的你
 :-------------------------:|:-------------------------:
-![me](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/me.png){:height="200px" width="200px"}  |养了好几盆绿植🌳，还有一只巴西龟和台湾花龟，想养一只柴犬和一只猫🐱<br>写码，看书，写文章，打篮球，吹牛<br>年少时想成为一个作家，很酷的工作
+![me](https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/me.png){:height="200px" width="200px"}  |养了好几盆绿植🌳，还有一只巴西龟和台湾花龟，还有一只精力无限的猫🐱，想养一只柴犬<br>写码，看书，写文章，打篮球，吹牛<br>年少时想成为一个作家，很酷的工作
 
 ---
 
