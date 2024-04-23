@@ -6,9 +6,8 @@ permalink: /project/
 
 **工作方向**
 
-- 中文医疗大模型应用和模型开发，进行中(<font color="red"><u>欢迎合作交流～</u></font>)
-- 医疗NLP
-- 知识图谱，问答系统，中文医疗大模型
+- 财税方向大模型应用和模型开发，进行中(<font color="red"><u>欢迎合作交流～</u></font>)
+- 知识图谱，问答系统，中文大模型
 - 致力于数据，算法和工程的全链路打通，追求业务和技术的平衡
 
 [![zhpmatrix's GitHub stats](https://github-readme-stats-sigma-five.vercel.app/api?username=zhpmatrix&show_icons=truet&include_all_commits=True&hide=contribs)](https://github.com/anuraghazra/github-readme-stats)
