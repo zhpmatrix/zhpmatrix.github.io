@@ -33,6 +33,7 @@ mathjax: true
 该方式比较符合直觉。针对每个返回的passage，用LLM生成一个问题question，然后利用LLM计算PPL作为question和Question的相关性表示。
 
 （2）《Holistic Evaluation of Language Models》，Percy Liang，TMLR
+
 给定Query和Passage，输出Yes或者No
 
 （3）《Is ChatGPT Good at Search? Investigating Large Language Models as Re-Ranking Agents》，EMNLP2022
@@ -61,7 +62,8 @@ mathjax: true
 
 #### 排序效果怎样？
 
-![image6](https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/imag6.png?raw=true)
+
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/imag6.png?raw=true" width="400" align="center"/>
 
 最上一行是通过LM直接生成的效果，从上表可以看出，基于各个任务的平均指标，LM+weighting RankNet的效果最佳，同时去掉LM和去掉weighting均会使得排序效果变差。
 
