@@ -8,12 +8,12 @@ mathjax: true
 ---
 
 
-#### 基本信息
+#### 一. 基本信息
 会议信息：SIGIR2024
 
 关键词：对话式文本检索，Query改写
 
-#### 动机和贡献
+#### 二. 动机和贡献
 
 对话式文本检索中存在的一个挑战是，由于在会话历史中，存在指代，遗漏和话题转换等问题，容易导致检索出不相关的文本。通常的一个解法是根据会话历史，通过Query改写，获取一个非情景化（de-contextualized）的Query用于下游检索。但是这种解法在部分场景下可能捕捉到不正确的意图，从而导致无法检索出正确的答案，根本原因在于Query改写是一个离散生成过程，可能无法准确的捕捉到潜在概率分布和词权重。
 
@@ -26,28 +26,30 @@ mathjax: true
 （2）能够以一种非常有效的方式将产生的Query用于sparse和dense检索中
 （3）提出的方法在QReCC数据集中拿到了SOTA的结果
 
-#### 主要方法
+#### 三. 主要方法
 
-##### Query改写
+##### (1) Query改写
 
 通过微调一个生成式语言模型在每个轮次根据beam search的得分生成TopN个改写Query，每个改写的Query有一个改写得分如下：
 
 ![1](https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/cmqr_1.png?raw=true)
 
-其中，t1,...,tl是预测的token，|q(i,j)|是第i个轮次，第j个改写Query的长度，H是会话历史。考虑到RS是句子序列中词概率的乘积，改写得分会增加长度正则避免改写器产生非常短的改写结果。
+其中，t1,...,tl是预测的token，q(i,j)的**绝对值符号**是第i个轮次，第j个改写Query的长度，H是会话历史。考虑到RS是句子序列中词概率的乘积，改写得分会增加长度正则避免改写器产生非常短的改写结果。
 
-##### Sparse检索
+##### (2) Sparse检索
 
 sparse检索依赖bow文本表示，相关性的计算方式通常如下：
 
 ![2](https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/cmqr_2.png?raw=true)
 
 其中w(t,q)表示与query相关的词权重，w(t,d)表示与document相关的词权重。改写的Query用于sparse检索时，主要关注w(t,q)。经典的做法是w(t,q)=c(t,q)，其中c表示频数统计。在该工作中，可以从n个改写的query中构建一个加权bow表示的query。具体分为两个步骤：
+
 （1）每个改写query中的词权重，可以用beam search的得分来表示
+
 （2）对于词集合中的每个词，词的权重可以通过对n个改写query中对应的词的权重进行求和取平均
 本质上，上述方法通过n个query改写的结果，实现了query扩展和词权重的重估计。
 
-##### Dense检索
+##### (3) Dense检索
 
 dense检索依赖向量表示，相关性的计算方法通常如下：
 
@@ -60,7 +62,7 @@ dense检索依赖向量表示，相关性的计算方法通常如下：
 
 最终的query的表示是n个query的加权，比之单个query，一定程度上增加了鲁棒性。
 
-#### 实验结果
+#### 四. 实验结果
 
 采用QReCC数据集，共14k个对话，包含80k个问答对，数据集分割之后，得到测试实例8209个。采用的评估指标为MAP，MRR和Recall@10。采用的微调模型为t5-base，beam width为10，sparse检索的实现基于pyserini， dense embedding模型采用GTR(t5-based)。对比的baseline分别如下：
 
@@ -78,7 +80,7 @@ dense检索依赖向量表示，相关性的计算方法通常如下：
 
 具体实验结果如下，星号（*）表示最佳结果，下划线表示第二好的结果。
 
-![4](https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/cmqr_5.png?raw=true)
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/cmqr_5.png?raw=true" width="400" align="center"/>
 
 对比分析得到：
 
@@ -88,7 +90,7 @@ dense检索依赖向量表示，相关性的计算方法通常如下：
 
 （3）虽然人工改写在TREC-CAsT数据集上取得了最好的结果，但是在QReCC数据集上，自动化的方法还是优于人工改写。
 
-#### 结论和启发
+#### 五. 结论和启发
 
 （1）提出了一种不增加额外代价的query改写方法，可以以一种比较简单的方式集成在sparse和dense的检索pipeline中带来效果的提升
 
