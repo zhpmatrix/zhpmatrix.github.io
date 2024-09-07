@@ -1,7 +1,7 @@
 ---
 layout: post
 comments: true
-title:  "[论文笔记]《FIRST: Faster Improved Listwise Reranking with Single Token Decoding》"
+title:  "[搜索系统]《FIRST: Faster Improved Listwise Reranking with Single Token Decoding》"
 excerpt: "LLM用于重排序的各种玩法"
 date:   2024-06-25 16:35:00
 mathjax: true

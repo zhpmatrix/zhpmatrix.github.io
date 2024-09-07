@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[思考]一个想象的搜索系统"
+title: "[搜索系统]一个想象的搜索系统"
 excerpt: "从一个基础的问题出发，一个空白的markdown，看我们能否推出搜索系统的核心要素？"
 date: 2021-10-28 11:40:00
 mathjax: true

@@ -1,7 +1,7 @@
 ---
 layout: post
 comments: true
-title:  "[论文笔记]《A Surprisingly Simple yet Effective Multi-Query Rewriting Method for Conversational Passage Retrieval》"
+title:  "[搜索系统]《A Surprisingly Simple yet Effective Multi-Query Rewriting Method for Conversational Passage Retrieval》"
 excerpt: "SIGIR2024的文章，Query改写用于检索系统"
 date:   2024-08-26 10:35:00
 mathjax: true
