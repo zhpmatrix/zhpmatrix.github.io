@@ -19,7 +19,8 @@ permalink: /about/
 
 **赚猫粮～**
 
-![money](https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/WechatIMG187.jpg?raw=true)
+
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/WechatIMG187.jpg?raw=true" width="400" height="400">
 
 
 **聆听自然**
