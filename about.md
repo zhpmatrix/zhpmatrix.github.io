@@ -14,7 +14,7 @@ permalink: /about/
 
 **扫码加笔者好友，茶已备好，等你来聊~**
 
-![me](https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/640.png?raw=true)
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/640.png?raw=true" width="400" height="400">
 
 
 **赚猫粮～**
