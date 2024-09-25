@@ -12,6 +12,17 @@ permalink: /about/
 
 ---
 
+**扫码加笔者好友，茶已备好，等你来聊~**
+
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/640.png?raw=true" width="400" height="400">
+
+
+**赚猫粮～**
+
+
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/WechatIMG187.jpg?raw=true" width="400" height="400">
+
+
 **聆听自然**
 
 <audio id="audio" controls="" preload="none">
