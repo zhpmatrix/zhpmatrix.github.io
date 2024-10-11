@@ -17,9 +17,11 @@
         </svg>
 </a>
       <div class="trigger">
+ 	<font color="yellow"><a class="page-link" href="http://www.souyisou.online/">搜医搜</a></font>
         {% for page in site.pages %}
           {% if page.title %}<font color="yellow"><a class="page-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a></font>{% endif %}
         {% endfor %}
+	
       </div>
     </nav>
   </div>
