@@ -6,7 +6,7 @@ permalink: /about/
 
 ---
 
-卡通少年|生活中的你|**扫码加笔者好友，茶已备好，等你来聊~**|**赚猫粮～**💰💰
+卡通少年|生活中的你|**扫码加笔者好友，茶已备好，等你来聊~**|**赚猫粮&买GPU～**💰💰
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
 <img src="https://github.com/zhpmatrix/zhpmatrix.github.io/raw/master/images/me.png" width="100" height="100"> |养了好几盆绿植🌳，还有一只巴西龟和台湾花龟，还有一只精力无限的猫🐱，想养一只柴犬<br>写码，看书，写文章，打篮球，吹牛<br>年少时想成为一个作家，很酷的工作|<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/640.png?raw=true" width="100" height="100">|<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/WechatIMG187.jpg?raw=true" width="100" height="100">
 
