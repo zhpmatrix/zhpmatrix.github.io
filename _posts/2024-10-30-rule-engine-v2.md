@@ -101,11 +101,12 @@ mathjax: true
 
 滴滴开源的LogicFlow可以作为一个引擎前端，Dagu作为引擎前端，可以实现DAG和Yaml的双向映射，Yaml是Python开发者的福音。开源版n8n作为前端，对于operator的支持更加的丰富，包括HTTP请求，函数，外部服务，任务等，效果如下：
 
-![tag\_factory\_based\_on\_knowledge\_table](https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/n8n.png?raw=true)
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/n8n.png?raw=true" width="400" align="center"/>
 
 其中HTTP Request的编辑逻辑如下：
 
-![tag\_factory\_based\_on\_knowledge\_table](https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/n8n_http.png?raw=true)
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/n8n_http.png?raw=true" width="400" align="center"/>
+
 
 apache-airflow作为引擎后端，能够将Python代码转化为DAG，同时实现DAG的调度和监控，但是没有搭配一个好的前端。DophinScheduler作为为数不多的同时拥有前端和后端的可以作为理想规则引擎的框架，但是近期看到mlflow把DS的前端拆出来，融合实现ML工作流的编排和调度，毕竟mlflow在机器学习任务的编排上比DS要做的更好（定位不同）。
 
@@ -118,6 +119,8 @@ apache-airflow作为引擎后端，能够将Python代码转化为DAG，同时实
 + 前端和后端分离。比如n8n+airflow的组合
  
 ### 参考资料
+
++ [How to scrape data from a website](https://blog.n8n.io/how-to-scrape-data-from-a-website/)
 
 
 **[扫码加笔者好友](https://zhpmatrix.github.io/about/)，茶已备好，等你来聊~**
