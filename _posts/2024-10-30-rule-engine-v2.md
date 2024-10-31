@@ -129,5 +129,7 @@ apache-airflow作为引擎后端，能够将Python代码转化为DAG，同时实
 
 + [How to scrape data from a website](https://blog.n8n.io/how-to-scrape-data-from-a-website/)
 
++ [Considerations for building a rules engine in Python](https://datathrillz.com/considerations-for-building-a-rules-engine-in-python/)
+
 
 **[扫码加笔者好友](https://zhpmatrix.github.io/about/)，茶已备好，等你来聊~**
