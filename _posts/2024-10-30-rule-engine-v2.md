@@ -2,7 +2,7 @@
 layout: post
 comments: true
 title:  "[Python]再议规则引擎"
-excerpt: ""
+excerpt: "一种支持系统可扩展性的实现方式"
 date:   2024-10-30 10:35:00
 mathjax: true
 ---
@@ -90,12 +90,13 @@ mathjax: true
 
 首先，需要一个笔者能够handle的规则引擎，要求基于python实现，整个开源社区基于python的规则引擎比较少，幸运的是找到了**business_rule**，一个多年前的基于python的规则引擎，虽然star不多，不过完美满足自己的需求，能够在支持condition和action创建，定义operator，通过all和any实现chain，同时带有一个异常简陋的交互式UI。通过增加llm作为operator，实现了面向业务的快速适配。实现效果如下：
 
-![tag\_factory\_based\_on\_business\_rule](https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/tag_factory_v0.gif?raw=true)
+
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/tag_factory_v0.gif?raw=true" width="400" align="center"/>
 
 上述工作称为tag
 \_factory\_v0，仍然属于传统规则引擎。[knowledge_table](https://knowledge-table-demo.whyhow.ai/)是近期的一个工作，通过结合llm和rule做dataframe的处理，在交互设计上非常具有启发性。比如通过定义@作为对dataframe的列的引用，一定程度上可以解决标签开发过程中的标签依赖问题。knowledge_table也采用了Python作为后端开发语言，整体代码的质量非常高，但是直接用于笔者的场景，又显得过重。因此笔者基于gradio通过不同的方式实现了类似knowledge\_table的交互效果，实用性显著提升，记为tag\_factory\_v1，实现效果如下所示：
 
-![tag\_factory\_based\_on\_knowledge\_table](https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/tag_factory.gif?raw=true)
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/tag_factory.gif?raw=true" width="400" align="center"/>
 
 进一步地，回到更加灵活的规则引擎方向上，通过拖拽的方式快速拖出来一个DAG是一个极其重要的模块，称为引擎前端。解析DAG并调度运行+运维?是引擎后端。单独两块工作分别拉出来都有不错的开源的工作，但是合并在一起的工作并不多。
 
@@ -117,6 +118,12 @@ apache-airflow作为引擎后端，能够将Python代码转化为DAG，同时实
 + 采用DS。强化版可以采用类似mlflow+DS的组合
 
 + 前端和后端分离。比如n8n+airflow的组合
+
+### 后记
+
+在调研和实现过程中发现的一个认知问题是：在过去的一些年，过于关注开源产品了。客观角度上看，闭源产品的产品力和技术力应该更好才对，比如这里的n8n。
+
+在玄难的[面向不确定性的软件设计几点思考](https://www.jiqizhixin.com/articles/2018-12-12-5)中提到，整体的演化方向是从“确定性边界向内归纳抽象找相同”转化为“确定性内核向外生长演化”，而对于规则引擎而言同时包含两个特点。
  
 ### 参考资料
 
