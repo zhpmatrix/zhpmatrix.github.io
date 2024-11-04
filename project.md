@@ -22,6 +22,7 @@ permalink: /project/
 
 **比赛经历**
 
+- [2024 年昇腾AI创新大赛浙江赛区-企业知识管理系统-铜奖](https://news.qq.com/rain/a/20241011A08LNB00) 
 - 2024 年数字医学技术及应用创新大赛-大模型医疗健康项目赛([DiMTAIC](https://tianchi.aliyun.com/competition/entrance/532264/customize528))-初赛晋级(350个团队)
 - 2024 年第四届税友工匠节之AI创新大赛-税友百事通项目-银奖
 - 2023 年第一届数字健康创新应用大赛-医疗人工智能组-中文医疗大模型增强的ICU诊疗助手-三等奖
