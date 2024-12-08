@@ -12,6 +12,11 @@ permalink: /about/
 
 ---
 
+**博客地址**
+
+[云风的BLOG](https://blog.codingnow.com/)，[立委NLP频道](https://liweinlp.com/)
+
+
 
 **聆听自然**
 
