@@ -14,7 +14,7 @@ permalink: /about/
 
 **博客地址**
 
-[云风的BLOG](https://blog.codingnow.com/)，[立委NLP频道](https://liweinlp.com/)
+[云风的BLOG](https://blog.codingnow.com/)，[立委NLP频道](https://liweinlp.com/)，[有赞技术博客](https://tech.youzan.com/)
 
 
 
