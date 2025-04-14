@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]医疗NLP的友商都有谁？"
+title: "医疗NLP的友商都有谁？"
+tags: [NLP]
 excerpt: "这篇文章是一篇友商调研，主要关注友商暂且集中在浙江杭州和中国上海。"
 date: 2021-08-16 11:40:00
 mathjax: true

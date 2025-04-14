@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[杂文]数据中台注"
+title: "数据中台注"
+tags: [技术杂文]
 excerpt: "上海的雨，一直下个不停。这篇博客是针对数据中台的读书笔记。"
 date: 2021-10-16 11:40:00
 mathjax: true

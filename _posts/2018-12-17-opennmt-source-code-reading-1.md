@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[OpenNMT]训练模块源码剖析"
+title: "训练模块源码剖析"
+tags: [工程架构]
 excerpt: "讨论训练模块的相关设计"
 date: 2018-12-17 18:43:00
 mathjax: true
@@ -8,7 +9,7 @@ mathjax: true
 
 [预处理模块代码剖析](https://zhpmatrix.github.io/2018/12/17/opennmt-source-code-reading-0/)已经梳理过了，建议在读这篇博客前先浏览一下预处理模块的文章。
 
-本部分是OpenNMT最大的模块，也是OpenNMT的核心。**OpenNMT-py的参数共有100+**，其中最多的参数也是集中在该部分，通过给train.py传递不同的参数，可以搭建各种各样的模型，简而言之，“只用参数搭模型”。
+本部分是OpenNMT最大的模块，也是OpenNMT的核心。**OpenNMT-py的参数共有100+**，其中最多的参数也是集中在该部分，通过给train.py传递不同的参数，可以搭建各种各样的模型，简而言之，"只用参数搭模型"。
 
 调用下述命令，开始训练：
 

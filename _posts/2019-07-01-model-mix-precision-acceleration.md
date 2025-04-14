@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[Pytorch]基于混和精度的模型加速"
+title: "基于混和精度的模型加速"
+tags: [PyTorch]
 excerpt: "pytorch中基于apex使用混合精度加速的四个步骤，原始非apex加速代码也可以做对应的修改，体验fp16可能带来的加速效果。"
 date: 2019-07-01 18:43:00
 mathjax: true

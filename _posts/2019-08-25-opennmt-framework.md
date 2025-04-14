@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[OpenNMT]OpenNMT核心类设计"
+title: "OpenNMT核心类设计"
+tags: [工程架构]
 excerpt: "梳理了OpenNMT源码在关键类上的设计，具体包括框架类，数据类，模型类和服务类。"
 date: 2019-08-25 15:48:00
 mathjax: true

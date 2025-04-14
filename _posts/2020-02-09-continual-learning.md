@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]关于Continual Learning在NLP问题中的应用讨论"
+title: "关于Continual Learning在NLP问题中的应用讨论"
+tags: [NLP]
 excerpt: "业务多变，模型要连续迭代，CL就是一个工业界非常实际的问题。CL@NLP的工作相对较少，这篇博客主要做一些围绕这个问题的思考，为后续研究做理论准备。"
 date: 2020-02-09 10:25:00
 mathjax: true

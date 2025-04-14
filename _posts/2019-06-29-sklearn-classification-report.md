@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[ML]P, R, F1, 啥是micro，macro和weighted avg？"
+title: "sklearn分类报告"
+tags: [机器学习]
 excerpt: "sklearn.metrics中提供了多个计算classification相关任务的评估指标，一些函数功能类似，例如f1\_score，precison\_recall\_fscore\_support和classification\_report等。此外，版本不一致情况下，函数的计算输出也不一定相同。"
 date: 2019-06-29 11:14:00
 mathjax: true
@@ -11,7 +12,7 @@ mathjax: true
 
 最近在复现ACL2019的一篇神经关系抽取相关的文章时，由于要严格比较实现的结果，因此要对齐评估。由于之前没有系统的比较过sklearn的几个multi-classification的评估函数，因此过程中踩了坑。具体是什么坑？
 
-**“我把classification\_report中的weighted avg认为成了micro avg！”**
+**"我把classification\_report中的weighted avg认为成了micro avg！"**
 
 为啥这样认为？且看sklearn不同版本下输入相同数据，classification\_report的输出对比。
 
@@ -44,7 +45,7 @@ weighted avg       0.73      0.50      0.48         8
 
 ```
 
-看出什么区别了吗？自己机器上默认安装的版本是0.21.2，加上之前在别的地方看到过0.20.3的输出，因此，我想当然的以为：**“weighted avg就是micro avg！”**。反思一下，类似的原因导致踩坑的经历有几次了，正确的经验使人进步，错误的”经验“使人阵亡。
+看出什么区别了吗？自己机器上默认安装的版本是0.21.2，加上之前在别的地方看到过0.20.3的输出，因此，我想当然的以为：**"weighted avg就是micro avg！"**。反思一下，类似的原因导致踩坑的经历有几次了，正确的经验使人进步，错误的"经验"使人阵亡。
 
 为了进一步厘清关系，看如下代码：
 
@@ -95,15 +96,15 @@ weighted avg       0.73      0.50      0.48         8
 |35|0.92|0.94|0.93|12074|
 |17|1.00|0.78|0.88|9|
 
-其中编号为35的是多数类，通常对应一个**“no_relation”**关系标签。为了比较多数类对指标的影响，进一步地可以看到如下，其中[AKBC2019](https://github.com/DFKI-NLP/TRE)的工作可以参考。
+其中编号为35的是多数类，通常对应一个**"no_relation"**关系标签。为了比较多数类对指标的影响，进一步地可以看到如下，其中[AKBC2019](https://github.com/DFKI-NLP/TRE)的工作可以参考。
 
 ![nre](http://wx3.sinaimg.cn/mw690/aba7d18bly1g4iij4mds1j20om0tw0w7.jpg)
 
 从这张图可以看到，**macro变化较小，micro变化较大。**实际上，在测试集上，即使将全部样本都预测为"no\_relation"，micro的f1约为0.78！（可以看一下参考2的计算）
 
-所以，通常相关工作是将“no_relation”去掉。读文章的时候需要小心评估方式，如果是micro，可能需要留心多数类的情况；如果是macro，指标上虽然写进论文不太好看，但是仍旧是一个相对稳定的指标，反映了基于class的平均水平。
+所以，通常相关工作是将"no_relation"去掉。读文章的时候需要小心评估方式，如果是micro，可能需要留心多数类的情况；如果是macro，指标上虽然写进论文不太好看，但是仍旧是一个相对稳定的指标，反映了基于class的平均水平。
 
-结合上图和之前的代码结果，可以认为weighted avg是**“Each class has unequal weight”**,自然可以得到**"Each instance has unequal weight"**，这是更细粒度的评估方式。这是一种自然的想法，但是我不确定有没有相关工作。上述的评估基于分类任务天然存在的结构，class和instance两种，但是如果可以很好地定义其他结构，依然可以定义出更多的评估指标。
+结合上图和之前的代码结果，可以认为weighted avg是**"Each class has unequal weight"**,自然可以得到**"Each instance has unequal weight"**，这是更细粒度的评估方式。这是一种自然的想法，但是我不确定有没有相关工作。上述的评估基于分类任务天然存在的结构，class和instance两种，但是如果可以很好地定义其他结构，依然可以定义出更多的评估指标。
 
 
 参考：

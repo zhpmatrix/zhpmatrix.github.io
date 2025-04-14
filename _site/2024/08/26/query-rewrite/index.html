@@ -1,0 +1,308 @@
+<DOCTYPE html>
+<html>
+  <head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9534180453883710"
+     crossorigin="anonymous"></script>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ohcryzf6h1");
+</script>
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4LG9G3BTNP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4LG9G3BTNP');
+</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>《A Surprisingly Simple yet Effective Multi-Query Rewriting Method for Conversational Passage Retrieval》</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2024/08/26/query-rewrite/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+ 	<font color="yellow"><a class="page-link" href="http://www.souyisou.online/">搜医搜</a></font>
+ 	<font color="yellow"><a class="page-link" href="https://aitax.17win.com/#/home?Authorization=Bearer+RKgwsKLnZ3uOoZPjU9nPEPP6H/gjZcVgFlgixoqaWSjeXvjxg9jxTA8yJzNOCd94mm7tSpzOgq0w9Q/3XZuY3MitCACEUV88dDvlWFESem/uZVjdHXvDoxFRxGUJLDByEB1GZSxrWvL9mUxlU5ykT9yDV%2BVNCfQLd6YNf7d%2Bss0=&X-App-Key=cb1e9c178a914a61b4db1bd5735f1036&X-Biz-Code=test&X-User-Id=tester&keyword=%E5%B0%8F%E5%9E%8B%E5%BE%AE%E5%88%A9%E4%BC%81%E4%B8%9A%E6%89%80%E5%BE%97%E7%A8%8E%E4%BC%98%E6%83%A0">AI搜税</a></font>
+        
+          <font color="yellow"><a class="page-link" href="/about/">about</a></font>
+        
+          
+        
+          
+        
+          <font color="yellow"><a class="page-link" href="/project/">project</a></font>
+        
+	
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>《A Surprisingly Simple yet Effective Multi-Query Rewriting Method for Conversational Passage Retrieval》</h1>
+    <p class="meta">Aug 26, 2024</p>
+  </header>
+
+  <article class="post-content">
+  <h4 id="一-基本信息">一. 基本信息</h4>
+<p>会议信息：SIGIR2024</p>
+
+<p>关键词：对话式文本检索，Query改写</p>
+
+<h4 id="二-动机和贡献">二. 动机和贡献</h4>
+
+<p>对话式文本检索中存在的一个挑战是，由于在会话历史中，存在指代，遗漏和话题转换等问题，容易导致检索出不相关的文本。通常的一个解法是根据会话历史，通过Query改写，获取一个非情景化（de-contextualized）的Query用于下游检索。但是这种解法在部分场景下可能捕捉到不正确的意图，从而导致无法检索出正确的答案，根本原因在于Query改写是一个离散生成过程，可能无法准确的捕捉到潜在概率分布和词权重。</p>
+
+<p>在一些工作中已经表明，对于相同的Query，通过整合多个改写后的Query能够进一步提升检索的效果，而beam search可以在没有任何附加成本的条件下，通过在每个生成步骤中考虑最佳的K个句子，而不是用贪心的模式选择最高概率的句子，天然生成多个改写后的Query且同时建模了词权重，方法简单有效且没有过多的计算成本。</p>
+
+<p>该工作的主要贡献如下：</p>
+
+<p>（1）比起当前主流的神经QR方法，能够以没有增加额外计算成本的前提下，产生多个Query</p>
+
+<p>（2）能够以一种非常有效的方式将产生的Query用于sparse和dense检索中
+（3）提出的方法在QReCC数据集中拿到了SOTA的结果</p>
+
+<h4 id="三-主要方法">三. 主要方法</h4>
+
+<h5 id="1-query改写">(1) Query改写</h5>
+
+<p>通过微调一个生成式语言模型在每个轮次根据beam search的得分生成TopN个改写Query，每个改写的Query有一个改写得分如下：</p>
+
+<p><img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/cmqr_1.png?raw=true" alt="1" /></p>
+
+<p>其中，t1,…,tl是预测的token，q(i,j)的<strong>绝对值符号</strong>是第i个轮次，第j个改写Query的长度，H是会话历史。考虑到RS是句子序列中词概率的乘积，改写得分会增加长度正则避免改写器产生非常短的改写结果。</p>
+
+<h5 id="2-sparse检索">(2) Sparse检索</h5>
+
+<p>sparse检索依赖bow文本表示，相关性的计算方式通常如下：</p>
+
+<p><img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/cmqr_2.png?raw=true" alt="2" /></p>
+
+<p>其中w(t,q)表示与query相关的词权重，w(t,d)表示与document相关的词权重。改写的Query用于sparse检索时，主要关注w(t,q)。经典的做法是w(t,q)=c(t,q)，其中c表示频数统计。在该工作中，可以从n个改写的query中构建一个加权bow表示的query。具体分为两个步骤：</p>
+
+<p>（1）每个改写query中的词权重，可以用beam search的得分来表示</p>
+
+<p>（2）对于词集合中的每个词，词的权重可以通过对n个改写query中对应的词的权重进行求和取平均
+本质上，上述方法通过n个query改写的结果，实现了query扩展和词权重的重估计。</p>
+
+<h5 id="3-dense检索">(3) Dense检索</h5>
+
+<p>dense检索依赖向量表示，相关性的计算方法通常如下：</p>
+
+<p><img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/cmqr_3.png?raw=true" alt="3" /></p>
+
+<p>其中h(q)表示query的向量表示，h(d)表示document的向量表示。针对第i轮的n个query，向量表示方式如下：</p>
+
+<p><img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/cmqr_4.png?raw=true" alt="4" /></p>
+
+<p>最终的query的表示是n个query的加权，比之单个query，一定程度上增加了鲁棒性。</p>
+
+<h4 id="四-实验结果">四. 实验结果</h4>
+
+<p>采用QReCC数据集，共14k个对话，包含80k个问答对，数据集分割之后，得到测试实例8209个。采用的评估指标为MAP，MRR和Recall@10。采用的微调模型为t5-base，beam width为10，sparse检索的实现基于pyserini， dense embedding模型采用GTR(t5-based)。对比的baseline分别如下：</p>
+
+<p>（1）manual rewrite。数据集中提供，人工改写的query</p>
+
+<p>（2）T5QR(Manual)。一个比较强的基于t5的query改写模型</p>
+
+<p>（3）Con-QRR。一个基于t5的利用强化学习优化检索性能之后的模型</p>
+
+<p>（4）ConvGQR。利用两个t5模型，第一个进行query改写；第二个针对改写之后的query产生answer</p>
+
+<p>（5）LLM(adhoc)。基于ChatGPT做query改写</p>
+
+<p>（6）T5QR(LLM)。整体策略同（4），不同点在于基于10k的样本做了蒸馏。</p>
+
+<p>具体实验结果如下，星号（*）表示最佳结果，下划线表示第二好的结果。</p>
+
+<p><img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/cmqr_5.png?raw=true" width="400" align="center" /></p>
+
+<p>对比分析得到：</p>
+
+<p>（1）该方法在sparse和dense两类检索中，各个数据集上都比对比的方法要好（除人工），这意味着该方法对于检索有效果上的提升。</p>
+
+<p>（2）该方法取得了在QReCC数据集上的SOTA。</p>
+
+<p>（3）虽然人工改写在TREC-CAsT数据集上取得了最好的结果，但是在QReCC数据集上，自动化的方法还是优于人工改写。</p>
+
+<h4 id="五-结论和启发">五. 结论和启发</h4>
+
+<p>（1）提出了一种不增加额外代价的query改写方法，可以以一种比较简单的方式集成在sparse和dense的检索pipeline中带来效果的提升</p>
+
+<ul>
+  <li>如何得到一个query改写模型？</li>
+</ul>
+
+<p>蒸馏LLM的结果/利用线上搜索日志等</p>
+
+<ul>
+  <li>ES混搜架构中，如何利用这种改写方法？</li>
+</ul>
+
+<p>dense检索相对直接，对于sparse检索来说，w(t,q)和w(t,d)是ES的内置操作。或者退化为一种计算关键词权重的逻辑用于召回</p>
+
+<p>（2）两个需进一步探索的想法</p>
+
+<p>（2.1）探索多query改写在精排阶段的用法</p>
+
+<ul>
+  <li>对于n个改写query，每个query和document计算相关性，按照RS加权得到最终的相关性得分</li>
+</ul>
+
+<p>（2.2）改写query个数的自动化选择</p>
+
+<ul>
+  <li>目标和反馈的确定</li>
+</ul>
+
+<p>改写后：</p>
+
+<p>目标: 计算RS的平均分&gt;=平均分阈值</p>
+
+<p>反馈：K依次递增，判断是否满足条件。如果满足则退出，否则增加K的值，直到满足条件或者等于最大的K
+改写中，根据logit来实现自动化等</p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://arvinx.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

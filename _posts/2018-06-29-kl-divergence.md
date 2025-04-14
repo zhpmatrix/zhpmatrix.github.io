@@ -1,7 +1,8 @@
 ---
 layout: post
-title: "[DL]Loss函数设计与优化"
-excerpt: "针对我们目前正在做的工作，图片难易程度划分。讨论损失函数从mse到kendall，从kendall到kl散度，再到一些新的想法。"
+title: "KL Divergence"
+tags: [深度学习]
+excerpt: "KL Divergence"
 date: 2018-06-29 14:59:00
 mathjax: true
 ---

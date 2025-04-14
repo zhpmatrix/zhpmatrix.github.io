@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]医疗实体修饰识别，是啥任务？"
+title: "医疗实体修饰识别，是啥任务？"
+tags: [NLP]
 excerpt: "和术语标准化任务类似，医疗实体修饰识别也是医疗NLP方向的特色任务"
 date: 2021-08-10 11:40:00
 mathjax: true

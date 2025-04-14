@@ -1,7 +1,8 @@
 ---
 layout: post
 comments: true
-title:  "[论文笔记]《Exploring the Impact of Table-to-Text Methods on Augmenting LLM-based Question Answering with Domain Hybrid Data》"
+title:  "《Exploring the Impact of Table-to-Text Methods on Augmenting LLM-based Question Answering with Domain Hybrid Data》"
+tags: [论文笔记]
 excerpt: "问答系统中，无论采用模型微调的方式，还是RAG的方式，将表格转化为markdown总没有错。"
 date:   2024-12-05 10:35:00
 mathjax: true

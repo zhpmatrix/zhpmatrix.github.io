@@ -1,9 +1,10 @@
 ---
 layout: post
-title: "[Spark]Spark从入门到离家出走"
+title: "Spark从入门到离家出走"
 excerpt: "这篇Blog是关于Spark的第二篇，主要回顾了三道题目，分别是词频统计，大文本去重和topK问题。同时在参考部分，列出了一些非常棒的参考资料。"
 date: 2017-11-14 19:14:00
 mathjax: true
+tags: [工程架构]
 ---
 
 前言: 明白了基本概念，剩下的架构方面的理解就会容易很多。截止写这篇Blog，还没有遇到必须要使用Spark集群的应用场景，但是想到Spark已成工业界标准，还是读了一些资料。本篇Blog是从题目出发加强对Spark的认识，同时为了辅助题目，列出了一些更有技术深度的参考资料，比如对Shuffle的理解，对Spark的性能调优等。在并行应用比赛中对Spark的使用可以参考这篇[博客](https://zhpmatrix.github.io/2017/08/12/spark/)。

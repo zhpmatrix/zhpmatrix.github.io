@@ -1,7 +1,8 @@
 ---
 layout: post
 comments: true
-title:  "[搜索系统]《Enhancing Asymmetric Web Search through Question-Answer Generation and Ranking》"
+title:  "《Enhancing Asymmetric Web Search through Question-Answer Generation and Ranking》"
+tags: [搜索]
 excerpt: "通过问答对生成的方式强化非对称网页搜索"
 date:   2024-09-24 16:35:00
 mathjax: true

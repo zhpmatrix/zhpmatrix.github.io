@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[生活杂谈]Eigen实习总结"
+title: "Eigen实习总结"
+tags: [生活杂谈]
 excerpt: "围绕在Eigen的实习内容，回顾了任务分析，论文复现，拼写检查，经验教训四个方面的内容。讲述一个小白掉入NLP坑中的辛酸史。"
 date: 2018-09-28 16:21:00
 mathjax: true

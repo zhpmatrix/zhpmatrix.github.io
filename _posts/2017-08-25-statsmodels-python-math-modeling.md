@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[Python]利用statsmodels做数学建模比赛"
+title: "利用statsmodels做数学建模比赛"
+tags: [Python]
 excerpt: "最近备战华为杯数学建模竞赛，作为一个Pythoner，偏向于通过coding进行统计分析，主要是因为SAS和SPSS不会用，囧。"
 date: 2017-08-25 12:20:00
 mathjax: true

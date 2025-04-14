@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[PyTorch]CNN系列接口Highlights"
+title: "CNN系列接口Highlights"
+tags: [PyTorch]
 excerpt: "讨论PyTorch中与CNN实现相关的接口，包括Conv层，Pooling层，Normalization层和Dropout层，Padding层。"
 date: 2019-03-11 18:43:00
 mathjax: true

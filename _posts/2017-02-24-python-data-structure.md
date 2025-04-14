@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[Python]深入理解数据结构"
+title: "深入理解数据结构"
+tags: [Python]
 excerpt: "回顾了关于copy的坑，常用数据结构的时空复杂度，同时结合CS231n的视觉课程做了python基础的review。"
 date: 2017-02-24 12:00:00
 ---

@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]Graph Learning: 一种数据组织观点"
+title: "Graph Learning: 一种数据组织观点"
+tags: [NLP]
 excerpt: "这篇博客是近期在组里的一个分享内容。主要讨论GL是什么，为什么要研究GL，怎么用GL，以及简要讨论我们自己做过的一些工作和想法。"
 date: 2020-12-19 11:40:00
 mathjax: true

@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]兜底哲学：规则引擎方法论"
+title: "兜底哲学：规则引擎方法论"
+tags: [NLP]
 excerpt: "秋水共长天一色，模型与规则齐飞。"
 date: 2020-10-21 17:58:00
 mathjax: true

@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[LLM]关于hippocratic.ai和glass.health的产品讨论"
+title: "关于hippocratic.ai和glass.health的产品讨论"
+tags: [LLM]
 excerpt: "这篇文章讨论两款基于英语世界医疗大模型的应用产品以及笔者做的背后技术拆解，最后给出近段时间笔者在大模型应用的开发推进上，形成的一些心得。"
 date: 2023-06-12 11:40:00
 ---

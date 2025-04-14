@@ -1,9 +1,27 @@
 <DOCTYPE html>
 <html>
   <head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9534180453883710"
+     crossorigin="anonymous"></script>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ohcryzf6h1");
+</script>
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4LG9G3BTNP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4LG9G3BTNP');
+</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>[比赛]天池比赛-口碑商家客流量预测(代码加速附加)</title>
+    <title>分布式加速</title>
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="致力于算法，数据和工程的全链路打通">
     <link rel="canonical" href="http://localhost:4000/2017/02/19/speed-up-distributed/">
@@ -31,7 +49,6 @@
 
     <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
     <a class="site-title" href="/">ZHPMATRIX blog</a>
-    <a class="site-title" href="/project.html">项目</a>
     <nav class="site-nav">
       <a href="#" class="menu-icon">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -45,13 +62,18 @@
         </svg>
 </a>
       <div class="trigger">
+ 	<font color="yellow"><a class="page-link" href="http://www.souyisou.online/">搜医搜</a></font>
+ 	<font color="yellow"><a class="page-link" href="https://aitax.17win.com/#/home?Authorization=Bearer+RKgwsKLnZ3uOoZPjU9nPEPP6H/gjZcVgFlgixoqaWSjeXvjxg9jxTA8yJzNOCd94mm7tSpzOgq0w9Q/3XZuY3MitCACEUV88dDvlWFESem/uZVjdHXvDoxFRxGUJLDByEB1GZSxrWvL9mUxlU5ykT9yDV%2BVNCfQLd6YNf7d%2Bss0=&X-App-Key=cb1e9c178a914a61b4db1bd5735f1036&X-Biz-Code=test&X-User-Id=tester&keyword=%E5%B0%8F%E5%9E%8B%E5%BE%AE%E5%88%A9%E4%BC%81%E4%B8%9A%E6%89%80%E5%BE%97%E7%A8%8E%E4%BC%98%E6%83%A0">AI搜税</a></font>
         
-          <a class="page-link" href="/about/">关于我</a>
+          <font color="yellow"><a class="page-link" href="/about/">about</a></font>
         
           
         
           
         
+          <font color="yellow"><a class="page-link" href="/project/">project</a></font>
+        
+	
       </div>
     </nav>
   </div>
@@ -77,7 +99,7 @@
       <div class="post">
 
   <header class="post-header">
-    <h1>[比赛]天池比赛-口碑商家客流量预测(代码加速附加)</h1>
+    <h1>分布式加速</h1>
     <p class="meta">Feb 19, 2017</p>
   </header>
 
@@ -102,7 +124,7 @@
 
 <script src="https://gist.github.com/zhpmatrix/b6d40a7eb06bf569494ba65a3b3202e4.js"></script>
 
-<p>阅读上述代码，任务队列中共有4个任务，以商家ID来表示，故结果队列也应该有4个任务结果。由于我们实验中使用两个计算节点，故每个计算节点完成两个任务，当计算节点完成任务之后，将结果（训练误差）放入共享结果队列就好。对于管理节点和计算节点，管理节点负责分发任务和收集结果，而计算节点负责具体运算。对比可以体现出“瘦管理，胖计算”的特点。</p>
+<p>阅读上述代码，任务队列中共有4个任务，以商家ID来表示，故结果队列也应该有4个任务结果。由于我们实验中使用两个计算节点，故每个计算节点完成两个任务，当计算节点完成任务之后，将结果（训练误差）放入共享结果队列就好。对于管理节点和计算节点，管理节点负责分发任务和收集结果，而计算节点负责具体运算。对比可以体现出”瘦管理，胖计算”的特点。</p>
 
 <p>由于是实验代码，故没有做参数返回检查之类的工作，假设程序能够正常运转。首先，在可扩展性方面，当我们的计算节点增加之后，计算节点的代码要进行修改，故没有良好的扩展性。其次，在某个计算节点中途宕掉，比如我强行KILL掉，容错能力怎样呢？再者，共享队列的通信方式，目前是存储有限个浮点类型数据，当数据量大的时候，通信效率如何？当然，我们的设计不需要考虑计算节点之间的通信。</p>
 
@@ -112,7 +134,30 @@
 
   <!-- mathjax -->
   
-  </div>
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://arvinx.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  
+</div>
 
       </div>
     </div>

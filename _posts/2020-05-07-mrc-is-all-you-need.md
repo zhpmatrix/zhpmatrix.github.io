@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]MRC is All you Need?"
+title: "MRC is All you Need?"
+tags: [NLP]
 excerpt: "讨论一些用MRC的方式建模文本分类，关系抽取，命名实体识别和指代消解等多个任务的想法"
 date: 2020-05-07 10:25:00
 mathjax: true

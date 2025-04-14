@@ -1,0 +1,89 @@
+<!--
+ * @Author: zhanghaipeng
+ * @Date: 2025-04-12 23:37:33
+ * @LastEditors: Do not edit
+ * @LastEditTime: 2025-04-13 18:09:32
+ * @Description: 
+-->
+<div class="tags-section">
+  <h2>标签搜索</h2>
+  <div class="tag-cloud">
+    <!-- 添加全部文章标签 -->
+    {% assign total_posts = site.posts | size %}
+    <a href="#" class="tag-link" data-tag="all">全部文章({{ total_posts }})</a>
+
+    {% assign tags = site.posts | map: 'tags' | join: ',' | split: ',' | uniq | sort %}
+    {% for tag in tags %}
+      {% if tag != nil and tag != '' %}
+        {% assign count = 0 %}
+        {% for post in site.posts %}
+          {% if post.tags contains tag %}
+            {% assign count = count | plus: 1 %}
+          {% endif %}
+        {% endfor %}
+        <a href="#" class="tag-link" data-tag="{{ tag | strip }}">{{ tag | strip }}({{ count }})</a>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <style>
+    .tags-section {
+      margin-bottom: 2em;
+    }
+    .tags-section h2 {
+      font-size: 1.2em;
+      color: #2c3e50;
+      margin-bottom: 1em;
+      font-weight: 600;
+    }
+    .tag-cloud {
+      margin-bottom: 1.5em;
+      line-height: 1.8;
+    }
+    .tag-link {
+      display: inline-block;
+      padding: 0.3em 0.8em;
+      margin: 0.2em;
+      background: #f5f5f5;
+      border-radius: 2px;
+      text-decoration: none;
+      color: #34495e;
+      font-size: 0.9em;
+      transition: all 0.2s ease;
+    }
+    .tag-link:hover {
+      background: #e8e8e8;
+      color: #2c3e50;
+    }
+    .tag-link.active {
+      background: #3498db;
+      color: white;
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const tagLinks = document.querySelectorAll('.tag-link');
+      const postItems = document.querySelectorAll('.post-item');
+      const tagPosts = document.querySelector('.tag-posts');
+
+      tagLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const tag = this.getAttribute('data-tag');
+          
+          postItems.forEach(item => {
+            const tags = item.getAttribute('data-tags').split(',');
+            if (tags.includes(tag)) {
+              item.style.display = 'block';
+            } else {
+              item.style.display = 'none';
+            }
+          });
+
+          tagPosts.style.display = 'block';
+        });
+      });
+    });
+  </script>
+</div>

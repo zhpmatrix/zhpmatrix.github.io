@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[OpenNMT]OpenNMT中Attention相关参数"
+title: "OpenNMT中Attention相关参数"
+tags: [工程架构]
 excerpt: "对opennmt-py中的train模块与attention相关的参数进行了解释和梳理，官方文档确实写的比较落后。部分参数可能需要回到代码中，或者issues区才能理解。"
 date: 2019-02-01 18:43:00
 mathjax: true

@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[PyTorch]PyTorch用于大模型训练"
+title: "PyTorch用于大模型训练"
+tags: [PyTorch]
 excerpt: "梳理有助于大模型训练的一些方法，具体包括混合精度加速，XLA加速，分布式训练，梯度累积，梯度Checkpoint相关技术。"
 date: 2019-07-18 19:31:00
 mathjax: true

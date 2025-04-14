@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[Python]编程复盘"
+title: "编程复盘"
+tags: [Python]
 excerpt: "BP算法实现后的想法"
 date: 2016-12-04 13:01:00
 mathjax: true

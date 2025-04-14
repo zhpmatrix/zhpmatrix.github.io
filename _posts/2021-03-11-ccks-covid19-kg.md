@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[医疗NLP]啥？听说你要构建一个新冠知识图谱"
+title: "啥？听说你要构建一个新冠知识图谱"
+tags: [NLP]
 excerpt: "这个图谱构建，有点意思。"
 date: 2021-03-11 11:40:00
 mathjax: true

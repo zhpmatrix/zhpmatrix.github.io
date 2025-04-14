@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]Rethink系列-copy和coverage机制"
+title: "Rethink系列-copy和coverage机制"
+tags: [NLP]
 excerpt: "从一篇论文出发，讨论了与attention相关的两种机制，这两种机制在opennmt-py中都有相应的实现，同时提了一些可以进一步思考的问题。"
 date: 2019-01-29 10:26:00
 mathjax: true

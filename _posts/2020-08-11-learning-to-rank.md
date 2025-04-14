@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]Learning to Rank用于问答匹配/答案推荐建模"
+title: "Learning to Rank用于问答匹配/答案推荐建模"
+tags: [NLP]
 excerpt: "讨论问答匹配和答案推荐建模想法"
 date: 2020-08-02 15:09:00
 mathjax: true

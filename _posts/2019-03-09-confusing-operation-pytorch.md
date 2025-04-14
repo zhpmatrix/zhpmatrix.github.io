@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[PyTorch]代码复现时的拦路虎-维度操作"
+title: "代码复现时的拦路虎-维度操作"
+tags: [PyTorch]
 excerpt: "可能是多数萌新在代码复现时遇到的最大的问题，shape不对齐。这篇博客目的就是讨论这些基础操作，以求复现时的随心所欲。"
 date: 2019-03-09 18:43:00
 mathjax: true

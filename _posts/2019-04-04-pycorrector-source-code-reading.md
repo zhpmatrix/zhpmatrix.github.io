@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]pycorrector统计语言模型部分源码阅读"
+title: "pycorrector统计语言模型部分源码阅读"
+tags: [NLP]
 excerpt: "统计语言模型用于中文纠错，这部分代码可能有一定的启发性。"
 date: 2019-04-04 18:43:00
 mathjax: true

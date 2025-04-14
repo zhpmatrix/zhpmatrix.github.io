@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[C++]unique_ptr"
+title: "unique_ptr"
+tags: [C++]
 excerpt: "xgboost中对于智能指针的使用，主要有两个shared_ptr和unique_ptr。这篇文章是对unique_ptr的理解和典型使用场景说明，以读懂xgboost源码中的使用场景为目的。"
 date: 2017-01-09 19:31:00
 ---

@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[LeetCode]关于Gas Station的思考"
+title: "关于Gas Station的思考"
+tags: [LeetCode]
 excerpt: "Gas Station是一道Medium类型的题目，这篇Blog仅仅是对该题的一些思考，并不是一个答案解析的过程。"
 date: 2017-11-10 12:19:00
 mathjax: true

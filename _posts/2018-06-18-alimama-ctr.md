@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[DM]IJCAI 2018阿里妈妈搜索广告转化预测"
+title: "阿里妈妈CTR预测"
+tags: [数据挖掘]
 excerpt: "比赛复盘"
 date: 2018-06-18 12:24:00
 mathjax: true

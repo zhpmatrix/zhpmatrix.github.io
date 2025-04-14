@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[ML]关于Blending和Stacking的讨论"
+title: "关于Blending和Stacking的讨论"
+tags: [机器学习]
 excerpt: "这篇博客讨论了模型融合技术中的Blending和Stacking，分析了二者之间的关系，同时开了Stacking和神经网络的脑洞。"
 date: 2017-10-19 14:12:00
 mathjax: true

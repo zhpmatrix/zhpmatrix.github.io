@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[Python]Python高级编程"
+title: "Python高级编程"
+tags: [Python]
 excerpt: "《Effective Python》笔记"
 date: 2019-07-03 18:43:00
 mathjax: true

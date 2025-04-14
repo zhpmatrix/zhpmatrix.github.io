@@ -1,7 +1,8 @@
 ---
 layout: post
 comments: true
-title:  "[搜索系统]一次面向垂域搜索系统的实践与思考"
+title:  "一次面向垂域搜索系统的实践与思考"
+tags: [搜索]
 excerpt: "一个如何做架构的故事"
 date:   2024-09-07 10:35:00
 mathjax: true

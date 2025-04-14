@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]因果推断+NLP"
+title: "因果推断+NLP"
+tags: [NLP]
 excerpt: "这是一篇学习笔记，讨论因果推断和NLP的互动。"
 date: 2021-10-15 11:40:00
 mathjax: true

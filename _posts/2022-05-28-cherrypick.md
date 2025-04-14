@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]医疗信息抽取中的那些Bad-Cherry-Pick?"
+title: "医疗信息抽取中的那些Bad-Cherry-Pick?"
+tags: [NLP]
 excerpt: "日常和业务方的交流过程中，有木有被对方拿着具体例子怼的经历？如果有，可以仔细看下这篇文章。"
 date: 2023-05-28 11:40:00
 mathjax: true

@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[论文笔记]《A Brief Introduction to Weakly Supervised Learning》"
+title: "《A Brief Introduction to Weakly Supervised Learning》"
+tags: [论文笔记]
 excerpt: "data hungry场景下，也许需要弱监督。"
 date: 2019-07-14 17:29:00
 mathjax: true

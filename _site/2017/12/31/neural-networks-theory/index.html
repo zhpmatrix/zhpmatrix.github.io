@@ -1,0 +1,249 @@
+<DOCTYPE html>
+<html>
+  <head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9534180453883710"
+     crossorigin="anonymous"></script>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ohcryzf6h1");
+</script>
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4LG9G3BTNP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4LG9G3BTNP');
+</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Neural Networks Theory</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2017/12/31/neural-networks-theory/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+ 	<font color="yellow"><a class="page-link" href="http://www.souyisou.online/">搜医搜</a></font>
+ 	<font color="yellow"><a class="page-link" href="https://aitax.17win.com/#/home?Authorization=Bearer+RKgwsKLnZ3uOoZPjU9nPEPP6H/gjZcVgFlgixoqaWSjeXvjxg9jxTA8yJzNOCd94mm7tSpzOgq0w9Q/3XZuY3MitCACEUV88dDvlWFESem/uZVjdHXvDoxFRxGUJLDByEB1GZSxrWvL9mUxlU5ykT9yDV%2BVNCfQLd6YNf7d%2Bss0=&X-App-Key=cb1e9c178a914a61b4db1bd5735f1036&X-Biz-Code=test&X-User-Id=tester&keyword=%E5%B0%8F%E5%9E%8B%E5%BE%AE%E5%88%A9%E4%BC%81%E4%B8%9A%E6%89%80%E5%BE%97%E7%A8%8E%E4%BC%98%E6%83%A0">AI搜税</a></font>
+        
+          <font color="yellow"><a class="page-link" href="/about/">about</a></font>
+        
+          
+        
+          
+        
+          <font color="yellow"><a class="page-link" href="/project/">project</a></font>
+        
+	
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>Neural Networks Theory</h1>
+    <p class="meta">Dec 31, 2017</p>
+  </header>
+
+  <article class="post-content">
+  <p>深度神经网络可解释的问题一直是一个研究热点和难点，可以翻COLT，NIPS，ICML等会议文章。一般会从三个角度来讨论：表达能力，优化难度，泛化。站在表达能力角度，一般认为网络更深，表达能力会更强一些。要简化优化难度，需要对数据和优化问题做假设。在假定数据和优化问题满足假设条件的前提下，使用SGD及其变种进行优化，也可以得到一个不错的解。针对泛化的讨论目前的一个焦点是Flat minima假说，该假说认为Flat minima意味着更好的泛化能力，尚未得到证明。</p>
+
+<p>这篇Blog关注优化问题。</p>
+
+<p>ML/DL中的很多问题最后都可以转化为一个优化问题。如果该问题是凸的，意味着有全局最优解；如果是非凸的，找不到全局最优解。凸优化的解决方式是简单的，但是非凸优化的解决是困难的。</p>
+
+<p>所以，首先讨论一下深度神经网络(后续以DL来代替)的损失函数与非凸的关系？</p>
+
+<p>假设激活函数是线性激活，损失函数是MSE，则该损失函数是凸的，在三维坐标中，会形成一个”碗”形结构，”碗底”就是最优值对应的参数。从非齐次线性方程组解的存在性讨论，形式为Ax=b，激活函数是线性的时候，形成的是线性方程组，b是数据标签，优化的目的是寻找最好的A。通常Ax=b会形成一个超定方程组，解决方法是最小二乘法或者说拟合的观点寻找次优解。那具体的这个方程组是怎么样的呢？</p>
+
+<p>假设网络结构为三层：输入层两个单元，代表二维输入；隐藏层三个单元；输出层一个单元；输入层和隐藏层之间的权值为(w11,w12,w21,w22,w31,w32)，输出和隐藏层之间的权值为(v11,v12,v13)，激活函数是线性的。</p>
+
+<p>假设给定数据为：(x1,x2,y)共有N个，其中N&gt;2，x1和x2表示数据的两个维度，y表示样本标签。</p>
+
+<p>则方程组的形式为:   x1*(w11*v11+w21*v12+w31*v13)+x2*(w12*v11+w22*v12+w32*v13)=y</p>
+
+<p>那么，需要求解的参数就是：w11*v11+w21*v12+w31*v13和w12*v11+w22*v12+w32*v13。假设网络为四层或者更多层，方程组的形式仍旧如上，需要求解的参数需要加上更多的权值相乘的项，不过参数个数仍然为2，由输入维度确定。</p>
+
+<p>现在由线性世界进入非线性的世界，假如使用Sigmoid激活函数呢？得到的就是一个非齐次，非线性的超定方程组了(直观上感受应该问题比较复杂)。</p>
+
+<p>StackExchange上的针对该问题的<a href="https://stats.stackexchange.com/questions/106334/cost-function-of-neural-network-is-non-convex">回答</a>高票中提到：神经网络的损失函数一般来说是既非凸也非凹的。类比于y=sin(x)，有很多的局部最大值和局部最小值，对于y=sin(x)，局部最大值等于全局最大值且局部最小值等于全局最小值，同时意味着所有的局部最小值(最大值)相等。对于非凸的损失函数来说，有很多的局部极小值，如何理解呢？对于一个神经网络，可以通过交换隐藏层的节点得到相同的局部极小值。交换节点之后，对应权值发生变化，在损失函数对应的曲面空间中，形成多个局部最小值。</p>
+
+<p>Quora针对该问题的<a href="https://www.quora.com/Why-is-a-neural-network-and-in-general-a-deep-network-non-convex">回答</a>提到：神经网络的非凸性来源于非线性激活函数。</p>
+
+<p>既然大多数DL中损失函数都是非凸的，非凸为什么很难优化？</p>
+
+<p>持续好多年，学术界认为DL在优化的时候包含很多局部极小值，使得优化算法容易陷入到这些局部极小值点中，难以自拔。2014年NIPS的文章《Identifying and attacking the saddle point problem in high-dimensional non-convex optimization》中提出，高维非凸优化的困难之处在于存在大量鞍点而非局部极小值。鞍点处满足梯度为零但是Hessian矩阵特征值有正有负，局部极小值处满足梯度为零且Hessian矩阵的特征值全部为正。</p>
+
+<p>梯度优化算法在鞍点附近，梯度很小，Loss变化很小，形成”卡住了”的现象(而且针对高维情形，鞍点附近的平坦区域可能非常大)。这种现象和局部极小值处的现象一致，或许这就是导致学术界很长一段时间认为高维非凸优化困难的原因是存在大量局部极小值的原因。二者的区别在于，虽然”卡住了”，但是还是可以从鞍点出走出来(加扰动)，有可能进入另一个鞍点附近(囧)，但是局部极小值不可以！</p>
+
+<p>与该话题相关的另外一篇文章《The Loss Surfaces of Multilayer Networks》中提到三个贡献：第一，在大网络中，大部分的局部最小值是相等的，因此在测试集上表现相似。第二，相比于小网络，大网络陷入局部最小值的可能性较低。第三，在训练集上没有必要找全局最小值，这可能导致过拟合。</p>
+
+<p>在这篇文章中，作者群对要研究的问题做了三个假设，但是在结论部分给出，假设下的模型讨论和真实模型高度相似，因此具有一定的启发性意义。</p>
+
+<p>如何有效的研究上述问题呢？</p>
+
+<p>在最近的一篇Arxiv文章《VISUALIZE THE LOSS LANDSCAPE OF NEURAL NETS》中提到：网络的架构决定了损失函数是否训练容易；训练参数(batch size, learning rate, optimizer)决定泛化性能。但是这些因素是如何影响Loss Landscape呢？能否以可视化的方式呈现？
+文章中给出了一张令人印象深刻的图片如下。</p>
+
+<p><img src="http://wx3.sinaimg.cn/mw690/aba7d18bgy1fn068o66xtj20xf0i0dsx.jpg" alt="resnet-56" /></p>
+
+<p>作者群在文章中指出：随着网络的加深，Loss Landscape突然从接近凸的状态跳转到混乱的状态，而ResNet中的Skip Connections正是阻止了这种跳转，这也解释了为什么使用Skip Connections可以训练很深的网络结构。</p>
+
+<p>《On Large-Batch Training for Deep Learning:Generalization Gap and Sharp Minima》中讨论了Batch Size和神经网络泛化能力的关系，文章用实验证明：Batch Size越大，越有可能收敛到Sharp minimizer；相反，收敛到Flat minimizer。这是由梯度估计的内在的noise引起的。</p>
+
+<p>总结：从低维视角观察到的结论不能直接推广到高维视角，要有选择的推广。比如Bengio的Saddle Point理论。至于Saddle Point是不是真的正确，还需要进一步研究。为什么使用一阶梯度优化方法可以优化一个高度非凸的损失函数且效果不错？网络架构，学习率，Batch Size等参数是如何影响神经网络的训练和泛化性能的？很多问题并没有一个很形式化或者数学上的严格的证明，但是可以看到的是学术界还在以各种方式对这些问题进行探讨。</p>
+
+<p>参考:</p>
+
+<p>1.<a href="https://www.zhihu.com/question/52782960">有哪些学术界都搞错了，忽然间有人发现问题所在的事情？</a></p>
+
+<p>2.<a href="https://dev.heuristiclab.com/trac.fcgi/wiki/Documentation/Reference/Test%20Functions">Real Valued Test Functions</a></p>
+
+<p>3.<a href="https://zhuanlan.zhihu.com/p/27609166">神经网络有什么理论支持？</a></p>
+
+<p>4.<a href="https://baike.baidu.com/item/%E9%9D%9E%E9%BD%90%E6%AC%A1%E7%BA%AA%E7%A8%8B%E7%BB%84">非齐次线性方程组解的存在性</a></p>
+
+<p>5.<a href="https://zhuanlan.zhihu.com/p/27763696">训练神经网络如何确定Batch Size？</a></p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://arvinx.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

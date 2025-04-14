@@ -1,9 +1,27 @@
 <DOCTYPE html>
 <html>
   <head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9534180453883710"
+     crossorigin="anonymous"></script>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ohcryzf6h1");
+</script>
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4LG9G3BTNP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4LG9G3BTNP');
+</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>[分布式]逻辑回归并行化</title>
+    <title>逻辑回归并行化</title>
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="致力于算法，数据和工程的全链路打通">
     <link rel="canonical" href="http://localhost:4000/2017/03/15/logistic-method-classification-mpi-parallelism/">
@@ -31,7 +49,6 @@
 
     <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
     <a class="site-title" href="/">ZHPMATRIX blog</a>
-    <a class="site-title" href="/project.html">项目</a>
     <nav class="site-nav">
       <a href="#" class="menu-icon">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -45,13 +62,18 @@
         </svg>
 </a>
       <div class="trigger">
+ 	<font color="yellow"><a class="page-link" href="http://www.souyisou.online/">搜医搜</a></font>
+ 	<font color="yellow"><a class="page-link" href="https://aitax.17win.com/#/home?Authorization=Bearer+RKgwsKLnZ3uOoZPjU9nPEPP6H/gjZcVgFlgixoqaWSjeXvjxg9jxTA8yJzNOCd94mm7tSpzOgq0w9Q/3XZuY3MitCACEUV88dDvlWFESem/uZVjdHXvDoxFRxGUJLDByEB1GZSxrWvL9mUxlU5ykT9yDV%2BVNCfQLd6YNf7d%2Bss0=&X-App-Key=cb1e9c178a914a61b4db1bd5735f1036&X-Biz-Code=test&X-User-Id=tester&keyword=%E5%B0%8F%E5%9E%8B%E5%BE%AE%E5%88%A9%E4%BC%81%E4%B8%9A%E6%89%80%E5%BE%97%E7%A8%8E%E4%BC%98%E6%83%A0">AI搜税</a></font>
         
-          <a class="page-link" href="/about/">关于我</a>
+          <font color="yellow"><a class="page-link" href="/about/">about</a></font>
         
           
         
           
         
+          <font color="yellow"><a class="page-link" href="/project/">project</a></font>
+        
+	
       </div>
     </nav>
   </div>
@@ -77,12 +99,12 @@
       <div class="post">
 
   <header class="post-header">
-    <h1>[分布式]逻辑回归并行化</h1>
+    <h1>逻辑回归并行化</h1>
     <p class="meta">Mar 15, 2017</p>
   </header>
 
   <article class="post-content">
-  <p>逻辑回归(Logistic Regression)是用于解决二分类问题的一种方法，本质上一种线性分类器。在工业界推荐系统的实践过程中，LR是“大红人”，曾经有人开玩笑说，“一招鲜，吃遍天”，理由是LR的可解释性，易控性。同时，在机器学习面试中，LR的推导通常是必知必会的内容，至于LR的原理，由于相对简单，不是本文的陈述重点，本文重在讨论LR并行化过程中踩过的“坑”，并且为了简化问题，使用了批量梯度下降(BGD)做参数更新。</p>
+  <p>逻辑回归(Logistic Regression)是用于解决二分类问题的一种方法，本质上一种线性分类器。在工业界推荐系统的实践过程中，LR是”大红人”，曾经有人开玩笑说，”一招鲜，吃遍天”，理由是LR的可解释性，易控性。同时，在机器学习面试中，LR的推导通常是必知必会的内容，至于LR的原理，由于相对简单，不是本文的陈述重点，本文重在讨论LR并行化过程中踩过的”坑”，并且为了简化问题，使用了批量梯度下降(BGD)做参数更新。</p>
 
 <hr />
 
@@ -92,7 +114,7 @@
 
 <h4 id="一基准程序">一.基准程序</h4>
 
-<p>刘文志在《并行算法设计与性能优化》中提出了14个并行算法设计的一般准则，最后一条是“步步验证”。验证需要一个基准程序，也就是一个串行LR版本。在<a href="https://zhpmatrix.github.io/2017/03/06/matrix-multiplication-mpi-openmp-cuda/">矩阵乘法的分布式实践</a>中，我们谈到了加速比和效率两个衡量指标，基准程序是一个串行矩阵乘法版本。在编写串行LR的时候，为了更好的支持向量化和矩阵运算，引入了<a href="http://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen</a>库的使用。由于代码采用C++编写，我们不用自己去实现基本矩阵运算，这大大提高了我们的开发效率，<a href="https://github.com/zhpmatrix/parallel-computing/blob/master/LogisticRegression_with_MPI/base_lr.cpp">代码这里</a>。一个基准程序的存在满足了我们性能考察和步步验证的目的。</p>
+<p>刘文志在《并行算法设计与性能优化》中提出了14个并行算法设计的一般准则，最后一条是”步步验证”。验证需要一个基准程序，也就是一个串行LR版本。在<a href="https://zhpmatrix.github.io/2017/03/06/matrix-multiplication-mpi-openmp-cuda/">矩阵乘法的分布式实践</a>中，我们谈到了加速比和效率两个衡量指标，基准程序是一个串行矩阵乘法版本。在编写串行LR的时候，为了更好的支持向量化和矩阵运算，引入了<a href="http://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen</a>库的使用。由于代码采用C++编写，我们不用自己去实现基本矩阵运算，这大大提高了我们的开发效率，<a href="https://github.com/zhpmatrix/parallel-computing/blob/master/LogisticRegression_with_MPI/base_lr.cpp">代码这里</a>。一个基准程序的存在满足了我们性能考察和步步验证的目的。</p>
 
 <h4 id="二并行程序">二.并行程序</h4>
 
@@ -128,7 +150,7 @@ Repeat Until MaxIterTimes{
 
 <p>3.程序正确性验证。</p>
 
-<p>在第一版代码中，由于没有进行程序正确性的步步验证。程序“正常运行”，但是和串行结果不一致。然后就进入了步步验证的过程，在步步验证的时候，发现了由于数据类型转换的问题，导致数据接收不正确。串行程序并行化，应该是在保证正确性的前提下加速，保证正确性的第一步通常是理论证明，我们的并行LR方案很容易证明正确，其实是保证程序运行正确，也就是程序输出和期望输出保持一致。这其实是一个非常繁琐的过程，在上文中提到MPI调试困难，因此DEBUG查看中间值几乎不可能，只能设置多处断点，运行程序，和串行程序进行结果对比。</p>
+<p>在第一版代码中，由于没有进行程序正确性的步步验证。程序”正常运行”，但是和串行结果不一致。然后就进入了步步验证的过程，在步步验证的时候，发现了由于数据类型转换的问题，导致数据接收不正确。串行程序并行化，应该是在保证正确性的前提下加速，保证正确性的第一步通常是理论证明，我们的并行LR方案很容易证明正确，其实是保证程序运行正确，也就是程序输出和期望输出保持一致。这其实是一个非常繁琐的过程，在上文中提到MPI调试困难，因此DEBUG查看中间值几乎不可能，只能设置多处断点，运行程序，和串行程序进行结果对比。</p>
 
 <h4 id="四总结">四.总结</h4>
 
@@ -161,7 +183,30 @@ Repeat Until MaxIterTimes{
 
   <!-- mathjax -->
   
-  </div>
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://arvinx.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  
+</div>
 
       </div>
     </div>

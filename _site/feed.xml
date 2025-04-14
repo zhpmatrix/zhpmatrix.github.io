@@ -5,735 +5,864 @@
     <description>致力于算法，数据和工程的全链路打通</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 25 May 2023 23:07:04 +0800</pubDate>
-    <lastBuildDate>Thu, 25 May 2023 23:07:04 +0800</lastBuildDate>
-    <generator>Jekyll v4.3.2</generator>
+    <pubDate>Mon, 14 Apr 2025 09:20:43 +0800</pubDate>
+    <lastBuildDate>Mon, 14 Apr 2025 09:20:43 +0800</lastBuildDate>
+    <generator>Jekyll v4.4.1</generator>
     
       <item>
-        <title>[思考]关于医疗NLP的讨论</title>
-        <description>&lt;p&gt;二零二三年的春天比以往显得更加美丽婀娜，窗外的细雨纷纷洒落，樱花和着泥土的芬芳，悄悄地叩打着落地窗。笔者沏茶静坐，开始写一篇很早就很想写的文章。&lt;/p&gt;
+        <title>2024年终总结</title>
+        <description>&lt;p&gt;按照惯例，每年一篇年终自我总结。过去几年的总结如下:&lt;/p&gt;
 
-&lt;p&gt;开篇先给出笔者自己的一个认识：&lt;strong&gt;假设将构建业务系统作为容器创建，构建数据系统作为给容器加水，建立智能系统作为烧水。现阶段多数处于容器创建阶段，会需要加水的系统，但是刚需的场景比较少。会需要烧水，但是刚需的场景更少。&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zhpmatrix.github.io/2023/12/31/summary/&quot;&gt;《2023结束了，说点啥》&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&amp;amp;mid=2247484533&amp;amp;idx=1&amp;amp;sn=25c6db4bcfd0235925b12e5176ddd40f&amp;amp;chksm=fc740d3ccb03842ad7644062860eeb7858656cfcfb955403f759a39ca7c5053e45069acac6e9&amp;amp;scene=21#wechat_redirect&quot;&gt;《我的2022年终总结》&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&amp;amp;mid=2247484135&amp;amp;idx=1&amp;amp;sn=476a8f6a876d47561ce3fafe1468ef7a&amp;amp;chksm=fc740baecb0382b87a97bd2aa828448305805321fef983b69d1b6f7a2ad139da8503016aa1f5&amp;amp;scene=21#wechat_redirect&quot;&gt;《2022=2021+1》&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zhpmatrix.github.io/2018/12/31/summary-2018/&quot;&gt;《二零一九，GO!》&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zhpmatrix.github.io/2018/01/02/summary-2018/&quot;&gt;《聊聊二零一七半年纪事》&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zhpmatrix.github.io/2017/07/30/semester-summary/&quot;&gt;《写在回家之前-研一下半学期总结》&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zhpmatrix.github.io/2016/12/31/summary-2016/&quot;&gt;《写在2016年最后一天》&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&amp;amp;mid=2247483688&amp;amp;idx=1&amp;amp;sn=29da4edb484e417729a8f40b2ca4af71&amp;amp;chksm=fc740861cb038177acdbcdfa091c1e4caf13f9025e6733781c4f95e8e7c8e672917bc67dfc6a&amp;amp;scene=21#wechat_redirect&quot;&gt;《写码十年》&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;由此，用于烧水的医疗NLP到底面临哪些更具体的现实的问题？&lt;/p&gt;
+&lt;hr /&gt;
 
-&lt;p&gt;（1）面向评级的销售的底层逻辑&lt;/p&gt;
+&lt;h3 id=&quot;产品技术&quot;&gt;产品&amp;amp;技术&lt;/h3&gt;
 
-&lt;p&gt;国家意志层面是“以评促建”，面向评级意味着一定程度上的自顶向下，但是实际落地过程中，是自底向上的。这样会导致一个问题，对于院方而言，有一个东西比有一个好用的东西重要。这样的话，乙方的建设目标也不是高标准的，导致乙方的产品和服务逐渐降级。“评级”的逻辑能够带来间接价值，但无法带来直接价值。&lt;/p&gt;
+&lt;p&gt;今年&lt;a href=&quot;https://zhpmatrix.github.io/2024/04/16/ending/&quot;&gt;离开&lt;/a&gt;了工作三年多的团队，加入到一个新的团队。工作的主线是基于RAG技术做一款垂直财税领域的AI搜索产品（或者说，财税领域版的metaso），作为该产品唯一的算法同学，收获了代码年产量最高的记录，PC端和移动端产品均已上线，并通过开放API的方式支持了其他业务线产品。&lt;/p&gt;
 
-&lt;p&gt;（2）价值交换体系中，项目和服务重于产品&lt;/p&gt;
+&lt;p&gt;基于一套技术架构，做了面向集团的OA产品，集团内部拿到了创新大赛的银奖，同时拿到了2024年昇腾AI创新大赛-浙江赛区的铜奖。&lt;/p&gt;
 
-&lt;p&gt;医疗的需求方的需求是多样且层次化的，这样导致需求的标准化程度较低，产品的标准化难度较高。如果无法有一个好用的产品体系能够支持交付能力的提升，会逐渐使得项目属性增加，服务比重增加。在组织上，这会带来产研侧和交付侧的边界问题。&lt;/p&gt;
+&lt;p&gt;过程中围绕架构设计做了较多的&lt;a href=&quot;https://zhpmatrix.github.io/2024/09/07/ai-tax-search/&quot;&gt;思考&lt;/a&gt;，阅读张刚老师的《软件设计：从专业到卓越》时，对软件工程的基本思想有了进一步的理解。同时，临时决定在最后两个月的时间，备考了系统架构师考试。如果24年的技术成长只有一个关键词，那就是&lt;strong&gt;架构设计&lt;/strong&gt;。&lt;/p&gt;
 
-&lt;p&gt;在&lt;a href=&quot;https://mp.weixin.qq.com/s/9v-mw0cj2gp2HG5X3hOqYQ&quot;&gt;《数据智能的历史机遇与现实困境》&lt;/a&gt;一文中有一个观点，“如果从项目角度入手，往往目标会设定成项目的验收回款，且公司的组织配套也会往复杂项目管理，行业咨询的方向偏移，后续再往产品型公司转，难度可谓是非常之大。”&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.souyisou.online/&quot;&gt;搜医搜&lt;/a&gt;是24年做的一个比较系统的个人项目。从想法出现，到代码实现，到买机器，买域名，上线推广等，个人solo的过程很值得回忆。和前同事们组队参加了2024年数字医学技术及应用创新大赛-大模型医疗健康项目赛(DiMTAIC)，初赛晋级(350个团队)，遗憾没有进入决赛。整体上，今年继续保持了在医疗业务上的持续投入，和老爸聊天的时候，多次谈到希望家里能有个职业医生，通过持续在医疗业务上的投入，也算是有一些贡献，意义感和使命感确是一件非常重要的事情。&lt;/p&gt;
 
-&lt;p&gt;（3）决策体系复杂，价值传导链路冗长&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://aitax.17win.com/#/home?Authorization=Bearer+RKgwsKLnZ3uOoZPjU9nPEPP6H/gjZcVgFlgixoqaWSjeXvjxg9jxTA8yJzNOCd94mm7tSpzOgq0w9Q/3XZuY3MitCACEUV88dDvlWFESem/uZVjdHXvDoxFRxGUJLDByEB1GZSxrWvL9mUxlU5ykT9yDV%2BVNCfQLd6YNf7d%2Bss0=&amp;amp;X-App-Key=cb1e9c178a914a61b4db1bd5735f1036&amp;amp;X-Biz-Code=test&amp;amp;X-User-Id=tester&amp;amp;keyword=%E5%B0%8F%E5%9E%8B%E5%BE%AE%E5%88%A9%E4%BC%81%E4%B8%9A%E6%89%80%E5%BE%97%E7%A8%8E%E4%BC%98%E6%83%A0&quot;&gt;爱搜税&lt;/a&gt;做了部分的投流测试，原计划搜医搜也做一部分引流，但是腾讯广告审批没有通过，加上并非刚需，遂暂时放弃。此外，在年底的时候，给自己写了近十年的个人博客增加了Google的广告，不由得感慨一下，搜索，广告和推荐确实是非常好的业务场景。&lt;/p&gt;
 
-&lt;p&gt;对于院内业务，用户和客户的利益不一致。决策需要层层上传和层层下达，当涉及多个中间方的时候，导致信息在传播过程中的损耗增加。价值链路在一定程度上和信息链路保持一致。&lt;/p&gt;
+&lt;p&gt;在文章写作上，显著降低了产出量。全年写了8篇文章，其中还有4篇还是关于论文笔记。后续文章写作上的一个主要思路将继续维持&lt;strong&gt;量少但精&lt;/strong&gt;。&lt;/p&gt;
 
-&lt;p&gt;（4）闭环构建难度高&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/zhpmatrix&quot;&gt;github&lt;/a&gt;今年共计718个follower，增加31个follower。整体贡献量主要来自离职前后这段时间做了nlp-swift项目（目前暂不开源），已经应用于目前在开发的产品中。对比23年，在github上的表现基本一致。&lt;/p&gt;
 
-&lt;p&gt;由于并非直接解决用户的问题，同时信息传导链路长，导致用户的反馈多数时候无法快速到达产品侧，产品无法快速迭代。数据和算法的闭环也较难实现。由于院内的数据不能出院，导致如果想要有效利用院内的数据，需要配套的数据的基础设施也要同步到院内，与数据的交互行为同时发生在院内，这一切在现实环境下，实现难度很高。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/github24.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;（5）研究对象自身的问题&lt;/p&gt;
+&lt;p&gt;产品侧重点读了《精益产品开发》等关于精益实践的书，临近年尾，花了好长一段时间嗑完了白鸦总的《SaaS工作手册-2.0》，获益良多。&lt;/p&gt;
 
-&lt;p&gt;针对关键研究对象，“&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&amp;amp;mid=2247484311&amp;amp;idx=1&amp;amp;sn=51c8761ac9231f8860a2aa2d1e9d1f54&amp;amp;chksm=fc740adecb0383c85e93dfc4b73123355b2f3579c3bf2d15714db44b2bda42209b9744d040e8&amp;amp;token=1707195428&amp;amp;lang=zh_CN#rd&quot;&gt;医疗大数据&lt;/a&gt;”和“&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&amp;amp;mid=2247484361&amp;amp;idx=1&amp;amp;sn=65f0728f6c9e58664179b31dc14cc7c5&amp;amp;chksm=fc740a80cb0383965fcf53ace7f6ae705bde89f02a7f7255eb95e3c9194ce0a94eafbf2fda59&amp;amp;token=1707195428&amp;amp;lang=zh_CN#rd&quot;&gt;医疗NLP&lt;/a&gt;”，笔者之前均写过文章进行分析和讨论。医疗NLP是以结构化能力为核心的应用方向，能力和内容都很重要，数据和知识都需要。但是如何实现这样的目标，在现实落地过程中，会遇到诸多的挑战。&lt;/p&gt;
+&lt;h3 id=&quot;团队管理&quot;&gt;团队&amp;amp;管理&lt;/h3&gt;
 
-&lt;p&gt;回想两年前，笔者刚刚切入医疗NLP方向时写的文章&lt;a href=&quot;https://zhpmatrix.github.io/2021/03/10/medical-survey/&quot;&gt;《NLP人误闯医疗界》&lt;/a&gt;，兴奋中夹杂着隐约的担忧。两年后，对很多问题的理解和认识也在逐渐加深。医疗人工智能还存在较大的发展空间，但是从现阶段的时间点切入，为时尚早。&lt;/p&gt;
+&lt;p&gt;刚加入新团队，过去一段时间一直是以IC的身份在Coding，产研团队整体比较扁平，沟通比较顺畅。24年继续德老爷子的书，包括《创新与企业家精神》和《管理的实践》两本书。&lt;/p&gt;
 
-&lt;p&gt;雨一直下，满眼的绿树新芽，好一派生机勃勃的模样。&lt;/p&gt;
+&lt;p&gt;产品研发过程中，会议非常少，坚持每天的晨会(站会)确实是非常有效率的事情，这样可以把时间投入到实际的产出中。&lt;/p&gt;
+
+&lt;p&gt;此外，近两年比较好奇数字游民的生活，一直在找机会到杭州数字游民圣地-良渚那边，结识相关村民。&lt;/p&gt;
+
+&lt;h3 id=&quot;生活个人&quot;&gt;生活&amp;amp;个人&lt;/h3&gt;
+
+&lt;p&gt;整体上今年的主线围绕工作，分为换工作前和换工作后，加上家有考生，生活整体上比较平静。&lt;/p&gt;
+
+&lt;p&gt;考试间隙，收到父母搬进了新房子的消息，也算是一件大喜事。老姐，外甥和老弟利用假期时间来杭州玩了几天，特种兵式旅游，太累了。办理了去香港的签证，一直没找到合适的时间。迎着台风天气去了余华的家乡海盐一趟，我喜欢这种混黄的感觉。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/haiyan.jpg?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;肉又多了。写这篇总结时，24年最后一个要完成的目标，进行中。&lt;/p&gt;
+
+&lt;p&gt;读了一些有意思的书，宁高宁的《三生万物》，刘震云的《一地鸡毛》和《一句顶一万句》，《硅谷钢铁侠》，赫拉利的新书《智人之上》，《我们生活在巨大的差距中》等。买了《耶路撒冷三千年》大部头，好久没打开了。微信读书，全年读书208小时，读过46本书，读完28本(有些读完的没有标记，微信读书的这个细节体验可以提升)，阅读217天，笔记320条，日均阅读35分钟，相比去年提升31%。&lt;/p&gt;
+
+&lt;p&gt;时常换好了一身装备去球场打球，结果找不到人组队，以至于尝试换一个运动项目，比如打羽毛球和跳绳，甚至钓鱼这种活动。&lt;/p&gt;
+
+&lt;h3 id=&quot;反思希望&quot;&gt;反思&amp;amp;希望&lt;/h3&gt;
+
+&lt;p&gt;两年前定下一个目标，能够有机会参与到一个产品的从0到1，以至于业界知名。虽然在24年分别做了两个产品的从0到1，但是业界知名还有很长的路要走。两年后，相信可遇不可求，反而有点喜欢&lt;a href=&quot;https://mp.weixin.qq.com/s/ugCmRMVenBcDPLUZmCsEqA?poc_token=HHx4UWejxwodzfOli3lRdRr2PacVZs3Gc48lOttb&quot;&gt;flomo少楠学长的一些想法&lt;/a&gt;，自己受到斯多葛主义的影响间接来自少楠的某个采访。&lt;/p&gt;
+
+&lt;p&gt;相比之前，今年的内耗明显降低了很多。自身实践比较有效的一个方法是：专注自身的目标。目标越清晰，内耗越低。与之相关的是对于网络上的信息的FOMO感越来越弱，信息带来的价值感持续降低，有些时候会产生一种生理性厌恶，相反在微信读书上的时间投入越来越长，花大时间，做高密度信息摄入。对于即时信息的摄入，基本转换为播客这种单一的形式。退出了积攒了很多年的各种所谓技术交流群。&lt;/p&gt;
+
+&lt;p&gt;逐渐步入中年，大抵孤独是常态，要学会享受孤独。多数情况下，其实很难遇到一个能够深入聊天的人，人与人之间其实很难做到感同身受。当然，孤独未必是一件坏事，通过读书和运动来化解，有足够的时间独处和思考，反而降低了孤独时的各种莫名空虚感。&lt;/p&gt;
+
+&lt;p&gt;2025年即将开始，如果用一个词来定下整体的基调，我选择:&lt;strong&gt;拿结果&lt;/strong&gt;。少做事情多思考(看五年，想三年，扎扎实实做一年)，但是决定要做的事情，一定要做到极致。越来越喜欢自己的微信签名：读万卷书，行万里路，见万种人，做一件事。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://zhpmatrix.github.io/about/&quot;&gt;扫码加笔者好友&lt;/a&gt;，茶已备好，等你来聊~&lt;/strong&gt;&lt;/p&gt;
 </description>
-        <pubDate>Mon, 20 Mar 2023 19:40:00 +0800</pubDate>
-        <link>http://localhost:4000/2023/03/20/thoughts-about-medical-algorithm/</link>
-        <guid isPermaLink="true">http://localhost:4000/2023/03/20/thoughts-about-medical-algorithm/</guid>
+        <pubDate>Tue, 31 Dec 2024 19:40:00 +0800</pubDate>
+        <link>http://localhost:4000/2024/12/31/summary/</link>
+        <guid isPermaLink="true">http://localhost:4000/2024/12/31/summary/</guid>
+        
+        <category>生活杂谈</category>
         
         
       </item>
     
       <item>
-        <title>[产品]病历质控产品观</title>
-        <description>&lt;p&gt;从公众号迁移过来，直接给出文章链接：&lt;/p&gt;
+        <title>《Exploring the Impact of Table-to-Text Methods on Augmenting LLM-based Question Answering with Domain Hybrid Data》</title>
+        <description>&lt;h4 id=&quot;基本信息&quot;&gt;基本信息&lt;/h4&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&amp;amp;mid=2247484157&amp;amp;idx=1&amp;amp;sn=959cdea822122a306327be226ff3b638&amp;amp;chksm=fc740bb4cb0382a21f7493594b960c54a0b87826e129b8d9f93652ed5b2a1d41ca4f2c5fef3c&amp;amp;mpshare=1&amp;amp;scene=23&amp;amp;srcid=0113KR0RE3zZ55CrJ3QiGBgJ&amp;amp;sharer_sharetime=1642247746745&amp;amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b#rd&quot;&gt;阅读文章&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;主题：	表格问答/大模型微调/RAG&lt;/p&gt;
+
+&lt;p&gt;作者:	东南大学，曼彻斯特大学，华为&lt;/p&gt;
+
+&lt;p&gt;会议：	NAACL2024&lt;/p&gt;
+
+&lt;h4 id=&quot;motivation&quot;&gt;Motivation&lt;/h4&gt;
+
+&lt;p&gt;表格-文本生成技术已经在NLP领域被广泛研究，围绕大模型增强的问答系统，融合文本和半结构化的表格数据是一个趋势，但是不同的表格-文本生成技术是如何影响QA系统的，并没有相对系统的对比分析。通过对不同的表格-文本生成技术的实验对比和理论分析，可以形成一些有价值的技术选型建议。&lt;/p&gt;
+
+&lt;h4 id=&quot;主要贡献&quot;&gt;主要贡献&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;通过实验证明，不同的表格-文本生成技术会显著的影响问答系统的效果。其中，人类评估的RSD（Relative Score Difference）的范围从2.8%到9.0%，GPT-4的评估范围从4.8%到16%&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;对于领域微调范式，基于LLM和传统预训练语言模型的方法在各种模型设定下，显著优于其他方法。在RAG范式下，虽然基于LLM的方法依然表现优秀，但是基于markdown的方法也表现出超出预期的有效&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;不同方法产生的领域术语和动词的频率的不同，以及在文本切片的语义表征中的质量不同，是不同方法在两类系统存在效果差异的首要因素&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;主要过程&quot;&gt;主要过程&lt;/h4&gt;
+
+&lt;h5 id=&quot;qa系统的两种实现方法&quot;&gt;QA系统的两种实现方法&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;基于领域模型微调的QA系统&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/12051.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;基于RAG的QA系统&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/12052.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;四种表格-文本生成技术&quot;&gt;四种表格-文本生成技术&lt;/h5&gt;
+
+&lt;p&gt;&lt;strong&gt;Markdown&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;直接将表格表示为markdown格式，不需要模型训练，可以利用脚本在无需人工参与的条件下快速完成转换&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Template&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;使用一系列提前设计好的适配表格特征的模版做表格的文本化。比采用markdown的方式能够实现更好的多样性，但是需要人工提前设计多种模版。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;TPLM-based&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;利用传统的预训练语言模型，比如T5和BART等，通过在跨领域的表格-文本生成数据集做微调。这种方法能够提供更高的灵活性和领域适配性，但是也要求更多的计算资源。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;LLM-based&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;GPT-*系列模型的效果多数情况下优于表现最好的微调的模型，和TPLM-based方法相比，这种方法能够通过in-context learning实现自定义的裁剪，但是同时也存在领域数据泄漏的风险。&lt;/p&gt;
+
+&lt;h5 id=&quot;实验分析&quot;&gt;实验分析&lt;/h5&gt;
+
+&lt;h6 id=&quot;数据集&quot;&gt;数据集&lt;/h6&gt;
+
+&lt;p&gt;ICT-DATA：170个信息与通信技术领域的英文技术文档，每个文档都是由文本和表格组成，其中表格数据约占总数据的18%。&lt;/p&gt;
+
+&lt;p&gt;ICTQA：从QA平台收集9000个答案较长的关于ICT产品的问答对，其中答案均是由专家根据产品文档书写的。选择500个问题做测试集，对应的答案需要同时从表格和文本中提取，剩下的问答对用于领域模型微调。&lt;/p&gt;
+
+&lt;h6 id=&quot;评估指标&quot;&gt;评估指标&lt;/h6&gt;
+
+&lt;p&gt;自动评估指标：利用GPT-4作为评估器，基于生成的答案和参考答案的相似性打分，分值范围为[0-5]，其中0表示生成的答案如”I don’t know the answer.”，1代表最小的相似度，5代表完全准确的生成答案。&lt;/p&gt;
+
+&lt;p&gt;人工评估指标：评分准则同上，利用三个领域专家进行打分。&lt;/p&gt;
+
+&lt;h6 id=&quot;实验设置&quot;&gt;实验设置&lt;/h6&gt;
+
+&lt;p&gt;用于领域微调的基座模型为Meta’s OPT(1.3B-13B)和Llama-2-base（7B,13B），采用QLora用于持续预训练和指令微调。RAG系统使用的生成模型为Llama2-chat（7B，13B和70B）以及GPT-3.5-turbo。采用文本切片切分语料，每个切片长度不高于3000个char，采用BGE向量模型做表征，利用FAISS存储向量。每个问题检索出最相似的3个切片，基于LangChain实现整体流程。&lt;/p&gt;
+
+&lt;h6 id=&quot;实验结果&quot;&gt;实验结果&lt;/h6&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/12053.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;其中，加粗表示最佳结果，下划线表示次佳结果。基于领域模型微调的方法中，无论是基于人类的评估结果还是GPT-4的评估结果，LLM-based的方法在绝大多数设定下取得最优结果。而在RAG系统中，两种评估方法中，均存在基于Markdown的表示方法取得最优结果的设定。其中RSD(Relative Score Difference)=(Highest Score - Lowest Score)/5。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;领域微调系统中，为什么TPLM-based的方法和LLM-based的方法分别取得次优和最优结果？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/12054.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上表给出了不同方法生成的语料中，领域术语和动词频率分布情况。可以看出LLM-based的方法能够得到的领域术语和动词最多，其次是TPLM-based的方法。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;RAG系统中，为什么Markdown的方法和LLM-based的方法分别取得次优和最优结果？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/12055.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;采用t-SNE方法做了切片向量的聚类可视化，对于给定Query会发现LLM-based的方法和Markdown-based的方法得到的切片，在语义空间中距离Query相比其他更加地接近。&lt;/p&gt;
+
+&lt;h4 id=&quot;思考应用&quot;&gt;思考&amp;amp;应用&lt;/h4&gt;
+
+&lt;p&gt;（1）在做表格-文本生成的时候，无论是否利用模型微调，基于大模型的方法多数情况下是最佳实践。但是RAG系统中，也可以考虑采用Markdown的方法&lt;/p&gt;
+
+&lt;p&gt;（2）基于表格的问答应用中，将表格（600*25）格按照行转换为json格式（字段名称采用中文表示），检索效果也不错&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://zhpmatrix.github.io/about/&quot;&gt;扫码加笔者好友&lt;/a&gt;，茶已备好，等你来聊~&lt;/strong&gt;&lt;/p&gt;
 </description>
-        <pubDate>Sat, 15 Jan 2022 19:40:00 +0800</pubDate>
-        <link>http://localhost:4000/2022/01/15/mrqc/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022/01/15/mrqc/</guid>
+        <pubDate>Thu, 05 Dec 2024 18:35:00 +0800</pubDate>
+        <link>http://localhost:4000/2024/12/05/paper-reading/</link>
+        <guid isPermaLink="true">http://localhost:4000/2024/12/05/paper-reading/</guid>
+        
+        <category>论文笔记</category>
         
         
       </item>
     
       <item>
-        <title>[生活感悟]年终总结：2022=2021+1</title>
-        <description>&lt;p&gt;直接从个人的公众号转载至博客，如下:&lt;/p&gt;
+        <title>读粱宁的《真需求》</title>
+        <description>&lt;p&gt;花了周五一个晚上和周六一个下午的时间，读完了粱宁老师的《真需求》，这是一篇读书笔记。第一次知道梁老师是几年前读《产品思维30讲》的时候，对于一个菜鸡🐔而言颇有启发。题图是书中附带的一张画，上联是“赚到钱才是真需求”，下联是“真需求才能赚到钱”。&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&amp;amp;mid=2247484135&amp;amp;idx=1&amp;amp;sn=476a8f6a876d47561ce3fafe1468ef7a&amp;amp;chksm=fc740baecb0382b87a97bd2aa828448305805321fef983b69d1b6f7a2ad139da8503016aa1f5&amp;amp;mpshare=1&amp;amp;scene=23&amp;amp;srcid=1231Ztcy7xNCUTmI6GqiHFer&amp;amp;sharer_sharetime=1641534491215&amp;amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b#rd&quot;&gt;年终总结：2022=2021+1&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;粱老师定义的真需求是两个商业闭环的交集，分别是&lt;strong&gt;价值-共识-模式闭环&lt;/strong&gt;和&lt;strong&gt;生态位-因果链-定价权闭环&lt;/strong&gt;，前者是产品思维，用于回应用户需求，后者是产业思维，用于回应环境需求，只不过在这本书中只讲了前者。&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;做出有价值的东西和做出有商业价值的东西，是两回事。&lt;/strong&gt;能够在市场中变现，用户愿意付费获得的，才叫商业价值。从笔者狭隘的视角来看，这种矛盾无处不在且时常发生。比如llya和altman的故事，实验室成果和商业产品之间的关系，发明人和企业家等。部分创始人纠结的一个地方在于认为自己做的产品非常有价值，但是为什么卖的不好？是因为有价值但是没有商业价值。&lt;/p&gt;
+
+&lt;p&gt;为此要摆脱自己的主观感受和愿望，站到交易对手那一侧来审视手上的一切。&lt;/p&gt;
+
+&lt;p&gt;书中提到《情绪价值》的作者蔡钰提出的产品价值公式：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;产品价值 = 功能价值+情绪价值+资产价值&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;其中功能价值包含四种不同模型，分别是原材料/劳动力模型，专利IP（知识产权）模型，平台/供应链模型，基础设施模型。经典死法是匪兵甲，也就是自己看自己有模有样，但与主角一比，立刻被结构性碾压。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;情绪价值=生理唤起+认知标记+心理账户&lt;/strong&gt;。巧克力味的屎和屎味的巧克力，对于婴儿来说并无区别，但是对于成年人就不同了，因为成年人有了认知标记。生理唤起和认知标记决定了情绪的产生，心理账户决定了用户是否会付费以及愿意付多少。酒是最古老，最普遍的情绪商品。“貂丁”是情绪价值的经典死法。郭德刚老师在相声中有云：&lt;/p&gt;
+
+&lt;p&gt;“大户人家啊，不光吃的讲究，穿的也讲究。夏天穿一条丁字裤，冬天穿一条丁字棉裤，去东北这种极冷的地方还要穿貂丁。什么是貂丁？就是貂皮做的丁字裤，不是大户人家出身的想必没见过。”&lt;/p&gt;
+
+&lt;p&gt;可持续变现就有资产价值。可持续变现需要两个条件如下：&lt;/p&gt;
+
+&lt;p&gt;(1)有一个可供它持续变现的专门市场/二手市场及配套服务&lt;/p&gt;
+
+&lt;p&gt;(2)它在专门市场/二手市场的价值与价格依赖于某个共识&lt;/p&gt;
+
+&lt;p&gt;《瓦尔登湖》中梭罗的房子因为没有产权证，无法满足条件（1），因此虽然具备功能价值和情绪价值，但是不具备资产价值。由于艺术品市场的共识，梵高的画很贵。&lt;/p&gt;
+
+&lt;p&gt;共识是如何形成的？共识和非共识，以及创新的关系是什么？又是一个非常有意思的问题。&lt;/p&gt;
+
+&lt;p&gt;产品创新是指创造新功能，新情绪和新资产。过去百年商品的演化，具有功能价值的商品一直在整合，情绪价值的商品一直在分化。而今天家庭的价值，很大一部分是这个家庭的成员做共建的情绪价值​和资产价值。&lt;/p&gt;
+
+&lt;p&gt;在讲中国手机30年的时候，书中写到一段话，“所以，经济下滑时，产品卖不出去，如果简单地归因于用户没钱了，那肯定是错的。当年更没钱，但真需要的东西，还是要买。是因为你提供的东西，今天的用户没那么需要了。”&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;商业创新者的核心能力，其实就两条​：创造价值的能力和领导共识的能力​。&lt;/strong&gt;所有的创新，起始都是​“非共识”。最容易达成的共识​是“你的长项和特性，正好是对方的期望属性。”&lt;/p&gt;
+
+&lt;p&gt;如何界定产品和服务？产品的本质就是服务，二者都要​为用户解决问题。&lt;/p&gt;
+
+&lt;p&gt;创新不赚钱​。创新是一路花钱，花时间​，交各种学费。赚到钱的人，要么是变现自己已经轻车熟路的能力，要么是准备了充足的学费，一直撑到自己轻车熟路的那一天​。而绝大多数创业失败的人，都是做着自己并不熟悉，不清楚深浅的事，一边干，一边交学费​，走到半路，学费不够了。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;​什么是商业模式？模式设计主要包含三大模块，分别是能力系统，变现逻辑和​分配机制。&lt;/strong&gt;权力的核心是分配权，评估一个人​有三个要点：技能点，资源盘和影响力​。你能连接的人，不是你的人脉​；你能帮到的人，才是你的人脉。人只能​对自己有需求的人建立关系。&lt;/p&gt;
+
+&lt;p&gt;规划思维中，人会很清楚什么是对的​。完成计划的方向​，就是对的方向。演化思维的特点则是，没有计划，只有一个大概的方向和大概的原则，根据世界的真实反馈进行调整​和迭代。​&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://zhpmatrix.github.io/about/&quot;&gt;扫码加笔者好友&lt;/a&gt;，茶已备好，等你来聊~&lt;/strong&gt;&lt;/p&gt;
 </description>
-        <pubDate>Fri, 07 Jan 2022 19:40:00 +0800</pubDate>
-        <link>http://localhost:4000/2022/01/07/2021-review/</link>
-        <guid isPermaLink="true">http://localhost:4000/2022/01/07/2021-review/</guid>
+        <pubDate>Sat, 02 Nov 2024 18:35:00 +0800</pubDate>
+        <link>http://localhost:4000/2024/11/02/real-requirements-reading/</link>
+        <guid isPermaLink="true">http://localhost:4000/2024/11/02/real-requirements-reading/</guid>
+        
+        <category>读书笔记</category>
         
         
       </item>
     
       <item>
-        <title>[思考]问答系统的结构化探索</title>
-        <description>&lt;p&gt;在之前的文章，&lt;a href=&quot;https://zhpmatrix.github.io/2021/10/01/zhuanbingku/&quot;&gt;专病库方法论&lt;/a&gt;中，讨论了专病库相关的思考逻辑。本质上，专病库是医疗领域电子病历系统的结构化。&lt;/p&gt;
+        <title>再议规则引擎</title>
+        <description>&lt;h3 id=&quot;前言&quot;&gt;前言&lt;/h3&gt;
 
-&lt;p&gt;对比问答系统，由于问答系统的各个形态已经趋于成熟，因此很多工作以文字稿件的方式发布出来，典型的，比如DataFunTalk的工作。总结这些文字稿件，存在两个显著的特点：&lt;/p&gt;
+&lt;p&gt;既上一篇讨论规则引擎的文章&lt;a href=&quot;https://zhpmatrix.github.io/2020/10/21/rule-is-all-you-need/&quot;&gt;兜底哲学:规则引擎方法论&lt;/a&gt;，转眼已经过去了四年。这篇文章是笔者最近围绕规则引擎的实践和思考。&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;多。包含各厂的问答系统，涉及多个行业，包括多个组件&lt;/li&gt;
-  &lt;li&gt;标准化程度高。由于问答系统的成熟度较高，因此技术标准化的程度也较高，继而相关文字稿的标准化程度高&lt;/li&gt;
-&lt;/ul&gt;
+&lt;h3 id=&quot;业务场景&quot;&gt;业务场景&lt;/h3&gt;
 
-&lt;p&gt;由于上述两个特点的存在，这是一个天然适合做结构化的场景。我们可以做三件有意思的事情，如下：&lt;/p&gt;
+&lt;p&gt;在围绕知识中台构建知识资产时，需要对知识文书打标签，由于需要实现的标签非常多，每个标签的代码实现类似如下:&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;整理一个文字稿数据库（工业界+智能客服）。&lt;/li&gt;
-  &lt;li&gt;梳理一个结构化字段列表（有价值的字段）。&lt;/li&gt;
-  &lt;li&gt;构建一个问答系统的结构化数据库（人工）。&lt;/li&gt;
-&lt;/ul&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  if check_words_exist(attachment_content,
+                [&quot;未开具发票&quot;,&quot;不列收入&quot;,&quot;少列收入&quot;,&quot;少计销售收入&quot;,&quot;少计销售货物收入&quot;,&quot;未入账收入&quot;,&quot;未入账含税收入&quot;,&quot;少申报收入&quot;,&quot;收入未列&quot;,&quot;未申报确认收入&quot;,&quot;未作视同销售处理&quot;,&quot;账外收入&quot;]) or \
+                check_two_words_exist(attachment_content,
+                                    &quot;销售货物&quot;,
+                                    &quot;未申报&quot;,
+                                    20) or \
+                check_two_words_exist(attachment_content,
+                                    &quot;少计&quot;,
+                                    &quot;收入&quot;,
+                                    20) or \
+                check_two_words_exist(attachment_content,
+                                    &quot;少记&quot;,
+                                    &quot;收入&quot;,
+                                    20) or \
+                check_two_words_exist(attachment_content,
+                                    &quot;收入&quot;,
+                                    &quot;未列&quot;,
+                                    20) or \
+                check_two_words_exist(attachment_content,
+                                    &quot;收入&quot;,
+                                    &quot;未入&quot;,
+                                    20) or \
+                check_three_words_exist(attachment_content,[&quot;未&quot;,&quot;申报&quot;,&quot;收入&quot;],[20,20]) or \
+                check_three_words_exist(attachment_content,[&quot;未&quot;,&quot;确认&quot;,&quot;收入&quot;],[20,20]) or \
+                check_three_words_exist(attachment_content,[&quot;收入&quot;,&quot;未&quot;,&quot;申报&quot;],[20,20]):
+                label_mapping[&quot;隐瞒收入&quot;] = True
+            if check_words_exist(attachment_content,
+                [&quot;私账&quot;,&quot;个人银行帐号&quot;,&quot;个人银行账户&quot;,&quot;微信&quot;,&quot;信用卡&quot;,&quot;私人账户&quot;,&quot;账外收入&quot;]             
+                                 ):
+                label_mapping[&quot;公转私/个人卡&quot;]=True
+            if check_words_exist(attachment_content,[&quot;个人所得税&quot;]):
+                label_mapping[&quot;未缴或少缴个人所得税&quot;] = True
+            if (doc_type == &quot;重大税收违法失信主体通知书&quot; and check_two_words_exist(case_fea_paragraph,&quot;虚开&quot;,&quot;抵扣&quot;,50)) or \
+                (doc_type != &quot;重大税收违法失信主体通知书&quot; and check_two_words_exist(attachment_content,&quot;虚开&quot;,&quot;抵扣&quot;,50)) or \
+                (doc_type != &quot;重大税收违法失信主体通知书&quot; and check_words_exist(attachment_content,[&quot;让他人为自己开具&quot;,&quot;向你公司开具&quot;,&quot;开具给你公司&quot;,&quot;取得他人虚开&quot;])) or \
+                (doc_type != &quot;重大税收违法失信主体通知书&quot; and check_three_words_exist(attachment_content,[&quot;取得&quot;,&quot;开具&quot;,&quot;发票&quot;],[20,20])) or \
+                (doc_type != &quot;重大税收违法失信主体通知书&quot; and check_three_words_exist(attachment_content,[&quot;接受&quot;,&quot;开具&quot;,&quot;发票&quot;],[20,20])) or \
+                (doc_type != &quot;重大税收违法失信主体通知书&quot; and check_three_words_exist(attachment_content,[&quot;接受&quot;,&quot;虚开&quot;,&quot;发票&quot;],[20,20])):
+                label_mapping[&quot;虚开发票-申报抵扣&quot;] = True
+            if check_two_words_exist(attachment_content,&quot;开具与实际经营业务情况不符&quot;,&quot;发票&quot;,50) or \
+               check_two_words_exist(attachment_content,&quot;代开与实际经营业务情况不符&quot;,&quot;发票&quot;,50) or \
+               check_words_exist(attachment_content,[&quot;对外虚开&quot;,&quot;对外开具&quot;]) or \
+               check_two_words_exist(attachment_content,&quot;你公司向&quot;,&quot;开具&quot;,50) or \
+               check_two_words_exist(attachment_content,&quot;开具给&quot;,&quot;发票&quot;,50) or \
+               custom_check_type(attachment_content,&quot;你公司&quot;,&quot;开具&quot;,&quot;发票&quot;) or \
+               custom_check_type(attachment_content,&quot;你单位&quot;,&quot;开具&quot;,&quot;发票&quot;) or \
+               (check_two_words_exist(attachment_content,&quot;虚开&quot;,&quot;发票&quot;,50) and label_mapping[&quot;虚开发票-申报抵扣&quot;] == False):
+                label_mapping[&quot;虚开发票-对外虚开&quot;] = True
+            if (doc_type == &quot;重大税收违法失信主体通知书&quot; and check_words_exist(case_fea_paragraph,[&quot;骗取出口退税&quot;])) or \
+                (doc_type == &quot;重大税收违法失信主体通知书&quot; and check_words_exist(illfact_paragraph,[&quot;骗取出口退税&quot;])) or \
+                (doc_type != &quot;重大税收违法失信主体通知书&quot; and check_words_exist(attachment_content,[&quot;出口&quot;])) or \
+                (doc_type != &quot;重大税收违法失信主体通知书&quot; and check_two_words_exist(attachment_content,&quot;虚开发票&quot;,&quot;申报出口退税&quot;,50))  or \
+                  (doc_type != &quot;重大税收违法失信主体通知书&quot; and check_two_words_exist(attachment_content,&quot;骗取&quot;,&quot;出口退税&quot;,50)): 
+                label_mapping[&quot;骗取出口退税&quot;] = True
+            if (doc_type == &quot;重大税收违法失信主体通知书&quot; and check_words_exist(case_fea_paragraph,[&quot;少缴&quot;,&quot;未缴&quot;,&quot;逃避缴纳&quot;,&quot;偷税&quot;,&quot;逃避追缴欠税&quot;])) or \
+                (doc_type == &quot;重大税收违法失信主体通知书&quot; and check_words_exist(illfact_paragraph,[&quot;少缴&quot;,&quot;未缴&quot;,&quot;逃避缴纳&quot;,&quot;偷税&quot;,&quot;逃避追缴欠税&quot;])) or \
+                (doc_type != &quot;重大税收违法失信主体通知书&quot; and check_words_exist(attachment_content,[&quot;少缴&quot;,&quot;未缴&quot;,&quot;逃避缴纳&quot;])):
+                label_mapping[&quot;少缴应纳税款&quot;] = True
+            if doc_type == &quot;催告书&quot;:label_mapping[&quot;强制执行&quot;] = True
 
-&lt;p&gt;这里有一些必要的说明。首先，我们的研究对象是工业界的工作。因为，工业界这样的工作，在我们的信息范围内，还没有人做过。相比学术界，学术界的一些综述文章，会从一个又小又细的角度对比学术上的工作。这不是我们擅长的，也不是我们认为我们能够做的有价值的工作。&lt;/p&gt;
-
-&lt;p&gt;即使是问答系统一个方向，仍旧存在大量的细分领域。比如，独立APP的内置问答系统和SaaS化的问答组件，电商领域的客服机器人或者金融保险问答机器人等。这里，我们的定位是智能客服。一个我们认为成熟度较高，商业化相对成功的细分方向。&lt;/p&gt;
-
-&lt;p&gt;既然是结构化，定义结构化的维度是最为核心的工作。这里也是业务思考可以有效注入的地方。一个专病库的维度定义可以消耗一个团队近三年的时间。在我们的工作中，梳理出一个有价值的字段列表，也将是我们最为重要的工作。在和不同的小伙伴聊这个想法的时候，大家都对此有疑问。一个基本的想法是：字段列表基本代表了字段提议者对问答系统的技术审美水平。&lt;/p&gt;
-
-&lt;p&gt;最后一个定位是，人工完成结构化的工作。这里的思考是相关文字稿多，但是没有多到需要自动化的程度。这些文字稿内含的信息量巨大，单纯从统计的观点来阅读这些文字稿，在价值呈现上并不理想。类似的工作，包括医疗领域的OMAHA（年费巨高）。&lt;/p&gt;
-
-&lt;p&gt;问答系统的结构化数据库可以提供的价值是什么？我们认为整个事情可以提供多个价值输出点，&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;文字稿数据库&lt;/li&gt;
-  &lt;li&gt;一个观察智能客服问答系统的能够代表我们观点的维度体系&lt;/li&gt;
-  &lt;li&gt;一个结构化数据库（快速信息检索和结论发现）&lt;/li&gt;
-  &lt;li&gt;想法的延伸：一个知识图谱类的结构化数据库（但是难度更高一些，后面有机会再讨论）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;基于上述思考，可以真正的开始动手推进了。目前，我们的文字稿数据库的构建主要由以下来源构成：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Github的开源文字稿收集整理&lt;/li&gt;
-  &lt;li&gt;DataFunTalk的相关文稿爬虫获取&lt;/li&gt;
-  &lt;li&gt;网页搜索结果的分类整合&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;具体的类别包括如下：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;文章&lt;/li&gt;
-  &lt;li&gt;论文&lt;/li&gt;
-  &lt;li&gt;PPT&lt;/li&gt;
-  &lt;li&gt;视频&lt;/li&gt;
-  &lt;li&gt;音频&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;有了文字稿数据库，我们可以结合这些内容定义一个维度体系。这里给出截止目前，我们的工作：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://s3.bmp.ovh/imgs/2021/11/353c19c8a77461ee.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;整个探索中，最具争议性的内容就存在与此。基于上述文字稿数据库和定义的维度体系，我们做了一个基本的结构化数据库，截图如下：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://s3.bmp.ovh/imgs/2021/11/642c74263c06cea1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;整体事情仍在进行中，尚未取得最终结果。但是，通过这次脑洞实验，加深了对结构化进一步的理解。到底什么场景需要结构化？什么是结构化？为什么要做结构化？结构化什么内容？&lt;/p&gt;
-
-&lt;p&gt;从信息提供的粒度大小来看，文字稿提供了最为丰富的粒度，最为细节的刻画，结构化其实淡化了这种表达。但是结构化，通过对核心要素的抽取，勾画了一个完整事件的全貌。能够提供我们获取有效信息的效率。此外，结构化对于统计场景下的问题，有巨大的价值。所谓，从N=1来看，一无是处，从N=无穷大来看，价值无限。&lt;/p&gt;
-
-&lt;p&gt;但是，结构化也是提升可理解性的一个技术手段，一种细粒度信息获取的途径，这个时候，我们并不关心研究对象的规模。&lt;/p&gt;
-</description>
-        <pubDate>Mon, 15 Nov 2021 19:40:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/11/15/qa-survery/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/11/15/qa-survery/</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>[思考]一个想象的搜索系统</title>
-        <description>&lt;p&gt;这篇文章尝试从脑暴一个搜索系统开始，讨论搜索系统的大组件，进而讨论推荐和搜索的联系和区别，以及笔者个人对推荐和搜索以及广告方向中机会存在的理解，最后回到NLP，讨论与前三者的关系。&lt;/p&gt;
-
-&lt;p&gt;输入一个Query，浏览器立刻返回一个相关结果列表。从这句描述中，我们尝试拆分出关键要素：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;input：Query&lt;/li&gt;
-  &lt;li&gt;output：结果（相关+快速+有限）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;搜索引擎是F，其中output = F(input)。搜索系统是用工程的方法，协同数据和引擎的建设。&lt;/p&gt;
-
-&lt;p&gt;所有上述的关键要素，决定了搜索系统的问题定义是明确且清晰的。信息检索在数据激增的互联网时代具备不可估量的商业价值，也就是说互联网时代（PC+移动）带来了数据，继而激发了对搜索的刚需。因而搜索是一个极具价值的方向。搜索系统是工程+算法+数据的协同，从这个角度来看，和推荐系统类似。&lt;/p&gt;
-
-&lt;p&gt;但是，搜索系统的黄金年代已经过去。正如推荐系统的黄金年代正在逝去一样。&lt;/p&gt;
-
-&lt;p&gt;既然是搜索，首先要解决的是从哪儿搜的问题？这是一个数据建设问题。我们尝试想一下：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;全网。大规模分布式爬虫爬全网数据（通用+规模大+反爬/版权）&lt;/li&gt;
-  &lt;li&gt;自有。数据源由自有业务产生，不依赖第三方数据内容（垂直+规模小+无版权问题）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;第一种，数据是卡脖子问题（见百度的百家号，自建内容体系）。第二种，只满足垂域搜索需求。&lt;/p&gt;
-
-&lt;p&gt;所以，数据建设问题是一个标准的工程问题。&lt;/p&gt;
-
-&lt;p&gt;理论上，用户想要搜索的所有结果都会存在于这个数据源中。因此，接下来要考虑的是，用户想要搜索什么？这是一个Query理解问题。既然要理解首先要关注Query的类型。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;常见Query+长尾Query（长尾ROI低，解决常见Query）&lt;/li&gt;
-  &lt;li&gt;长Query+短Query（长Query意味着Context丰富，有助于精确理解用户意图）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;在搜索的场景中，用户画像对Query理解是有帮助的，但是也许并不如推荐系统中的影响。本质上，是input和数据源两侧的信息量存在巨大的空隙，用户画像带来的信息量，不足以显著缩小二者的距离。&lt;/p&gt;
-
-&lt;p&gt;既然是理解问题，就可以转化为一个标准的自然语言理解问题。这里，纠错，分词，意图识别，命名实体识别，将单一Query作为研究对象，以结构化为目标。考虑到与数据源关系的建立，改写也将是一个重要的基础NLP问题。&lt;/p&gt;
-
-&lt;p&gt;上文，讨论了Query+数据源，之后就可以讨论如何搜的问题了？在output侧，我们的目标之一是相关，也就是找到数据源中与Query最相关的元素，这里可以被定义的问题是相关性，又是一个经典的NLP问题。在SIGIR中，有大量的工作是围绕相关性展开的。&lt;/p&gt;
-
-&lt;p&gt;但是我们的另外一个目标是快速。考虑我们搜索的场景，给定Query，返回相关的结果列表，这里以URL作为表示。一种轻量的方案是，我们在数据源到位的时候，就从数据源出发，构建好很多的可能的Query，转化为一个问题生成任务（NLG），然后将问题-数据源的pair提前离线存储好。这样就可以直接通过计算Query和问题的相似性，返回数据源作为结果列表。从问答系统的角度来看，将搜索转为一个问答过程，或者一个FAQ问题。这里，也从一个角度回答了搜索和问答系统的关系。&lt;/p&gt;
-
-&lt;p&gt;但是，问题生成是一个很难的问题，本质上仍旧是一个理解问题，容易由该环节的noise导致下游的noise。能不能不要理解环节？&lt;/p&gt;
-
-&lt;p&gt;直接从数据源中抽取一些句子，短语或者词。三种形态对应Query的常见形态。这样，直接通过硬匹配，就可以找到”相关“的结果了。为了保证最大的灵活性，可以以最小粒度的词作为抽取对象。这样，通过对Query分词，然后以词的粒度去数据源中匹配，就可以找到相关的结果。&lt;/p&gt;
-
-&lt;p&gt;最重要的，建立词和数据源的映射关系，是可以离线计算的。这里讨论的其实是倒排索引。&lt;/p&gt;
-
-&lt;p&gt;搜索的核心环节是在一个索引结构中查找的过程。快速的查找+结果合并（相关性提升）是该过程中的核心亮点。&lt;/p&gt;
-
-&lt;p&gt;围绕最后一个目标是有限，本质上是一个TopK问题（相关性问题）。&lt;/p&gt;
-
-&lt;p&gt;综上，一个搜索系统的核心组件=数据源+Query+搜索过程（索引构建+查询+结果合并+相关性排序）就讨论完了。&lt;/p&gt;
-
-&lt;p&gt;接下来，我们想要讨论的问题是，搜索和推荐的联系和区别是什么？&lt;/p&gt;
-
-&lt;p&gt;不同(v.s.):&lt;/p&gt;
-
-&lt;p&gt;搜索（人找item） v.s. 推荐（item找人）&lt;/p&gt;
-
-&lt;p&gt;搜索（理解query+信息量少）v.s. 推荐(理解人+信息量丰富)&lt;/p&gt;
-
-&lt;p&gt;相同(=):&lt;/p&gt;
-
-&lt;p&gt;搜索（数据源+理解）= 推荐（item库+理解）&lt;/p&gt;
-
-&lt;p&gt;搜索（数据源+query的相关性）= 推荐（item库+人的相关性）&lt;/p&gt;
-
-&lt;p&gt;搜索（query和数据源的链接） = 推荐（人和item的链接）&lt;/p&gt;
-
-&lt;p&gt;还有很多比较的维度，不再陈述。这里想讨论的核心论点是：搜索和推荐系统存在很多的共性，也许从低层技术基础建设来说，二者是可以共享的。其实，包括广告系统，在核心技术上存在与搜索和推荐系统的共享组件。不过，各个方向都具有自己独特的特点，比如广告的定价/计费系统。&lt;/p&gt;
-
-&lt;p&gt;通用搜索的价值&amp;gt;垂域搜索的价值，Google和Baidu做的是通用搜索，但是垂域搜索仍旧是一个刚需，只是空间不大，天花板不高。本质上与搜索解决的核心问题有关，在数据源足够大的时候，更能凸显搜索的价值，垂直的本质缺陷是数据源小。只所以仍旧是刚需，是因为这个小的数据源相比人类的搜索能力而言，仍旧太大了。2021年的今天进入搜索领域，能够学习到一个完整的系统，算法加数据的经典技术方向，但是对个人而言，机会应该不是很大了。&lt;/p&gt;
-
-&lt;p&gt;垂域推荐的价值&amp;gt;通用推荐的价值。仍旧与推荐解决的核心问题有关，item找人，需要对人有丰富的理解。通用推荐的核心难点是无法对人进行充分的理解，本质上仍旧是item和人两侧的信息量的空隙过大导致建立二者的映射是一件非常困难的事情（假设空间爆炸）。垂域推荐典型的电商推荐，音乐推荐，图书推荐，视频推荐等。垂域推荐的机会在于域的规模很大，对于搜索而言，数据源所有厂家都可以共用一个，但是item库却是每家都不同，每个域都不同。推荐系统由于item和人建立假设的空间足够大，也就是探索的空间足够大，也使得推荐领域可以吸纳很多的同学参与其中。总结一句，垂域推荐在技术侧已经基本收敛，机会在于业务价值（利好做业务的同学），做不同的域推荐。通用推荐正如通用问答系统一样，个人还看不到价值。&lt;/p&gt;
-
-&lt;p&gt;对于个人而言，机会价值排序：推荐&amp;gt;搜索&amp;gt;广告（吸金但是似乎是可以放进博物馆的技术名词），而NLP是各个系统中关键环节的关键技术，是单点能力，而非系统性的解决方案。由此导致NLP是一个纯粹的技术方向，无法直面业务，直接解决问题本身（利好做技术的同学）。&lt;/p&gt;
-
-&lt;p&gt;相关文章：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://cloud.tencent.com/developer/article/1048646&quot;&gt;沈剑的文章&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s/bdWPZCcGKlMSstmxlaTQ4g&quot;&gt;搜索+推荐+广告系统的区别&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Thu, 28 Oct 2021 19:40:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/10/28/search-system/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/10/28/search-system/</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>[RecSys]再议推荐系统</title>
-        <description>&lt;p&gt;最近在阅读Ricci的&lt;a href=&quot;https://book.douban.com/subject/26437066/&quot;&gt;《Recommender Systems Handbook》&lt;/a&gt;，顺道阅读了公众号《炼丹笔记》的所有文章，公众号《机器学习与推荐系统》的所有文章，翻了RecSys等相关会议的一大坨纸，其中，不乏该方向上业界比较资深的大佬的观点和认识。这篇博客是笔者自己的一个笔记和心得。心得总述如下：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;推荐系统是一个算法，工程，业务强耦合的方向。其中，算法上的定义是良好且清晰的（定义简单，目标复杂），工程上需要多方数据联动，效率和稳定性保障，对业务的理解深度是影响推荐效果提升的重要变量（强业务属性）&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;作为搜索，推荐，广告三驾马车之一，是商业变现的重要手段之一。NLP作为原子能力，通过支持三驾马车，间接赋能业务场景（NLP作为核心能力直面业务的场景极其稀有，在笔者之前的博客中有谈到类似问题）&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Bias&amp;amp;Debias是推荐方向上一个非常核心且特色的课题，兼具理论价值和实际意义。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;推荐的工业属性决定在模型创新上进度慢于NLP，NLP的角色是隐藏在推荐背后的信号。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;在接下来的内容中，详细探讨在阅读中的各种发现和想法。&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;做一个推荐系统，我们的方向在哪里？
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;以项亮的观点，包含以下五个方面：&lt;/p&gt;
+&lt;p&gt;每个标签的实现都需要开发者和业务方共同参与，经过多轮的口径调整和实现调整，直到标签的实现在召回率和精确率上达到预期水平。&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;准确。推荐的内容，希望尽可能都被用户采纳。（exploit）&lt;/li&gt;
-  &lt;li&gt;覆盖。在候选内容池中，被推荐的内容的比例。（保守和激进的系统属性）&lt;/li&gt;
-  &lt;li&gt;新颖。推荐给用户一些用户之前没有见过的内容。（explore）&lt;/li&gt;
-  &lt;li&gt;惊喜。推荐给用户一些能够给用户带来惊喜的内容。（business）&lt;/li&gt;
-  &lt;li&gt;可解释。推荐理由。（reasoning）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;整体上，借助召回-粗排-精排-重排四个阶段的工作，实现从全部内容推荐出TopN个内容的目的。其中，召回阶段的主流做法是双塔模型，该阶段要求快速，高召回。典型地以Youtube的工作为例。整体上，业界围绕召回阶段的工作并不是很多，整体上主要围绕排序做。这里的问题：&lt;/p&gt;
+&lt;p&gt;因此，笔者就会思考问题如下：&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;为什么推荐系统要分为召回+排序两阶段？（类似的问题，张俊林也有提到；在笔者自己的一个问答系统经历中，我们并没有采用这种划分方案）&lt;/p&gt;
+    &lt;p&gt;这是否是一个可以通过规则引擎实现口径开发和代码开发解耦的场景？&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;为什么相比排序，召回的相关工作较少？&lt;/p&gt;
+    &lt;p&gt;能否利用LLM的能力实现打标签？（规则引擎只有一个operator，就是llm）&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;一个相关的延伸问题是：搜索，推荐和广告本质上都在解决信息过载的问题，各自解决的手段，目标不相同，各自诞生在产品生命周期不同阶段，以至于系统实现不尽相同。但是，三者能否统一呢？（借邢无刀的问题）
-，我们知道搜索是站在用户角度识别用户想要什么（搜索求准），推荐是站在平台角度看想要引导什么（推荐求新），广告是以局外人看广告主、平台、用户分别想要什么（广告求财）。&lt;/p&gt;
+&lt;h3 id=&quot;实现过程&quot;&gt;实现过程&lt;/h3&gt;
 
-&lt;p&gt;沿着一个技术脉络展开，主流的技术方向包括：&lt;/p&gt;
+&lt;p&gt;首先，需要一个笔者能够handle的规则引擎，要求基于python实现，整个开源社区基于python的规则引擎比较少，幸运的是找到了&lt;strong&gt;business_rule&lt;/strong&gt;，一个多年前的基于python的规则引擎，虽然star不多，不过完美满足自己的需求，能够在支持condition和action创建，定义operator，通过all和any实现chain，同时带有一个异常简陋的交互式UI。通过增加llm作为operator，实现了面向业务的快速适配。实现效果如下：&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;协同过滤&lt;/li&gt;
-  &lt;li&gt;矩阵分解&lt;/li&gt;
-  &lt;li&gt;深度学习&lt;/li&gt;
-  &lt;li&gt;树（TDM）&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/tag_factory_v0.gif?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;决定是否上线的方式包括：A/B测试和Bandit算法，前者是业界的主流方式。&lt;/p&gt;
+&lt;p&gt;上述工作称为tag
+_factory_v0，仍然属于传统规则引擎。&lt;a href=&quot;https://knowledge-table-demo.whyhow.ai/&quot;&gt;knowledge_table&lt;/a&gt;是近期的一个工作，通过结合llm和rule做dataframe的处理，在交互设计上非常具有启发性。比如通过定义@作为对dataframe的列的引用，一定程度上可以解决标签开发过程中的标签依赖问题。knowledge_table也采用了Python作为后端开发语言，整体代码的质量非常高，但是直接用于笔者的场景，又显得过重。因此笔者基于gradio通过不同的方式实现了类似knowledge_table的交互效果，实用性显著提升，记为tag_factory_v1，实现效果如下所示：&lt;/p&gt;
 
-&lt;p&gt;下文开始，将对主流的技术方向做一个宏观的总结和思考。首先，再次定义一个标准的推荐问题：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/tag_factory.gif?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;给定M个物品，N个用户的数据，只有部分用户和部分数据之间是有评分数据的，其它部分评分是空白，此时我们要用已有的部分稀疏数据来预测那些空白的物品和数据之间的评分关系，找到最高评分的物品推荐给用户。&lt;/p&gt;
+&lt;p&gt;进一步地，回到更加灵活的规则引擎方向上，通过拖拽的方式快速拖出来一个DAG是一个极其重要的模块，称为引擎前端。解析DAG并调度运行+运维?是引擎后端。单独两块工作分别拉出来都有不错的开源的工作，但是合并在一起的工作并不多。&lt;/p&gt;
 
-&lt;p&gt;具体怎么实现呢？&lt;/p&gt;
+&lt;p&gt;滴滴开源的LogicFlow可以作为一个引擎前端，Dagu作为引擎前端，可以实现DAG和Yaml的双向映射，Yaml是Python开发者的福音。开源版n8n作为前端，对于operator的支持更加的丰富，包括HTTP请求，函数，外部服务，任务等，效果如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/n8n.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;其中HTTP Request的编辑逻辑如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/n8n_http.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;apache-airflow作为引擎后端，能够将Python代码转化为DAG，同时实现DAG的调度和监控，但是没有搭配一个好的前端。DophinScheduler作为为数不多的同时拥有前端和后端的可以作为理想规则引擎的框架，但是近期看到mlflow把DS的前端拆出来，融合实现ML工作流的编排和调度，毕竟mlflow在机器学习任务的编排上比DS要做的更好（定位不同）。&lt;/p&gt;
+
+&lt;p&gt;因此，如果有tag_factory_v2的话，整体上可行的思路如下：&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;回到本质。推荐的本质是猜你喜欢。既然是猜，就存在猜的维度。按照维度的复杂度，可以基于规则，按照比较硬的维度做推荐。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;协同过滤
-    &lt;ul&gt;
-      &lt;li&gt;user-based：计算user的相似度。核心假设：相似的user喜欢相似的item&lt;/li&gt;
-      &lt;li&gt;item-based：计算item的相似度。核心假设：对于相同的user，喜欢相似的item&lt;/li&gt;
-      &lt;li&gt;区别：前者关注点在人，人的计算空间大，有利于实现”千人前面“；后者的关注点在物，物的计算空间小，有利于实现相对稳定的离线计算&lt;/li&gt;
-    &lt;/ul&gt;
+    &lt;p&gt;和v1类似，独立开发一套适配业务的框架（operator定义清晰的话，ROI也很高）&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;基于模型&lt;/p&gt;
+    &lt;p&gt;采用DS。强化版可以采用类似mlflow+DS的组合&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;关联规则+分类+聚类&lt;/li&gt;
-  &lt;li&gt;矩阵分解：SVD为代表&lt;/li&gt;
-  &lt;li&gt;FM:
-    &lt;ul&gt;
-      &lt;li&gt;二阶特征的各自Embedding的内积作为二阶特征的weight，以一种soft的方式缓解大规模场景下的二阶组合特征的稀疏性问题（hard的方式分配weight/等价于多项式核SVM），更好的泛化能力的来源是Embedding。&lt;/li&gt;
-      &lt;li&gt;本质思想和矩阵分解类似（训练完成后，获取user和item各自的矩阵，可以作为各自的Embedding）。&lt;/li&gt;
-      &lt;li&gt;FM=MF+Side Info，都是针对二阶特征组合的，FM的二阶特征候选更大，MF只有user和item两类。&lt;/li&gt;
-      &lt;li&gt;一种演化路径：LR-&amp;gt;FM-&amp;gt;DeepFM&lt;/li&gt;
-      &lt;li&gt;FM实用性的关键步骤：O(KxNxN)-&amp;gt;O(KxN),K=Embedding Dim, N=Feature Num&lt;/li&gt;
-      &lt;li&gt;召回：多路+策略+模型&lt;/li&gt;
-      &lt;li&gt;排序：特征&lt;/li&gt;
-      &lt;li&gt;假设能够将召回模型和排序模型都统一到特征的视角，一个有意思的想法&lt;/li&gt;
-      &lt;li&gt;Deep&amp;amp;Wide：Wide部分是LR模型，Deep部分是一个Deep模型&lt;/li&gt;
-      &lt;li&gt;DeepFM（D&amp;amp;W的升级版）
-        &lt;ul&gt;
-          &lt;li&gt;Wide-&amp;gt;FM&lt;/li&gt;
-          &lt;li&gt;Deep和Wide共享共享原始特征（FM的必要条件）&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;DIN：Attention首次用于CTR问题&lt;/li&gt;
-      &lt;li&gt;TDM：基于Tree，item是叶子节点，解决召回阶段的TopK问题。树的非叶子节点有独特的特征含义。&lt;/li&gt;
-    &lt;/ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;前端和后端分离。比如n8n+airflow的组合&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;除了上述讨论的话题，还有其他比较重要的问题：&lt;/p&gt;
+&lt;h3 id=&quot;后记&quot;&gt;后记&lt;/h3&gt;
+
+&lt;p&gt;在调研和实现过程中发现的一个认知问题是：在过去的一些年，过于关注开源产品了。客观角度上看，闭源产品的产品力和技术力应该更好才对，比如这里的n8n。&lt;/p&gt;
+
+&lt;p&gt;在玄难的&lt;a href=&quot;https://www.jiqizhixin.com/articles/2018-12-12-5&quot;&gt;面向不确定性的软件设计几点思考&lt;/a&gt;中提到，整体的演化方向是从“确定性边界向内归纳抽象找相同”转化为“确定性内核向外生长演化”，而对于规则引擎而言同时包含两个特点。&lt;/p&gt;
+
+&lt;h3 id=&quot;参考资料&quot;&gt;参考资料&lt;/h3&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;EdgeRec&lt;/li&gt;
-  &lt;li&gt;序列/跨域/多模态推荐&lt;/li&gt;
-  &lt;li&gt;冷启动&lt;/li&gt;
-  &lt;li&gt;Exploit&amp;amp;Explore&lt;/li&gt;
-  &lt;li&gt;隐私计算：联邦学习+安全多方计算+可信计算，见&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzA3MTU2ODMzNA==&amp;amp;mid=2247499159&amp;amp;idx=1&amp;amp;sn=b75ce5f7fbdd8c74a011c89d9b2ca31f&amp;amp;chksm=9f292336a85eaa207bfca8a90c062332475df4b87e1cebb4047c172c1d4b95dd21efface9be3&amp;amp;mpshare=1&amp;amp;scene=23&amp;amp;srcid=1024zw56ptrAEP4wD9O4Im4q&amp;amp;sharer_sharetime=1635076861126&amp;amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd&quot;&gt;同盾的工作&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Bias&amp;amp;Debias
-    &lt;ul&gt;
-      &lt;li&gt;针对开篇中的（3），各种Bias中最重要的是样本选择偏置，具体地将是负样本选择问题。比如常见的策略包括直接使用曝光数据作为负例，全局随机负例，Batch内负例，曝光+随机，Popularity-Based， Hard-Based的方法。在CTR问题中，正样本通过日志即可获得，负样本就需要通过构造的方式，因此构成了一个经典的只有正样本的场景（学术上PU-Learning）。&lt;/li&gt;
-      &lt;li&gt;《Bias and Debias in Recommender System: A Survey and Future Directions》&lt;/li&gt;
-    &lt;/ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://blog.n8n.io/how-to-scrape-data-from-a-website/&quot;&gt;How to scrape data from a website&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://datathrillz.com/considerations-for-building-a-rules-engine-in-python/&quot;&gt;Considerations for building a rules engine in Python&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;在阅读过程中，夹杂着各种大问题，比如：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;数据挖掘模型+深度模型的融合， Deep&amp;amp;Wide为代表的工作，二者互为特征补充&lt;/li&gt;
-  &lt;li&gt;推荐+NLP的融合&lt;/li&gt;
-  &lt;li&gt;推荐中召回+排序的融合， 俊林的观点&lt;/li&gt;
-  &lt;li&gt;搜索+推荐+广告的融合，《Information Seeking: Convergence of Search, Recommendations and Advertising》&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;相关文章:&lt;/p&gt;
-
-&lt;p&gt;具体模型技术：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/67795161&quot;&gt;FFM及DeepFFM模型在推荐系统的探索&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/100019681&quot;&gt;推荐系统技术演进趋势：从召回到排序再到重排&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/59528983&quot;&gt;推荐系统召回四模型之二：沉重的FFM模型&lt;/a&gt;，这篇文章比较符合笔者当下的品味，开篇提出了两个有意思的问题：
-    &lt;ul&gt;
-      &lt;li&gt;是否我们能够使用一个统一的模型，将多路召回改造成单模型单路召回策略？如果不能，那是为什么？如果能，怎么做才可以？这样做有什么好处和坏处？&lt;/li&gt;
-      &lt;li&gt;是否存在一个模型，这个模型可以将召回阶段和排序阶段统一起来，就是把两阶段推荐环节改成单模型单环节推荐流程？就是说靠一个模型一个阶段把传统的两阶段推荐系统做的事情一步到位做完？如果不能，为什么不能？如果能，怎么做才可以？什么样的模型才能担当起这种重任呢？而在现实世界里是否存在这个模型？这个思路真的可行吗?&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/58160982&quot;&gt;推荐系统召回四模型之：全能的FM模型&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.slideshare.net/xamat/recsys-2016-tutorial-lessons-learned-from-building-reallife-recommender-systems&quot;&gt;Recsys 2016 tutorial: Lessons learned from building real-life recommender systems&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=Mzg4MzU1NjQ2Mw==&amp;amp;mid=2247510505&amp;amp;idx=1&amp;amp;sn=a5b21ec251388c107ca9d03a92c7f1c8&amp;amp;chksm=cf4740e9f830c9fffc13f8c4a1c1e67262dd3aad0618b49ce009e25cedf315b50d0f816fe0e2&amp;amp;mpshare=1&amp;amp;scene=23&amp;amp;srcid=1025A8cmTfdKSsmVtAsKsJMo&amp;amp;sharer_sharetime=1635169333535&amp;amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd&quot;&gt;推荐系统中的特征集列表&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzA4NTUxNTE4Ng==&amp;amp;mid=2247507256&amp;amp;idx=1&amp;amp;sn=4eac18f14dc69e04975f7ae16e82a052&amp;amp;chksm=9fd453e5a8a3daf32ccf10a2ca62390c35540aa769939d52566a92e15427ccdd4a9808651740&amp;amp;mpshare=1&amp;amp;scene=23&amp;amp;srcid=1025C69Np1I9XxLeAvJGa12L&amp;amp;sharer_sharetime=1635121397281&amp;amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd&quot;&gt;2021年推荐系统论文&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://zhpmatrix.github.io/about/&quot;&gt;扫码加笔者好友&lt;/a&gt;，茶已备好，等你来聊~&lt;/strong&gt;&lt;/p&gt;
 </description>
-        <pubDate>Mon, 25 Oct 2021 19:40:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/10/25/rec-sys-ideas/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/10/25/rec-sys-ideas/</guid>
+        <pubDate>Wed, 30 Oct 2024 18:35:00 +0800</pubDate>
+        <link>http://localhost:4000/2024/10/30/rule-engine-v2/</link>
+        <guid isPermaLink="true">http://localhost:4000/2024/10/30/rule-engine-v2/</guid>
+        
+        <category>Python</category>
         
         
       </item>
     
       <item>
-        <title>[RecSys]2021年的推荐系统杂文</title>
-        <description>&lt;p&gt;距离第一次写推荐系统的&lt;a href=&quot;https://zhpmatrix.github.io/2018/06/25/recsys-rethinking/&quot;&gt;博客&lt;/a&gt;，已经过去了两年多。近期读了一些推荐方向上比较有深度的文章，因此，想借助此篇博客梳理推荐系统方向上的部分工作，另一方面也是对所读文章的一个学习笔记。&lt;/p&gt;
+        <title>搜医搜-从0到1的故事</title>
+        <description>&lt;p&gt;搜医搜是一款基于默沙东诊疗手册的AI搜索产品。通过把默沙东诊疗手册作为主要的的搜索内容库，融合医疗知识图谱和外部搜索引擎结果，在返回搜索结果的同时，给出基于搜索结果的答案。通过搜索结果可以实现答案溯源，在答案质量不佳时，退化为一款标准搜索引擎产品。&lt;/p&gt;
 
-&lt;p&gt;什么是推荐？和搜索对比，搜索解决的是用户寻找物品的问题，而推荐解决的是物品找人的问题。前者是多对一，多个用户去搜索一个巨大的物品库。后者是一对多的问题，一个巨大的物品库分别推送给各自的潜在用户。场景的变化推动技术的演进。在PC时代，机器由于无法获取全面的用户信息，对于用户的理解是存在偏差的，但是到了移动互联网时代，通过手机终端，可以获取全面的用户信息，这让推荐有了实施的数据基础。至于PC时代为什么无法获取更全面的用户信息，也许是一个关于OS的技术问题，又或是一个用户习惯养成的问题，再或者是互联网的群体还不够大，积累的数据量不足以做出好的推荐效果问题。&lt;/p&gt;
+&lt;p&gt;这篇文章讨论搜医搜从想法到变现的0→1的全流程，是一次“一人公司”的路径可行性探索。专注于讲故事，不讲技术。&lt;/p&gt;
 
-&lt;p&gt;在进入一个方向之前，首先要从整体上看到该方向上做的事情。这篇&lt;a href=&quot;https://zhuanlan.zhihu.com/p/95350982&quot;&gt;文章&lt;/a&gt;给予博主很大的启发。文章的主要内容是给出了对待推荐系统的三个视角。&lt;/p&gt;
+&lt;p&gt;文章通过Notion完成，可以直接发布为网页形式。在此就不把内容搬运到博客上了，可以点击&lt;a href=&quot;https://zhpmatrix.notion.site/0-1-11d68ac27add803ba683cfbd4e5ca25c&quot;&gt;《搜医搜-从0到1的故事》&lt;/a&gt;满足好奇心。&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;矩阵视角&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;过程中得到了许多朋友们的各种反馈和建议，谢谢你们～🫰&lt;/p&gt;
 
-&lt;p&gt;矩阵的行是物品，矩阵的列是用户，矩阵中的元素是用户对物品的评分。矩阵中存在的空值填充，就是推荐系统要做的事情。既然将推荐问题用一个矩阵得以描述，就给了推荐问题一个形式化的定义，借助量化/数值计算的方式解决该问题。相关的方法比如User/Item-Based的各种具体算法，进而包括各种用户表征，商品表征算法等，基于矩阵分解(SVD)的方法等。&lt;/p&gt;
+&lt;p&gt;接下来是一段招募内容：&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;图视角&lt;/li&gt;
-&lt;/ul&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+if you.meet(&quot;对持续发布一个完整的东西感兴趣&quot;) and (
+   you.meet(&quot;网页前端开发&quot;) or
+   you.meet(&quot;小程序开发&quot;) or
+   you.meet(&quot;浏览器插件开发&quot;) or
+   you.meet(&quot;CPU很多&quot;) or
+   you.meet(&quot;GPU很多&quot;)
+   ) :
+   see_below()
+else:
+    print(&quot;you&apos;re the best!&quot;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;用户和商品通过各种交互行为（浏览，点赞，收藏，评论等），可以形成一个天然的图的结构，继而可以很自然的将推荐问题定义为图的链接预测问题。这里既可以基于图的拓扑结构，演化出传统的图算法，比如swing算法，或者利用深度学习的技术，将该问题转化为图表征+连接预测问题。&lt;/p&gt;
-
-&lt;p&gt;既然可以将推荐问题转化为一个图问题，而从数学上看，图是可以用矩阵来描述的，所以本质上，矩阵视角和图视角在数学上存在本质的相似性。清华的唐杰组基于图表征的问题出发，有对二者的关系给出一个数学上的描述。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;时间线&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;矩阵和图，是一种静态的观察视角，不过，如果能够在图上添加时间的维度，就可以用一种静态的方式处理动态的信息，不过这种方式是隐式的。一种显式的方式则是将推荐问题定义为：已知用户历史时间中购买的物品序列，计算下一时刻用户可能会购买的物品。这样就将推荐问题转化为一个经典的序列预测问题，类似可能的方法论都得以应用。&lt;/p&gt;
-
-&lt;p&gt;本质上该视角是一种动态的观察角度。相关的方法包括Translation-Based推荐等，相关工作《Sequential Recommender Systems: Challenges, Progress and Prospects》等。&lt;/p&gt;
-
-&lt;p&gt;明确方法上的大方向之后，就可以深入到细分方向。这篇&lt;a href=&quot;https://zhuanlan.zhihu.com/p/34004488&quot;&gt;文章&lt;/a&gt;给出了一份要阅读的具体的工作，&lt;a href=&quot;https://github.com/hongleizhang/RSPapers&quot;&gt;这里&lt;/a&gt;是一份具体的阅读清单。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/398041971?utm_source=wechat_session&amp;amp;utm_medium=social&amp;amp;utm_oi=758077317837783040&amp;amp;s_r=0&quot;&gt;文章&lt;/a&gt;中作者以一个资深广告算法专家的身份讲述了广告算法发展的宏观视角，围绕召回+排序（粗排+精排）的框架，结合具体的CTR问题，以系统和算法协同设计的思路，讲述了广告系统发展的波澜壮阔的宏大历史图景。这其中夹杂着作者对于代际变换的思考，对于数据+算力+算法三要素的认知和实质性的工作推进。敢想敢干的品质，在文章中有很多地方可以体现。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/446993392&quot;&gt;阿里妈妈搜索广告预估模型2021思考与实践&lt;/a&gt;，这篇文章的行为风格和思路同上篇文章。&lt;/p&gt;
-
-&lt;p&gt;相关文章：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/xzz_hust/article/details/102873312&quot;&gt;CTR模型一览&lt;/a&gt;，这篇文章梳理了经典的CTR模型系列，具体包含LR/GBDT/GBDT+LR/FM/FFM/Deep&amp;amp;Wide/DeepFM/Deep&amp;amp;Cross/NFM/DIN/FTRL等。这些模型的发展脉络包含一下思想：&lt;/li&gt;
-  &lt;li&gt;特征低维-&amp;gt;特征高维&lt;/li&gt;
-  &lt;li&gt;特征离散-&amp;gt;特征连续&lt;/li&gt;
-  &lt;li&gt;交叉特征的手工构建-&amp;gt;交叉特征的自动构建&lt;/li&gt;
-  &lt;li&gt;参数的离线更新-&amp;gt;参数的在线更新&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;除了上述核心思想外，也有其他的一些思想指导。但是从这个维度来看，主流思想是围绕特征的各种花式玩儿法。&lt;/p&gt;
-
-&lt;p&gt;相关文章：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/418943291&quot;&gt;NLP方向是否有前景&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MTM2ODM0ODYyMQ==&amp;amp;mid=2651537793&amp;amp;idx=1&amp;amp;sn=5c4b3f8184760981de9cdb2fb7212f6b&amp;amp;chksm=624f41235538c835781213762ce017f8eac805cb9d6cf8aceb9e03a6f9787c1f37704fb68e6a&amp;amp;mpshare=1&amp;amp;scene=23&amp;amp;srcid=1013BCYrd4eOBY6WxShst0bN&amp;amp;sharer_sharetime=1634117019555&amp;amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd&quot;&gt;那些用推荐引擎改变世界的人&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://zhpmatrix.github.io/about/&quot;&gt;扫码加笔者好友&lt;/a&gt;，茶已备好，等你来聊~&lt;/strong&gt;&lt;/p&gt;
 </description>
-        <pubDate>Sat, 16 Oct 2021 19:40:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/10/16/rec-sys/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/10/16/rec-sys/</guid>
+        <pubDate>Sat, 12 Oct 2024 18:35:00 +0800</pubDate>
+        <link>http://localhost:4000/2024/10/12/souyisou/</link>
+        <guid isPermaLink="true">http://localhost:4000/2024/10/12/souyisou/</guid>
+        
+        <category>产品设计</category>
         
         
       </item>
     
       <item>
-        <title>[杂文]数据中台注</title>
-        <description>&lt;p&gt;按照一贯的文风，首先需要思考的是数据中台是个什么东西？数据中台不仅仅是技术，也不仅仅是产品，而是 一套完整的让数据用起来的机制。也就是说，数据中台=产品+技术+人。数据中台兼具业务价值和技术价值。站在技术角度观察，给出场景和计算能力的列表如下：&lt;/p&gt;
+        <title>《Enhancing Asymmetric Web Search through Question-Answer Generation and Ranking》</title>
+        <description>&lt;h4 id=&quot;基本信息&quot;&gt;基本信息&lt;/h4&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;编号&lt;/th&gt;
-      &lt;th&gt;计算能力&lt;/th&gt;
-      &lt;th&gt;场景&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;离线计算能力&lt;/td&gt;
-      &lt;td&gt;报表需求&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;实时流式计算能力&lt;/td&gt;
-      &lt;td&gt;准实时的指标统计和实时推荐&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;即席计算能力&lt;/td&gt;
-      &lt;td&gt;圈人&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;3&lt;/td&gt;
-      &lt;td&gt;在线计算能力&lt;/td&gt;
-      &lt;td&gt;用户画像&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;主题：通过问答对生成的方式强化非对称网页搜索&lt;/p&gt;
 
-&lt;p&gt;业务价值的实现需要依托一个价值框架：业务-&amp;gt;（业务数据化）-&amp;gt;数据-&amp;gt;(数据资产化)-&amp;gt;资产-&amp;gt;(资产服务化)-&amp;gt;服务-&amp;gt;服务业务化-&amp;gt;业务。整体上形成一个价值的闭环。&lt;/p&gt;
+&lt;p&gt;作者：Tencent PCG&lt;/p&gt;
 
-&lt;p&gt;好了，我要搞一个数据中台，咋搞？&lt;/p&gt;
+&lt;p&gt;会议：KDD2024&lt;/p&gt;
+
+&lt;h4 id=&quot;motivation&quot;&gt;Motivation&lt;/h4&gt;
+
+&lt;p&gt;网页搜索中，通常建模为一个Query和网页内容的非对称文本匹配问题，而非对称文本匹配由于语义空间的不一致，解决的难度高。因此，可以通过问答对生成的方式将一个非对称文本匹配问题转化为对称文本匹配从而降低问题解决的难度，提升网页搜索的效果。&lt;/p&gt;
+
+&lt;h4 id=&quot;主要贡献&quot;&gt;主要贡献&lt;/h4&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;数据汇聚&lt;/li&gt;
-  &lt;li&gt;数仓构建&lt;/li&gt;
-  &lt;li&gt;标签体系：面向具体对象构建的全维度数据标签，是面向业务视角的数据组织方式，标签体系要具备服务能力&lt;/li&gt;
-  &lt;li&gt;应用数据&lt;/li&gt;
+  &lt;li&gt;提出了QAGeneration模块，可以利用大模型的能力离线生成高质量的QA对&lt;/li&gt;
+  &lt;li&gt;提出了QARanking模块，可以无缝集成全文匹配得分和QQ匹配得分，同时不增加在线时延&lt;/li&gt;
+  &lt;li&gt;对比SOTA，提出的QAGR方法，取得了8.7%的离线相关性提升和8.5%的在线参与收益提升&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;具体的，以某地产公司为例的数据中台数据体系架构，如下：
-&lt;img src=&quot;https://s3.bmp.ovh/imgs/2021/10/bccab5fb1222d5a0.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;主要过程&quot;&gt;主要过程&lt;/h4&gt;
+
+&lt;p&gt;QAGR方法由两个模块组成，分别是离线条件下的QAGeneration模块和在线条件下的QARanking模块。离线模块用于给每个doc生成高质量的QA对，在线模块利用这些QA对用于下游检索任务。具体如下图所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/qagr_0.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;qageneration&quot;&gt;QAGeneration&lt;/h5&gt;
+
+&lt;p&gt;离线QA对的构建主要分为三个步骤，分别如下：&lt;/p&gt;
+
+&lt;p&gt;（1）核心段落抽取&lt;/p&gt;
+
+&lt;p&gt;该阶段的目标主要是两个，分别是消除冗余信息以提升生成问题的质量，同时减少下游模型的输入。通过标注5000个样本，训练一个T5模型用于核心段落抽取。实际中使用这个模型做了百亿文档的核心段落抽取。&lt;/p&gt;
+
+&lt;p&gt;（2）Human in the Loop&lt;/p&gt;
+
+&lt;p&gt;针对抽取的核心段落，利用LLM通过提示词调优的方式抽取QA对，但是存在生成的格式和质量不满足要求的问题。通过instruct-tuning，显著提升了模型在垂域内的生成效果。&lt;/p&gt;
+
+&lt;p&gt;（3）问答验证&lt;/p&gt;
+
+&lt;p&gt;虽然通过第二步显著提升了生成的质量，但是仍然有可能生成无效的问题，比如给定生成的问题，在网页内容中找不到答案，以及生成的问题和答案并没有对齐。为了解决这个问题，文章训练了一个QA有效性判别的模型同时辅助人工规则用于过滤生成的问答对。&lt;/p&gt;
+
+&lt;p&gt;其中模型基于T5，输入包含问题，答案以及文档，人工的标注结果中通过的QA对作为正样本，不通过的做为负样本。&lt;/p&gt;
+
+&lt;p&gt;整体流程如下图所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/qagr_1.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;qaranking&quot;&gt;QARanking&lt;/h5&gt;
+
+&lt;p&gt;Ranking分为两个步骤，分别是预排序和排序。&lt;/p&gt;
+
+&lt;p&gt;（1）预排序。计算Query和Question的terms covered，排序之后返回topN个Question。该阶段利用比较轻量的方法减少了不相关的问题用于流入下游检索阶段。&lt;/p&gt;
+
+&lt;p&gt;（2）排序。&lt;/p&gt;
+
+&lt;p&gt;用于排序的模型设计主要围绕对称孪生BERT展开，主体架构是Q-T-S&amp;amp;Q-Q双塔（共享参数），并融合意图特征，最后通过MLP把三路特征作融合。其中Q-T-S指Query-Title-Summary作为BERT的输入，Q-Q是指Query-Question作为BERT的输入，意图分为“基于关键词”和“基于自然语言”。如果是“基于关键词”，则希望得分更多来自Q-T-S，如果是“基于自然语言”，则希望得分更多来自QQ。整体流程如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/qagr_4.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;模型的复杂度从O(LH(S+S’)^2)降低至O(LH(S)^2)，其中L是BERT的层数，H是隐藏层的维度，S是Query+Titlte+Summary的长度，S’是Query+Question的长度。实际中S‘«S且由于是双塔结构，在计算的时候可以并行。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/qagr_3.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;为了训练这个模型，人工标注了query-document的相关性评级，从0到4共有5个级别。为了保证可解释性和稳定性，采用了pairwise和pointwise两种损失函数，其中前者是margin loss，后者是regression loss，回归损失的目的是希望模型能够学到绝对的ranking信息，使得模型具备一定的物理含义。对于只使用margin loss的模型，输出到得分只有在比较的时候才是有用的。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/qagr_2.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;实验结果&quot;&gt;实验结果&lt;/h4&gt;
+
+&lt;p&gt;针对该工作，作者分别做了离线评估和在线A/B，具体结果如下所示：由于实验条件较多，这里暂不列举，具体可以参照文章。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/qagr_5.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/qagr_6.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;从离线评估来看，基于学术界和工业界的多个数据集，在多个评估量化指标上，对比其他多个方法，该工作均取得了最好的结果。在线实验也进一步证明了该方法的有效性。&lt;/p&gt;
+
+&lt;h4 id=&quot;思考&quot;&gt;思考&lt;/h4&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;ODS：业务系统数据的汇集&lt;/li&gt;
-  &lt;li&gt;DW: DWD+DWS，业务系统是按照业务流程方便操作的方式来组织数据的，而DW是从业务易理解的视角来组织数据的&lt;/li&gt;
-  &lt;li&gt;TDM: 通过ID-Mapping把各个业务板块，各个业务过程中的同一对象的数据打通&lt;/li&gt;
-  &lt;li&gt;ADS：按照业务的需要从统一数仓层，标签数据层抽取数据，并面向业务的特殊需要加工业务特定数据，以满足业务及性能需求，向特定应用组装应用数据&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;对整个数据体系架构而言，ODS和ADS没有统一的构建规范，但是DW和TDM有统一的构建规范，同时TDM也是体现大数据能力的层。&lt;/p&gt;
-
-&lt;p&gt;在整个数据体系中，存在各种各样的数据。其中围绕元数据的各种应用比较有特色，具体应用如下：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;元数据浏览和搜索&lt;/li&gt;
-  &lt;li&gt;数据血缘：表A由表B，表C和表D级联得到，如果表A的数据不准确，可以追溯到表B，表C和表D&lt;/li&gt;
-  &lt;li&gt;影响性分析：判断当表A改变之后，是否会影响到与之相关的表B，表C和表D&lt;/li&gt;
-  &lt;li&gt;数据冷热度分析&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;除了元数据之外，主数据的构建和管理也是整个数据体系中的关键，并不是本篇文章讨论的重点。&lt;/p&gt;
-
-&lt;p&gt;基于数据体系的服务体系，主要包含四种服务方式，如下：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;查询服务：取数&lt;/li&gt;
-  &lt;li&gt;分析服务：算法分析&lt;/li&gt;
-  &lt;li&gt;推荐服务：主动的数据找人的过程&lt;/li&gt;
-  &lt;li&gt;圈人服务：基于标签&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;围绕数据中台，最上层的数据应用包括数据大屏，智能应用和数据报表。&lt;/p&gt;
-
-&lt;p&gt;扯了这么多，与NLP有什么关系呢？一个NLP的同学如何理解数据中台的概念。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;数据中台的研究对象是数据，文本是数据的一部分。由于数据的异质性，数据中台的活儿多是脏活儿累活，但是距离业务近，能够产生直接的业务价值，且有相对较长的研发周期，数据中台的活儿又是一个好活儿。&lt;/li&gt;
-  &lt;li&gt;数据中台可以包含算法中台，或者算法中台建立在数据中台之上。&lt;/li&gt;
-  &lt;li&gt;标准化能力构建对于数据中台的建立很重要，是数据打通的核心能力，但是不同的标准化，解决的难度不同。&lt;/li&gt;
-  &lt;li&gt;NLP通过对非结构化数据的理解，能够扩展数据中台的数据颗粒度，更细的粒度在一定场景中能够产生更多的价值&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;相关文章和书籍：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;《数据中台：让数据用起来》，数澜科技中台团队的作品，个人还是比较喜欢这本书的写作风格。有对问题的严格化的定义，也有手记之类的有趣的场景对话。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;《大数据之路：阿里巴巴大数据实践》&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://www.caict.ac.cn/kxyj/qwfb/bps/201906/P020190604471240563279.pdf&quot;&gt;《数据资产管理白皮书4.0》&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzIzOTU0NTQ0MA==&amp;amp;mid=2247506718&amp;amp;idx=1&amp;amp;sn=dd437ac302c2cad743dbfe611b7df917&amp;amp;chksm=e92ae611de5d6f07600d21d447a341d76462f25a095228f2a9d5d052eea4f17b42923d487dca&amp;amp;mpshare=1&amp;amp;scene=23&amp;amp;srcid=1227St8iO16IxvK0HMrn4ISB&amp;amp;sharer_sharetime=1640565716101&amp;amp;sharer_shareid=0e8353dcb5f53b85da8e0afe73a0021b%23rd&quot;&gt;《数据质量漫谈》&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/qq_28666081/article/details/104686822&quot;&gt;基础概念：维表与事实表&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
+  &lt;li&gt;和大模型微调中，基于self-instruct的方式将非结构化的文本转化为可以微调的数据具有一致性&lt;/li&gt;
+  &lt;li&gt;核心段落抽取也可以利用LLM来尝试完成&lt;/li&gt;
+  &lt;li&gt;QA对本质上是对非结构化文档的一个索引。从搜索内容角度看，搜索对象可以直接是QA库，也可以是非结构化文档，同时可以是基于QA对作为索引的非结构化文档。此外，未必采用本文的方法，也可以结合自己的场景，采用类似实验中的基线方法。类似方法包含&lt;a href=&quot;https://www.anthropic.com/news/contextual-retrieval&quot;&gt;anthropicai最近的contexual retrieval&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;QARanking不是很优雅。是不是可以直接路由？统一建模的效果？&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-        <pubDate>Sat, 16 Oct 2021 19:40:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/10/16/data-platform/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/10/16/data-platform/</guid>
+        <pubDate>Wed, 25 Sep 2024 00:35:00 +0800</pubDate>
+        <link>http://localhost:4000/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/2024/09/25/enhancing-asymmetric-web-search-through-question-answer-generation-and-ranking/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/2024/09/25/enhancing-asymmetric-web-search-through-question-answer-generation-and-ranking/</guid>
+        
+        <category>搜索</category>
+        
+        
+        <category>论文笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>一次面向垂域搜索系统的实践与思考</title>
+        <description>&lt;p&gt;好久没有写文章了，过去几个月时间在solo一个文档搜索产品，随着2.0版本的全流量上线，终于可以喘一口气做一个回顾和复盘。&lt;/p&gt;
+
+&lt;p&gt;产品一方面要直接满足500万B端用户的专业领域知识搜索需求，另一方面作为基础能力间接满足咨询客服等业务场景。通俗意义上，前者的用户体验，接近于从BingChat开始的各类AI搜索类产品，技术范式接近于RAG(Retrieval Augmented Generation)，而无论是AI搜索还是RAG，在过去的很长一段时间，都有大量的文章在讨论，比如笔者的&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&amp;amp;mid=2247484869&amp;amp;idx=1&amp;amp;sn=4bf5c85a58fa2e5ee477442752d2a832&amp;amp;chksm=fc740c8ccb03859afd52c4294626eb7b9014533cb4615343f4102708a46128db8fe70afa8407&amp;amp;token=1535827598&amp;amp;lang=zh_CN#rd&quot;&gt;RAG在若干医疗场景的实践和思考&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;RAG的关键在R而非G，因为G侧对于大多数目标落地的团队而言空间非常有限，因此能把R做好的团队，RAG的应用大概率做的也不差。围绕R的误解颇多，比如R是个老问题了，现在做没啥意义了；百度和Bing投入那么多人和时间，要追吗？比如花两天时间就能搞定了吧……(hhh)。anyway，这篇文章结合笔者的实践讨论一些自己的理解。&lt;/p&gt;
+
+&lt;p&gt;R分解之后的核心对象（还有重要但非核心的对象）包括Query，搜索服务和文档库，通过搜索服务建立Query和文档库的联系。其中，Query的特点是开放不确定，长尾性以及弱上下文等，文档库的特点是非结构化，强领域特征以及标签化程度低等，搜索服务要解决的问题包括但不限于一对多，非对称，在线，相关性，时效性，多样性等。搜索交付的价值不仅是一个服务，更是一个数据，工程，算法和策略的结合体，一个易用，可理解，可持续演进的系统。&lt;/p&gt;
+
+&lt;p&gt;为了构建这样的一个系统，首先搭建了一套评测体系，体系设计原则在之前的文章中也反复提及，包括人工和机器相结合，低成本自动化可量化以及分层&amp;amp;多粒度。具体包含评测目标，评测指标，评测方式以及评测依赖四部分内容。整个评测体系也并非从刚开始就全部搭建完成，而是和不同阶段的目标做适配以及持续迭代，以能否支撑搜索服务的演化为唯一目的，实际上截止2.0上线，整个评测体系在代码和机制上才比较接近最初设计的整个体系。&lt;/p&gt;
+
+&lt;p&gt;整个搜索架构在经历四个版本的演进之后，实现了对以BingSearch为代表的第三方搜索服务的替代，最终满足单链路多模块，单模块多方法的特点，能够支持多知识库配置以及搜索实例的配置化。&lt;/p&gt;
+
+&lt;p&gt;BingSearch在POC阶段，有助于实现想法的快速验证。但是随着迭代的深入，BingSearch的引入对于服务演进的阻力逐渐加大，比如过滤只能后置，比如为了实现能力兼容需要做较多的比较痛苦的架构上的trade-off，其中也经历了BingSearch大面积宕机的问题，刚开始还以为是自己的服务挂掉了，直到现在服务稳定性尚存在问题。结合成本考量以及自研进度的跟上，最终实现了对BingSearch的替代。每个外部组件的引入，要做得失考虑，希望metaso能够扛得住！&lt;/p&gt;
+
+&lt;p&gt;从1.0到2.0的持续迭代过程中，比较接近于“开着飞机换轮子”。其中推动了基于ES8的混搜方案，多视角知识加工和应用的标准化，建立围绕RAG为核心的应用开发范式等，离线配套工具的构建以及在线流量复制和A/B等也显著提升了迭代效率和研发效能。&lt;/p&gt;
+
+&lt;p&gt;其中，一站式搜索查因工具作为自底向上推动的工作，承载了较多的功能。主要面向非算法背景的同学，比如产品经理，运营同学，前后端开发等，支持搜索服务的全链路追踪，GSB评估等，同时附加功能包含基础能力分析，Prompt调优，DEMO演示等，轻量级的知识运营模块也包含在内。随着工具的发展，除了服务于搜索产品的演进，也逐步以直接或者间接的方式用于其他产品的迭代和项目验收的支持等，早已超出了搜索服务的支持工具属性。&lt;/p&gt;
+
+&lt;p&gt;随着应用研发的展开，多条线的技术范式基本类似，但是每条线都有自己独特的业务属性，因此需要一个框架抽象，通过模块解耦等，实现进行中应用的能力复用，以及支持新增应用的快速开发。整体上这是一个易用，可理解和可演进的框架，具体要求包括：&lt;/p&gt;
+
+&lt;p&gt;（1） 框架和应用分离，应用和应用隔离&lt;/p&gt;
+
+&lt;p&gt;（2）区分能力和内容&lt;/p&gt;
+
+&lt;p&gt;（3）支持各个环节的个性化实现&lt;/p&gt;
+
+&lt;p&gt;早期采用应用和框架协同演进的思路，能够实现进行中应用的能力复用，实际上这也是不得已为之。通过具体应用的开发为抽象提供具体案例，框架侧多走一步后，在具体应用侧验证框架能力。整体上目前依然处于这个阶段，在三个具体应用的反哺下稳步迭代。同时对于复杂度低的应用开发，框架已经基本能够满足快速开发的要求。&lt;/p&gt;
+
+&lt;p&gt;具体来说，在一个开发界面下，通过整合能力和内容，区分具体业务和通用框架能力，实现具体应用的开发。&lt;/p&gt;
+
+&lt;p&gt;内容侧，应用开发者只需要提供搜索数据（MySQL），mapping和用于表征的服务地址，即可在较短的时间内获得一个index，同时支持搜索数据的T+1更新。对于原始搜索数据的加工链路，针对不同的用户群体，分为不同的策略。如果来自业务侧的数据，需要用户侧完成增量链路的搭建，如果是中台数据，则由中台团队完成，也即该配置化模块的开发方自行完成。整体的流程通过一个统一的配置化界面完成，实现了多视角知识加工和应用的标准化。&lt;/p&gt;
+
+&lt;p&gt;能力侧，框架整合了算法中台已有的基础算法服务能力，沉淀的可复用的用于搜索的各个模块的可通用能力，配套周边能力含日志，异常等。&lt;/p&gt;
+
+&lt;p&gt;以上基本讨论完了主要做的工作。围绕之后的计划，搜索产品侧会推进能力和内容侧的持续优化，支持产品侧的体验提升，同时实现更多的业务接入；一站式搜索查因工具的主要目标是两个，分别是易用性提升以加强对搜索产品服务迭代的支撑力度，沉淀标准组件提升可复用性；框架侧通过和具体应用的交互，实现持续框架演化，同时推动框架在更多应用场景的使用。&lt;/p&gt;
+
+&lt;p&gt;这里不谈搜索主链之外的包含AutoSuggestion，相关搜索，分页，人工运营等，搜索产品在用户交互侧是简单的，一个输入框，返回一个搜索列表。在搜索主链稳定的前提下，似乎做的工作都是单点扭螺丝，ROI有限，不是很清楚现有成熟搜索团队的状态是否是这样？但是搜索主链的从0到1，是一个非常复杂的任务，需要良好的架构设计。过去的几个月其实每天都在谈的，不是算法模型训练，不是评估标准设计，而是架构设计。&lt;/p&gt;
+
+&lt;p&gt;所谓架构，就是有什么和没什么，什么与什么之间的关系是什么？是对一个领域的认知的体现，其中关键的是要看到问题的本质。引用玄难大师的观点，一个牛的人是对领域有一个稳定的认知。所以这势必是一件有挑战的事情。&lt;/p&gt;
+
+&lt;p&gt;搜索是一项融合了数据，工程，算法和策略的系统，并非只是交付一个无状态的独立的算法服务。举一个例子，相同搜索Query，在不同的时刻搜索结果列表可能是不一致的，分析原因是什么？可能原因如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;搜索内容是T+1更新的&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;HNSW导航图使用了近似KNN算法（使用暴力搜索，虽然不会引入随机性，但是大规模场景下不适用）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;混搜时引入了高斯时间衰减（时效性提升特别好的一个性质）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;大模型自身生成结果的随机性&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;其他的可能因素含：硬件的差异性等，绝对意义的一摸一样，比较难实现。整体上看，搜索系统是内容和能力的混合体，两者都是要能够可演进，但又不是所有的组件都能够正交设计，这样势必会带来一些复杂性。&lt;/p&gt;
+
+&lt;p&gt;在单链路多模块的cascade模式下，一个优化动作具体在哪个环节实现是最佳选择？在&lt;a href=&quot;https://zhuanlan.zhihu.com/p/398041971&quot;&gt;阿里妈妈朱小强的文章&lt;/a&gt;中提到两种设计哲学，分别是城邦自治模式和一盘棋模式，“召回、粗排、精排等每个模块都按照自己对于全局一致性逻辑的理解，在平衡好集合规模、算力消耗、系统性能等约束的情况下独立迭代”，因此这里一定会存在一个在哪个城邦实现治理的问题。实际上，一盘棋模式在其他的应用中已经有用到，把路径做短，单个模块做宽。面向具体目标，精排也许并非必要？这种模式更加敏捷，不过对于单模块的能力要求更高，因为在特定阶段要完成更多的目标优化任务。这也是笔者自身的一个架构演化方向。&lt;/p&gt;
+
+&lt;p&gt;给很多朋友安利过的张刚老师的&lt;a href=&quot;https://book.douban.com/subject/35966115/&quot;&gt;《软件设计：从专业到卓越》&lt;/a&gt;中谈到契约式设计。所谓契约式设计，就是权利和责任，边界问题也是权责问题。跳出来，不带偏见的思考，哪些是我该干的，哪些不是我该干的，拥有上帝视角。“做多”场景包括通过Query扩展增加用于搜索的Query数（多Query），通过增加知识库扩大搜索内容（多知识库）,通过增加召回通道实现召回结果的多样性（多召回通道）等。&lt;/p&gt;
+
+&lt;p&gt;针对多召回通道，一种设计是，固定召回文档数量，随着召回通道数增加，每个召回通道平摊文档量。优点是排序成本不增加的条件下，增加了多样性；缺点是假设召回文档数量等于召回通道数，那么每个召回通道只能分到一个文档，如果前者大于后者呢？这里存在一个显然的bottleneck。因此另外一种设计是，不要限制召回文档数量，在排序阶段通过算力并行实现对召回文档的排序，以算力换多样性。召回的责任之一是提升召回文档的多样性，为下游实现充分的供给，因此有权通过增加召回通道数实现这一目标，且不能因为会增加下游排序的成本而不去选择。因为增加下游排序成本的问题，可以在下游通过算力消耗解决。&lt;/p&gt;
+
+&lt;p&gt;在早期，如果允许召回文档数量较多的条件下，采用第一种设计也可以但是存在潜在的设计瓶颈。因此在该问题中也可以看到，除了数据，算法，策略和工程，算力也是一个部分条件下需要考虑的因素。&lt;/p&gt;
+
+&lt;p&gt;除此之外，还有一些有价值的问题需要思考。在多Query+多知识库+多召回通道的条件下，搜索的最小颗粒度是什么？怎么保证在元素从1扩展到N的时候，架构调整的最小化？能力和内容一定是强耦合的吗？&lt;/p&gt;
+
+&lt;p&gt;接下来的基本方向包括如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;通过一份相同训练数据，按照不同的训练策略得到三个模型分别用于搜索主链的三个关键环节以期全链路的效果提升&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;搜索内容侧的粒度升级，通过更细粒度的知识管理，提升搜索的精细化以及摘要生成的上下文获取简化&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;融合结构化和非结构化信息的搜索架构3.0&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;online learning，融合在线点击feedback信号到搜索主链中（实时数据工程），以及考虑专业搜索用户profile，实现搜索服务的个性化能力提升。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;如果顺利地话，产品本月能够和C端用户见面。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://zhpmatrix.github.io/about/&quot;&gt;扫码加笔者好友&lt;/a&gt;，茶已备好，等你来聊~&lt;/strong&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 07 Sep 2024 18:35:00 +0800</pubDate>
+        <link>http://localhost:4000/2024/09/07/ai-tax-search/</link>
+        <guid isPermaLink="true">http://localhost:4000/2024/09/07/ai-tax-search/</guid>
+        
+        <category>搜索</category>
         
         
       </item>
     
       <item>
-        <title>[NLP]因果推断+NLP</title>
-        <description>&lt;p&gt;《Causal Inference in Natural Language Processing: Estimation, Prediction, Interpretation and Beyond》，相关的&lt;a href=&quot;https://zhuanlan.zhihu.com/p/419734891&quot;&gt;中文解读&lt;/a&gt;，对应的&lt;a href=&quot;https://github.com/causaltext/causal-text-papers&quot;&gt;参考文献列表&lt;/a&gt;。在该文章中，讨论了两个方向的关系：&lt;/p&gt;
+        <title>《A Surprisingly Simple yet Effective Multi-Query Rewriting Method for Conversational Passage Retrieval》</title>
+        <description>&lt;h4 id=&quot;一-基本信息&quot;&gt;一. 基本信息&lt;/h4&gt;
+&lt;p&gt;会议信息：SIGIR2024&lt;/p&gt;
+
+&lt;p&gt;关键词：对话式文本检索，Query改写&lt;/p&gt;
+
+&lt;h4 id=&quot;二-动机和贡献&quot;&gt;二. 动机和贡献&lt;/h4&gt;
+
+&lt;p&gt;对话式文本检索中存在的一个挑战是，由于在会话历史中，存在指代，遗漏和话题转换等问题，容易导致检索出不相关的文本。通常的一个解法是根据会话历史，通过Query改写，获取一个非情景化（de-contextualized）的Query用于下游检索。但是这种解法在部分场景下可能捕捉到不正确的意图，从而导致无法检索出正确的答案，根本原因在于Query改写是一个离散生成过程，可能无法准确的捕捉到潜在概率分布和词权重。&lt;/p&gt;
+
+&lt;p&gt;在一些工作中已经表明，对于相同的Query，通过整合多个改写后的Query能够进一步提升检索的效果，而beam search可以在没有任何附加成本的条件下，通过在每个生成步骤中考虑最佳的K个句子，而不是用贪心的模式选择最高概率的句子，天然生成多个改写后的Query且同时建模了词权重，方法简单有效且没有过多的计算成本。&lt;/p&gt;
+
+&lt;p&gt;该工作的主要贡献如下：&lt;/p&gt;
+
+&lt;p&gt;（1）比起当前主流的神经QR方法，能够以没有增加额外计算成本的前提下，产生多个Query&lt;/p&gt;
+
+&lt;p&gt;（2）能够以一种非常有效的方式将产生的Query用于sparse和dense检索中
+（3）提出的方法在QReCC数据集中拿到了SOTA的结果&lt;/p&gt;
+
+&lt;h4 id=&quot;三-主要方法&quot;&gt;三. 主要方法&lt;/h4&gt;
+
+&lt;h5 id=&quot;1-query改写&quot;&gt;(1) Query改写&lt;/h5&gt;
+
+&lt;p&gt;通过微调一个生成式语言模型在每个轮次根据beam search的得分生成TopN个改写Query，每个改写的Query有一个改写得分如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/cmqr_1.png?raw=true&quot; alt=&quot;1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;其中，t1,…,tl是预测的token，q(i,j)的&lt;strong&gt;绝对值符号&lt;/strong&gt;是第i个轮次，第j个改写Query的长度，H是会话历史。考虑到RS是句子序列中词概率的乘积，改写得分会增加长度正则避免改写器产生非常短的改写结果。&lt;/p&gt;
+
+&lt;h5 id=&quot;2-sparse检索&quot;&gt;(2) Sparse检索&lt;/h5&gt;
+
+&lt;p&gt;sparse检索依赖bow文本表示，相关性的计算方式通常如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/cmqr_2.png?raw=true&quot; alt=&quot;2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;其中w(t,q)表示与query相关的词权重，w(t,d)表示与document相关的词权重。改写的Query用于sparse检索时，主要关注w(t,q)。经典的做法是w(t,q)=c(t,q)，其中c表示频数统计。在该工作中，可以从n个改写的query中构建一个加权bow表示的query。具体分为两个步骤：&lt;/p&gt;
+
+&lt;p&gt;（1）每个改写query中的词权重，可以用beam search的得分来表示&lt;/p&gt;
+
+&lt;p&gt;（2）对于词集合中的每个词，词的权重可以通过对n个改写query中对应的词的权重进行求和取平均
+本质上，上述方法通过n个query改写的结果，实现了query扩展和词权重的重估计。&lt;/p&gt;
+
+&lt;h5 id=&quot;3-dense检索&quot;&gt;(3) Dense检索&lt;/h5&gt;
+
+&lt;p&gt;dense检索依赖向量表示，相关性的计算方法通常如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/cmqr_3.png?raw=true&quot; alt=&quot;3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;其中h(q)表示query的向量表示，h(d)表示document的向量表示。针对第i轮的n个query，向量表示方式如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/cmqr_4.png?raw=true&quot; alt=&quot;4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;最终的query的表示是n个query的加权，比之单个query，一定程度上增加了鲁棒性。&lt;/p&gt;
+
+&lt;h4 id=&quot;四-实验结果&quot;&gt;四. 实验结果&lt;/h4&gt;
+
+&lt;p&gt;采用QReCC数据集，共14k个对话，包含80k个问答对，数据集分割之后，得到测试实例8209个。采用的评估指标为MAP，MRR和Recall@10。采用的微调模型为t5-base，beam width为10，sparse检索的实现基于pyserini， dense embedding模型采用GTR(t5-based)。对比的baseline分别如下：&lt;/p&gt;
+
+&lt;p&gt;（1）manual rewrite。数据集中提供，人工改写的query&lt;/p&gt;
+
+&lt;p&gt;（2）T5QR(Manual)。一个比较强的基于t5的query改写模型&lt;/p&gt;
+
+&lt;p&gt;（3）Con-QRR。一个基于t5的利用强化学习优化检索性能之后的模型&lt;/p&gt;
+
+&lt;p&gt;（4）ConvGQR。利用两个t5模型，第一个进行query改写；第二个针对改写之后的query产生answer&lt;/p&gt;
+
+&lt;p&gt;（5）LLM(adhoc)。基于ChatGPT做query改写&lt;/p&gt;
+
+&lt;p&gt;（6）T5QR(LLM)。整体策略同（4），不同点在于基于10k的样本做了蒸馏。&lt;/p&gt;
+
+&lt;p&gt;具体实验结果如下，星号（*）表示最佳结果，下划线表示第二好的结果。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/cmqr_5.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;对比分析得到：&lt;/p&gt;
+
+&lt;p&gt;（1）该方法在sparse和dense两类检索中，各个数据集上都比对比的方法要好（除人工），这意味着该方法对于检索有效果上的提升。&lt;/p&gt;
+
+&lt;p&gt;（2）该方法取得了在QReCC数据集上的SOTA。&lt;/p&gt;
+
+&lt;p&gt;（3）虽然人工改写在TREC-CAsT数据集上取得了最好的结果，但是在QReCC数据集上，自动化的方法还是优于人工改写。&lt;/p&gt;
+
+&lt;h4 id=&quot;五-结论和启发&quot;&gt;五. 结论和启发&lt;/h4&gt;
+
+&lt;p&gt;（1）提出了一种不增加额外代价的query改写方法，可以以一种比较简单的方式集成在sparse和dense的检索pipeline中带来效果的提升&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;NLP有助于因果推断&lt;/li&gt;
-  &lt;li&gt;因果推荐有助于NLP：interpretation&amp;amp;explanation/sensitivity&amp;amp;robustness&lt;/li&gt;
+  &lt;li&gt;如何得到一个query改写模型？&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;其中，第一个方向的研究对象是因果推断，NLP是辅助手段。第二个方向和第一个方向恰恰相反。下文中的例1表明第一个方向，例2表明第二个方向，其中涉及的具体因果概念如下（例子原文来自网络，表格和分析来自博主本人）：&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;例 1&lt;/strong&gt; 一个在线论坛允许其用户在他们的个人资料中用一个图标表示性别。他们注意到，图标为「女性」的用户所发的帖子得到的点赞量要少一些。为了评估这一政策（允许用户在资料中提供性别信息），他们问了一个问题：被认为是女性会降低帖子的受欢迎程度吗？&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Treatment&lt;/th&gt;
-      &lt;th&gt;Outcome&lt;/th&gt;
-      &lt;th&gt;Confounding&lt;/th&gt;
-      &lt;th&gt;Counterfactual Question&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;被认为是女性&lt;/td&gt;
-      &lt;td&gt;帖子得到的点赞量&lt;/td&gt;
-      &lt;td&gt;话题（图标为女性的用户所发的帖子可能更多的是关于某个话题的，而该话题本身就很难吸引人点赞）&lt;/td&gt;
-      &lt;td&gt;如果我们操控了一个帖子的性别图标，它能得到多少个赞？&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;在例1中，借助于NLP相关的技术，能够刻画Confounding，比如话题分析技术等，继而有利于因果分析。在本例中，文本作为Confounding，其他场景下，文本也可以作为Treatment或者Outcome，或者Mediator。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;例 2&lt;/strong&gt;
-一家医学研究中心想要构建一个分类器，用于从病人医疗记录的文本叙述中检测临床诊断。这些记录汇总在多个医院站点，目标临床状况的频率和叙述的写作风格都有所不同。当分类器应用于训练集之外的站点的记录时，它的准确率会下降。事后分析表明，这个分类器在看起来不相关的特性上投入了很高的权重，比如格式标记。&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Treatment&lt;/th&gt;
-      &lt;th&gt;Outcome&lt;/th&gt;
-      &lt;th&gt;Confounding&lt;/th&gt;
-      &lt;th&gt;Counterfactual Question&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;医疗记录文本&lt;/td&gt;
-      &lt;td&gt;分类器的预测&lt;/td&gt;
-      &lt;td&gt;医院站点（写作风格）&lt;/td&gt;
-      &lt;td&gt;如果我们改变医院站点，同时保持真实的临床状态不变，分类器的预测是否会改变？（我们希望分类器依靠那些表达临床状况的短语来作出判断，而不是写作风格。）&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;在例2中，反映了NLP模型的鲁棒性差的问题。借助于因果推断，分析影响NLP模型鲁棒性的因素，比如这里的写作风格，通过特定的提升鲁棒性的方法，比如对抗训练等，从而有助于NLP。&lt;/p&gt;
-
-&lt;p&gt;相关文章和工作：&lt;/p&gt;
+&lt;p&gt;蒸馏LLM的结果/利用线上搜索日志等&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2002.02770&quot;&gt;《A Survey on Causal Inference》&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://github.com/uber/causalml&quot;&gt;CausalML&lt;/a&gt;/PyLift/grf(uplifting models)&lt;/p&gt;
-  &lt;/li&gt;
+  &lt;li&gt;ES混搜架构中，如何利用这种改写方法？&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;在读过一些文章，看过一些工作之后，博主形成的基本结论是：&lt;/p&gt;
+&lt;p&gt;dense检索相对直接，对于sparse检索来说，w(t,q)和w(t,d)是ES的内置操作。或者退化为一种计算关键词权重的逻辑用于召回&lt;/p&gt;
+
+&lt;p&gt;（2）两个需进一步探索的想法&lt;/p&gt;
+
+&lt;p&gt;（2.1）探索多query改写在精排阶段的用法&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;因果推断在一些更好的场景下有着实际的落地价值，比如A/B实验，营销定价策略等&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;NLP赋能因果推断，其实是一个NLP问题，和赋能哪个方向没有关系&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;因果推断赋能NLP，是做NLP的同学要格外关注的一个方向，但是从目前赋能的问题看，理论性&amp;gt;实践性，短期内看不到特别的价值&lt;/p&gt;
-  &lt;/li&gt;
+  &lt;li&gt;对于n个改写query，每个query和document计算相关性，按照RS加权得到最终的相关性得分&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;（2.2）改写query个数的自动化选择&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;目标和反馈的确定&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;改写后：&lt;/p&gt;
+
+&lt;p&gt;目标: 计算RS的平均分&amp;gt;=平均分阈值&lt;/p&gt;
+
+&lt;p&gt;反馈：K依次递增，判断是否满足条件。如果满足则退出，否则增加K的值，直到满足条件或者等于最大的K
+改写中，根据logit来实现自动化等&lt;/p&gt;
+
 </description>
-        <pubDate>Fri, 15 Oct 2021 19:40:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/10/15/causal-inference-for-nlp/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/10/15/causal-inference-for-nlp/</guid>
+        <pubDate>Mon, 26 Aug 2024 18:35:00 +0800</pubDate>
+        <link>http://localhost:4000/2024/08/26/query-rewrite/</link>
+        <guid isPermaLink="true">http://localhost:4000/2024/08/26/query-rewrite/</guid>
+        
+        <category>搜索</category>
         
         
       </item>
     
       <item>
-        <title>[NLP]NLP中的范式转移</title>
-        <description>&lt;p&gt;NLP的主流范式约有七种，包括分类，匹配，序列标注，阅读理解等，而在解决具体问题时，可以从一种范式转移到另外一种范式，甚至多种范式的综合使用，这称之为NLP的范式转移。具体如下：&lt;/p&gt;
+        <title>《FIRST: Faster Improved Listwise Reranking with Single Token Decoding》</title>
+        <description>&lt;h4 id=&quot;基本信息&quot;&gt;基本信息&lt;/h4&gt;
 
-&lt;hr /&gt;
+&lt;p&gt;主题：LLM用于重排序&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://s3.bmp.ovh/imgs/2021/10/54cae8f24fd05f34.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;作者：Heng Ji etc.&lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;p&gt;机构：UIUC, IBM etc.&lt;/p&gt;
 
-&lt;p&gt;上图来自文章Xuanjing Huang组的《Paradigm Shift in Natural Language Processing》，其中的（f），全称为sequence-to-action-sequence，形式的表达为：&lt;/p&gt;
+&lt;p&gt;代码：https://github.com/gangiswag/llm-reranker&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;A = CLS(ENC(X),C)&lt;/strong&gt;, 其中A是action的序列，C是configuration的序列。在每个时间步，模型基于当前text和当前的configuration，预测action。&lt;/p&gt;
+&lt;h4 id=&quot;主要贡献&quot;&gt;主要贡献&lt;/h4&gt;
 
-&lt;p&gt;这种方式主要应用于结构化预测任务，比如Parser相关。感兴趣可以读陈丹琦老板Manning或者西湖大学Yue Zhang的工作。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;提出一种新的方法能够单独利用LLM生成的第一个标识符的logit来做排序&lt;/li&gt;
+  &lt;li&gt;监督微调模型中增加learning to rank的损失函数，在提升rank效果的同时，降低推理时延&lt;/li&gt;
+  &lt;li&gt;比cross-encoder更好的排序效果&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;既然有了这些范式，那么范式之间是如何转移的呢？具体如下(图片来自&lt;a href=&quot;https://txsun1997.github.io/nlp-paradigm-shift/&quot;&gt;这里&lt;/a&gt;)：&lt;/p&gt;
+&lt;p&gt;之前的方法有哪些？&lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;p&gt;（1）《Improving Passage Retrieval with Zero-Shot Question Generation》，EMNLP2022&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://s3.bmp.ovh/imgs/2021/10/7f0942a3f685efb4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/image.png?raw=true&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;p&gt;该方式比较符合直觉。针对每个返回的passage，用LLM生成一个问题question，然后利用LLM计算PPL作为question和Question的相关性表示。&lt;/p&gt;
 
-&lt;p&gt;以文本分类为例，传统的文本分类采用Class范式，该范式分为one-hot和multi-hot两种，对于multi-hot的问题，Class范式是一种次优范式。而通过将Class转化为Seq2Seq范式，有效利用label之间的交互信息。此外，label本身的语义信息在Class范式中也并未被充分的利用，而通过将Class范式转化为Matching范式,可以充分利用label中的先验信息,尤其是在数据资源较少的前提下。在预训练任务流行的现在，将Class范式转化为（M）LM的方式，可以充分利用预训练语言模型本身的能力。&lt;/p&gt;
+&lt;p&gt;（2）《Holistic Evaluation of Language Models》，Percy Liang，TMLR&lt;/p&gt;
 
-&lt;p&gt;除此之外，多种范式的组合也是范式迁移的范畴。&lt;/p&gt;
+&lt;p&gt;给定Query和Passage，输出Yes或者No&lt;/p&gt;
 
-&lt;p&gt;在将其他范式迁移到(M)LM的时候，其中一类非常重要的工作是Prompt-Learning。具体文章《Pre-train， Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing》，文章一作也是Xuanjing Huang老师组的，对应的&lt;a href=&quot;https://zhuanlan.zhihu.com/p/395115779&quot;&gt;知乎文章&lt;/a&gt;，评论区也有很多互动的观点很有意思。&lt;/p&gt;
+&lt;p&gt;（3）《Is ChatGPT Good at Search? Investigating Large Language Models as Re-Ranking Agents》，EMNLP2022&lt;/p&gt;
 
-&lt;p&gt;这篇文章中，作者的思考问题的方式值得学习。其中一个总结是：在Fine-tuning的年代，我们希望语言模型能够尽可能的向下游任务靠近，而Prompting的年代，则是下游任务向语言模型靠近。我们经历了从使用预训练语言模型到使用了更强的预训练语言模型，到更好的使用了预训练语言模型的过程。整体上看，二者越来越近！&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/image2.png?raw=true&quot; alt=&quot;image2&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;以Huang老师组的这两篇文章，具体可以展开非常多该方向上的研究，在此不再陈述。围绕上述工作，引发的一些思考如下。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/image7.png?raw=true&quot; alt=&quot;image7&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;（1）模态之间的范式转移是否存在？&lt;/p&gt;
+&lt;p&gt;主要思路是通过滑窗的方式，从底部向上进行排序，其中window的大小是要返回的topk个搜索结果。本质上是通过端到端的方式
+直接输出最终的排序结果。&lt;/p&gt;
 
-&lt;p&gt;一个典型的例子是2021年1月份的文章《Named Entity Recognition in the Style of Object Detection》，这篇文章将目标检测的思路用于NER任务，取得了和NLP传统方法相比comparable的结果。其中，目标检测中的方式是two-stage方法，NER是传统的标准方式。整体上，是CV的范式转向NLP的范式。&lt;/p&gt;
+&lt;h4 id=&quot;该工作怎么做的&quot;&gt;该工作怎么做的？&lt;/h4&gt;
 
-&lt;p&gt;2021年9月的Hinton组的文章《PIX2SEQ : A LANGUAGE MODELING FRAMEWORK FOR OBJECT DETECTION》，用一个语言模型做目标检测。其中，语言模型是NLP中的标准范式。整体上，是NLP的范式转移到CV的范式。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/image3.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;这些探索能否将我们引向一个结论：一个统一的范式用于多种模态的问题求解。&lt;/p&gt;
+&lt;p&gt;(1）利用LLM生成的第一个标识符的logit来做排序&lt;/p&gt;
 
-&lt;p&gt;（2）Prompt为什么会成为转移至(M)LM的关键操作？&lt;/p&gt;
+&lt;p&gt;（2）加入LTR损失函数的模型微调&lt;/p&gt;
 
-&lt;p&gt;在Fine-tuning的年代，我们倾向于将预训练语言模型作为一个更强的Encoder，但是随着探索的加深，我们认识到这个Encoder非常强，为了更好地挖掘Encoder的潜力，需要将焦点从下游任务转向Encoder自身。其中最简单的一条路径是适应Encoder的训练模式。比如对BERT而言，我们构造Mask的方式，而这就是Prompt的一种方式。范式转移过程中，考虑到Prompt和下游任务的适配，又会引发一系列的工作。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/image4.png?raw=true&quot; alt=&quot;image4&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;与之相关的一个角度是，研究中心从输出侧转移到输入侧，而对BERT的花式玩法，其实也正是存在于这两端。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/image5.png?raw=true&quot; alt=&quot;image5&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;其实，核心的思想都和朴素，都很直接。正如网络结构的设计，无论怎样，组件的选择有时候会受到维度对齐的影响，任何能够被设计的结构，都有自己的偏置。&lt;/p&gt;
+&lt;p&gt;整体上的损失函数是语言模型和LTR损失的加权。这里，LTR的损失函数的weighting方案，提升了排序序号较前的样本的logit的权重。其中，i和j是真实排序序列中的排序序号，si和sj是第一个token的logit分布中对应的标识符的logit。相关的损失函数在度量学习中有更多一些。&lt;/p&gt;
 
-&lt;p&gt;（3）面向具体问题的范式选择逻辑是什么？&lt;/p&gt;
+&lt;h4 id=&quot;排序效果怎样&quot;&gt;排序效果怎样？&lt;/h4&gt;
 
-&lt;p&gt;在上述两篇文章中，都没有找到比较有说服力的结论。不过，针对预训练语言模型，我们的逻辑是：用+用更强的+更好地用。但是，更多时候的问题是，PLM是不在选择空间中的。虽然文章中给出了各种范式的优缺点，但是只能成为一个出发点，并不能成为一个结论。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/imag6.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;这也许很难得到一个结论。&lt;/p&gt;
+&lt;p&gt;最上一行是通过LM直接生成的效果，从上表可以看出，基于各个任务的平均指标，LM+weighting RankNet的效果最佳，同时去掉LM和去掉weighting均会使得排序效果变差。&lt;/p&gt;
 
-&lt;p&gt;不管怎样，这些范式，以及范式转移的逻辑，定义了一个有趣且庞大的探索空间，NLP的各种可能性均发生于此。&lt;/p&gt;
+&lt;h4 id=&quot;思考延伸&quot;&gt;思考延伸&lt;/h4&gt;
+
+&lt;p&gt;（1）标识符采用A-Z，限制了window的大小&lt;/p&gt;
+
 </description>
-        <pubDate>Sat, 02 Oct 2021 19:40:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/10/02/thinking-in-nlp-paradigm/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/10/02/thinking-in-nlp-paradigm/</guid>
+        <pubDate>Wed, 26 Jun 2024 00:35:00 +0800</pubDate>
+        <link>http://localhost:4000/2024/06/26/reranker-based-on-llm/</link>
+        <guid isPermaLink="true">http://localhost:4000/2024/06/26/reranker-based-on-llm/</guid>
+        
+        <category>搜索</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>结束</title>
+        <description>&lt;p&gt;文章从笔者自己的公众号《KBQA沉思录》转发而来，文章主要围绕以下内容展开：&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&amp;amp;mid=2247484884&amp;amp;idx=1&amp;amp;sn=ab696993ec6c0c4daca14f8649074854&amp;amp;chksm=fc740c9dcb03858ba41add43d6a36f5dd5b5d0a8825142cf357d5cbd7aff04f81f8decb0b7f1&amp;amp;token=1169779643&amp;amp;lang=zh_CN#rd&quot;&gt;Finally，再见&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 16 Apr 2024 17:14:00 +0800</pubDate>
+        <link>http://localhost:4000/2024/04/16/ending/</link>
+        <guid isPermaLink="true">http://localhost:4000/2024/04/16/ending/</guid>
+        
+        <category>生活杂谈</category>
         
         
       </item>

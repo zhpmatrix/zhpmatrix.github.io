@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[LeetCode]从最优装载看贪心"
+title: "从最优装载看贪心"
+tags: [LeetCode]
 excerpt: "贪心选择证明和最优子结构证明"
 date: 2016-11-10 19:32:00
 mathjax: true

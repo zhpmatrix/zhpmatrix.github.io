@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[LLM]一个有意思的关于ChatGPT的问题清单"
+title: "一个有意思的关于ChatGPT的问题清单"
+tags: [LLM]
 excerpt: "这篇文章梳理ChatGPT相关的基础概念和问题，主要分为两个部分，第一部分围绕scaling laws, compute optimal和compression三个核心概念。第二部分主要围绕张家俊老师在知乎中谈到的8个非常有意思的问题。"
 date: 2023-06-21 11:40:00
 ---

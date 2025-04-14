@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[paper]关于K-means变种的论文阅读"
+title: "关于K-means变种的论文阅读"
+tags: [论文笔记]
 excerpt: "K-means是特殊情况下的高斯混合模型，关于K-means的各种改进论文，看作者看会议，真的有意思。K-means看似逻辑简单，关于该算法的研究一直没有停止过，ICML 2017就有三篇"
 date: 2017-06-15 21:22:00
 mathjax: true

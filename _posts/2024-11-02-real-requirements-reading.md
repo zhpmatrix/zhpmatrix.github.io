@@ -1,9 +1,11 @@
 ---
 layout: post
 comments: true
-title:  "[读书笔记]读粱宁的《真需求》"
+title:  "读粱宁的《真需求》"
 excerpt: "真需求在哪里？如何触达真需求？"
+tags: [读书笔记]
 date:   2024-11-02 10:35:00
+tags: [读书笔记]
 mathjax: true
 ---
 

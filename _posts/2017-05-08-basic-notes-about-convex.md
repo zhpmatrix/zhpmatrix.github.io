@@ -1,8 +1,9 @@
 ---
 layout: post
-title: "[Optimization]一入优化深似海，从此Coding是路人"
-excerpt: "这是一篇我读到的比较好的优化的资料整合，可能包括博客，微信公众号，某些论文，某些书中的对某个问题的总结等。采用的形式是提出问题，解决问题的资料来源，和自己对于资料的评论，可能包括资料中某些小的错误瑕疵。"
-date: 2017-05-06 18:34:00
+title: "Basic Notes About Convex"
+tags: [深度学习]
+excerpt: "论文阅读。这篇文章主要讨论了凸优化相关的基础知识。"
+date: 2017-05-08 18:00:00
 mathjax: true
 ---
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>

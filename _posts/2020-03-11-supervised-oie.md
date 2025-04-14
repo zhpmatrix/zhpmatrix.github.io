@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]开放信息抽取-监督视角"
+title: "开放信息抽取-监督视角"
+tags: [NLP]
 excerpt: "开放并不意味着不能监督，监督视角下的开放信息抽取也是很有意思。"
 date: 2020-03-11 10:25:00
 mathjax: true

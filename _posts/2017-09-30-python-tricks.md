@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[ML]KNN实现过程中的编程复盘"
+title: "Python技巧"
+tags: [机器学习]
 excerpt: "这篇博客讨论了KNN实现过程中涉及到的排序和查找，TopN问题，词频统计等非常经典的基础问题，同时引入了heapq和Counter两个模块。"
 date: 2017-09-30 16:46:00
 mathjax: true

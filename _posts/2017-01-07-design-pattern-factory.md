@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[C++]工厂设计模式"
+title: "工厂设计模式"
+tags: [C++]
 excerpt: "最近读xgboost源码，在目标函数设计时，contributors们采用了工厂设计模式，这个技能点有没有Get到?"
 date: 2017-01-07 19:20:00
 ---

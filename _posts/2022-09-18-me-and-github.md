@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[生活感悟]我与Github的十年"
+title: "我和Github"
+tags: [生活杂谈]
 excerpt: "从二零一三年六月六日正式加入Github至今大概十年。"
 date: 2022-09-18 11:40:00
 mathjax: true

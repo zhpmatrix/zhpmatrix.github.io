@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[paper]针对密集目标检测的焦点损失函数"
+title: "针对密集目标检测的焦点损失函数"
+tags: [论文笔记]
 excerpt: "这是何凯明老师团队8月7日挂在arXiv的一篇文章，文章原名《Focal Loss for Dense Object Detection》，恰逢我们在做的一个NLP的比赛遇到不平衡问题，小林师兄就提到这篇文章，但是苦于BigDL有点儿坑，在自定义loss的时候学习成本略大，就没用到比赛中(其实就是懒)，今天读读文章，还是有启发的。"
 data: 2017-08-13 08:58
 mathjax: true

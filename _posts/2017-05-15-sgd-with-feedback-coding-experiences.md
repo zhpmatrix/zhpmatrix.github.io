@@ -1,8 +1,9 @@
 ---
 layout: post
-title: "[DL]深度学习Eve折腾记"
-excerpt: "本文是围绕Eve的算法实现折腾过程，也是自己跑的第一个深度学习实验。主要是验证自己的一个想法，是对Eve中的Clipping操作的一个替代"
-date: 2017-05-15 18:34:00
+title: "SGD with Feedback Coding Experiences"
+tags: [深度学习]
+excerpt: "SGD with Feedback Coding Experiences"
+date: 2017-05-15 14:59:00
 mathjax: true
 ---
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>

@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]sentencepiece"
+title: "sentencepiece"
+tags: [NLP]
 excerpt: "无监督分词器的对比，两个subword算法以及tensor2tensor中subword的实现思路，以及讨论一些subword regularization的东西，其中sentencepiece中某些部分的理解需要去读源代码中的注释才行。"
 date: 2019-04-26 18:43:00
 mathjax: true

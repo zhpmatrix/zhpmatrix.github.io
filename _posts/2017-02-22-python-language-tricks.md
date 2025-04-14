@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[Python]若干有意思的知识点"
+title: "若干有意思的知识点"
+tags: [Python]
 excerpt: "鸭子类型，装饰器，闭包，生成器"
 date: 2017-02-22 12:00:00
 ---

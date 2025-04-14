@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[ML]模型选择"
+title: "交叉验证"
+tags: [机器学习]
 excerpt: "偶然间看到余凯在某次工业界报告中谈到误差，就想写点关于模型选择，偏差方差均衡，交叉验证之类的东西。"
 date: 2016-12-05 11:11:00
 mathjax: true
@@ -69,11 +70,11 @@ NIPS 2016上，Andrew Ng水笔白板作报告，又一次谈了他的bias和vari
 
 1.通常采用的是K-fold交叉验证方式，必要的时候可以HoldOut。
 
-2.HoldOut中的scoring是‘accuracy’,可以读源代码。
+2.HoldOut中的scoring是'accuracy',可以读源代码。
 
 3.cross_val_score中的[scoring](http://scikit-learn.org/stable/modules/model_evaluation.html#scoring-parameter)可选参数众多，**scoring是用来定义模型评估准则的**，比如scoring='accuracy'是target预测值和真实值的差度量。具体如下：
 
-[**'accuracy'**, 'adjusted_rand_score', 'average_precision', **'f1'**, 'f1_macro', 'f1_micro', 'f1_samples', 'f1_weighted', **'log_loss'**, **'mean_absolute_error'**, **'mean_squared_error'**, 'median_absolute_error', 'precision', 'precision_macro', 'precision_micro', 'precision_samples', 'precision_weighted', 'r2', **'recall'**, 'recall_macro', 'recall_micro', 'recall_samples', 'recall_weighted', **'roc_auc'**]
+['accuracy', 'adjusted_rand_score', 'average_precision', 'f1', 'f1_macro', 'f1_micro', 'f1_samples', 'f1_weighted', 'log_loss', 'mean_absolute_error', 'mean_squared_error', 'median_absolute_error', 'precision', 'precision_macro', 'precision_micro', 'precision_samples', 'precision_weighted', 'r2', 'recall', 'recall_macro', 'recall_micro', 'recall_samples', 'recall_weighted', 'roc_auc']
 
 在利用交叉验证进行参数选择的时候，结合Ng所谈到的问题，我们只要关心交叉验证误差最小时对应的模型就好，当然，GridSearchCV也是模型参数选择一种合适的方式。
 
@@ -81,9 +82,9 @@ NIPS 2016上，Andrew Ng水笔白板作报告，又一次谈了他的bias和vari
 
 参考：
 
-1.[经验风险最小化与结构风险最小化](http://blog.csdn.net/daringpig/article/de    tails/8122903)
+1.[经验风险最小化与结构风险最小化](http://blog.csdn.net/daringpig/article/details/8122903)
 
-从科学命题的讨论转移到没有免费午餐定理，再到Occam剃刀，通俗易懂。有人提到周  志华老师的书上有关于没有免费午餐的详细证明。
+从科学命题的讨论转移到没有免费午餐定理，再到Occam剃刀，通俗易懂。有人提到周志华老师的书上有关于没有免费午餐的详细证明。
 
 
 

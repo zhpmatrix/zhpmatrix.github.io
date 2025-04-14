@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[技术思考]NLP，吹爆与落地"
+title: "NLP，吹爆与落地"
+tags: [技术杂文]
 excerpt: "眼看他起朱楼，眼看他宴宾客，眼看他楼塌了。"
 date: 2019-11-02 17:00:00
 mathjax: true

@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[目标检测]R-CNN"
+title: "RCNN系列"
+tags: [CV]
 excerpt: "单独把分类器和回归器的训练数据构造过程拉出来思考一下，同时对比了Region Proposal和YOLO中Cell的联系和区别。"
 date: 2018-05-12 23:33:00
 mathjax: true

@@ -1,8 +1,9 @@
 ---
 layout: post
-title: "[Optimization]大规模机器学习优化算法的想法启发"
-excerpt: "花了两周多时间读Bottou的93页的《Optimization Method for Large Scale Machine Learning》，这里总结一下文中提到的可能的想法"
-date: 2017-04-08 20:40:00
+title: "Idea from Bottou"
+tags: [深度学习]
+excerpt: "论文阅读。这篇文章主要讨论了深度学习中的优化问题。"
+date: 2017-04-08 18:00:00
 mathjax: true
 ---
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>

@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[LeetCode]数据流"
+title: "数据流"
+tags: [LeetCode]
 excerpt: "传统算法中的数据流问题，一个经典的数据场景，流式数据处理"
 date: 2019-01-03 18:53:00
 mathjax: true

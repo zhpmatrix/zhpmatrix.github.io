@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[ML&DL]用图分割的方式加速随机漂移粒子群优化算法(RDPSO)"
+title: "图划分"
+tags: [技术杂文]
 excerpt: "嗯，这个事情应该没有人做过滴，因为老板是RDPSO主要发明人呀。本文简要谈RDPSO的加速计算，主要涉及MPI的通信函数梳理和一些基本且重要的概念。"
 date: 2017-06-22 21:30:00
 mathjax: true
@@ -31,7 +32,7 @@ mathjax: true
 
 1.0 MPI_Barrier
 
-这里有一个[Demo](http://blog.csdn.net/u014247371/article/details/26958469)，我尝试说形象地表达一下。A,B,C三个同学跑5000米，有个教练D，为了保证最终A,B,C的成绩差距不太大，他在1000米处等着，三个同学没有全到达该处时，其他任意一个到的同学要等待其他同学，然后开跑。“在1000米处等”就意味着设置了一个**Barrier**，不管Barrier前各个任务的执行速度，先来的都要等待后到的，在后续的RDPSO的分布式计算中可以使用Barrier实现(粗粒度)同步计算。
+这里有一个[Demo](http://blog.csdn.net/u014247371/article/details/26958469)，我尝试说形象地表达一下。A,B,C三个同学跑5000米，有个教练D，为了保证最终A,B,C的成绩差距不太大，他在1000米处等着，三个同学没有全到达该处时，其他任意一个到的同学要等待其他同学，然后开跑。"在1000米处等"就意味着设置了一个**Barrier**，不管Barrier前各个任务的执行速度，先来的都要等待后到的，在后续的RDPSO的分布式计算中可以使用Barrier实现(粗粒度)同步计算。
 
 1.1 MPI_Send和MPI_Recv，MPI_ISend和MPI_IRecv
 

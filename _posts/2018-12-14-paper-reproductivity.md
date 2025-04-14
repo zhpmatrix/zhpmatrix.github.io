@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]从一个例子谈DL论文的复现问题"
+title: "从一个例子谈DL论文的复现问题"
+tags: [NLP]
 excerpt: "针对EMNLP2018关于对话生成的一篇文章《An Auto-Encoder Matching Model for Learning Utterance-Level Semantic Dependency in Dialogue Generation》，对实验复现过程的讨论和思考"
 date: 2018-12-14 18:43:00
 mathjax: true

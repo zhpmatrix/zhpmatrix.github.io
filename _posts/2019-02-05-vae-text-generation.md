@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLG]论文阅读-《Generating Sentences from a Continuous Space》"
+title: "论文阅读-《Generating Sentences from a Continuous Space》"
+tags: [论文笔记]
 excerpt: "主要从贝叶斯角度讨论了VAE的目标函数的由来，分三步由浅入深讨论VAE，同时给出了VAE应用于文本生成任务的工作。"
 date: 2019-02-05 16:34:00
 mathjax: true

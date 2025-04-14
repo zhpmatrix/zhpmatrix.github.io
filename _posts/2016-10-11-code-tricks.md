@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[C++]两个tricks"
+title: "两个tricks"
+tags: [C++]
 excerpt: "尾递归和回溯"
 date: 2016-10-11 11:20:00
 ---

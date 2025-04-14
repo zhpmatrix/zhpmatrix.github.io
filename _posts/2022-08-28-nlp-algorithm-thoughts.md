@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[生活感悟]一个NLP算法人的困境与破局"
+title: "NLP算法思考"
+tags: [生活杂谈]
 excerpt: "继《NLP，吹爆与落地》，《业务，工程和算法的互殴现场》之后，笔者又来诉苦了。"
 date: 2022-08-28 11:40:00
 mathjax: true

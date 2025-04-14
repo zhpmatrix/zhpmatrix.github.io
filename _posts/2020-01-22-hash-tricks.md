@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[LeetCode]Hash，值得拥有"
+title: "Hash，值得拥有"
+tags: [LeetCode]
 excerpt: "Hash思想在传统算法中的应用"
 date: 2020-01-21 18:53:00
 mathjax: true

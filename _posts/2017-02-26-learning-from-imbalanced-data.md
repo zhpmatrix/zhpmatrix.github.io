@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[paper]Learning from Imbalanced Data"
+title: "Learning from Imbalanced Data"
+tags: [论文笔记]
 excerpt: "解决数据不平衡问题的一篇论文笔记"
 date: 2017-02-20 12:00:00
 ---

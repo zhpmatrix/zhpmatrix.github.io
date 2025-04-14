@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[OpenNMT]预处理模块源码剖析"
+title: "预处理模块源码剖析"
+tags: [工程架构]
 excerpt: "讨论预处理模块的相关设计"
 date: 2018-12-17 18:43:00
 mathjax: true
@@ -60,7 +61,7 @@ def get_num_features(data_type, corpus_file, side):
 
 看上述代码，通过传入预处理的数据类型，调用对应类的方法。此外，传入的另一个参数表明处理的是源端还是目标端，对于seq2seq任务，输入的是平行语料。对于OpenNMT-py来说，数据的组织方式是将源和目标对齐分开。当需要基于源码扩展数据类型的时候，这里就是入口。
 
-沿着上述逻辑，进入TextDataset类中，这里就是对文本数据的具体处理逻辑了，例如读取数据，数据解析，数据读取生成器(yield实现)等，不同类型的数据对应不同的处理方式。在代码中，主要使用PyTorch提供相关数据处理函数，例如torchtext库，torchvision库(PIL，cv2)，torchaudio库等。在入口处扩展数据类型后，或者说“注册”后，在该目录下新建一个对应类型文件，继承dataset_base类，基于PyTorch或者其他第三方工具实现具体的处理逻辑。
+沿着上述逻辑，进入TextDataset类中，这里就是对文本数据的具体处理逻辑了，例如读取数据，数据解析，数据读取生成器(yield实现)等，不同类型的数据对应不同的处理方式。在代码中，主要使用PyTorch提供相关数据处理函数，例如torchtext库，torchvision库(PIL，cv2)，torchaudio库等。在入口处扩展数据类型后，或者说"注册"后，在该目录下新建一个对应类型文件，继承dataset_base类，基于PyTorch或者其他第三方工具实现具体的处理逻辑。
 
 _提示：在我本地的版本中，源码中get\_fields的逻辑在各自对应的子类中，但是在v0.2中，将该逻辑放到了inputter.py的实现中。_
 

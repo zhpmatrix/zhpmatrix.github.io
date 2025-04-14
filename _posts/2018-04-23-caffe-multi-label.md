@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[Caffe]Caffe修改源码支持多标签输入"
+title: "Caffe修改源码支持多标签输入"
+tags: [工程架构]
 excerpt: "通过修改Caffe源码的方式，使得Caffe可以支持多标签输入。同时给出了一个使用Caffe进行多标签训练的例子。附带讲了如何调试Caffe的CPU和GPU版本的源代码。博客中的例子已经分享到我的Github上了，还有训练数据。"
 date: 2018-04-23 15:34:00
 mathjax: true

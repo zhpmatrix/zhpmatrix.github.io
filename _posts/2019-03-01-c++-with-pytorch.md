@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[PyTorch]PyTorch的C++前端和模型部署"
+title: "PyTorch的C++前端和模型部署"
+tags: [PyTorch]
 excerpt: "PyTorch1.0发布后，PyTorch的春天似乎就到了。在此之前，关于PyTorch的吐槽主要集中在不适用生产环境，个人认为某种意义上就是缺少C++的前端。最近用PyTorch复现一篇文章，顺道考察了一下C++端的应用。是的，我从没有喜欢过Tensorflow。"
 date: 2019-03-01 18:43:00
 mathjax: true

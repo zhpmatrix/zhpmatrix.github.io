@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[技术思考]业务，工程和算法的互殴现场"
+title: "业务，工程和算法的互殴现场"
+tags: [技术杂文]
 excerpt: "一个NLP算法工程师的日常？"
 date: 2019-11-30 10:20:00
 mathjax: true

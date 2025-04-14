@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[C++]从C++的字符串分割展开讨论"
+title: "从C++的字符串分割展开讨论"
+tags: [C++]
 excerpt: "C++没有内置字符串的分割函数，惊不惊喜，意不意外？"
 date: 2017-10-05 10:05:00
 mathjax: true

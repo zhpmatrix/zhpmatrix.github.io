@@ -1,9 +1,27 @@
 <DOCTYPE html>
 <html>
   <head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9534180453883710"
+     crossorigin="anonymous"></script>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ohcryzf6h1");
+</script>
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4LG9G3BTNP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4LG9G3BTNP');
+</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>[ML]AwesomeXGBoost-炼丹秘籍</title>
+    <title>XGBoost调参</title>
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="致力于算法，数据和工程的全链路打通">
     <link rel="canonical" href="http://localhost:4000/2017/10/19/xgboost-tuning/">
@@ -31,7 +49,6 @@
 
     <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
     <a class="site-title" href="/">ZHPMATRIX blog</a>
-    <a class="site-title" href="/project.html">项目</a>
     <nav class="site-nav">
       <a href="#" class="menu-icon">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -45,13 +62,18 @@
         </svg>
 </a>
       <div class="trigger">
+ 	<font color="yellow"><a class="page-link" href="http://www.souyisou.online/">搜医搜</a></font>
+ 	<font color="yellow"><a class="page-link" href="https://aitax.17win.com/#/home?Authorization=Bearer+RKgwsKLnZ3uOoZPjU9nPEPP6H/gjZcVgFlgixoqaWSjeXvjxg9jxTA8yJzNOCd94mm7tSpzOgq0w9Q/3XZuY3MitCACEUV88dDvlWFESem/uZVjdHXvDoxFRxGUJLDByEB1GZSxrWvL9mUxlU5ykT9yDV%2BVNCfQLd6YNf7d%2Bss0=&X-App-Key=cb1e9c178a914a61b4db1bd5735f1036&X-Biz-Code=test&X-User-Id=tester&keyword=%E5%B0%8F%E5%9E%8B%E5%BE%AE%E5%88%A9%E4%BC%81%E4%B8%9A%E6%89%80%E5%BE%97%E7%A8%8E%E4%BC%98%E6%83%A0">AI搜税</a></font>
         
-          <a class="page-link" href="/about/">关于我</a>
+          <font color="yellow"><a class="page-link" href="/about/">about</a></font>
         
           
         
           
         
+          <font color="yellow"><a class="page-link" href="/project/">project</a></font>
+        
+	
       </div>
     </nav>
   </div>
@@ -77,7 +99,7 @@
       <div class="post">
 
   <header class="post-header">
-    <h1>[ML]AwesomeXGBoost-炼丹秘籍</h1>
+    <h1>XGBoost调参</h1>
     <p class="meta">Oct 19, 2017</p>
   </header>
 
@@ -106,29 +128,29 @@
 
 <h2 id="使用xgboost自定义目标函数和评估函数">使用XGBoost自定义目标函数和评估函数</h2>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
-<span class="kn">import</span> <span class="nn">xgboost</span> <span class="k">as</span> <span class="n">xgb</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="n">xgboost</span> <span class="k">as</span> <span class="n">xgb</span>
+<span class="kn">from</span> <span class="n">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
 <span class="c1">###
 # advanced: customized loss function
 #
-</span><span class="k">print</span> <span class="p">(</span><span class="s">'start running example to used customized objective function'</span><span class="p">)</span>
+</span><span class="nf">print </span><span class="p">(</span><span class="sh">'</span><span class="s">start running example to used customized objective function</span><span class="sh">'</span><span class="p">)</span>
 
-<span class="n">dtrain</span> <span class="o">=</span> <span class="n">xgb</span><span class="p">.</span><span class="n">DMatrix</span><span class="p">(</span><span class="s">'data/agaricus.txt.train'</span><span class="p">)</span>
-<span class="n">dtest</span> <span class="o">=</span> <span class="n">xgb</span><span class="p">.</span><span class="n">DMatrix</span><span class="p">(</span><span class="s">'data/agaricus.txt.test'</span><span class="p">)</span>
+<span class="n">dtrain</span> <span class="o">=</span> <span class="n">xgb</span><span class="p">.</span><span class="nc">DMatrix</span><span class="p">(</span><span class="sh">'</span><span class="s">data/agaricus.txt.train</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">dtest</span> <span class="o">=</span> <span class="n">xgb</span><span class="p">.</span><span class="nc">DMatrix</span><span class="p">(</span><span class="sh">'</span><span class="s">data/agaricus.txt.test</span><span class="sh">'</span><span class="p">)</span>
 
 <span class="c1"># note: for customized objective function, we leave objective as default
 # note: what we are getting is margin value in prediction
 # you must know what you are doing
-</span><span class="n">param</span> <span class="o">=</span> <span class="p">{</span><span class="s">'max_depth'</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s">'eta'</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">}</span>
-<span class="n">watchlist</span> <span class="o">=</span> <span class="p">[(</span><span class="n">dtest</span><span class="p">,</span> <span class="s">'eval'</span><span class="p">),</span> <span class="p">(</span><span class="n">dtrain</span><span class="p">,</span> <span class="s">'train'</span><span class="p">)]</span>
+</span><span class="n">param</span> <span class="o">=</span> <span class="p">{</span><span class="sh">'</span><span class="s">max_depth</span><span class="sh">'</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="sh">'</span><span class="s">eta</span><span class="sh">'</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">}</span>
+<span class="n">watchlist</span> <span class="o">=</span> <span class="p">[(</span><span class="n">dtest</span><span class="p">,</span> <span class="sh">'</span><span class="s">eval</span><span class="sh">'</span><span class="p">),</span> <span class="p">(</span><span class="n">dtrain</span><span class="p">,</span> <span class="sh">'</span><span class="s">train</span><span class="sh">'</span><span class="p">)]</span>
 <span class="n">num_boost_round</span> <span class="o">=</span> <span class="mi">4</span>
 
 <span class="c1"># user define objective function, given prediction, return gradient and second order gradient
 # this is log likelihood loss
 </span><span class="k">def</span> <span class="nf">logregobj</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">dtrain</span><span class="p">):</span>
-    <span class="n">labels</span> <span class="o">=</span> <span class="n">dtrain</span><span class="p">.</span><span class="n">get_label</span><span class="p">()</span>
-    <span class="n">preds</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">preds</span><span class="p">))</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">dtrain</span><span class="p">.</span><span class="nf">get_label</span><span class="p">()</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="nf">exp</span><span class="p">(</span><span class="o">-</span><span class="n">preds</span><span class="p">))</span>
     <span class="n">grad</span> <span class="o">=</span> <span class="n">preds</span> <span class="o">-</span> <span class="n">labels</span>
     <span class="n">hess</span> <span class="o">=</span> <span class="n">preds</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">-</span><span class="n">preds</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">grad</span><span class="p">,</span> <span class="n">hess</span>
@@ -141,15 +163,15 @@
 # Take this in mind when you use the customization, and maybe you need write customized evaluation function
 </span>
 <span class="k">def</span> <span class="nf">evalerror</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">dtrain</span><span class="p">):</span>
-    <span class="n">labels</span> <span class="o">=</span> <span class="n">dtrain</span><span class="p">.</span><span class="n">get_label</span><span class="p">()</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">dtrain</span><span class="p">.</span><span class="nf">get_label</span><span class="p">()</span>
     <span class="c1"># return a pair metric_name, result
 </span>    <span class="c1"># since preds are margin(before logistic transformation, cutoff at 0)
-</span>    <span class="k">return</span> <span class="s">'error'</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">labels</span> <span class="o">!=</span> <span class="p">(</span><span class="n">preds</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">)))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+</span>    <span class="k">return</span> <span class="sh">'</span><span class="s">error</span><span class="sh">'</span><span class="p">,</span> <span class="nf">float</span><span class="p">(</span><span class="nf">sum</span><span class="p">(</span><span class="n">labels</span> <span class="o">!=</span> <span class="p">(</span><span class="n">preds</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">)))</span> <span class="o">/</span> <span class="nf">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
 
 <span class="c1"># training with customized objective, we can also do step by step training
 # simply look at xgboost.py's implementation of train
-</span><span class="n">bst</span> <span class="o">=</span> <span class="n">xgb</span><span class="p">.</span><span class="n">train</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">dtrain</span><span class="p">,</span> <span class="n">num_boost_round</span><span class="p">,</span> <span class="n">watchlist</span><span class="p">,</span> <span class="n">logregobj</span><span class="p">,</span> <span class="n">evalerror</span><span class="p">)</span>
-<span class="n">bst</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dtest</span><span class="p">)</span>
+</span><span class="n">bst</span> <span class="o">=</span> <span class="n">xgb</span><span class="p">.</span><span class="nf">train</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">dtrain</span><span class="p">,</span> <span class="n">num_boost_round</span><span class="p">,</span> <span class="n">watchlist</span><span class="p">,</span> <span class="n">logregobj</span><span class="p">,</span> <span class="n">evalerror</span><span class="p">)</span>
+<span class="n">bst</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="n">dtest</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>start running example to used customized objective function
@@ -168,11 +190,11 @@ array([-4.17207384,  4.17381191, -4.17207384, ...,  4.34276581,
 
 <h2 id="模型持久化模型载入载出">模型持久化(模型载入载出)</h2>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">bst</span><span class="p">.</span><span class="n">save_model</span><span class="p">(</span><span class="s">'0001.model'</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">bst</span><span class="p">.</span><span class="nf">save_model</span><span class="p">(</span><span class="sh">'</span><span class="s">0001.model</span><span class="sh">'</span><span class="p">)</span>
 
-<span class="n">bst</span> <span class="o">=</span> <span class="n">xgb</span><span class="p">.</span><span class="n">Booster</span><span class="p">({</span><span class="s">'nthread'</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span>  <span class="c1"># init model
-</span><span class="n">bst</span><span class="p">.</span><span class="n">load_model</span><span class="p">(</span><span class="s">'0001.model'</span><span class="p">)</span>  <span class="c1"># load data
-</span><span class="n">bst</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dtest</span><span class="p">)</span>
+<span class="n">bst</span> <span class="o">=</span> <span class="n">xgb</span><span class="p">.</span><span class="nc">Booster</span><span class="p">({</span><span class="sh">'</span><span class="s">nthread</span><span class="sh">'</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span>  <span class="c1"># init model
+</span><span class="n">bst</span><span class="p">.</span><span class="nf">load_model</span><span class="p">(</span><span class="sh">'</span><span class="s">0001.model</span><span class="sh">'</span><span class="p">)</span>  <span class="c1"># load data
+</span><span class="n">bst</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="n">dtest</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([-4.17207384,  4.17381191, -4.17207384, ...,  4.34276581,
@@ -185,19 +207,19 @@ array([-4.17207384,  4.17381191, -4.17207384, ...,  4.34276581,
 
 <h2 id="利用xgboost生成新特征和特征离散化">利用XGBoost生成新特征和特征离散化</h2>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>  
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>  
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_hastie_10_2</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>  
-<span class="kn">from</span> <span class="nn">xgboost.sklearn</span> <span class="kn">import</span> <span class="n">XGBClassifier</span>  
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>  
+<span class="kn">from</span> <span class="n">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>  
+<span class="kn">from</span> <span class="n">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_hastie_10_2</span>
+<span class="kn">from</span> <span class="n">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>  
+<span class="kn">from</span> <span class="n">xgboost.sklearn</span> <span class="kn">import</span> <span class="n">XGBClassifier</span>  
 
 
 <span class="c1">#生成二分类数据集(10个特征)
-</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_hastie_10_2</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="nf">make_hastie_10_2</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">X_train_1</span><span class="p">,</span> <span class="n">X_train_2</span><span class="p">,</span> <span class="n">y_train_1</span><span class="p">,</span> <span class="n">y_train_2</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="nf">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">X_train_1</span><span class="p">,</span> <span class="n">X_train_2</span><span class="p">,</span> <span class="n">y_train_1</span><span class="p">,</span> <span class="n">y_train_2</span> <span class="o">=</span> <span class="nf">train_test_split</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  
 
 </code></pre></div></div>
 
@@ -211,7 +233,7 @@ array([-4.17207384,  4.17381191, -4.17207384, ...,  4.34276581,
 
 <h3 id="利用训练集1训练分类器">利用训练集1训练分类器</h3>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">clf</span> <span class="o">=</span> <span class="n">XGBClassifier</span><span class="p">(</span>  
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">clf</span> <span class="o">=</span> <span class="nc">XGBClassifier</span><span class="p">(</span>  
     <span class="n">learning_rate</span> <span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>  
     <span class="n">n_estimators</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
     <span class="n">max_depth</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>  
@@ -219,14 +241,14 @@ array([-4.17207384,  4.17381191, -4.17207384, ...,  4.34276581,
     <span class="n">gamma</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>  
     <span class="n">subsample</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>  
     <span class="n">colsample_bytree</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>  
-    <span class="n">objective</span><span class="o">=</span> <span class="s">'binary:logistic'</span><span class="p">,</span>
+    <span class="n">objective</span><span class="o">=</span> <span class="sh">'</span><span class="s">binary:logistic</span><span class="sh">'</span><span class="p">,</span>
     <span class="n">nthread</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
     <span class="n">scale_pos_weight</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  
     <span class="n">reg_alpha</span><span class="o">=</span><span class="mf">1e-05</span><span class="p">,</span>  
     <span class="n">reg_lambda</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> 
     <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         
-<span class="n">clf</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_1</span><span class="p">,</span> <span class="n">y_train_1</span><span class="p">)</span>
+<span class="n">clf</span><span class="p">.</span><span class="nf">fit</span><span class="p">(</span><span class="n">X_train_1</span><span class="p">,</span> <span class="n">y_train_1</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>XGBClassifier(base_score=0.5, colsample_bylevel=1, colsample_bytree=0.75,
@@ -238,10 +260,10 @@ array([-4.17207384,  4.17381191, -4.17207384, ...,  4.34276581,
 
 <h3 id="特征离散化和特征合并">特征离散化和特征合并</h3>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">new_feature</span><span class="o">=</span> <span class="n">clf</span><span class="p">.</span><span class="nb">apply</span><span class="p">(</span><span class="n">X_train_2</span><span class="p">)</span>  
-<span class="n">X_train_new2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">X_train_2</span><span class="p">,</span> <span class="n">new_feature</span><span class="p">))</span>
-<span class="n">new_feature_test</span><span class="o">=</span> <span class="n">clf</span><span class="p">.</span><span class="nb">apply</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>  
-<span class="n">X_test_new</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">X_test</span><span class="p">,</span> <span class="n">new_feature_test</span><span class="p">))</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">new_feature</span><span class="o">=</span> <span class="n">clf</span><span class="p">.</span><span class="nf">apply</span><span class="p">(</span><span class="n">X_train_2</span><span class="p">)</span>  
+<span class="n">X_train_new2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">hstack</span><span class="p">((</span><span class="n">X_train_2</span><span class="p">,</span> <span class="n">new_feature</span><span class="p">))</span>
+<span class="n">new_feature_test</span><span class="o">=</span> <span class="n">clf</span><span class="p">.</span><span class="nf">apply</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>  
+<span class="n">X_test_new</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">hstack</span><span class="p">((</span><span class="n">X_test</span><span class="p">,</span> <span class="n">new_feature_test</span><span class="p">))</span>
 </code></pre></div></div>
 
 <hr />
@@ -266,7 +288,7 @@ C = np.concatenate((A,B,B,A), axis=1)
 
 <h3 id="获取训练集2的auc和准确度">获取训练集2的AUC和准确度</h3>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span> <span class="o">=</span> <span class="n">XGBClassifier</span><span class="p">(</span>  
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span> <span class="o">=</span> <span class="nc">XGBClassifier</span><span class="p">(</span>  
     <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
     <span class="n">n_estimators</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>  
     <span class="n">max_depth</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>  
@@ -274,19 +296,19 @@ C = np.concatenate((A,B,B,A), axis=1)
     <span class="n">gamma</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>  
     <span class="n">subsample</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>  
     <span class="n">colsample_bytree</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>  
-    <span class="n">objective</span><span class="o">=</span> <span class="s">'binary:logistic'</span><span class="p">,</span> 
+    <span class="n">objective</span><span class="o">=</span> <span class="sh">'</span><span class="s">binary:logistic</span><span class="sh">'</span><span class="p">,</span> 
     <span class="n">nthread</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>  
     <span class="n">scale_pos_weight</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  
     <span class="n">reg_alpha</span><span class="o">=</span><span class="mf">1e-05</span><span class="p">,</span>  
     <span class="n">reg_lambda</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  
     <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> 
 
-<span class="n">model</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_2</span><span class="p">,</span> <span class="n">y_train_2</span><span class="p">)</span>  
-<span class="n">y_pre</span><span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>  
-<span class="n">y_pro</span><span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>   
+<span class="n">model</span><span class="p">.</span><span class="nf">fit</span><span class="p">(</span><span class="n">X_train_2</span><span class="p">,</span> <span class="n">y_train_2</span><span class="p">)</span>  
+<span class="n">y_pre</span><span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>  
+<span class="n">y_pro</span><span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="nf">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>   
 
-<span class="k">print</span><span class="p">(</span><span class="s">"AUC Score :"</span><span class="p">,(</span><span class="n">metrics</span><span class="p">.</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pro</span><span class="p">)))</span>   
-<span class="k">print</span><span class="p">(</span><span class="s">"Accuracy :"</span><span class="p">,(</span><span class="n">metrics</span><span class="p">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pre</span><span class="p">)))</span>  
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">AUC Score :</span><span class="sh">"</span><span class="p">,(</span><span class="n">metrics</span><span class="p">.</span><span class="nf">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pro</span><span class="p">)))</span>   
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Accuracy :</span><span class="sh">"</span><span class="p">,(</span><span class="n">metrics</span><span class="p">.</span><span class="nf">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pre</span><span class="p">)))</span>  
 </code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AUC Score : 0.988763545429
@@ -295,7 +317,7 @@ Accuracy : 0.931666666667
 
 <h3 id="获取训练集2合并离散特征的auc和准确度">获取训练集2(合并离散特征)的AUC和准确度</h3>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span> <span class="o">=</span> <span class="n">XGBClassifier</span><span class="p">(</span>  
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span> <span class="o">=</span> <span class="nc">XGBClassifier</span><span class="p">(</span>  
     <span class="n">learning_rate</span> <span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
     <span class="n">n_estimators</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
     <span class="n">max_depth</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>  
@@ -303,18 +325,18 @@ Accuracy : 0.931666666667
     <span class="n">gamma</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>  
     <span class="n">subsample</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>  
     <span class="n">colsample_bytree</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>  
-    <span class="n">objective</span><span class="o">=</span> <span class="s">'binary:logistic'</span><span class="p">,</span>
+    <span class="n">objective</span><span class="o">=</span> <span class="sh">'</span><span class="s">binary:logistic</span><span class="sh">'</span><span class="p">,</span>
     <span class="n">nthread</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
     <span class="n">scale_pos_weight</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  
     <span class="n">reg_alpha</span><span class="o">=</span><span class="mf">1e-05</span><span class="p">,</span>  
     <span class="n">reg_lambda</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  
     <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> 
 
-<span class="n">model</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_new2</span><span class="p">,</span> <span class="n">y_train_2</span><span class="p">)</span>  
-<span class="n">y_pre</span><span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_new</span><span class="p">)</span>  
-<span class="n">y_pro</span><span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test_new</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>   
-<span class="k">print</span><span class="p">(</span><span class="s">"AUC Score :"</span><span class="p">,(</span><span class="n">metrics</span><span class="p">.</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pro</span><span class="p">)))</span>   
-<span class="k">print</span><span class="p">(</span><span class="s">"Accuracy :"</span><span class="p">,(</span><span class="n">metrics</span><span class="p">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pre</span><span class="p">)))</span>
+<span class="n">model</span><span class="p">.</span><span class="nf">fit</span><span class="p">(</span><span class="n">X_train_new2</span><span class="p">,</span> <span class="n">y_train_2</span><span class="p">)</span>  
+<span class="n">y_pre</span><span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="n">X_test_new</span><span class="p">)</span>  
+<span class="n">y_pro</span><span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="nf">predict_proba</span><span class="p">(</span><span class="n">X_test_new</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>   
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">AUC Score :</span><span class="sh">"</span><span class="p">,(</span><span class="n">metrics</span><span class="p">.</span><span class="nf">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pro</span><span class="p">)))</span>   
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Accuracy :</span><span class="sh">"</span><span class="p">,(</span><span class="n">metrics</span><span class="p">.</span><span class="nf">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pre</span><span class="p">)))</span>
 
 </code></pre></div></div>
 
@@ -339,26 +361,26 @@ Accuracy : 0.939166666667
 
 <h3 id="使用xgboost原生接口生成新特征">使用XGBoost原生接口生成新特征</h3>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">xgboost</span> <span class="k">as</span> <span class="n">xgb</span>
-<span class="n">dtrain</span> <span class="o">=</span> <span class="n">xgb</span><span class="p">.</span><span class="n">DMatrix</span><span class="p">(</span><span class="s">'data/agaricus.txt.train'</span><span class="p">)</span>
-<span class="n">dtest</span> <span class="o">=</span> <span class="n">xgb</span><span class="p">.</span><span class="n">DMatrix</span><span class="p">(</span><span class="s">'data/agaricus.txt.test'</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">xgboost</span> <span class="k">as</span> <span class="n">xgb</span>
+<span class="n">dtrain</span> <span class="o">=</span> <span class="n">xgb</span><span class="p">.</span><span class="nc">DMatrix</span><span class="p">(</span><span class="sh">'</span><span class="s">data/agaricus.txt.train</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">dtest</span> <span class="o">=</span> <span class="n">xgb</span><span class="p">.</span><span class="nc">DMatrix</span><span class="p">(</span><span class="sh">'</span><span class="s">data/agaricus.txt.test</span><span class="sh">'</span><span class="p">)</span>
 
-<span class="n">param</span> <span class="o">=</span> <span class="p">{</span><span class="s">'max_depth'</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span>
-         <span class="s">'eta'</span><span class="p">:</span><span class="mf">0.8</span><span class="p">,</span>
-         <span class="s">'objective'</span><span class="p">:</span><span class="s">'binary:logistic'</span><span class="p">}</span>
+<span class="n">param</span> <span class="o">=</span> <span class="p">{</span><span class="sh">'</span><span class="s">max_depth</span><span class="sh">'</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span>
+         <span class="sh">'</span><span class="s">eta</span><span class="sh">'</span><span class="p">:</span><span class="mf">0.8</span><span class="p">,</span>
+         <span class="sh">'</span><span class="s">objective</span><span class="sh">'</span><span class="p">:</span><span class="sh">'</span><span class="s">binary:logistic</span><span class="sh">'</span><span class="p">}</span>
 
-<span class="n">watchlist</span>  <span class="o">=</span> <span class="p">[(</span><span class="n">dtest</span><span class="p">,</span><span class="s">'eval'</span><span class="p">),</span> <span class="p">(</span><span class="n">dtrain</span><span class="p">,</span><span class="s">'train'</span><span class="p">)]</span>
+<span class="n">watchlist</span>  <span class="o">=</span> <span class="p">[(</span><span class="n">dtest</span><span class="p">,</span><span class="sh">'</span><span class="s">eval</span><span class="sh">'</span><span class="p">),</span> <span class="p">(</span><span class="n">dtrain</span><span class="p">,</span><span class="sh">'</span><span class="s">train</span><span class="sh">'</span><span class="p">)]</span>
 <span class="n">num_boost_round</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">bst</span> <span class="o">=</span> <span class="n">xgb</span><span class="p">.</span><span class="n">train</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">dtrain</span><span class="p">,</span> <span class="n">num_boost_round</span><span class="p">,</span><span class="n">watchlist</span><span class="p">)</span>
+<span class="n">bst</span> <span class="o">=</span> <span class="n">xgb</span><span class="p">.</span><span class="nf">train</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">dtrain</span><span class="p">,</span> <span class="n">num_boost_round</span><span class="p">,</span><span class="n">watchlist</span><span class="p">)</span>
 
-<span class="k">print</span> <span class="p">(</span><span class="s">'start testing predict the leaf indices'</span><span class="p">)</span>
+<span class="nf">print </span><span class="p">(</span><span class="sh">'</span><span class="s">start testing predict the leaf indices</span><span class="sh">'</span><span class="p">)</span>
 <span class="c1">### predict using first 2 tree
-</span><span class="n">leafindex</span> <span class="o">=</span> <span class="n">bst</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dtest</span><span class="p">,</span> <span class="n">ntree_limit</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">pred_leaf</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">leafindex</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">leafindex</span><span class="p">)</span>
+</span><span class="n">leafindex</span> <span class="o">=</span> <span class="n">bst</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="n">dtest</span><span class="p">,</span> <span class="n">ntree_limit</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">pred_leaf</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">leafindex</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">leafindex</span><span class="p">)</span>
 <span class="c1">### predict all trees
-</span><span class="n">leafindex</span> <span class="o">=</span> <span class="n">bst</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dtest</span><span class="p">,</span> <span class="n">pred_leaf</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">leafindex</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+</span><span class="n">leafindex</span> <span class="o">=</span> <span class="n">bst</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="n">dtest</span><span class="p">,</span> <span class="n">pred_leaf</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">leafindex</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[0]	eval-error:0.007449	train-error:0.006142
@@ -390,10 +412,10 @@ start testing predict the leaf indices
 <hr />
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="n">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
-<span class="n">ax</span><span class="o">=</span><span class="n">xgb</span><span class="p">.</span><span class="n">plot_importance</span><span class="p">(</span><span class="n">bst</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">=</span><span class="n">xgb</span><span class="p">.</span><span class="nf">plot_importance</span><span class="p">(</span><span class="n">bst</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
 </code></pre></div></div>
 
 <p><img src="http://wx3.sinaimg.cn/mw690/aba7d18bgy1fknwvh0826j20ca07t0sr.jpg" alt="png" /></p>
@@ -411,17 +433,17 @@ start testing predict the leaf indices
 
 <hr />
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ax</span> <span class="o">=</span> <span class="n">xgb</span><span class="p">.</span><span class="n">plot_tree</span><span class="p">(</span><span class="n">bst</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ax</span> <span class="o">=</span> <span class="n">xgb</span><span class="p">.</span><span class="nf">plot_tree</span><span class="p">(</span><span class="n">bst</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
 </code></pre></div></div>
 
 <p><img src="http://wx4.sinaimg.cn/mw690/aba7d18bgy1fknwvhfausj207n074aa5.jpg" alt="png" /></p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">codecs</span>
-<span class="n">f</span> <span class="o">=</span> <span class="n">codecs</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="s">'xgb_tree.png'</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">'wb'</span><span class="p">)</span>
-<span class="n">g</span> <span class="o">=</span> <span class="n">xgb</span><span class="p">.</span><span class="n">to_graphviz</span><span class="p">(</span><span class="n">bst</span><span class="p">)</span>
-<span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">g</span><span class="p">.</span><span class="n">pipe</span><span class="p">(</span><span class="s">'png'</span><span class="p">))</span>
-<span class="n">f</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">codecs</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">codecs</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">xgb_tree.png</span><span class="sh">'</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="sh">'</span><span class="s">wb</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">xgb</span><span class="p">.</span><span class="nf">to_graphviz</span><span class="p">(</span><span class="n">bst</span><span class="p">)</span>
+<span class="n">f</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">g</span><span class="p">.</span><span class="nf">pipe</span><span class="p">(</span><span class="sh">'</span><span class="s">png</span><span class="sh">'</span><span class="p">))</span>
+<span class="n">f</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
 </code></pre></div></div>
 
   </article>
@@ -430,7 +452,30 @@ start testing predict the leaf indices
   
   <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
-  </div>
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://arvinx.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  
+</div>
 
       </div>
     </div>

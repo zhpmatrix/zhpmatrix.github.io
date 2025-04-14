@@ -1,0 +1,293 @@
+<DOCTYPE html>
+<html>
+  <head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9534180453883710"
+     crossorigin="anonymous"></script>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ohcryzf6h1");
+</script>
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4LG9G3BTNP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4LG9G3BTNP');
+</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>《Exploring the Impact of Table-to-Text Methods on Augmenting LLM-based Question Answering with Domain Hybrid Data》</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2024/12/05/paper-reading/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+ 	<font color="yellow"><a class="page-link" href="http://www.souyisou.online/">搜医搜</a></font>
+ 	<font color="yellow"><a class="page-link" href="https://aitax.17win.com/#/home?Authorization=Bearer+RKgwsKLnZ3uOoZPjU9nPEPP6H/gjZcVgFlgixoqaWSjeXvjxg9jxTA8yJzNOCd94mm7tSpzOgq0w9Q/3XZuY3MitCACEUV88dDvlWFESem/uZVjdHXvDoxFRxGUJLDByEB1GZSxrWvL9mUxlU5ykT9yDV%2BVNCfQLd6YNf7d%2Bss0=&X-App-Key=cb1e9c178a914a61b4db1bd5735f1036&X-Biz-Code=test&X-User-Id=tester&keyword=%E5%B0%8F%E5%9E%8B%E5%BE%AE%E5%88%A9%E4%BC%81%E4%B8%9A%E6%89%80%E5%BE%97%E7%A8%8E%E4%BC%98%E6%83%A0">AI搜税</a></font>
+        
+          <font color="yellow"><a class="page-link" href="/about/">about</a></font>
+        
+          
+        
+          
+        
+          <font color="yellow"><a class="page-link" href="/project/">project</a></font>
+        
+	
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>《Exploring the Impact of Table-to-Text Methods on Augmenting LLM-based Question Answering with Domain Hybrid Data》</h1>
+    <p class="meta">Dec 5, 2024</p>
+  </header>
+
+  <article class="post-content">
+  <h4 id="基本信息">基本信息</h4>
+
+<p>主题：	表格问答/大模型微调/RAG</p>
+
+<p>作者:	东南大学，曼彻斯特大学，华为</p>
+
+<p>会议：	NAACL2024</p>
+
+<h4 id="motivation">Motivation</h4>
+
+<p>表格-文本生成技术已经在NLP领域被广泛研究，围绕大模型增强的问答系统，融合文本和半结构化的表格数据是一个趋势，但是不同的表格-文本生成技术是如何影响QA系统的，并没有相对系统的对比分析。通过对不同的表格-文本生成技术的实验对比和理论分析，可以形成一些有价值的技术选型建议。</p>
+
+<h4 id="主要贡献">主要贡献</h4>
+
+<ul>
+  <li>
+    <p>通过实验证明，不同的表格-文本生成技术会显著的影响问答系统的效果。其中，人类评估的RSD（Relative Score Difference）的范围从2.8%到9.0%，GPT-4的评估范围从4.8%到16%</p>
+  </li>
+  <li>
+    <p>对于领域微调范式，基于LLM和传统预训练语言模型的方法在各种模型设定下，显著优于其他方法。在RAG范式下，虽然基于LLM的方法依然表现优秀，但是基于markdown的方法也表现出超出预期的有效</p>
+  </li>
+  <li>
+    <p>不同方法产生的领域术语和动词的频率的不同，以及在文本切片的语义表征中的质量不同，是不同方法在两类系统存在效果差异的首要因素</p>
+  </li>
+</ul>
+
+<h4 id="主要过程">主要过程</h4>
+
+<h5 id="qa系统的两种实现方法">QA系统的两种实现方法</h5>
+
+<ul>
+  <li>基于领域模型微调的QA系统</li>
+</ul>
+
+<p><img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/12051.png?raw=true" width="400" align="center" /></p>
+
+<ul>
+  <li>基于RAG的QA系统</li>
+</ul>
+
+<p><img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/12052.png?raw=true" width="400" align="center" /></p>
+
+<h5 id="四种表格-文本生成技术">四种表格-文本生成技术</h5>
+
+<p><strong>Markdown</strong></p>
+
+<p>直接将表格表示为markdown格式，不需要模型训练，可以利用脚本在无需人工参与的条件下快速完成转换</p>
+
+<p><strong>Template</strong></p>
+
+<p>使用一系列提前设计好的适配表格特征的模版做表格的文本化。比采用markdown的方式能够实现更好的多样性，但是需要人工提前设计多种模版。</p>
+
+<p><strong>TPLM-based</strong></p>
+
+<p>利用传统的预训练语言模型，比如T5和BART等，通过在跨领域的表格-文本生成数据集做微调。这种方法能够提供更高的灵活性和领域适配性，但是也要求更多的计算资源。</p>
+
+<p><strong>LLM-based</strong></p>
+
+<p>GPT-*系列模型的效果多数情况下优于表现最好的微调的模型，和TPLM-based方法相比，这种方法能够通过in-context learning实现自定义的裁剪，但是同时也存在领域数据泄漏的风险。</p>
+
+<h5 id="实验分析">实验分析</h5>
+
+<h6 id="数据集">数据集</h6>
+
+<p>ICT-DATA：170个信息与通信技术领域的英文技术文档，每个文档都是由文本和表格组成，其中表格数据约占总数据的18%。</p>
+
+<p>ICTQA：从QA平台收集9000个答案较长的关于ICT产品的问答对，其中答案均是由专家根据产品文档书写的。选择500个问题做测试集，对应的答案需要同时从表格和文本中提取，剩下的问答对用于领域模型微调。</p>
+
+<h6 id="评估指标">评估指标</h6>
+
+<p>自动评估指标：利用GPT-4作为评估器，基于生成的答案和参考答案的相似性打分，分值范围为[0-5]，其中0表示生成的答案如”I don’t know the answer.”，1代表最小的相似度，5代表完全准确的生成答案。</p>
+
+<p>人工评估指标：评分准则同上，利用三个领域专家进行打分。</p>
+
+<h6 id="实验设置">实验设置</h6>
+
+<p>用于领域微调的基座模型为Meta’s OPT(1.3B-13B)和Llama-2-base（7B,13B），采用QLora用于持续预训练和指令微调。RAG系统使用的生成模型为Llama2-chat（7B，13B和70B）以及GPT-3.5-turbo。采用文本切片切分语料，每个切片长度不高于3000个char，采用BGE向量模型做表征，利用FAISS存储向量。每个问题检索出最相似的3个切片，基于LangChain实现整体流程。</p>
+
+<h6 id="实验结果">实验结果</h6>
+
+<p><img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/12053.png?raw=true" width="400" align="center" /></p>
+
+<p>其中，加粗表示最佳结果，下划线表示次佳结果。基于领域模型微调的方法中，无论是基于人类的评估结果还是GPT-4的评估结果，LLM-based的方法在绝大多数设定下取得最优结果。而在RAG系统中，两种评估方法中，均存在基于Markdown的表示方法取得最优结果的设定。其中RSD(Relative Score Difference)=(Highest Score - Lowest Score)/5。</p>
+
+<p><strong>领域微调系统中，为什么TPLM-based的方法和LLM-based的方法分别取得次优和最优结果？</strong></p>
+
+<p><img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/12054.png?raw=true" width="400" align="center" /></p>
+
+<p>上表给出了不同方法生成的语料中，领域术语和动词频率分布情况。可以看出LLM-based的方法能够得到的领域术语和动词最多，其次是TPLM-based的方法。</p>
+
+<p><strong>RAG系统中，为什么Markdown的方法和LLM-based的方法分别取得次优和最优结果？</strong></p>
+
+<p><img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/12055.png?raw=true" width="400" align="center" /></p>
+
+<p>采用t-SNE方法做了切片向量的聚类可视化，对于给定Query会发现LLM-based的方法和Markdown-based的方法得到的切片，在语义空间中距离Query相比其他更加地接近。</p>
+
+<h4 id="思考应用">思考&amp;应用</h4>
+
+<p>（1）在做表格-文本生成的时候，无论是否利用模型微调，基于大模型的方法多数情况下是最佳实践。但是RAG系统中，也可以考虑采用Markdown的方法</p>
+
+<p>（2）基于表格的问答应用中，将表格（600*25）格按照行转换为json格式（字段名称采用中文表示），检索效果也不错</p>
+
+<p><strong><a href="https://zhpmatrix.github.io/about/">扫码加笔者好友</a>，茶已备好，等你来聊~</strong></p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://arvinx.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>

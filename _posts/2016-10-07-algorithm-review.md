@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[LeetCode]浅聊算法思想和策略"
+title: "浅聊算法思想和策略"
+tags: [LeetCode]
 excerpt: "大多时候的我们对于算法思想(策略)只是看起来明白了而已"
 date: 2016-10-07 20:56:00
 ---

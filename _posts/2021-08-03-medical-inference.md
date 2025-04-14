@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]医疗领域的推理方法"
+title: "医疗领域的推理方法"
+tags: [NLP]
 excerpt: "规则与案例融合的方法论"
 date: 2021-08-03 11:40:00
 mathjax: true

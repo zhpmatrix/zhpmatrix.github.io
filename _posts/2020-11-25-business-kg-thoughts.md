@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]电商域图谱构建-问题复盘"
+title: "电商域图谱构建-问题复盘"
+tags: [NLP]
 excerpt: "在之前的文章中讨论了AliMe KG的工作，这篇文章主要讨论我们自己在真正实践过程中发现的问题。"
 date: 2020-11-25 11:40:00
 mathjax: true

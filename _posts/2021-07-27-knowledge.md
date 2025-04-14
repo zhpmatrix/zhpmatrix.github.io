@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]数据，要！知识，更要！"
+title: "数据，要！知识，更要！"
+tags: [NLP]
 excerpt: "在医疗NLP领域，知识和数据，都很重要。"
 date: 2021-07-27 11:40:00
 mathjax: true

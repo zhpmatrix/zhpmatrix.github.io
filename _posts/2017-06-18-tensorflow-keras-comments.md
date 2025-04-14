@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[DL]关于tensorflow和keras的思考点"
+title: "关于tensorflow和keras的思考点"
+tags: [深度学习]
 excerpt: "图计算，静态图和动态图，符号计算"
 date: 2017-06-18 15:13:00
 mathjax: true
@@ -20,11 +21,11 @@ _此处聊轶事。Android开源的时候，我几乎是学院最早跑Android D
 
 自动微分的计算图如上上图右侧所示。关于计算图有没有联想到编译原理中的语法分析？在MXNET中有这么一段话给出了支持自动微分的原因：
 
-**In the past, whenever someone defined a new model, they had to work out the derivative calculations by hand. While the math is reasonably straightforward, for complex models, it can be time-consuming and tedious work. All modern deep learning libraries make the practitioner/researcher’s job much easier, by automatically solving the problem of gradient calculation.**
+**In the past, whenever someone defined a new model, they had to work out the derivative calculations by hand. While the math is reasonably straightforward, for complex models, it can be time-consuming and tedious work. All modern deep learning libraries make the practitioner/researcher's job much easier, by automatically solving the problem of gradient calculation.**
 
 今年(2017)上半年，tf开始支持[动态图计算](https://openreview.net/pdf?id=ryrGawqex)，自己还不是太明白。不过很明显，在上文中谈到的计算图是一种静态的方式，因为在把数据灌进计算图中之前，计算图的结构已经确定，所以我们可以做很多全局的优化trick。刘思聪在[以静制动的TensorFlow Fold](https://zhuanlan.zhihu.com/p/25216368)中谈了关于动态图计算的内容。直观上的感受还是静态图的方式，通过对多个静态图的共有结构(tensor和operation)的整合，加上控制模块，实现动态计算。微观静态，宏观动态。
 
-在Keras的官方文档中说道：**符号主义的计算首先定义各种变量，然后建立一个“计算图”，计算图规定了各个变量之间的计算关系。建立好的计算图需要编译已确定其内部细节，然而，此时的计算图还是一个"空壳子"，里面没有任何实际的数据，只有当你把需要运算的输入放进去后，才能在整个模型中形成数据流，从而形成输出值。** 
+在Keras的官方文档中说道：**符号主义的计算首先定义各种变量，然后建立一个"计算图"，计算图规定了各个变量之间的计算关系。建立好的计算图需要编译已确定其内部细节，然而，此时的计算图还是一个"空壳子"，里面没有任何实际的数据，只有当你把需要运算的输入放进去后，才能在整个模型中形成数据流，从而形成输出值。** 
 
 Keras的出现简化了定义网络结构的方式，简单的说，在写代码的时候可以使用更加直白的方式来定义网络结构。在写这篇文章的时候，我特意读了一些tf和keras的toy code，个人以为tf对于网络结构定义的抽象已经足够好，但是需要不太习惯这种定义的同学适应一段时间，但是Keras对于新手更加的友好。Keras的官方io写的很棒，按照在文档中的描述，Keras和它的backend(tf,theano)相处的足够融洽，当然有数据挖掘背景的同学，keras也为sklearn提供了一定程度的wrapper。
 

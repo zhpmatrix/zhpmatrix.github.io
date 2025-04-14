@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[Pytorch]forward中的复杂tensor操作"
+title: "forward中的复杂tensor操作"
+tags: [PyTorch]
 excerpt: "收集了一些在模型实现中可能会遇到的一些不太好写的tensor操作，后续持续补充中。"
 date: 2019-07-03 18:43:00
 mathjax: true

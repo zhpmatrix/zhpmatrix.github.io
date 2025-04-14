@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]扫盲-搜索，广告和推荐"
+title: "扫盲-搜索，广告和推荐"
+tags: [NLP]
 excerpt: "电商领域三大应用，搜索，广告和推荐，估计很大一部分NLP从业者在做相关业务。因此，有必要给自己扫个盲。"
 date: 2019-03-25 18:43:00
 mathjax: true

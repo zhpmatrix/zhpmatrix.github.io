@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]Few/Zero Shot Learning简单梳理"
+title: "Few/Zero Shot Learning简单梳理"
+tags: [NLP]
 excerpt: "同样是工业界的硬核问题。假设问题是有N个类，N很大，比如5000，每个类的样本只有10个。那么，任给一个样本，做5000分类，怎么办？"
 date: 2020-02-14 10:25:00
 mathjax: true

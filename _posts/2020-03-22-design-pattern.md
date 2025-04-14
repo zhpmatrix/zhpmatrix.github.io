@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[Python]算法开发中的设计模式"
+title: "算法开发中的设计模式"
+tags: [Python]
 excerpt: "Alex Martelli说，设计模式是被发现，而不是被发明出来的。"
 date: 2020-03-22 10:25:00
 mathjax: true

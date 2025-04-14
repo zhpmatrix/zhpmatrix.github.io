@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[LeetCode]LeetCode终结：题解"
+title: "LeetCode终结：题解"
+tags: [LeetCode]
 excerpt: "这是一份题解列表，总结了高频面试题"
 date: 2019-01-03 11:40:00
 mathjax: true

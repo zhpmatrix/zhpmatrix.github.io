@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[CV]形态学与图像"
+title: "形态学与图像"
+tags: [CV]
 excerpt: "关于冈萨雷斯《数字图像处理》课后一道习题的想法"
 date: 2016-12-20 13:25:00
 mathjax: true

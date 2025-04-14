@@ -1,8 +1,9 @@
 ---
 layout: post
-title: "[DL]CNN中的两个计算问题"
-excerpt: "CNN中感受野的计算和使用小卷积核的讨论，包括一些自己对于大小卷积核的理解和看法。"
-date: 2018-07-06 20:25:00
+title: "Tech Notes"
+tags: [深度学习]
+excerpt: "Tech Notes"
+date: 2018-07-06 14:59:00
 mathjax: true
 ---
 

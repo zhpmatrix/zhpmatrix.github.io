@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]神经网络的Low-Memory技术"
+title: "神经网络的Low-Memory技术"
+tags: [NLP]
 excerpt: "这是一篇技术报告笔记，讨论了训练神经网络时能够减少memory的技术，同时讨论了该技术与模型最终效果的影响。"
 date: 2019-05-06 18:43:00
 mathjax: true

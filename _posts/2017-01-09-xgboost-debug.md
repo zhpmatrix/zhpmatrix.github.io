@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[groot]xgboost源码调试"
+title: "xgboost源码调试"
+tags: [工程架构]
 excerpt: "mac中使用lldb调试器在vim中调试xgboost的c++源代码，其中xgboost为单线程版本"
 date: 2017-01-09 13:56:00
 ---

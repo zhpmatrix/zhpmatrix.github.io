@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[读书笔记]《Interpretable Machine Learning》"
+title: "《Interpretable Machine Learning》"
+tags: [读书笔记]
 excerpt: "A Guide for Making Black Box Models Explainable"
 date: 2019-07-19 12:54:00
 mathjax: true

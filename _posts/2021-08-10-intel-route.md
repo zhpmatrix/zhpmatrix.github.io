@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]藏在智能分诊系统背后的技术"
+title: "藏在智能分诊系统背后的技术"
+tags: [NLP]
 excerpt: "问答系统在医疗领域：智能分诊"
 date: 2021-08-09 11:40:00
 mathjax: true

@@ -1,8 +1,9 @@
 ---
 layout: post
-title: "[Optimization]SGD的regret bound分析"
-excerpt: "从一个bound的推导来感受优化中的数学，SGD的次线性收敛来源。"
-date: 2017-04-06 20:40:00
+title: "Regret Bound for SGD"
+tags: [深度学习]
+excerpt: "论文阅读。这篇文章主要讨论了随机梯度下降算法的遗憾界分析。"
+date: 2017-04-06 18:00:00
 mathjax: true
 ---
 

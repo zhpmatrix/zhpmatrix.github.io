@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[Python]回调函数，线程安全，Monkey Patch和try/except使用"
+title: "回调函数，线程安全，Monkey Patch和try/except使用"
+tags: [Python]
 excerpt: "读了一份syncbn的代码，博文是对一些基本概念的回顾。"
 date: 2018-06-14 18:43:00
 mathjax: true

@@ -1,9 +1,27 @@
 <DOCTYPE html>
 <html>
   <head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9534180453883710"
+     crossorigin="anonymous"></script>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ohcryzf6h1");
+</script>
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4LG9G3BTNP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4LG9G3BTNP');
+</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>[Python]用进程池Pool进行代码加速</title>
+    <title>用进程池Pool进行代码加速</title>
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="致力于算法，数据和工程的全链路打通">
     <link rel="canonical" href="http://localhost:4000/2017/11/05/speed-up-python/">
@@ -31,7 +49,6 @@
 
     <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
     <a class="site-title" href="/">ZHPMATRIX blog</a>
-    <a class="site-title" href="/project.html">项目</a>
     <nav class="site-nav">
       <a href="#" class="menu-icon">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -45,13 +62,18 @@
         </svg>
 </a>
       <div class="trigger">
+ 	<font color="yellow"><a class="page-link" href="http://www.souyisou.online/">搜医搜</a></font>
+ 	<font color="yellow"><a class="page-link" href="https://aitax.17win.com/#/home?Authorization=Bearer+RKgwsKLnZ3uOoZPjU9nPEPP6H/gjZcVgFlgixoqaWSjeXvjxg9jxTA8yJzNOCd94mm7tSpzOgq0w9Q/3XZuY3MitCACEUV88dDvlWFESem/uZVjdHXvDoxFRxGUJLDByEB1GZSxrWvL9mUxlU5ykT9yDV%2BVNCfQLd6YNf7d%2Bss0=&X-App-Key=cb1e9c178a914a61b4db1bd5735f1036&X-Biz-Code=test&X-User-Id=tester&keyword=%E5%B0%8F%E5%9E%8B%E5%BE%AE%E5%88%A9%E4%BC%81%E4%B8%9A%E6%89%80%E5%BE%97%E7%A8%8E%E4%BC%98%E6%83%A0">AI搜税</a></font>
         
-          <a class="page-link" href="/about/">关于我</a>
+          <font color="yellow"><a class="page-link" href="/about/">about</a></font>
         
           
         
           
         
+          <font color="yellow"><a class="page-link" href="/project/">project</a></font>
+        
+	
       </div>
     </nav>
   </div>
@@ -77,7 +99,7 @@
       <div class="post">
 
   <header class="post-header">
-    <h1>[Python]用进程池Pool进行代码加速</h1>
+    <h1>用进程池Pool进行代码加速</h1>
     <p class="meta">Nov 5, 2017</p>
   </header>
 
@@ -93,15 +115,15 @@
 <p>假设按照60000个样本作为一个任务，则可以分为9个任务执行，当然可以这样做。手动开启9个进程并发执行这些任务。</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-<span class="kn">from</span> <span class="nn">optparse</span> <span class="kn">import</span> <span class="n">OptionParser</span>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
-    <span class="n">parser</span> <span class="o">=</span> <span class="n">OptionParser</span><span class="p">()</span>
-    <span class="n">parser</span><span class="p">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">'-s'</span><span class="p">,</span><span class="s">'--start'</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s">'start'</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="s">'0'</span><span class="p">)</span>
-    <span class="n">parser</span><span class="p">.</span><span class="n">add_option</span><span class="p">(</span><span class="s">'-e'</span><span class="p">,</span><span class="s">'--end'</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="s">'end'</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="s">'60000'</span><span class="p">)</span>
-    <span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">=</span> <span class="n">parser</span><span class="p">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">start</span><span class="p">)</span>
-    <span class="n">e</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">end</span><span class="p">)</span>
-    <span class="n">do</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">e</span><span class="p">)</span>
+<span class="kn">from</span> <span class="n">optparse</span> <span class="kn">import</span> <span class="n">OptionParser</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">'</span><span class="s">__main__</span><span class="sh">'</span><span class="p">:</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="nc">OptionParser</span><span class="p">()</span>
+    <span class="n">parser</span><span class="p">.</span><span class="nf">add_option</span><span class="p">(</span><span class="sh">'</span><span class="s">-s</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">--start</span><span class="sh">'</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="sh">'</span><span class="s">start</span><span class="sh">'</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="sh">'</span><span class="s">0</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">parser</span><span class="p">.</span><span class="nf">add_option</span><span class="p">(</span><span class="sh">'</span><span class="s">-e</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">--end</span><span class="sh">'</span><span class="p">,</span><span class="n">dest</span><span class="o">=</span><span class="sh">'</span><span class="s">end</span><span class="sh">'</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="sh">'</span><span class="s">60000</span><span class="sh">'</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">=</span> <span class="n">parser</span><span class="p">.</span><span class="nf">parse_args</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">start</span><span class="p">)</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">end</span><span class="p">)</span>
+    <span class="nf">do</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">e</span><span class="p">)</span>
 
 </code></pre></div></div>
 
@@ -129,24 +151,24 @@
 <p>代码如下：</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
+<span class="kn">from</span> <span class="n">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">Pool</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">'</span><span class="s">__main__</span><span class="sh">'</span><span class="p">:</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="nc">Pool</span><span class="p">()</span>
     <span class="n">total_start</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">total_end</span> <span class="o">=</span> <span class="mi">483931</span>
     <span class="n">step</span> <span class="o">=</span> <span class="mi">60000</span>
-    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">total_end</span><span class="o">/</span><span class="mi">60000</span><span class="p">)):</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="nf">time</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">int</span><span class="p">(</span><span class="n">total_end</span><span class="o">/</span><span class="mi">60000</span><span class="p">)):</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">60000</span>
         <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
             <span class="n">e</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">63931</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">e</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="mi">60000</span>
-        <span class="n">p</span><span class="p">.</span><span class="n">apply_async</span><span class="p">(</span><span class="n">do</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="p">,))</span>
-    <span class="n">p</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
-    <span class="n">p</span><span class="p">.</span><span class="n">join</span><span class="p">()</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">'Done!'</span><span class="p">)</span>
+        <span class="n">p</span><span class="p">.</span><span class="nf">apply_async</span><span class="p">(</span><span class="n">do</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="p">,))</span>
+    <span class="n">p</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
+    <span class="n">p</span><span class="p">.</span><span class="nf">join</span><span class="p">()</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s">Done!</span><span class="sh">'</span><span class="p">)</span>
 
 </code></pre></div></div>
 
@@ -165,20 +187,20 @@
 <p>下述代码给出了一种返回结构的示例，同时给出了一种新的并行任务执行的方式，map执行。</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    
-    <span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
+    <span class="kn">from</span> <span class="n">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
 
     <span class="k">def</span> <span class="nf">do</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">data</span>
 
-    <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">'</span><span class="s">__main__</span><span class="sh">'</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
-        <span class="n">idata</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="n">Pool</span><span class="p">()</span>
-        <span class="n">results</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">map_async</span><span class="p">(</span><span class="n">do</span><span class="p">,</span> <span class="n">idata</span><span class="p">))</span>
-        <span class="n">p</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="n">p</span><span class="p">.</span><span class="n">join</span><span class="p">()</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">results</span><span class="p">.</span><span class="n">get</span><span class="p">())</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">'Done!'</span><span class="p">)</span>
+        <span class="n">idata</span> <span class="o">=</span> <span class="nf">iter</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="nc">Pool</span><span class="p">()</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="nf">map_async</span><span class="p">(</span><span class="n">do</span><span class="p">,</span> <span class="n">idata</span><span class="p">))</span>
+        <span class="n">p</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
+        <span class="n">p</span><span class="p">.</span><span class="nf">join</span><span class="p">()</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">results</span><span class="p">.</span><span class="nf">get</span><span class="p">())</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">'</span><span class="s">Done!</span><span class="sh">'</span><span class="p">)</span>
 
 </code></pre></div></div>
 
@@ -187,23 +209,23 @@
 <p>[补充: 同步和异步的区别]</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-<span class="kn">import</span> <span class="nn">os</span><span class="p">,</span> <span class="n">time</span>
-<span class="kn">import</span> <span class="nn">multiprocessing</span>
+<span class="kn">import</span> <span class="n">os</span><span class="p">,</span> <span class="n">time</span>
+<span class="kn">import</span> <span class="n">multiprocessing</span>
 
 <span class="k">def</span> <span class="nf">task</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
-    <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">i</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
-    <span class="n">cpu_nums</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="p">.</span><span class="n">cpu_count</span><span class="p">()</span>
-    <span class="n">pool</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="p">.</span><span class="n">Pool</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">'</span><span class="s">__main__</span><span class="sh">'</span><span class="p">:</span>
+    <span class="n">cpu_nums</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="p">.</span><span class="nf">cpu_count</span><span class="p">()</span>
+    <span class="n">pool</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="p">.</span><span class="nc">Pool</span><span class="p">()</span>
     <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">cpu_nums</span><span class="p">):</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">pool</span><span class="p">.</span><span class="n">apply_async</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">i</span><span class="p">,))</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">get</span><span class="p">())</span>
-        <span class="n">results</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-    <span class="n">pool</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
-    <span class="n">pool</span><span class="p">.</span><span class="n">join</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">cpu_nums</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">pool</span><span class="p">.</span><span class="nf">apply_async</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">i</span><span class="p">,))</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="nf">get</span><span class="p">())</span>
+        <span class="n">results</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="n">pool</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
+    <span class="n">pool</span><span class="p">.</span><span class="nf">join</span><span class="p">()</span>
     <span class="c1">#for result in results:
 </span>    <span class="c1">#    print(result.get())
 </span>
@@ -239,7 +261,30 @@
   
   <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
-  </div>
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://arvinx.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  
+</div>
 
       </div>
     </div>

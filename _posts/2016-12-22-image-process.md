@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[CV]图像处理知识框图"
+title: "图像处理知识框图"
+tags: [CV]
 excerpt: "马上就是圣诞节了"
 date: 2016-12-22 18:54:00
 mathjax: true

@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]Rethink系列-Attention"
+title: "Rethink系列-Attention"
+tags: [NLP]
 excerpt: "回顾了Bahdanau和Luong的工作，讨论了围绕self-attention的一点想法，重新思考了Transformer/BERT。"
 date: 2019-01-27 18:00:00
 mathjax: true

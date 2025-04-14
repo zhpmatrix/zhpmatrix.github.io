@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[PyTorch]直观认识torch.jit模块"
+title: "直观认识torch.jit模块"
+tags: [PyTorch]
 excerpt: "在之前的一篇博客中讨论了PyTorch的C++前端，而这篇文章是关于PyTorch模型部署的第二篇博客，用具体的代码讨论了Tracing和Script两种方式的区别和联系。"
 date: 2019-03-09 18:43:00
 mathjax: true

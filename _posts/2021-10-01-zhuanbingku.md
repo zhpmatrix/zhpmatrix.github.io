@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]专病库方法论"
+title: "专病库方法论"
+tags: [NLP]
 excerpt: "五人团队，三个月，All in国内某超级大三甲胃癌专病库的沉淀的产品和技术方法论"
 date: 2021-10-01 11:40:00
 mathjax: true

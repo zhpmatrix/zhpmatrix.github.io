@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[Python]记一次Debug经历"
+title: "记一次Debug经历"
+tags: [Python]
 excerpt: "最近在备战PAC2017-AI组的决赛，下午写metric模块的时候，考虑到边界条件，必要时需要捕获除零异常。但是，在问题没有发现之前，怎么也捕获不到，这是为什么呢？"
 date: 2017-09-24 18:43:00
 mathjax: true

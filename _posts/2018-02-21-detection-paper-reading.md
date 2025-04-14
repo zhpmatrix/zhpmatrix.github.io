@@ -1,8 +1,9 @@
 ---
 layout: post
-title: "[DL]经典目标检测论文阅读"
+title: "Detection Paper Reading"
+tags: [深度学习]
 excerpt: "春节假期在家简单梳理了一些目标检测领域经典的文章，每篇文章主要包括Contributions，可Follow方向，我的想法，参考文献四部分内容。随着阅读量的增加和阅读深度的增加，这篇博文会保持持续更新。"
-date: 2018-02-19 18:24:00
+date: 2018-02-21 14:59:00
 mathjax: true
 ---
 
@@ -43,7 +44,7 @@ R-CNN结合了Selective Search和CNN，犹如春雷乍响，region proposal犹�
 
 1.Extra Feature Layers是固定的，能否根据Task自动扩展？或者说结构和Task之间的联系能否量化？结构确定了问题优化的形式或者空间，如果结构改变，优化目标就发生了变化，传统的方法论能否适用？该问题独立于SSD的结构
 
-2.针对贡献一:multi-scale还有什么有意思的玩儿法？分析multi-scale和“金字塔”系列的关系
+2.针对贡献一:multi-scale还有什么有意思的玩儿法？分析multi-scale和"金字塔"系列的关系
 
 3.针对贡献二:default box(anchor box)还可以以什么形态存在？（之所以有2和3的想法，是因为直觉上2和3在灵活度上还远远不够！）
 

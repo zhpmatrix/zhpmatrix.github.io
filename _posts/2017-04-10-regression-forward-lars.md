@@ -1,8 +1,9 @@
 ---
 layout: post
-title: "[Optimization]LASSO回归的优化求解"
-excerpt: "LASSO目标函数非光滑，不能使用基于梯度的方法。基于坐标下降并行求解LASSO，已经有很多文章，自己花了三天时间想去努力设计一个基于LARS并行的方案，无功而返。但是不论怎样，还是要聊聊LASSO问题的求解。"
-date: 2017-04-10 18:34:00
+title: "Regression Forward Lars"
+tags: [深度学习]
+excerpt: "论文阅读。这篇文章主要讨论了回归问题中的LARS算法。"
+date: 2017-04-10 18:00:00
 mathjax: true
 ---
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>

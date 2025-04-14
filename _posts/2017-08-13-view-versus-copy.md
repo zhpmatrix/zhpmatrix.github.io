@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[Python]pandas引用和复制的PK"
+title: "pandas引用和复制的PK"
+tags: [Python]
 excerpt: "经常会遇到一个warning，叫做SettingWithCopyWarning，本文尝试弄清楚pandas在各种场景下的引用和复制的问题，也就是view和copy的对比。"
 date: 2017-08-13 17:01:00
 mathjax: true

@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[LeetCode]并行与问题分解技术"
+title: "并行与问题分解技术"
+tags: [LeetCode]
 excerpt: "老板给了一篇IJCAI2015的BestPaper，Pedro Domingos出品，针对Non-Convex问题的递归分解。网上关于这篇文章的讨论不太多，在读这篇文章之前，先讨论一个ACM题目，涉及一些关于递归，加法原理和如何进行问题分解的思考。"
 date: 2017-05-11 16:23:00
 mathjax: true

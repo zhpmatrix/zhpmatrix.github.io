@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]Rethink系列-seq2seq"
+title: "Rethink系列-seq2seq"
+tags: [NLP]
 excerpt: "主要是对encoder和decoder的一些想法"
 date: 2019-01-28 18:00:00
 mathjax: true

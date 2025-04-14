@@ -1,8 +1,9 @@
 ---
 layout: post
-title: "[思考]问答系统的结构化探索"
-excerpt: "又一次脑洞实验。"
-date: 2021-11-15 11:40:00
+title: "QA技术调研"
+tags: [技术杂文]
+excerpt: "这篇博客主要讨论QA领域的一些技术调研。"
+date: 2021-11-15 15:09:00
 mathjax: true
 ---
 

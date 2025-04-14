@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[生活杂谈]京东实习碎碎念"
+title: "京东实习碎碎念"
+tags: [生活杂谈]
 excerpt: "打开京东ME，显示在职天数三十九天。"
 date: 2018-02-18 15:43:00
 mathjax: true

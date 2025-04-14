@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[Python]用进程池Pool进行代码加速"
+title: "用进程池Pool进行代码加速"
+tags: [Python]
 excerpt: "给出了不使用成熟大框架spark和hadoop的前提下，如何发挥集群算力的解决方案的想法，分布式进程进行任务分配+单机多核多进程+单核协程(仿多线程），实际上比赛代码加速还是多进程好使，其他的技术可能只是讨论讨论"
 date: 2017-11-04 22:22:00
 mathjax: true

@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[LLM]ChatGPT在医疗NLP场景的应用"
+title: "ChatGPT在医疗NLP场景的应用"
+tags: [LLM]
 excerpt: "站在医疗NLP的视角，以一个用户的身份，给出一些常见任务上的测试结果。"
 date: 2022-12-10 11:40:00
 ---

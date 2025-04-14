@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]聊一聊，预处理和数据增强技术"
+title: "聊一聊，预处理和数据增强技术"
+tags: [NLP]
 excerpt: "这篇博客梳理了NLP中英文的预处理方法和一些通用但是实现成本不高的数据增强思路。"
 date: 2019-03-08 18:43:00
 mathjax: true

@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[ML]AwesomeXGBoost-炼丹秘籍"
+title: "XGBoost调参"
+tags: [机器学习]
 excerpt: "这篇博客是为了配合组会做XGBoost的论文报告，包括XGBoost的基本超参数调节，自定义目标函数和度量函数，特征重要性，决策树绘制和保存，特征离散化。"
 date: 2017-10-19 14:12:00
 mathjax: true

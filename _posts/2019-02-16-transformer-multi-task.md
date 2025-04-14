@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]论文阅读-《Language Models are Unsupervised Multitask Learners》"
+title: "论文阅读-《Language Models are Unsupervised Multitask Learners》"
+tags: [NLP]
 excerpt: "GPT-2的论文阅读，陈述了主要内容，比较了实验结果，并提出了关于该模型的几点思考。"
 date: 2019-02-16 18:43:00
 mathjax: true

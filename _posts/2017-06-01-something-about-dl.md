@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[ML&DL]啊哈，CNN!"
+title: "啊哈，CNN!"
+tags: [技术杂文]
 excerpt: "趁着跑Eve代码的时间，读了一些关于CNN的东西，在这之前，只在组会上听实验室的师兄师姐聊。可能会看到一些关于R(2)NN,LSTM的一丢丢东西。"
 date: 2017-06-01 14:59:00
 mathjax: true
@@ -23,4 +24,4 @@ mathjax: true
 
 [谈谈深度学习中的Batch_Size](http://blog.csdn.net/ycheng_sjtu/article/details/49804041),文中讲了需要batch_size的原因,batch_size大小对精度和速度的权衡,同时给出了一个例子LeNet在MNIST上测试结果，很有说服力。同时该作者在知乎相同问题下的回答也是最高票。
 
-[inception模型](http://blog.csdn.net/u014114990/article/details/52583912)给出了一张CNN的结构演化图，同时给出了“网络变大”的三个缺点。
+[inception模型](http://blog.csdn.net/u014114990/article/details/52583912)给出了一张CNN的结构演化图，同时给出了"网络变大"的三个缺点。

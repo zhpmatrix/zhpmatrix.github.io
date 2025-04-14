@@ -1,8 +1,9 @@
 ---
 layout: post
-title: "[Optimization]基于反馈的随机梯度下降算法"
-excerpt: "《IMPROVING STOCHASTIC GRADIENT DESCENT WITH FEEDBACK》算法复现记录，这是一篇来自ICLR 2017的顶会论文。同时提出了自己针对这篇论文的分析和想法，以及进一步follow的做法。"
-date: 2017-05-05 10:48:00
+title: "SGD with Feedback"
+tags: [深度学习]
+excerpt: "论文阅读。这篇文章主要讨论了带有反馈的随机梯度下降算法。"
+date: 2017-05-05 18:00:00
 mathjax: true
 ---
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>

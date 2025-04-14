@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]答案推荐的评估指标设计"
+title: "答案推荐的评估指标设计"
+tags: [NLP]
 excerpt: "针对智能问答系统，讨论答案推荐任务中的评估指标设计问题"
 date: 2020-08-02 15:09:00
 mathjax: true

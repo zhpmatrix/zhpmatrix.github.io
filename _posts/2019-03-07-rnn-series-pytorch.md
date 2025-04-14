@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[PyTorch]RNN遇上PyTorch"
+title: "RNN遇上PyTorch"
+tags: [PyTorch]
 excerpt: "解释了PyTorch中RNN系的参数，输入和输出。接口包括两类，分别是多层结构和Cell结构。相比于Tensorflow中的多个版本实现，PyTorch中的要清晰很多。"
 date: 2019-03-07 18:43:00
 mathjax: true

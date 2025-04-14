@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]一种电商域知识图谱的构建方法"
+title: "一种电商域知识图谱的构建方法"
+tags: [NLP]
 excerpt: "这篇博客主要讨论AliMe KG的工作，没错，博主正在做知识图谱。"
 date: 2020-11-10 11:40:00
 mathjax: true

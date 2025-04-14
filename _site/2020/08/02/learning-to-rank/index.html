@@ -1,9 +1,27 @@
 <DOCTYPE html>
 <html>
   <head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9534180453883710"
+     crossorigin="anonymous"></script>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ohcryzf6h1");
+</script>
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4LG9G3BTNP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4LG9G3BTNP');
+</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>[NLP]Learning to Rank用于问答匹配/答案推荐建模</title>
+    <title>Learning to Rank用于问答匹配/答案推荐建模</title>
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="致力于算法，数据和工程的全链路打通">
     <link rel="canonical" href="http://localhost:4000/2020/08/02/learning-to-rank/">
@@ -31,7 +49,6 @@
 
     <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
     <a class="site-title" href="/">ZHPMATRIX blog</a>
-    <a class="site-title" href="/project.html">项目</a>
     <nav class="site-nav">
       <a href="#" class="menu-icon">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -45,13 +62,18 @@
         </svg>
 </a>
       <div class="trigger">
+ 	<font color="yellow"><a class="page-link" href="http://www.souyisou.online/">搜医搜</a></font>
+ 	<font color="yellow"><a class="page-link" href="https://aitax.17win.com/#/home?Authorization=Bearer+RKgwsKLnZ3uOoZPjU9nPEPP6H/gjZcVgFlgixoqaWSjeXvjxg9jxTA8yJzNOCd94mm7tSpzOgq0w9Q/3XZuY3MitCACEUV88dDvlWFESem/uZVjdHXvDoxFRxGUJLDByEB1GZSxrWvL9mUxlU5ykT9yDV%2BVNCfQLd6YNf7d%2Bss0=&X-App-Key=cb1e9c178a914a61b4db1bd5735f1036&X-Biz-Code=test&X-User-Id=tester&keyword=%E5%B0%8F%E5%9E%8B%E5%BE%AE%E5%88%A9%E4%BC%81%E4%B8%9A%E6%89%80%E5%BE%97%E7%A8%8E%E4%BC%98%E6%83%A0">AI搜税</a></font>
         
-          <a class="page-link" href="/about/">关于我</a>
+          <font color="yellow"><a class="page-link" href="/about/">about</a></font>
         
           
         
           
         
+          <font color="yellow"><a class="page-link" href="/project/">project</a></font>
+        
+	
       </div>
     </nav>
   </div>
@@ -77,7 +99,7 @@
       <div class="post">
 
   <header class="post-header">
-    <h1>[NLP]Learning to Rank用于问答匹配/答案推荐建模</h1>
+    <h1>Learning to Rank用于问答匹配/答案推荐建模</h1>
     <p class="meta">Aug 2, 2020</p>
   </header>
 
@@ -219,13 +241,54 @@
 
 <p>亮点：有真实线上数据反馈</p>
 
+<p>8.<a href="https://tech.meituan.com/2018/12/20/head-in-l2r.html">(美团)深入浅出排序学习：写给程序员的算法系统开发实践</a></p>
+
+<p><strong>Expected Reciprocal Rank(ERR)</strong></p>
+
+<p>与DCG相比，除了考虑位置衰减和允许多种相关级别（以R1，R2，R3…来表示）以外，ERR更进了一步，还考虑了排在文档之前所有文档的相关性。<strong>举个例子来说，文档A非常相关，排在第5位。如果排在前面的4个文档相关度都不高，那么文档A对列表的贡献就很大。反过来，如果前面4个文档相关度很大，已经完全解决了用户的搜索需求，用户根本就不会点击第5个位置的文档，那么文档A对列表的贡献就不大。</strong></p>
+
+<p>最直观的方案是Pointwise算法，例如对于广告CTR预估，在训练阶段需要标注某个文档的点击概率，这相对来说容易。<u>Pairwise算法一个重要分支是Lambda系列，包括LambdaRank、LambdaMart等，它的核心思想是：很多时候我们很难直接计算损失函数的值，但却很容易计算损失函数梯度（Gradient）。这意味着我们很难计算整个列表的nDCG和ERR等指标，但却很容易知道某个文档应该排的更靠前还是靠后。</u>Listwise算法往往效果最好，但是如何为每个请求对所有文档进行标注是一个巨大的挑战。</p>
+
+<p>这篇文章中，作者应用了DDD的原则，分别是：<strong>领域聚焦，边界清晰和持续集成</strong>。基于上述原则，构建了三个在线排序领域模型，分别是<strong>召回治理，特征服务治理以及在线排序分层模型</strong>。</p>
+
+<p>9.<a href="https://zhuanlan.zhihu.com/p/435989798">RankNet: 排序学习算法的“在天之灵”</a></p>
+
+<p>这篇文章除了推导RankNet的损失函数之外，同时给出了个一个基于Python的代码实现，比较清晰。</p>
+
+<p>10.《Methods, Applications, and Directions of Learning-to-Rank in NLP Research》,2024年的Review</p>
+
+<p>LTR这个方向，除了经典的监督损失函数之外，还讨论了对比学习以及生成式模型（都2024年了，可以考虑生成式模型了）</p>
+
   </article>
 
   <!-- mathjax -->
   
   <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
-  </div>
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://arvinx.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  
+</div>
 
       </div>
     </div>

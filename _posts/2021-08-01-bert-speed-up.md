@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]BERT加速的N种方法"
+title: "BERT加速的N种方法"
+tags: [NLP]
 excerpt: "模型太重，inference时间太长，效果好，但是在线场景基本不能使用？"
 date: 2021-07-27 11:40:00
 mathjax: true

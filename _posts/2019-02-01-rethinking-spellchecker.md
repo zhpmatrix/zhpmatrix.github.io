@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]中文拼写检纠错-和百度比一比"
+title: "中文拼写检纠错-和百度比一比"
+tags: [NLP]
 excerpt: "在文本纠错任务上，用自己的模型和百度API开放的接口测试效果对比。"
 date: 2019-02-01 18:00:00
 mathjax: true

@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[LeetCode]重说：递归"
+title: "重说：递归"
+tags: [LeetCode]
 excerpt: "最近读组里同学代码的时候，看到一个递归实现。于是借助这篇短文，回顾一些关于递归的问题。"
 date: 2019-01-01 18:53:00
 mathjax: true

@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]论文思考-神经机器翻译中的六个挑战"
+title: "论文思考-神经机器翻译中的六个挑战"
+tags: [NLP]
 excerpt: "这篇博客是一篇为讨论班报告写的论文笔记，论文原题《Six Challenges for Neural Machine Translation》，时间2017年，作者来自JHU的Philipp Koehn等人。虽然有标题党之嫌，但是论文很实用。论文指出了NMT中的domain mismatch, amount of training data, rare words, long sentences, word alignment,beam search相关问题。"
 date: 2018-12-22 18:43:00
 mathjax: true

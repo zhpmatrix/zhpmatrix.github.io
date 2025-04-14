@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[ML&DM]sklearn中的并行和串行"
+title: "sklearn中的并行和串行"
+tags: [数据挖掘]
 excerpt: "聊聊pipeline,featureunion,gridsearch等话题"
 date: 2017-03-20 14:27:00
 ---

@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[算法设计]计算理论"
+title: "计算理论"
+tags: [LeetCode]
 excerpt: "带着一个LeetCode题目能否有一个形式化的数学描述，并且存在一个数学的解决方法，梳理了计算理论的基本概念，然而疑惑并没有得到解决。"
 date: 2017-11-24 18:42:00
 mathjax: true

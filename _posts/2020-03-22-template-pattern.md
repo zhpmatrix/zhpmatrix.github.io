@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[Python]漫谈模板模式"
+title: "漫谈模板模式"
+tags: [Python]
 excerpt: "以模板模式为例，聊一聊怎么扣代码设计。"
 date: 2020-03-22 10:25:00
 mathjax: true

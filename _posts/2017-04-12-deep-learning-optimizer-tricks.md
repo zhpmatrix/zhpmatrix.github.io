@@ -1,8 +1,9 @@
 ---
 layout: post
-title: "[Optimization]Deep Learning中的梯度下降优化算法"
-excerpt: "在之前的文章中聊过SGD的各种优化算法，Bottou对Deep Learning中的优化只是做了很少一部分的阐述，这里关注在Deep Learning中的梯度优化。"
-date: 2017-04-12 18:34:00
+title: "Deep Learning Optimizer Tricks"
+tags: [深度学习]
+excerpt: "论文阅读。这篇文章主要讨论了深度学习中的优化技巧。"
+date: 2017-04-12 18:00:00
 mathjax: true
 ---
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>

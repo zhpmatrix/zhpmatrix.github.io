@@ -1,8 +1,9 @@
 ---
 layout: post
 comments: true
-title:  "[Python]再议规则引擎"
+title:  "再议规则引擎"
 excerpt: "一种支持系统可扩展性的实现方式"
+tags: [Python]
 date:   2024-10-30 10:35:00
 mathjax: true
 ---

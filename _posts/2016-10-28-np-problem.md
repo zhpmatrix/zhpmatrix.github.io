@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[LeetCode]NP问题和近似算法"
+title: "NP问题和近似算法"
+tags: [LeetCode]
 excerpt: "计算理论和几个近似算法的讨论(非数学)"
 date: 2016-10-28 16:04
 ---

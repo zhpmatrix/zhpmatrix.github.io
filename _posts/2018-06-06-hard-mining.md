@@ -1,8 +1,9 @@
 ---
 layout: post
-title: "[DL]关于样本的Hard和Easy的讨论"
-excerpt: "围绕CVPR2005，CVPR2016的两篇文章，hard negative mining, hard example mining, OHEM等，从prob和loss两个角度讨论，同时提了一些想法。"
-date: 2018-06-06 13:34:00
+title: "Hard Mining"
+tags: [深度学习]
+excerpt: "Hard Mining"
+date: 2018-06-06 14:59:00
 mathjax: true
 ---
 
@@ -16,11 +17,11 @@ CVPR2005的文章《Histograms of Oriented Gradients for Human Detection》中�
 
 第四步：把第二步和第三步迭代几次；
 
-考虑一下第二步，prob>0.5，意味着label为true，也就是将一个neg预测为pos，没有human的patch预测为有human。没有overfitting的前提下，用cls重新预测neg，得到的预测值为pos，意味着该样本为hard。通俗点讲，**“做过的题目还做错，可能这道题是真的难，难题多做几遍就不会错了”**，所以，针对hard的样本，重新将对应feature喂给cls，再train一遍，实际上确实有效果提升。
+考虑一下第二步，prob>0.5，意味着label为true，也就是将一个neg预测为pos，没有human的patch预测为有human。没有overfitting的前提下，用cls重新预测neg，得到的预测值为pos，意味着该样本为hard。通俗点讲，**"做过的题目还做错，可能这道题是真的难，难题多做几遍就不会错了"**，所以，针对hard的样本，重新将对应feature喂给cls，再train一遍，实际上确实有效果提升。
 
 针对二分类问题，通常以prob=0.5为阈值，划分预测标签。实际上，prob的取值范围是\[0,1\]，假设一个样本的prob非常的靠近0或者1，意味着这个样本属于某一类的置信度非常高，prob靠近0.5，也就是cls对于该样本属于哪一类并不是很自信。从这个角度来讲，针对所有样本，根据预测prob的取值范围区分hard和easy样本，或许也是可行的？
 
-上述想法的一个延伸是这样的，针对多分类问题，每个样本会得到一个预测prob向量，若向量prob的max值小于一个阈值，例如0.5，意味着针对每个分类的置信度都很低，虽然softmax后可以得到一个分类结果，但是没有反映出根本的问题。这样的样本，我们定义了一个概念，“可疑样本”。针对“可疑样本“的处理可以放在预测概率空间完成，实际上使用KNN就可以取得很不错的效果，正在考虑要不要整理成文章发表。
+上述想法的一个延伸是这样的，针对多分类问题，每个样本会得到一个预测prob向量，若向量prob的max值小于一个阈值，例如0.5，意味着针对每个分类的置信度都很低，虽然softmax后可以得到一个分类结果，但是没有反映出根本的问题。这样的样本，我们定义了一个概念，"可疑样本"。针对"可疑样本"的处理可以放在预测概率空间完成，实际上使用KNN就可以取得很不错的效果，正在考虑要不要整理成文章发表。
 
 和上述第二步的区别在于，第二步专注于neg的挖掘，所以叫做hard negative mining，这里可以叫做hard example mining。另外一点不同，使用了第二步的prob信息，其实prob的内含很丰富，这里的挖掘只是一部分而已。
 

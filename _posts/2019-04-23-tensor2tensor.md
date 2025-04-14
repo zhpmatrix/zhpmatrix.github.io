@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[tensor2tensor源码阅读]目录结构和部分重点参数讨论"
+title: "源码阅读:目录结构和部分重点参数讨论"
+tags: [工程架构]
 excerpt: "去年对比opennmt-py和tensor2tensor，但是只是写了opennmt-py的源码结构，并没有梳理tensor2tensor的结构，最近刚好重启一个大实验，组里同学也在做相关的事情，因此借此机会重新梳理一些关于tensor2tensor的内容。"
 date: 2019-04-23 18:43:00
 mathjax: true
@@ -24,7 +25,7 @@ out the smallest k% of weights, effectively removing them from the graph.
 
 ```
 
-这样对t2t可以做什么就有了一个基本的认识了，接下来当然要去**数据层**了，来到data\_generator目录下。t2t中对于数据的处理定义为**‘problem’**，因此当我们需要处理自己的数据时，通常需要写一个problem类。t2t的发展很快，相比于去年，problem已经积累了很多，这里可以查看[所有的problem](https://github.com/tensorflow/tensor2tensor/blob/master/tensor2tensor/data_generators/all_problems.py)。但是t2t可以处理的数据模态还是文本，声音，图片等。这个模块的架构还是非常清晰的，后续有需要处理多种数据的情形可以参照这块的代码逻辑。
+这样对t2t可以做什么就有了一个基本的认识了，接下来当然要去**数据层**了，来到data\_generator目录下。t2t中对于数据的处理定义为**'problem'**，因此当我们需要处理自己的数据时，通常需要写一个problem类。t2t的发展很快，相比于去年，problem已经积累了很多，这里可以查看[所有的problem](https://github.com/tensorflow/tensor2tensor/blob/master/tensor2tensor/data_generators/all_problems.py)。但是t2t可以处理的数据模态还是文本，声音，图片等。这个模块的架构还是非常清晰的，后续有需要处理多种数据的情形可以参照这块的代码逻辑。
 
 有了数据，之后就需要选择模型了，这个时候可以直接来到**models文件夹**中了。依据处理模态的不同，依然有不同的模型实现，包括lstm/transformer/resnet/gan等。在实现模型的时候，必然需要对layer进行封装，因此可以到layers目录下查看各种layer的实现。有一类模型相对特殊，也就是增强学习，因此相关实现放在了rl单独一个目录中。
 

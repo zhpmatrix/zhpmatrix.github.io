@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[论文阅读]《A Neural Compositional Paradigm for Image Captioning》"
+title: "《A Neural Compositional Paradigm for Image Captioning》"
+tags: [论文笔记]
 excerpt: "NIPS2018的文章，用于解决Image Captioning问题，整体上没有采用端到端的思路，不过其中的语言生成策略或许有值得借鉴的地方。"
 date: 2019-01-30 18:00:00
 mathjax: true

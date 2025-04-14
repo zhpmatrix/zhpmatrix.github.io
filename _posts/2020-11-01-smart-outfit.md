@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[NLP]智能服饰搭配的方案讨论"
+title: "智能服饰搭配的方案讨论"
+tags: [NLP]
 excerpt: "简单梳理专家模型，CV，NLP和Graph的各种解决方案和思路，以基于CV的几个工作为主。同时，站在产品和运营的角度聊一聊智能穿搭这件事儿"
 date: 2020-11-29 11:40:00
 mathjax: true

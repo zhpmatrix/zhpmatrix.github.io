@@ -1,0 +1,324 @@
+<DOCTYPE html>
+<html>
+  <head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9534180453883710"
+     crossorigin="anonymous"></script>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ohcryzf6h1");
+</script>
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4LG9G3BTNP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4LG9G3BTNP');
+</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Recursive Decompose for Noncovex Optimization</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2017/05/18/recursive-decompose-for-noncovex-optimization/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+ 	<font color="yellow"><a class="page-link" href="http://www.souyisou.online/">搜医搜</a></font>
+ 	<font color="yellow"><a class="page-link" href="https://aitax.17win.com/#/home?Authorization=Bearer+RKgwsKLnZ3uOoZPjU9nPEPP6H/gjZcVgFlgixoqaWSjeXvjxg9jxTA8yJzNOCd94mm7tSpzOgq0w9Q/3XZuY3MitCACEUV88dDvlWFESem/uZVjdHXvDoxFRxGUJLDByEB1GZSxrWvL9mUxlU5ykT9yDV%2BVNCfQLd6YNf7d%2Bss0=&X-App-Key=cb1e9c178a914a61b4db1bd5735f1036&X-Biz-Code=test&X-User-Id=tester&keyword=%E5%B0%8F%E5%9E%8B%E5%BE%AE%E5%88%A9%E4%BC%81%E4%B8%9A%E6%89%80%E5%BE%97%E7%A8%8E%E4%BC%98%E6%83%A0">AI搜税</a></font>
+        
+          <font color="yellow"><a class="page-link" href="/about/">about</a></font>
+        
+          
+        
+          
+        
+          <font color="yellow"><a class="page-link" href="/project/">project</a></font>
+        
+	
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>Recursive Decompose for Noncovex Optimization</h1>
+    <p class="meta">May 18, 2017</p>
+  </header>
+
+  <article class="post-content">
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<p>前言：相比于之前的论文笔记，这篇笔记侧重于大框架的梳理，帮助读者建立一个读该论文的初始印象。</p>
+
+<h4 id="intuitionmotivation">Intuition&amp;Motivation</h4>
+
+<p>AI中有很多问题是非凸的，即使使用<strong>随机启动</strong>和<strong>模拟退火</strong>策略，某些优化算法也容易陷入局部最优。作者观察到某些非凸目标函数的组合结构(递归结构)，想法也就来自组合优化(Divide&amp;Conquer)。自己的理解是作者将超图分割用于目标函数的分割，主要是term之间分割，找到一个优化问题的递归描述，递归求解，也就是作者文章标题递归分解。(<em>昨天和老板讨论，老板说他当时看这篇文章，也就是看到图分割，就把想法写进基金本子了</em>)。</p>
+
+<h4 id="伪代码">伪代码</h4>
+
+<p><img src="http://wx1.sinaimg.cn/mw690/aba7d18bgy1ffvjj52045j20em0egtbm.jpg" alt="rdis" /></p>
+
+<p>这是作者给出的伪代码，代码的整体结构上类似我<a href="https://zhpmatrix.github.io/2017/05/11/adding-grouping-recursive/">这篇</a>文章中提到的。在那篇文章中提到的递归的并行，其实也是适合本文算法的并行化。伪代码中给出了三个子函数，<strong>CHOOSEVARS</strong>用于变量选择能够最大化的分割开目标函数，<strong>SIMPLIFY</strong>是用常数替换掉变量，该常数与term的bound有关，这样待优化的变量个数就减少了。在<strong>SIMPLIFY</strong>之后，<strong>DECOMPOSE</strong>就水到渠成。优化函数是<em>S</em>，分解后的问题就可以递归并行求解，子问题求解之后合并结果，也就是第11行代码的表示。第12和13行代码用于记录新的较小的值。分解目标函数的过程如下：</p>
+
+<p><img src="http://wx2.sinaimg.cn/mw690/aba7d18bgy1ffvk7kebnyj20gp0aq412.jpg" alt="recursive" /></p>
+
+<h4 id="基本概念">基本概念</h4>
+
+<p>文章最重要的一个概念是<strong>超图分割</strong>，围绕这个概念，可以考虑的问题有：<strong>什么是超图？</strong>(在PaToH库中的manual中有非常具体的表示，不过这个manual有个小错误，很容易发现)<strong>超图分割的依据是什么？</strong>(与cut-set的cost有关)，<strong>为什么超图分割可以用于非凸目标函数分解？</strong>(个人认为是将目标函数用一个超图来表示，超边权值为1，但是具体的证明还没有读)</p>
+
+<h4 id="代码实现">代码实现</h4>
+
+<p>为了验证实验，我做了一个与粒子群优化(PSO)相关的目标函数，进行分割后，使用RDIS来求最值。下面是实验的过程。</p>
+
+<p>1.多项式展开(matlab实现)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>syms s
+
+ps=((s^2+1))^3*(s+5)^2*(s^4+4*s^2+7)
+
+ps_new=expand(ps)
+</code></pre></div></div>
+
+<p>直接转换到最简项，这部分主要是关于<strong>符号计算</strong>的内容。论文给出的代码，要求代码的输入是化简到最简项的目标函数。</p>
+
+<p>2.依赖库安装</p>
+
+<p>mac下boost 1.55.0的安装可以参考9，默认安装路径/usr/local/include和/usr/local/lib,测试程序:</p>
+
+<script src="https://gist.github.com/zhpmatrix/f6879b053a0bdafb942a3deb801bfb2d.js"></script>
+
+<p>注意：可能不同的boost的版本的对应数据结构的路径不太一样，可以参照include中具体文件路径在头文件中引入。</p>
+
+<p>代码的依赖库还有PaToH,在作者提供的代码中已经给出了预编译版本，故不需要重新编译。同时作者也提出可以使用别的超图分割库HMetis。此外，还有一个数值计算库levmar,不过HMetis和levmar都不是编译必须的依赖库。</p>
+
+<p>3.代码结构</p>
+
+<p>查看代码的树形目录结构:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tree .
+</code></pre></div></div>
+
+<p>递归统计代码行数（非常优雅的方式）:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . -name '*.h' | xargs wc -l
+</code></pre></div></div>
+
+<p><strong>rdis的.h和.cpp文件共计16000+行！！！</strong>RDIS算法的实现文件代码行2000+，每个优化函数的实现平均代码行300+。</p>
+
+<p>4.编译调试</p>
+
+<p>和读xgboost源代码方式类似，首先要在CMakeLists.txt文件中添加<strong>-g</strong>选项，使得程序可以用来调试。程序的代码量巨大，在编译的时候采用<strong>make -j</strong>，用来实现单机并行编译。类似提高编译速度的方式还有tmpfs（内存中编译）,distcc(分布式编译),ccache(缓存中间临时文件)。</p>
+
+<p>5.代码阅读</p>
+
+<p>代码的顶层调用逻辑：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#选择子空间优化器(真正的优化器，对cutset相关的vertex优化求解)
+CGDSubspaceOptimizer ssopt( fpoly );
+
+#RDIS算法的优化求解
+RDISOptimizer opt( fpoly, ssopt, options );
+
+#计算目标函数的bound
+NumericInterval bounds = fpoly.computeBounds();
+
+#计算目标函数最优值
+Numeric val = opt.optimize();
+
+#计算目标函数最优值所在的位置
+State x = opt.getOptState();
+</code></pre></div></div>
+
+<p>6.关于智能指针的使用</p>
+
+<p>shared_ptr,make_shared</p>
+
+<p>7.boost的数据结构</p>
+
+<p>tuple,graph,vector</p>
+
+<p>8.代码优化</p>
+
+<p>针对Cache的优化作者还没有做。</p>
+
+<p>总结：本以为要Follow这篇文章，可是和老板讨论过后，老板建议去做Powell算法+互信息+图像配准相关，要做到<strong>能用</strong>。这篇论文是当年的最佳论文，最起码从工作量来说，实至名归。代码时间戳表示写了两年，同时文章做了三组实验，都是相对较大的实验。从思想来说，收到的启发还是如何将组合优化的策略和优化问题结合，同时Google了这篇文章其他人的follow，似乎不多呀。❤，❤️，🏀，一周多时间，没有严格意义的产出，淡淡的忧伤。</p>
+
+<p>参考:</p>
+
+<p>1.<a href="http://blog.csdn.net/peterchan88/article/details/68952839">Fiduccia-Mattheyses算法</a></p>
+
+<p>利用FM算法对电路进行超图建模</p>
+
+<p>2.<a href="https://wenku.baidu.com/view/6b1b0527a5e9856a56126021.html">超图理论与应用PPT</a></p>
+
+<p>刘未鹏的PPT</p>
+
+<p>3.<a href="http://www.tuicool.com/articles/jEzaIbR">Levenberg–Marquardt算法学习</a></p>
+
+<p>从高斯牛顿算法讲到LM的优化，这二者的结果让我想到了带正则项的线性回归，这两个问题在解的形式上是类似的。同时谈到了上述两个算法和最速下降算法的联系，给出了两个具体的算法代码(C++)。比较了线性搜索和信赖域方法的对比。另外一个算法代码(matlab),<a href="http://www.cppblog.com/abilitytao/archive/2010/12/10/136058.html">点击这里</a></p>
+
+<p>4.<a href="http://blog.csdn.net/liu14lang/article/details/53991897">LM算法浅谈</a></p>
+
+<p>给出了一些推导，相对清晰。而且对LM的总结比较简洁。</p>
+
+<p>5.<a href="https://wenku.baidu.com/view/b27b577d453610661ed9f4a8.html">LM算法</a></p>
+
+<p>比较学术的资料。</p>
+
+<p>6.<a href="http://bmi.osu.edu/~umit/software.html#datacutter">PaToH v3.2</a></p>
+
+<p>7.<a href="http://www.docin.com/p-1070025242.html">针对大规模机器学习和数据挖掘的超图并行计算框架</a></p>
+
+<p>硕士开题报告，在文章和作者关系这个问题的表达上，做了简单图和超图的对比。同时提出了Pregel和GraphLab的对比。</p>
+
+<p>8.<a href="https://wenku.baidu.com/view/443092cb650e52ea54189840.html">ADMM算法原理和实例讲解</a></p>
+
+<p>在RDIS算法中，子问题的Optimizer是选用共轭梯度法+LM算法，个人认为共轭梯度，坐标下降，ADMM方法均可以作为Optimizer。</p>
+
+<p>9.<a href="http://blog.csdn.net/pyang1989/article/details/41725747">Mac下boost的安装与使用</a></p>
+
+<p>10.<a href="http://www.cnblogs.com/hzh1024n/archive/2009/09/17/1568357.html">关于Linux静态库和动态库的分析</a></p>
+
+<p>以问答的方式回答了关于静态库和动态库的关系，同时给出了关于动态库和静态库使用的例子。</p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://arvinx.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+
+    </body>
+</html>
