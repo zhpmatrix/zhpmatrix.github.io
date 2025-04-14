@@ -1,10 +1,3 @@
-<!--
- * @Author: zhanghaipeng
- * @Date: 2025-04-14 09:19:07
- * @LastEditors: Do not edit
- * @LastEditTime: 2025-04-14 12:32:39
- * @Description: 
--->
 ---
 layout: post
 comments: true
@@ -14,6 +7,7 @@ excerpt: "总要写点文字来点缀生活，无论是数学，文学还是其�
 date:   2016-09-10 16:35:00
 mathjax: true
 ---
+
 
 常常感怀的几段文字，就像一味味苦口良药。愿做一头反刍的老牛，常苦常新。
 
