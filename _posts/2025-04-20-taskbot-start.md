@@ -7,7 +7,6 @@ mermaid: true
 tags: [对话系统, LLM]
 ---
 
-
 财税咨询作为一个垂直行业的咨询服务，致力于为财税从业者提供高价值服务。友商包括小竹财税，[大账房](https://youwenai.com/),[杭州孚嘉科技](https://www.wolai.com/7PS3h7Rr98YLPseS2Sg3kj),[chatx](https://www.chatax.cn/index.html)等，在过去的一段时间，四大也做了较多的工作。
 
 引入一段报道:
@@ -59,5 +58,6 @@ tags: [对话系统, LLM]
 同时对话质控体系也可以实现对对话流程中参与双方的管理。
 
 今天和好友相约狮山公园步行道，比较累，故收笔。以上是笔者一个基本的理解，下一篇文章讨论可能的技术实现方案。
+
 
 **[扫码加笔者好友](https://zhpmatrix.github.io/about/)，茶已备好，等你来聊~**
