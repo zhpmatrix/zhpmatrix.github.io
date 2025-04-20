@@ -106,3 +106,5 @@ flowchart LR
 
 世界从来都是自己的，与他人无关，我需要更多落子无悔的智慧。
 
+**[扫码加笔者好友](https://zhpmatrix.github.io/about/)，茶已备好，等你来聊~**
+
