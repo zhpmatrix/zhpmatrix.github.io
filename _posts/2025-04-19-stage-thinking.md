@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "2025Q1:阶段性思考碎碎念"
+title: "2025Q1-阶段性思考碎碎念"
 excerpt: "冲。"
 date: 2025-04-19 22:04:00
 tags: [生活杂谈]
