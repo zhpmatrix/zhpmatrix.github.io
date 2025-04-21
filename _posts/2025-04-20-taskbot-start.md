@@ -1,3 +1,10 @@
+<!--
+ * @Author: zhanghaipeng
+ * @Date: 2025-04-20 19:16:13
+ * @LastEditors: Do not edit
+ * @LastEditTime: 2025-04-21 09:56:40
+ * @Description: 
+-->
 ---
 layout: post
 title: "初识财税咨询对话系统"
@@ -6,6 +13,7 @@ date: 2025-04-19 19:16:00
 mermaid: true
 tags: [对话系统, LLM]
 ---
+
 
 财税咨询作为一个垂直行业的咨询服务，致力于为财税从业者提供高价值服务。友商包括小竹财税，[大账房](https://youwenai.com/),[杭州孚嘉科技](https://www.wolai.com/7PS3h7Rr98YLPseS2Sg3kj),[chatx](https://www.chatax.cn/index.html)等，在过去的一段时间，四大也做了较多的工作。
 
@@ -46,8 +54,7 @@ tags: [对话系统, LLM]
 
 <img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/12366.png?raw=true" width="400" align="center"/>
 
-
-但是在税局热点问题中，问题答案相对是固定，简短的，争议性小，有司法解释。如:"2019年4月1日之后，按照原适用税率补开发票的，怎么进行申报？"。此外，对于业务背景强的问题，咨询通常很难解答。所以，笔者也在思考，是不是不给答案，而是给出参考，也能够解决问题，如案例[3](https://www.xzcs2022.com/cswd/7331.html)。
+议性小，有司法解释。如:"2019年4月1日之后，按照原适用税率补开发票的，怎么进行申报？"。此外，对于业务背景强的问题，咨询通常很难解答。所以，笔者也在思考，是不是不给答案，而是给出参考，也能够解决问题，如案例[3](https://www.xzcs2022.com/cswd/7331.html)。
 
 由于咨询系统早期的定位是人机系统，而回答是由人来完成的，因此要分析坐席的画像特征，比如新手坐席，试用期坐席，娴熟坐席等，系统能够提供的价值也存在不同。比如可以给新手坐席提供智能对练的产品能力，对于人效考核严格的团队，系统的响应时间要尽可能短。
 
