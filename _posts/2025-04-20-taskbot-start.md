@@ -3,10 +3,8 @@ layout: post
 title: "初识财税咨询对话系统"
 excerpt: "LLM时代的垂域对话"
 date: 2025-04-19 19:16:00
-mermaid: true
 tags: [对话系统]
 ---
-
 
 财税咨询作为一个垂直行业的咨询服务，致力于为财税从业者提供高价值服务。友商包括小竹财税，[大账房](https://youwenai.com/),[杭州孚嘉科技](https://www.wolai.com/7PS3h7Rr98YLPseS2Sg3kj),[chatx](https://www.chatax.cn/index.html)等，在过去的一段时间，四大也做了较多的工作。
 
