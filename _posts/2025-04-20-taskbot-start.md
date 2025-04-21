@@ -4,7 +4,7 @@ title: "初识财税咨询对话系统"
 excerpt: "LLM时代的垂域对话"
 date: 2025-04-19 19:16:00
 mermaid: true
-tags: [对话系统, LLM]
+tags: [对话系统]
 ---
 
 
