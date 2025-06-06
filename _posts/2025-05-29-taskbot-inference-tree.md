@@ -126,6 +126,7 @@ GraphRAG也是针对该思路的一个具体表达。
 #### 相关材料
 
 + 《Task-Oriented Dialogue with In-Context Learning》，RASA的文章，结构上是一个平铺的if...then...的逻辑，在实现中更加接近于function call的逻辑
++ [《融合知识图谱与大模型的中医临床辅助决策系统》](https://mp.weixin.qq.com/s/4HOpCHLVVQSNhVkoNdgwUw)
 
 
 **[扫码加笔者好友](https://zhpmatrix.github.io/about/)，茶已备好，等你来聊~**
