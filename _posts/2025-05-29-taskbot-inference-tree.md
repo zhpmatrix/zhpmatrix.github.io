@@ -54,7 +54,7 @@ flowchart TD
 
 （4）推理流程：输入病理报告文本，算法抽取报告中的标签值，遍历流程图到叶子节点，得到分期结果。其中从根节点到叶子节点形成一个推理路径。
 
-其中的流程图是通过树结构来实现的。
+其中的流程图是通过树结构来实现的。树结构可以是逻辑上的表示，也可以是实际中的表示。比如在文章《CoDial: Interpretable Task-Oriented Dialogue Systems Through Dialogue Flow Alignment》中，通过将业务专家的表达转化为NV的Colang语言，利用LLM对于编程语言的理解，提升垂直问答系统的在可解释&可推理中的表达能力。
 
 ##### 鉴别诊断临床指导树（[呼吸困难症作为主诉](https://arxiv.org/pdf/2312.02441)）
 
