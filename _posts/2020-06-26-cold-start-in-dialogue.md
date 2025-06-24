@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "冷启动，知多少？"
-tags: [NLP]
+tags: [对话系统]
 excerpt: "讨论一下对话系统中的冷启动问题"
 date: 2020-06-26 10:25:00
 mathjax: true
