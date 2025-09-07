@@ -37,8 +37,7 @@ date: 2025-09-07 11:00:00
 
 #### 知识类别划分
 
-卡
-
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/k4.webp?raw=true" width="400" align="center"/>
 
 从上述例子可以看出，要素抽取任务中是需要依赖不同类型的知识的。那么围绕知识要思考的问题如下：
 
