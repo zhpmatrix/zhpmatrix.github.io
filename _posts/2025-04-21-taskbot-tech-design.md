@@ -87,6 +87,16 @@ date: 2025-04-21 12:00:00
 
 #### 相关参考
 
+[AI智能体架构指南——为什么能力强不等于用户爱用？](https://mp.weixin.qq.com/s/xAOHp9qYQmWNJjU2NZ7fPw)
+
+这篇文章讨论了构建Agent产品的四层架构决策：
+
++ context&memory
++ data&integration
++ skills&capabilities
++ evaluation&trust
+
+
 [1688AI助手“源宝”的产品演变之路](https://mp.weixin.qq.com/s/B9b-mmYc7ejH0rN5R09mJg)
 
 [AI+智能客服:大模型可落地的最成熟场景之一](https://mp.weixin.qq.com/s/TN_UVBplxDFONIkfp9v57Q)

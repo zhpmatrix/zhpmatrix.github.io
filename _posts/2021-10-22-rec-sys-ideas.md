@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "再议推荐系统"
-tags: [推荐]
+tags: [技术杂文]
 excerpt: "杭州城，十里桂花香的季节，一篇迟迟未能写完的文章。"
 date: 2021-10-25 11:40:00
 mathjax: true
