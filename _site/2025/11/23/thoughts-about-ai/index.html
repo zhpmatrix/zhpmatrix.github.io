@@ -1,0 +1,313 @@
+<DOCTYPE html>
+<html>
+  <head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9534180453883710"
+     crossorigin="anonymous"></script>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ohcryzf6h1");
+</script>
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4LG9G3BTNP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4LG9G3BTNP');
+</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>算法工程师视角的AI相关的问题思考</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2025/11/23/thoughts-about-ai/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+ 	<font color="yellow"><a class="page-link" href="https://aitax.17win.com/#/home?Authorization=Bearer+RKgwsKLnZ3uOoZPjU9nPEPP6H/gjZcVgFlgixoqaWSjeXvjxg9jxTA8yJzNOCd94mm7tSpzOgq0w9Q/3XZuY3MitCACEUV88dDvlWFESem/uZVjdHXvDoxFRxGUJLDByEB1GZSxrWvL9mUxlU5ykT9yDV%2BVNCfQLd6YNf7d%2Bss0=&X-App-Key=cb1e9c178a914a61b4db1bd5735f1036&X-Biz-Code=test&X-User-Id=tester&keyword=%E5%B0%8F%E5%9E%8B%E5%BE%AE%E5%88%A9%E4%BC%81%E4%B8%9A%E6%89%80%E5%BE%97%E7%A8%8E%E4%BC%98%E6%83%A0">AI搜税</a></font>
+        
+          <font color="yellow"><a class="page-link" href="/about/">about</a></font>
+        
+          
+        
+          
+        
+          <font color="yellow"><a class="page-link" href="/project/">project</a></font>
+        
+	
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?77e6dc2a588a3d798d2b6287b25441cb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>算法工程师视角的AI相关的问题思考</h1>
+    <p class="meta">
+      Nov 23, 2025
+      
+      • 
+      <span class="meta-tags">
+        
+          <span class="tag">技术杂文</span>
+        
+      </span>
+      
+      • <span id="busuanzi_container_page_pv">阅读量：<span id="busuanzi_value_page_pv"></span>次</span>
+    </p>
+  </header>
+
+  <article class="post-content">
+  <h2 id="目录">目录</h2>
+
+<ul>
+  <li><a href="#这波ai泡沫什么时候破裂">这波AI泡沫什么时候破裂？</a></li>
+  <li><a href="#ai-native-vs-agent">ai native v.s. agent</a></li>
+  <li><a href="#个人内容创作">个人内容创作</a></li>
+  <li><a href="#科技自媒体">科技自媒体</a></li>
+  <li><a href="#供给需求的天平倾斜">供给&amp;需求的天平倾斜</a></li>
+  <li><a href="#知识工作者的下一步">知识工作者的下一步</a></li>
+</ul>
+
+<h4 id="这波ai泡沫什么时候破裂">这波AI泡沫什么时候破裂？</h4>
+
+<p>这个问题其实包含很多子问题。有AI泡沫吗？如果有，怎么定义AI泡沫？是否存在云泡沫，区块链泡沫等？如何定义破裂？即使有泡沫，一定会破裂吗？<strong>发现哪个问题都不太容易讨论清楚</strong>。</p>
+
+<p>在笔者23年6月的文章<a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&amp;mid=2247484703&amp;idx=1&amp;sn=3a6aa2436bb9ca65d9988412df4f674d&amp;chksm=fc740c56cb0385400cceefaa1e0a89de9c1717e49a7011e11e09691c71e8d795040fb65350e3&amp;token=1969671355&amp;lang=zh_CN#rd">《中文医疗大模型的2W1H分析》</a>中讨论过一个问题“那么，这波热潮会以什么方式结束？”，当时做了一个大胆的趋势预测如下:</p>
+
+<p><img src="/images/1123_01.png" width="500" align="center" /></p>
+
+<p>25年的近期，AI泡沫破裂这个话题的热度又烧了起来。回过头来看，这张图似乎适合各种新技术的发展趋势，同时AI的发展史就是一路伴随兴起-破裂的节奏，但是每次破裂都能让下一次兴起的起点更高。此外，本轮兴起的标志性事件是22年11月30日的ChatGPT的发布，但是破裂的标志似乎并不容易形成共识。既然如此，<strong>享受当下大抵是一个正确的选择</strong>。</p>
+
+<h4 id="ai-native-vs-agent">ai native v.s. agent</h4>
+
+<p>对于这两个概念的理解，大抵分为技术视角和非技术视角，以至于agent是什么，agent和workflow的区别在过去几个月都经历过较长时间的讨论。笔者认同的一个观点是<strong>一个事情如果没有ai，那么这个事情不成立，由此可以说这个事情是ai native的</strong>。</p>
+
+<p>从笔者个人比较关心的产品类型上看，真正意义上比较棒的产品不多。分别如下:</p>
+
+<ul>
+  <li>
+    <p>LLM驱动的对话入口级应用。代表性样本包括ChatGPT，豆包等。其中并非以单纯LLM作为服务能力，而是整合了多模态，search等组件</p>
+  </li>
+  <li>
+    <p>AI Coding。代表性产品包括Cursor/Claude Code/Gemini2.5/3 Pro等</p>
+  </li>
+  <li>
+    <p>Nano Banana Pro。通过整合google search，gemini3 pro等的基础能力，使得nano banana pro的生图能力取得了显著的提升</p>
+  </li>
+</ul>
+
+<p>nano banana pro是近期笔者基于做计算机视觉那几年的技术认知新增的一类产品，至于3d视频类，audio类等的产品，没有关心很多也不予置评。manus，lovable等可能有较好的arr，但是可能还需要时间来观察。</p>
+
+<p>在<a href="http://www.zhpmatrix.site/2025/11/01/tax-agent/">《财税版DeepResearch的构建实践》</a>中讨论了agent的架构设计，在技术上关于agent还是能够形成多数的共识。如果非说自己基于workflow的产品也是agent，那么祝您马到成功～</p>
+
+<p>从技术实现角度，对于workflow，不同query享用同样的处理步骤；但是不同query是否存在不同的处理步骤？通过agent的灵活编排能力可实现。二者是不同的出发点，同时存在范式级的不同。从学术角度，agent是一等公民，但是从实际落地角度，workflow和agent既然是不同的范式，自然有其各自的优缺点。从笔者最近在做的agent的memory模块设计来看，做一个实际能用的agent产品也并不是很容易。但是agent充满了想象力，故事性很足。比如multi-agent，比如agent去train一个agent，比如直接结果交付而非决策信息交付等叙事逻辑。在技术上，融合了算法，工程和数据，需要良好的架构设计，总之这是一个无比性感且同时极具挑战性的方向。</p>
+
+<h4 id="个人内容创作">个人内容创作</h4>
+
+<p>ai写的文章，从笔者之前能够一眼看出来到现在有时读到最后才发现署名是ai，也就几个月的时间而已，当然今天ai做的页面，还是能够一眼看出，但是距离看不出来的时刻，相信没有多久了。</p>
+
+<p>笔者的<a href="http://www.zhpmatrix.site/agent/%E5%AF%B9%E8%AF%9D%E7%B3%BB%E7%BB%9F/2025/09/14/memory/">《AI记忆系统的技术演进与设计哲学》</a>中，前半部分是ai辅助完成的，后半部分是笔者自己码字的，区别其实很明显。</p>
+
+<p>这样的话，个人内容创作的意义在哪里？没有ai写的快，更没有ai写的好。但是可以比ai更有温度。</p>
+
+<p>这件事要回归到一个基本的问题：你为什么还在写文字？笔者自身写blog的过程，其实是一种辅助思考的过程，一种学习的过程，一种传达个人观点的过程。收益主体首先是写作者自身，其次才是他人。因此可能ai写的比笔者要好，但是没了目的本身，手段是没有任何意义的。同时自己去码字，可以回归到人之所以为人这个问题。人机协作中，要看谁的weight更大。</p>
+
+<p>在今天打开电商应用，电商平台的宝贝图片，小红书的笔记，公众号的文章等可能已经充斥了大量的ai创作的内容。从供需视角来看，这种范式还是旧有模式，知识分为离线生产和在线消费。实际上ai作为生产力工具，生产和消费的距离被大大地缩短了，可以实现内容的个性化即时生产和消费。这种改变不仅会影响seo到geo的变化，同时在其他方面有影响，带来各种“生成式XXX”。</p>
+
+<p>从内容创新到使用创新工具带来内容生产，从直接生产到间接生产，用户付费的是内容，并不为生产工具付费，这个基本面并没有发生改变。笔者有些许担忧，但是新的内容生产闭环并没有大规模跑通，利弊尚不清晰。电脑写出来的诗是不是并不如毛笔写的千古绝唱？</p>
+
+<h4 id="科技自媒体">科技自媒体</h4>
+
+<p>本轮ai的潮流中，科技自媒体，KOL等对于信息的分发发挥着重要的作用。linkloud沙龙中提到科技自媒体的报价都是平常的3倍之多。在上一波ai潮流中，机器之心/量子位/新智元作为三位头部，在本轮中依然保持这个态势，不过本轮的竞争者显然更多，B站/公众号/X/小红书上活跃着太多的科技自媒体。</p>
+
+<p>一会儿这个产品牛逼，一会儿那个模型火了。KOL的传播似乎对于产品的影响力扩展越来越重要，什么是流行，什么是火？如果某个火的KOL带了这个货，那么这个就是火的。冷启动有各种方式，但是最终行不行还是要回归到留存上。2025年的今天，不要arr，要留存。</p>
+
+<h4 id="供给需求的天平倾斜">供给&amp;需求的天平倾斜</h4>
+
+<p>因为相信，所以看见。这句话在构建基于LLM能力的产品时的含金量还在上升。如果足够的相信LLM的能力，那么就会在构建过程中持续迭代，否则可能就浅尝辄止。写提示词并不是一件很容易的事情，除非要解决的问题本身就很简单，如果要解决的问题本身就很简单，不需要LLM大概率也能搞定。笔者在过去几个月的实践中，无数次被证明“不是模型不行，是我不行”的事实。</p>
+
+<p>nano banana pro的推出进一步证明大模型生图能力的显著提升。</p>
+
+<p>所以，无论是sonnet 4.5/deepseek-v3.2等，还是其他基础模型，笔者认为已经到了真正ready的状态，也就是说供给侧已经足够给力，锤子足够的好用。接下来的问题是如何更好地使用锤子解决真实的需求？</p>
+
+<p>经济下行趋势下，新的突破口在哪里？哪里有真实的需求？这些问题的求解似乎也正在变得更加困难。生成白板图，写一个还算好笑的笑话，自动做一些小的app等，还不足以发挥锤子更大的严肃价值。医生问诊，财税咨询这些严肃场景下的需求是真实存在的，但是还需要一段时间的死磕。在追求PMF的同时，技术和需求的匹配也是一个重要的问题。否则容易陷入一种什么都可以做的想象中，或者做一些并不需要的app，写一些并没有什么意义的文字，画一些并不有趣的图等。</p>
+
+<h4 id="知识工作者的下一步">知识工作者的下一步</h4>
+
+<p>ai似乎做了并不是人类最开始想让他们做的事情，反而在创意，知识密集型方向做的越来越好～
+税务咨询师，码农，设计师等是否没有未来了？这个问题太复杂了，以至于只能给一个直觉性的问答，也许并不是。</p>
+
+<p>ai是生产力工具，提升的是生产效率，包括速度和质量。从为结果付费的角度，只有速度只会加剧对效率的追求，也就是更卷而已。如果同时能够兼具质量，如果质量等同人类，那么会依然朝着卷的方向去。如果质量优于人类，只会更卷。</p>
+
+<p>职能的边界会越来越模糊。产品能够从PRD到demo开发一条龙完成，算法也能够去开发前后端，胆战心惊的前端并不需要担忧gemini超牛的前端开发能力，因为你可以利用gemini做后端的工作了。这个时候真正的挑战是，能否从职能受限的视角跳出来，做一些不一样的事情。</p>
+
+<p>低端的设计开发工作，确实已经通过ai coding类的工具很好的完成，对于这部分职能的需求是肉眼可见的减少。由于ai coding类工具的乘法效应，导致研发职能两端的两极分化会越来越严重。</p>
+
+<p><strong><a href="http://www.zhpmatrix.site/about/">扫码加笔者好友</a>，茶已备好，等你来聊~</strong></p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+  <!-- 不蒜子统计 -->
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://arvinx.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<script src="https://unpkg.com/mermaid@8.9.3/dist/mermaid.min.js"></script>
+<script>
+  $(document).ready(function () {
+    mermaid.initialize({
+      startOnLoad:true,
+      theme: "default",
+    });
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+  });
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+<script src="https://unpkg.com/mermaid@8.9.3/dist/mermaid.min.js"></script>
+<script>
+  $(document).ready(function () {
+    mermaid.initialize({
+      startOnLoad:true,
+      theme: "default",
+    });
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+  });
+</script>
+
+
+    </body>
+</html>

@@ -1,0 +1,410 @@
+<DOCTYPE html>
+<html>
+  <head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9534180453883710"
+     crossorigin="anonymous"></script>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ohcryzf6h1");
+</script>
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4LG9G3BTNP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4LG9G3BTNP');
+</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>再议agent中的memory</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2025/11/25/memory-concept/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+ 	<font color="yellow"><a class="page-link" href="https://aitax.17win.com/#/home?Authorization=Bearer+RKgwsKLnZ3uOoZPjU9nPEPP6H/gjZcVgFlgixoqaWSjeXvjxg9jxTA8yJzNOCd94mm7tSpzOgq0w9Q/3XZuY3MitCACEUV88dDvlWFESem/uZVjdHXvDoxFRxGUJLDByEB1GZSxrWvL9mUxlU5ykT9yDV%2BVNCfQLd6YNf7d%2Bss0=&X-App-Key=cb1e9c178a914a61b4db1bd5735f1036&X-Biz-Code=test&X-User-Id=tester&keyword=%E5%B0%8F%E5%9E%8B%E5%BE%AE%E5%88%A9%E4%BC%81%E4%B8%9A%E6%89%80%E5%BE%97%E7%A8%8E%E4%BC%98%E6%83%A0">AI搜税</a></font>
+        
+          <font color="yellow"><a class="page-link" href="/about/">about</a></font>
+        
+          
+        
+          
+        
+          <font color="yellow"><a class="page-link" href="/project/">project</a></font>
+        
+	
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?77e6dc2a588a3d798d2b6287b25441cb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>再议agent中的memory</h1>
+    <p class="meta">
+      Nov 25, 2025
+      
+      • 
+      <span class="meta-tags">
+        
+          <span class="tag">Agent</span>
+        
+          <span class="tag">对话系统</span>
+        
+      </span>
+      
+      • <span id="busuanzi_container_page_pv">阅读量：<span id="busuanzi_value_page_pv"></span>次</span>
+    </p>
+  </header>
+
+  <article class="post-content">
+  <p><em>前言：在前一篇博客，<a href="http://www.zhpmatrix.site/agent/%E5%AF%B9%E8%AF%9D%E7%B3%BB%E7%BB%9F/2025/09/14/memory/">《AI记忆系统的技术演进与设计哲学》</a>中，笔者梳理了chatgpt，claude和manus等大产品中的memory工程设计并进行了部分对比，整体的粒度较粗，这篇博客中笔者从更细的粒度中梳理近期围绕agent的memory工程相关的工作。</em></p>
+
+<h4 id="memory的概念体系">Memory的概念体系</h4>
+
+<p>围绕memory的认知模型早在1983年就由三位大佬提出，在今天讨论memory的时候，并没有脱离具体的认知模型，但是具体的实现方式发生了变化。整体框架如下所示:</p>
+
+<p><img src="/images/deepseek_mermaid_20251125_5b6faa.png" width="500" align="center" /></p>
+
+<p>结合大模型的技术体系，笔者根据多个学术和工业界的工作，梳理了更加具体的memory的概念体系，具体如下：</p>
+
+<p><img src="/images/DeepResearch-MemoryConcept.drawio.png" width="500" align="center" /></p>
+
+<p>在技术实现这个维度上，通过memory的方式，建立针对memory的encode，storage和retrieval(<a href="https://arxiv.org/abs/2505.00675">《Rethinking Memory in AI: Taxonomy, Operations, Topics, and Future Directions》</a>中提供了更多的关于memory的操作)，将agent从stateless变为stateful，其实并没有脱离更好的context engineering这个范畴。</p>
+
+<p>在《From Human Memory to AI Memory-A Survey on Memory Mechanisms in the Era of LLMs》中进行AI和人类记忆的对比的时候，增加了sensory memory类型。</p>
+
+<h4 id="重点工作梳理">重点工作梳理</h4>
+
+<p><strong><a href="https://arxiv.org/abs/2507.07957">MIRIX: Multi-Agent Memory System for LLM-Based Agents</a></strong>，该工作中首先对记忆进行了分模块，同时提出了一个架构方式（偏工程体系搭建），最后基于一套算法和工程体系构建了<a href="https://mirix.io/">应用</a>,宣称世界上最强的用于agent的记忆系统。具体的模块划分方式如下所示：</p>
+
+<p><img src="/images/mirix_memory.png" width="400" align="center" /></p>
+
+<p>围绕memory的认知架构是基于soar，技术架构是multi-agent的，针对memory的agent是通过提示词的方案来实现的，具体见<a href="https://github.com/Mirix-AI/MIRIX/tree/main/mirix/prompts">代码</a>,类似的实现见<a href="https://github.com/databyjp/weekend_projects/tree/main/mem_demo">这里</a>,提供了一个非常简单的POC。使用方式如下:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1"># Original code:
+# response = agent.query(message)
+</span>
+<span class="kn">from</span> <span class="n">mirix</span> <span class="kn">import</span> <span class="n">MemoryClient</span>
+<span class="n">client</span> <span class="o">=</span> <span class="nc">MemoryClient</span><span class="p">(</span><span class="n">local</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># 1. Inject relevant context into the prompt
+</span><span class="n">message</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="nf">wrap_message</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">agent</span><span class="p">.</span><span class="nf">query</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+<span class="c1"># 2. Save the interaction
+</span><span class="n">client</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+  <span class="p">{</span><span class="sh">"</span><span class="s">role</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">user</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">content</span><span class="sh">"</span><span class="p">:</span> <span class="p">[{</span><span class="sh">"</span><span class="s">type</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">text</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">text</span><span class="sh">"</span><span class="p">:</span> <span class="n">message</span><span class="p">}]},</span>
+  <span class="p">{</span><span class="sh">"</span><span class="s">role</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">assistant</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">content</span><span class="sh">"</span><span class="p">:</span> <span class="p">[{</span><span class="sh">"</span><span class="s">type</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">text</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">text</span><span class="sh">"</span><span class="p">:</span> <span class="n">response</span><span class="p">}]}</span>
+<span class="p">])</span>
+
+</code></pre></div></div>
+
+<p><strong><a href="https://arxiv.org/abs/2507.03724">MemOS: A Memory OS for AI System</a></strong>，这篇的工作同上基本类似，也做了一个<a href="https://memos-docs.openmem.net/cn/overview/introduction/">应用</a>。从工程侧包括对记忆生产，记忆调度和记忆召回以及记忆生命周期管理。其中记忆类型可划分为以下:</p>
+<ul>
+  <li>KV Cache记忆-适合常见问题以及特定领域知识，和先前的对话历史</li>
+  <li>明文记忆
+    <ul>
+      <li>通用明文记忆-通过向量检索等方式进行搜索</li>
+      <li>树形明文记忆-基于图的记忆管理
+        <ul>
+          <li>Neo4j图数据库</li>
+          <li>Nebula图数据库</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>参数记忆-模型训练参数（预训练权重和模块化的权重组件，如LoRA适配器和专家模块），实现记忆的动态加载和卸载</li>
+</ul>
+
+<p>这个工作中对于memory的定义比sora更加广泛，比如认为kv cache和model parameter均是记忆的一种类型，同时在范式上抽象了MemCube，以及MOS（Memory Operating System），MAG（Memory Augmented Generation）等概念，比如MOS的使用方式如下所示:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">memos.configs.mem_os</span> <span class="kn">import</span> <span class="n">MOSConfig</span>
+<span class="kn">from</span> <span class="n">memos.mem_os.main</span> <span class="kn">import</span> <span class="n">MOS</span>
+
+
+<span class="c1"># init MOS
+</span><span class="n">mos_config</span> <span class="o">=</span> <span class="n">MOSConfig</span><span class="p">.</span><span class="nf">from_json_file</span><span class="p">(</span><span class="sh">"</span><span class="s">examples/data/config/simple_memos_config.json</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">memory</span> <span class="o">=</span> <span class="nc">MOS</span><span class="p">(</span><span class="n">mos_config</span><span class="p">)</span>
+
+<span class="c1"># create user
+</span><span class="n">user_id</span> <span class="o">=</span> <span class="sh">"</span><span class="s">b41a34d5-5cae-4b46-8c49-d03794d206f5</span><span class="sh">"</span>
+<span class="n">memory</span><span class="p">.</span><span class="nf">create_user</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+
+<span class="c1"># register cube for user
+</span><span class="n">memory</span><span class="p">.</span><span class="nf">register_mem_cube</span><span class="p">(</span><span class="sh">"</span><span class="s">examples/data/mem_cube_2</span><span class="sh">"</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+
+<span class="c1"># add memory for user
+</span><span class="n">memory</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span>
+    <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span><span class="sh">"</span><span class="s">role</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">user</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">content</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">I like playing football.</span><span class="sh">"</span><span class="p">},</span>
+        <span class="p">{</span><span class="sh">"</span><span class="s">role</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">assistant</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">content</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">I like playing football too.</span><span class="sh">"</span><span class="p">},</span>
+    <span class="p">],</span>
+    <span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Later, when you want to retrieve memory for user
+</span><span class="n">retrieved_memories</span> <span class="o">=</span> <span class="n">memory</span><span class="p">.</span><span class="nf">search</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="sh">"</span><span class="s">What do you like?</span><span class="sh">"</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+<span class="c1"># output text_memories: I like playing football, act_memories, para_memories
+</span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">text_memories: </span><span class="si">{</span><span class="n">retrieved_memories</span><span class="p">[</span><span class="sh">'</span><span class="s">text_mem</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong><a href="https://www.leoniemonigatti.com/blog/from-rag-to-agent-memory.html">The Evolution from RAG to Agentic RAG to Agent</a></strong>,
+这篇博客对RAG系统的演进历史进行了梳理，RAG(Read-Only, One-Shot)-&gt;Agentic RAG(Smart Read-Only)-&gt;Agent Memory(Read-Write Operations)。同时和其他工作类型，对记忆进行了类型划分：</p>
+
+<ul>
+  <li>procedural. For example, use emojis</li>
+  <li>episodic. For example, use mentioned trip on Oct 30</li>
+  <li>semantic. For example, Eiffel Tower is 330m tall</li>
+</ul>
+
+<p>具体对比如下：</p>
+
+<p><img src="/images/memory_cmp.png" width="400" align="center" /></p>
+
+<p>简单而言，针对记忆的处理，需要有write的能力。</p>
+
+<p><strong><a href="https://arxiv.org/pdf/2310.08560">《MemGPT: Towards LLMs as Operating Systems》</a></strong>,在<a href="https://www.leoniemonigatti.com/papers/memgpt.html#self-editing-memory-via-tool-calls">letta</a>（也是一家关于memory的创业公司）的blog中针对该工作进行了实现，该工作的核心是两个部分分别如下：</p>
+
+<ul>
+  <li>一个两层memory架构。main context(in-context)+external context(out-of-context)</li>
+  <li>self-editing memory capabilities through tool use,MIRIX中也是通过function call的能力进行memory的管理</li>
+</ul>
+
+<p><img src="/images/memgpt.png" width="400" align="center" /></p>
+
+<p>在letta的工作中，做了LLM OS和传统OS的一个对比，结果如下：</p>
+
+<p><img src="/images/letta_llm_vs_os.png" width="400" align="center" /></p>
+
+<p>具体实现依然是基于prompt的艺术，代码见<a href="https://github.com/letta-ai/letta/tree/main/letta/prompts">这里</a>,<strong>竟然发现MIRIX的prompts和letta的prompts几乎是一模一样</strong>，没有仔细看协议，也许是允许的。使用体验上和上述差不多。</p>
+
+<p><strong><a href="https://arxiv.org/pdf/2309.02427">《Cognitive Architectures for Language Agents》</a></strong>,这篇文章在一个较高的抽象层次讨论了language agent的认知架构设计，对于理解agent的整体架构有较大的启发。其中这篇文章也是从soar的认知架构开始讲的，不过是在agent这个方向上比较早的来讲这个事情的工作。具体架构如下:</p>
+
+<p><img src="/images/coala.png" width="500" align="center" /></p>
+
+<p><strong><a href="https://huggingface.co/blog/Kseniase/memory">《Does AI Remember? The Role of Memory in Agentic Workflows》</a></strong>,这篇blog中很好的总结了agent中的memory定义。</p>
+
+<p>整体上的行文思路也是类似一个考古之作，整体收获非常多。</p>
+
+<p><strong>《Dingtalk-DeepResearch: A Unified Multi-Agent Framework for Adaptive Intelligence in Enterprise Environments》</strong>,文章中提到: “Unlike static architectures, it enables agents to evolve via an entropy-guided, memory-aware online learning mechanism, retrieving high-value prior cases from an episodic memory bank and exploring diverse historical contexts.”</p>
+
+<p>简单而言，在Dingtalk这个工作中，相比其他deepresearch的工作，增加了对于情景记忆的利用能力。</p>
+
+<p><strong><a href="https://github.com/GibsonAI/Memori">Memori</a></strong>,Open-Source Memory Engine for LLMs, AI Agents &amp; Multi-Agent Systems，也是一个star较多的开源工作。从<a href="https://memorilabs.ai/docs/">技术文档</a>中可以看到，整体的实现思路和其他工业级工作是类似的。</p>
+
+<p><strong><a href="https://leoniemonigatti.com/blog/memory-in-ai-agents.html">Making Sense of Memory in AI Agents</a></strong>,非常全面的总结了关于memory的types以及相关的实现。这篇blog中做了一个非常有意思的类比如下(deeplearning.ai的course中也看到采用了基本相同的类比):</p>
+
+<p><img src="/images/agent_memory_cmp.png" width="500" align="center" /></p>
+
+<p><strong><a href="https://mem0.ai/">Mem0</a></strong> 是一个agent memory方向相对成熟度较高的公司，学术上的相关论文多次提到，《Mem0: Building Production-Ready AI Agents with Scalable Long-Term Memory》，相比其他而言，memory的架构设计也是相对清晰简单的。<strong><a href="https://www.getzep.com/">zep</a></strong> 的成熟度也相对高一些，亮点在于graph相关的memory构建，比如graphrag工作的支持等。<strong><a href="https://www.cognee.ai/">cognee</a></strong> 整体上和zep比较类似。</p>
+
+<p>国内的公司比如 <strong><a href="https://mp.weixin.qq.com/s/o0eVo4tA9JMrQreFDhzbbw">AI 记忆革命：EverMemOS 如何让机器拥有真正的”灵魂”</a>,<a href="https://github.com/EverMind-AI/EverMemOS/">github</a></strong> ,盛大团队关于记忆的工作，在该工作中提出了一些新的概念体系，但是技术本质上是和国外的公司是类似的。<a href="https://memos-docs.openmem.net/cn/overview/introduction/">MemOS</a>也是国内的学术团体做的一个项目，相关方向为OpenMeM。<a href="https://hub.baai.ac.cn/view/47705">MIRIX</a>是国外的华人学术团队做的公司(哦，这波AI热潮中，华人为主)。<strong><a href="https://memu.pro/">memu.pro</a></strong> 也是国内的公司，2B的业务和开源并举进行推进。</p>
+
+<p><a href="https://memories.ai/">memories.ai</a>是做视觉memory的，算是这个方向中相对较新的方向了，founder也是华人。</p>
+
+<h4 id="相关资料">相关资料</h4>
+
+<ul>
+  <li>
+    <p><a href="https://snap-research.github.io/locomo/">《Evaluating Very Long-Term Conversational Memory of LLM Agents》</a>，学术上针对长记忆能力的评测方法和评测集LOCOMO</p>
+  </li>
+  <li>
+    <p><a href="https://zhuanlan.zhihu.com/p/1973003147833274960">Agent近期记忆技术及落地实践整理</a>,这篇文章讨论了比较多很具体的工作，作者自身也做了较多的实践。</p>
+  </li>
+  <li>
+    <p><a href="https://docs.langchain.com/oss/python/concepts/memory">Memory Overview</a>,LangChain中的memory机制</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/langchain-ai/memory-template?tab=readme-ov-file">memory-template</a>,LangChain中针对memory的具体template设计，<a href="https://docs.langchain.com/oss/python/langgraph/add-memory">Memory的具体使用使用方式</a>,multi-agent之<a href="https://docs.langchain.com/oss/python/langchain/supervisor">supervisor agent</a>的实现方式，针对multi-agent，LangChain中提供了两种实现方式，分别是中心式的tool calling和去中心式的handoffs，<a href="https://langchain-ai.github.io/langmem/">LangMem</a>是LangChain中的一种具体实现（面向semantic memory和episodic memory两种）</p>
+  </li>
+  <li>
+    <p>《Context Engineering:Sessions, Memory》,Google</p>
+  </li>
+  <li>
+    <p><a href="https://zhuanlan.zhihu.com/p/1940091301249909899">万字解析Agent Memory实现</a>,这篇文章中对记忆的划分提出了更多的视角，同时写作的内容和这篇blog比较类似</p>
+  </li>
+  <li>
+    <p><a href="https://learn.deeplearning.ai/courses/long-term-agentic-memory-with-langgraph/lesson/ovv0p/introduction">Long-Term Agentic Memory With LangGraph</a>,DeepLearning.ai的课程，LangChain的同学主讲，有<a href="https://github.com/sushant1827/Long-Term-Memory-Agent/blob/main/Email_Assistant_Semantic_Episodic_Procedural_Memory.ipynb">Code</a>,LangChain官方的<a href="https://github.com/langchain-ai/agents-from-scratch/tree/main/src/email_assistant">Code</a>,和前边的Repo不太一样，但是基本相同</p>
+  </li>
+  <li>
+    <p><a href="https://learn.deeplearning.ai/courses/llms-as-operating-systems-agent-memory/lesson/nfkqk/introduction">letta在learn.deeplearning.ai上开的课程</a></p>
+  </li>
+  <li>
+    <p><a href="https://mp.weixin.qq.com/s/4RjmWR4qCM3KHBLW_hTkbw">OpenAI Build Hour: Agent Memory Patterns 中文全文</a>, OpenAI团队中对于Memory机制的思考</p>
+  </li>
+  <li>
+    <p><a href="https://macaron.im/mindlab/research">MindLab</a>，国外的一家关于memory的创业公司，思路上构建了memory diffusion的方案，团队认为围绕memory，重要的不是记忆，而是遗忘。通过在size非常大的模型上进行LoRA微调，将memory注入到模型中，从而形成个性化的记忆类型。最近有感于纳排的思维逻辑应用，比如相比纳入，排除也是重要的。比如如果无法区分哪些是好的，能否区分哪些是坏的？比如记忆和遗忘的关系，比如降低成本和增加收入的trade off等。</p>
+  </li>
+</ul>
+
+<p><strong><a href="http://www.zhpmatrix.site/about/">扫码加笔者好友</a>，茶已备好，等你来聊~</strong></p>
+
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+  <!-- 不蒜子统计 -->
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://arvinx.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<script src="https://unpkg.com/mermaid@8.9.3/dist/mermaid.min.js"></script>
+<script>
+  $(document).ready(function () {
+    mermaid.initialize({
+      startOnLoad:true,
+      theme: "default",
+    });
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+  });
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+<script src="https://unpkg.com/mermaid@8.9.3/dist/mermaid.min.js"></script>
+<script>
+  $(document).ready(function () {
+    mermaid.initialize({
+      startOnLoad:true,
+      theme: "default",
+    });
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+  });
+</script>
+
+
+    </body>
+</html>

@@ -1,0 +1,339 @@
+<DOCTYPE html>
+<html>
+  <head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9534180453883710"
+     crossorigin="anonymous"></script>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ohcryzf6h1");
+</script>
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4LG9G3BTNP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4LG9G3BTNP');
+</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>财税咨询系统的架构思考</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2025/04/21/taskbot-tech-design/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+ 	<font color="yellow"><a class="page-link" href="https://aitax.17win.com/#/home?Authorization=Bearer+RKgwsKLnZ3uOoZPjU9nPEPP6H/gjZcVgFlgixoqaWSjeXvjxg9jxTA8yJzNOCd94mm7tSpzOgq0w9Q/3XZuY3MitCACEUV88dDvlWFESem/uZVjdHXvDoxFRxGUJLDByEB1GZSxrWvL9mUxlU5ykT9yDV%2BVNCfQLd6YNf7d%2Bss0=&X-App-Key=cb1e9c178a914a61b4db1bd5735f1036&X-Biz-Code=test&X-User-Id=tester&keyword=%E5%B0%8F%E5%9E%8B%E5%BE%AE%E5%88%A9%E4%BC%81%E4%B8%9A%E6%89%80%E5%BE%97%E7%A8%8E%E4%BC%98%E6%83%A0">AI搜税</a></font>
+        
+          <font color="yellow"><a class="page-link" href="/about/">about</a></font>
+        
+          
+        
+          
+        
+          <font color="yellow"><a class="page-link" href="/project/">project</a></font>
+        
+	
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?77e6dc2a588a3d798d2b6287b25441cb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>财税咨询系统的架构思考</h1>
+    <p class="meta">
+      Apr 21, 2025
+      
+      • 
+      <span class="meta-tags">
+        
+          <span class="tag">对话系统</span>
+        
+      </span>
+      
+      • <span id="busuanzi_container_page_pv">阅读量：<span id="busuanzi_value_page_pv"></span>次</span>
+    </p>
+  </header>
+
+  <article class="post-content">
+  <h4 id="咨询系统的设想">咨询系统的设想</h4>
+
+<p>在得物技术最近的一篇<a href="https://mp.weixin.qq.com/s/2Og361FIQ7WcknBIYFskQw">文章</a>中谈到对于AI的预期描述，如下：</p>
+
+<p><strong>告诉AI我们想要的目标或者任务，AI能够理解深度理解并分析我们的意图、自动的进行任务的拆解、自动的寻找可以使用的工具、自动的进行结果数据的汇总过滤、自动的呈现符合任务的展示形式。同时在任务处理过程中，可以自己完成异常的检测和修改。</strong></p>
+
+<p>拆解之后要满足的特征如下：</p>
+
+<ul>
+  <li>能够接受指令，具有较好的指令遵循能力，听得懂人话（浅层理解）</li>
+  <li>能够理解指令的含义。如内含的梗，意图，背景知识等（深层理解）</li>
+  <li>自动做计划+找工具+结果汇总（人类完成任务的方式未必可迁移至机器）</li>
+  <li>纠错能力（是否需要自己完成持保留意见，但是系统要具备容错能力）</li>
+</ul>
+
+<p>站在人类的角度，基本是符合预期的一个AI系统。在上一波NLP创业热潮中，虽然做了很多以对话为中心的ChatBot系统，但是进到LLM时代重新审视各类对话系统，以交付为中心的multi-agent承载了更多的期待，比如Manus等产品。</p>
+
+<h4 id="从nlu到nlg的演化进程">从NLU到NLG的演化进程</h4>
+
+<p>首先看上一波客服系统的设计方案，如下：</p>
+
+<p><img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/%E6%99%BA%E5%BA%93%E9%A1%B9%E7%9B%AE-%E4%BC%A0%E7%BB%9F%E5%AF%B9%E8%AF%9D%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1.drawio.png?raw=true" width="400" align="center" /></p>
+
+<p>实际的系统设计可能单独一个多分类也能够解决问题，或者仅仅是采用向量匹配。不管怎样，电商智能客服的模式验证使得FAQ的技术路线深入人心，但是迁移到其他领域时可能会遇到新的问题。本质上，相比电商业务，医疗和财税方向的业务复杂度足够高。在做财税咨询系统的时候，正值RAG技术深入人心，同时DeepSeek V3爆火。</p>
+
+<p>但是传统的对话架构和RAG架构的区别和联系是什么？一个基本的想法如下：</p>
+
+<p><img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/LLM+%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F.drawio.png?raw=true" width="400" align="center" /></p>
+
+<p>但是正如软件世界的“没有银弹”，存在诸多的问题是朴素RAG无法有效解决的，比如预测类需求，多跳查询类，统计类，逻辑推理类等。</p>
+
+<p>不同的目标会采用不同的技术架构设计，可以分为答案可用率要求高的目标和答案可用率要求不高的目标。前者的定位是高质量咨询服务，核心在于提质，具体要求包括可用+好用+轮次少。本着确定性高和可解释性强的设计原则会形成若干基本做法，包括如下：</p>
+
+<h5 id="答案生成时避免使用模型内部的知识">答案生成时，避免使用模型内部的知识</h5>
+
+<p>在近期的一篇论文中提到，模型知道的知识，和模型能够表达出来的知识有40%的差距。对于一个知识驱动的系统，如果过分依赖模型内部的知识，那将是一个灾难。因为不知道模型内部知道什么以及不知道什么？如果对于知识的边界是不清晰的，那么知识的更新和维护就无从谈起。与此同时，甚至无法清晰描述自己维护的知识的边界是什么？比如知识的覆盖率是可接受的吗？</p>
+
+<p>围绕知识构建，是可以单开一篇文章讨论的主题。可以阅读参考中给出的一些近期的文章，包含知识平台构建，医疗知识等。</p>
+
+<p>比如在一个经典的咨询场景中，知识分为显性知识和隐性知识，其中<strong>显性知识是指明确记录在文档或知识库中的知识，而隐性知识则是个人在日常工作中积累的经验和直觉。</strong></p>
+
+<p>通过建立一个数字化系统，才能实现隐性知识的显性化，继而实现个人知识的组织化沉淀。经典RAG系统将知识显性化为非结构化文档，模型方案将知识隐性化为参数。理想的一个咨询系统是通过数字化的方式既能实现咨询效率的提升，同时能够实现个体知识的组织化积累并能二次利用，也即知识资产。</p>
+
+<h5 id="按照问题空间分解">按照问题空间分解</h5>
+
+<p>构建财税咨询系统，既需要站在知识角度，基于演绎法自顶向下的设计，同时需要站在数据角度，基于归纳法自底向上的设计。其中一个是答案视角，另外一个是问题视角。咨询的目标也正是实现问题和答案的匹配。如果无法清晰地划分问题空间，那么对于系统的边界就会存在认识不清的问题，而这对于一个高准确和可解释的系统而言是无法接受的。同时这种分解也有助于系统的持续可演进。</p>
+
+<p>从答案角度理解咨询系统，可以见笔者2020年的文章<a href="https://zhpmatrix.github.io/2020/08/02/think-in-dialogue-system/">对话系统的思考</a>。</p>
+
+<h5 id="系统设计要求头重脚轻重理解轻生成">系统设计要求头重脚轻，重理解轻生成</h5>
+
+<p>在一个垂直领域，截止写这篇文章时，LLM的应用仍然存在不少问题，包括幻觉和不可控等，因此系统的设计希望在生成环节降低对LLM的依赖。这意味着系统的设计需要把LLM的能力分解并前移，这样才能降低对答案生成侧的压力。具体而言，加强系统对于会话的理解程度，对于答案生成环节则采用尽可能轻量可控的方式完成。</p>
+
+<p>因此，整体的系统设计偏向于一个任务型机器人，但是弱化了对话路径的设计。回到财税咨询系统，本质上是强规则导向。作为知识表达的一种方式，规则可以通过二维表的方式来表示，其中单条规则的表示方式为要素+目标。站在知识表达的视角，系统的设计分为两个阶段，分别是规则召回和答案生成。规则召回解决的问题是从规则库中找到对应的规则，答案生成是基于召回的规则，形成一个答案。这里采用形成作为描述词，是因为输出答案的方式可以是：</p>
+
+<ul>
+  <li>直接配置(类似FAQ系统中的QA对)</li>
+  <li>追问(基于某种启发式规则)</li>
+  <li>话术模版</li>
+  <li>大模型生成(类似RAG的逻辑)</li>
+</ul>
+
+<p>为了更好地召回规则，一方面需要更好地知识表达方式，另一方面需要对访客咨询的问题有深刻的理解，也就是需要强大的QU模块，包括问题提取，意图提取，要素提取，目标和目标值提取，问题风格等，本着能提尽提的目标，实现对访客咨询的深度理解。作为一个pipeline的系统架构模式，问题部分获取的信息越多，作为下游的答案生成环节的挑战会越低。</p>
+
+<h4 id="rag">RAG</h4>
+
+<p>基于后者的定位，可以设计一个基于RAG的方案，相关案例参考笔者之前的工作，如<a href="https://zhpmatrix.github.io/2024/09/07/ai-tax-search/">AI搜税</a>和<a href="https://zhpmatrix.github.io/2024/10/12/souyisou/">搜医搜</a>。假设已经有一个相当规模的问答库，在采用RAG架构进行系统构建时，要注意考虑系统各个组件的存在必要性，比如真的需要rerank吗？真的需要混搜吗？</p>
+
+<h4 id="workflow-vs-agent">workflow v.s. agent</h4>
+
+<p>围绕agent，其实目前尚没有形成共识。似乎分别以openai，anthropic和langchain团队为代表，openai认为是自动化的流程编排，anthropic认为自不自动都可以，langchain认为是需要手动的，但是观点又非严格对立。</p>
+
+<p><img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/workflow-agents.jpg?raw=true" width="400" align="center" /></p>
+
+<p>如上图所示，workflow的可观测性更强，agent的”agency”能力更强。在系统设计时，也代表着技术方案的选型。比如，笔者至今保留着对于通过模型微调实现更好的财税咨询对话体验的预期，但是同时认为短期内奔着落地上线的目标，手动编排几乎是唯一的选择，这是目前来看可观测，可解释，可追溯，可快速修复，可控的手段。</p>
+
+<h4 id="相关参考">相关参考</h4>
+
+<p><a href="https://mp.weixin.qq.com/s/xAOHp9qYQmWNJjU2NZ7fPw">AI智能体架构指南——为什么能力强不等于用户爱用？</a></p>
+
+<p>这篇文章讨论了构建Agent产品的四层架构决策：</p>
+
+<ul>
+  <li>context&amp;memory</li>
+  <li>data&amp;integration</li>
+  <li>skills&amp;capabilities</li>
+  <li>evaluation&amp;trust</li>
+</ul>
+
+<p><a href="https://mp.weixin.qq.com/s/B9b-mmYc7ejH0rN5R09mJg">1688AI助手“源宝”的产品演变之路</a></p>
+
+<p><a href="https://mp.weixin.qq.com/s/TN_UVBplxDFONIkfp9v57Q">AI+智能客服:大模型可落地的最成熟场景之一</a></p>
+
+<p><a href="https://www.nxrte.com/jishu/41984.html">智能对话新纪元:百万日活对话机器人的LLM落地实践</a></p>
+
+<p><a href="https://mp.weixin.qq.com/s/zjo-oUnVQyi3lZYQgexVcw">蚂蚁金服客服服务及权益保障事业部总监/智能客服业务负责人-丁翌专访</a></p>
+
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzkxNzE5MjE2NQ==&amp;mid=2247483973&amp;idx=1&amp;sn=280e98633f006d7d81f07a353b377e99&amp;chksm=c090a1cb84ce772710b6434fe7bb7230eade79a66e15771dd8077e2f174447be9b7153718835&amp;mpshare=1&amp;scene=1&amp;srcid=0313MV2r4kJIdKxnZB8rlqgZ&amp;sharer_shareinfo=58199471c63f74c1e572a41e2664494d&amp;sharer_shareinfo_first=b1085fa6f8a5f9f6edf9a382e8818c4c&amp;version=4.1.31.99548&amp;platform=mac#rd">批量回答质量的自动化评测</a></p>
+
+<p><a href="https://www.salesforce.com/blog/converse-task-oriented-dialogue-system/">《Converse Task-Oriented Dialogue System Simplifies Chatbot Building, Handles Complex Tasks》</a></p>
+
+<p><a href="https://arxiv.org/pdf/2402.12234">《Task-Oriented Dialogue with In-Context Learning》</a>,RASA的工作</p>
+
+<p><a href="https://mp.weixin.qq.com/s/Q6Beo_Q9mR2TTZe1BPQaLg">蔚来汽车知识平台的构建</a></p>
+
+<p><a href="https://mp.weixin.qq.com/s/4ZmGOEMJEYKcB2P_xjfjhA">大模型和知识图谱双轮驱动的汽车制造业知识服务</a></p>
+
+<p><a href="https://mp.weixin.qq.com/s/hU6SFbHrx6ssVRwEN21LtQ">图驱动的知识管理：观察与思考</a></p>
+
+<p><a href="https://mp.weixin.qq.com/s/s2Oi3y89TjBlXVyG_8U52w">融合知识图谱与大模型的中医临床辅助决策体系</a></p>
+
+<p><a href="https://mp.weixin.qq.com/s/Inv7jSdSbeEq4KcPvV4jEQ">大模型+知识管理发展趋势及标准化工作介绍</a></p>
+
+<p><strong><a href="https://zhpmatrix.github.io/about/">扫码加笔者好友</a>，茶已备好，等你来聊~</strong></p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+  <!-- 不蒜子统计 -->
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://arvinx.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<script src="https://unpkg.com/mermaid@8.9.3/dist/mermaid.min.js"></script>
+<script>
+  $(document).ready(function () {
+    mermaid.initialize({
+      startOnLoad:true,
+      theme: "default",
+    });
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+  });
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+<script src="https://unpkg.com/mermaid@8.9.3/dist/mermaid.min.js"></script>
+<script>
+  $(document).ready(function () {
+    mermaid.initialize({
+      startOnLoad:true,
+      theme: "default",
+    });
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+  });
+</script>
+
+
+    </body>
+</html>

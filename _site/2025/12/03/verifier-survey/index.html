@@ -1,0 +1,418 @@
+<DOCTYPE html>
+<html>
+  <head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9534180453883710"
+     crossorigin="anonymous"></script>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ohcryzf6h1");
+</script>
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4LG9G3BTNP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4LG9G3BTNP');
+</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>How to Build a Verifier: A Short Survey</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2025/12/03/verifier-survey/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+ 	<font color="yellow"><a class="page-link" href="https://aitax.17win.com/#/home?Authorization=Bearer+RKgwsKLnZ3uOoZPjU9nPEPP6H/gjZcVgFlgixoqaWSjeXvjxg9jxTA8yJzNOCd94mm7tSpzOgq0w9Q/3XZuY3MitCACEUV88dDvlWFESem/uZVjdHXvDoxFRxGUJLDByEB1GZSxrWvL9mUxlU5ykT9yDV%2BVNCfQLd6YNf7d%2Bss0=&X-App-Key=cb1e9c178a914a61b4db1bd5735f1036&X-Biz-Code=test&X-User-Id=tester&keyword=%E5%B0%8F%E5%9E%8B%E5%BE%AE%E5%88%A9%E4%BC%81%E4%B8%9A%E6%89%80%E5%BE%97%E7%A8%8E%E4%BC%98%E6%83%A0">AI搜税</a></font>
+        
+          <font color="yellow"><a class="page-link" href="/about/">about</a></font>
+        
+          
+        
+          
+        
+          <font color="yellow"><a class="page-link" href="/project/">project</a></font>
+        
+	
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?77e6dc2a588a3d798d2b6287b25441cb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>How to Build a Verifier: A Short Survey</h1>
+    <p class="meta">
+      Dec 3, 2025
+      
+      • 
+      <span class="meta-tags">
+        
+          <span class="tag">Agent</span>
+        
+      </span>
+      
+      • <span id="busuanzi_container_page_pv">阅读量：<span id="busuanzi_value_page_pv"></span>次</span>
+    </p>
+  </header>
+
+  <article class="post-content">
+  <h2 id="目录">目录</h2>
+
+<ul>
+  <li><a href="#preface">Preface</a></li>
+  <li><a href="#industry">Industry</a>
+    <ul>
+      <li><a href="#baichuan-m2-scaling-medical-capability-with-large-verifier-system">Baichuan-M2</a></li>
+      <li><a href="#quarkmed-medical-foundation-model-technical-report">QuarkMed</a></li>
+    </ul>
+  </li>
+  <li><a href="#academia">Academia</a>
+    <ul>
+      <li><a href="#compass-verifier-a-unified-and-robust-verifier-for-llms-evaluation-and-outcome-reward">Compass Verifier</a></li>
+      <li><a href="#xverify-efficient-answer-verifier-for-reasoning-model-evaluations">xVerify</a></li>
+      <li><a href="#compassjudger-2-towards-generalist-judge-model-via-verifiable-rewards">CompassJudger-2</a></li>
+      <li><a href="#easyjudge-an-easy-to-use-tool-for-comprehensive-response-evaluation-of-llms">EasyJudge</a></li>
+      <li><a href="#generative-judge-for-evaluating-alignment">Generative Judge</a></li>
+      <li><a href="#generative-verifiers-reward-modeling-as-next-token-prediction-iclr-2025">Generative Verifiers</a></li>
+      <li><a href="#judgelm-fine-tuned-large-language-models-are-scalable-judges">JudgeLM</a></li>
+      <li><a href="#m-prometheus-a-suite-of-open-multilingual-llm-judges">M-Prometheus</a></li>
+      <li><a href="#pandalm-an-automatic-evaluation-benchmark-for-llm-instruction-tuning-optimization">PandaLM</a></li>
+    </ul>
+  </li>
+  <li><a href="#conclusion">Conclusion</a></li>
+  <li><a href="#related-materials">Related Materials</a></li>
+</ul>
+
+<h4 id="preface">Preface</h4>
+
+<p>As is well known, verifiers play a crucial role in at least two scenarios. First, in agent architectures, a stop condition is required to exit the loop. Second, in RLVR (Reinforcement Learning with Verifiable Rewards) architectures, a verifier is needed to determine rewards within the RL environment.</p>
+
+<p>Thus, in this blog post, I present a survey of verifiers in the LLM era.</p>
+
+<h4 id="industry">Industry</h4>
+
+<ul>
+  <li>
+    <h5 id="baichuan-m2-scaling-medical-capability-with-large-verifier-system"><strong><a href="https://www.baichuan-ai.com/blog/baichuan-M2">Baichuan-M2: Scaling Medical Capability with Large Verifier System</a></strong></h5>
+  </li>
+</ul>
+
+<p>The overall process is illustrated below:</p>
+
+<p><img src="/images/baichuan_verifier_system_framework.png" width="500" align="center" /></p>
+
+<p>The most interesting component is the <strong>Clinical Rubrics Generator</strong>, which consists of three parts:</p>
+<ul>
+  <li>
+    <p><strong>Prompt Collection and Processing</strong></p>
+
+    <p>This work constructs prompts from three major sources: medical record-driven prompts, knowledge base-driven prompts, and synthetic scenario prompts.</p>
+  </li>
+  <li>
+    <p><strong>Rubric Collection</strong></p>
+
+    <p>Based on the aforementioned prompts, LLMs are utilized for rubric construction to derive actionable quantitative metrics.</p>
+  </li>
+  <li>
+    <p><strong>Training of Rubrics Generator</strong></p>
+
+    <p>After training, the Rubrics Generator can produce dynamic evaluation standards in real-time, providing AI physicians with continuous, reliable feedback while effectively managing computational costs.</p>
+  </li>
+  <li>
+    <h5 id="quarkmed-medical-foundation-model-technical-report"><strong><a href="https://www.53ai.com/news/LargeLanguageModel/2025072324137.html">QuarkMed Medical Foundation Model Technical Report</a></strong></h5>
+  </li>
+</ul>
+
+<p>In this work, a <strong>General Verifier</strong> is trained as an instruction-following model. By providing it with explicit evaluation principles, the model can score responses based on their adherence to these rules.</p>
+
+<h4 id="academia">Academia</h4>
+
+<ul>
+  <li>
+    <h5 id="compass-verifier-a-unified-and-robust-verifier-for-llms-evaluation-and-outcome-reward"><strong>Compass Verifier: A Unified and Robust Verifier for LLMs Evaluation and Outcome Reward</strong></h5>
+  </li>
+</ul>
+
+<p>The contributions of this paper are two-fold: VerifierBench (a benchmark) and CompassVerifier (a learnable model).</p>
+
+<p>The VerifierBench pipeline consists of three stages:</p>
+
+<ul>
+  <li>Stage 1: Multi-expert voting</li>
+  <li>Stage 2: Multi-prompt voting</li>
+  <li>Stage 3: Annotation and analysis</li>
+</ul>
+
+<p>To obtain the model, CompassVerifier employs three data augmentation methods, including complex formula augmentation and error-driven adversarial augmentation. Furthermore, generalizability augmentation is applied to enhance data diversity. A training sample is structured as follows:</p>
+
+<p><strong>[Question, Response, GT]</strong></p>
+
+<p>This model is compared with xVerify. Both methods suggest that <strong>a learnable verifier is plausible</strong>.</p>
+
+<ul>
+  <li>
+    <h5 id="xverify-efficient-answer-verifier-for-reasoning-model-evaluations"><strong>xVerify: Efficient Answer Verifier for Reasoning Model Evaluations</strong></h5>
+  </li>
+</ul>
+
+<p>This work is similar to the one above, sharing the emphasis on the importance of data augmentation. Ultimately, this method yields a 0.5B model that outperforms other methods.</p>
+
+<ul>
+  <li>
+    <h5 id="compassjudger-2-towards-generalist-judge-model-via-verifiable-rewards"><strong>CompassJudger-2: Towards Generalist Judge Model via Verifiable Rewards</strong></h5>
+  </li>
+</ul>
+
+<p>This work follows a similar paradigm to the aforementioned studies.</p>
+
+<ul>
+  <li>
+    <h5 id="easyjudge-an-easy-to-use-tool-for-comprehensive-response-evaluation-of-llms"><strong>EasyJudge: An Easy-to-use Tool for Comprehensive Response Evaluation of LLMs</strong></h5>
+  </li>
+</ul>
+
+<p>This work is based on pointwise and pairwise evaluation methods.</p>
+
+<ul>
+  <li>
+    <h5 id="generative-judge-for-evaluating-alignment"><strong>Generative Judge For Evaluating Alignment</strong></h5>
+  </li>
+</ul>
+
+<p>Similar to the works above, this paper focuses on generality, flexibility, and interpretability.</p>
+
+<ul>
+  <li>
+    <h5 id="generative-verifiers-reward-modeling-as-next-token-prediction-iclr-2025"><strong>Generative Verifiers: Reward Modeling As Next-Token Prediction (ICLR 2025)</strong></h5>
+  </li>
+</ul>
+
+<p>This paper differs from other works. While LLM-based verifiers are typically trained as discriminative classifiers, this paper trains a generative model with a next-token prediction objective.</p>
+
+<p><img src="/images/generative_verifier.png" width="500" align="center" /></p>
+
+<ul>
+  <li>
+    <h5 id="judgelm-fine-tuned-large-language-models-are-scalable-judges"><strong>JudgeLM: Fine-Tuned Large Language Models Are Scalable Judges</strong></h5>
+  </li>
+</ul>
+
+<p>This work follows a similar paradigm.</p>
+
+<ul>
+  <li>
+    <h5 id="m-prometheus-a-suite-of-open-multilingual-llm-judges"><strong>M-Prometheus: A Suite of Open Multilingual LLM Judges</strong></h5>
+  </li>
+</ul>
+
+<p>As a branch of “LLM-as-a-Judge,” this paper trains a multilingual model using a learning paradigm similar to the works mentioned above.</p>
+
+<p><img src="/images/m_prometheus.png" width="500" align="center" /></p>
+
+<p>This paper is related to <strong>“PROMETHEUS: INDUCING FINE-GRAINED EVALUATION CAPABILITY IN LANGUAGE MODELS.”</strong> The interesting part is “score rubric mining,” a method similar to one found in Baichuan-M2.</p>
+
+<ul>
+  <li>
+    <h5 id="pandalm-an-automatic-evaluation-benchmark-for-llm-instruction-tuning-optimization"><strong>PandaLM: An Automatic Evaluation Benchmark for LLM Instruction Tuning Optimization</strong></h5>
+  </li>
+</ul>
+
+<p>Similar to the above, a training example for PandaLM is as follows:</p>
+
+<p><img src="/images/train_example_of_pandalm.png" width="500" align="center" /></p>
+
+<p>The prompt used for training PandaLM is as follows:</p>
+
+<p><img src="/images/prompt_for_train_pandalm.png" width="500" align="center" /></p>
+
+<h4 id="conclusion">Conclusion</h4>
+
+<p>Finally, we need to consider the following idea: Can we build a general evaluator? Is an evaluation rubric necessary in the evaluation process?</p>
+
+<h4 id="related-materials">Related Materials</h4>
+
+<ul>
+  <li>
+    <p><a href="https://arxiv.org/abs/2511.03772">VERIF: Verification Engineering for Reinforcement Learning in Instruction Following</a></p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/2511.02500">Variation in Verification: Understanding Verification Dynamics in Large Language Models</a></p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/2510.07660">Trust, But Verify: A Self-Verification Approach to Reinforcement Learning with Verifiable Rewards</a></p>
+  </li>
+  <li>
+    <p><a href="https://sebastianraschka.com/blog/2025/technical-deepseek.html">From DeepSeek V3 to V3.2: Architecture, Sparse Attention, and RL Updates</a></p>
+  </li>
+</ul>
+
+<p>this blog talked more about verifier in DeepSeekMath, certainly including meta-verfier.</p>
+
+<p><strong><a href="http://www.zhpmatrix.site/about/">扫码加笔者好友</a>，茶已备好，等你来聊~</strong></p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+  <!-- 不蒜子统计 -->
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://arvinx.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<script src="https://unpkg.com/mermaid@8.9.3/dist/mermaid.min.js"></script>
+<script>
+  $(document).ready(function () {
+    mermaid.initialize({
+      startOnLoad:true,
+      theme: "default",
+    });
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+  });
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+<script src="https://unpkg.com/mermaid@8.9.3/dist/mermaid.min.js"></script>
+<script>
+  $(document).ready(function () {
+    mermaid.initialize({
+      startOnLoad:true,
+      theme: "default",
+    });
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+  });
+</script>
+
+
+    </body>
+</html>

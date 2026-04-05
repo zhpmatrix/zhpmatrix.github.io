@@ -5,15 +5,21 @@
     <description>致力于算法，数据和工程的全链路打通</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 14 Apr 2025 12:32:49 +0800</pubDate>
-    <lastBuildDate>Mon, 14 Apr 2025 12:32:49 +0800</lastBuildDate>
+    <pubDate>Sun, 05 Apr 2026 13:04:13 +0800</pubDate>
+    <lastBuildDate>Sun, 05 Apr 2026 13:04:13 +0800</lastBuildDate>
     <generator>Jekyll v4.4.1</generator>
     
       <item>
-        <title>2024年终总结</title>
+        <title>2025年已去，2026年冲～</title>
         <description>&lt;p&gt;按照惯例，每年一篇年终自我总结。过去几年的总结如下:&lt;/p&gt;
 
 &lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.zhpmatrix.site/2025/04/20/stage-thinking/&quot;&gt;《2025Q1-阶段性思考碎碎念》&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.zhpmatrix.site/2024/12/31/summary/&quot;&gt;《2024年终总结》&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://zhpmatrix.github.io/2023/12/31/summary/&quot;&gt;《2023结束了，说点啥》&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&amp;amp;mid=2247484533&amp;amp;idx=1&amp;amp;sn=25c6db4bcfd0235925b12e5176ddd40f&amp;amp;chksm=fc740d3ccb03842ad7644062860eeb7858656cfcfb955403f759a39ca7c5053e45069acac6e9&amp;amp;scene=21#wechat_redirect&quot;&gt;《我的2022年终总结》&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&amp;amp;mid=2247484135&amp;amp;idx=1&amp;amp;sn=476a8f6a876d47561ce3fafe1468ef7a&amp;amp;chksm=fc740baecb0382b87a97bd2aa828448305805321fef983b69d1b6f7a2ad139da8503016aa1f5&amp;amp;scene=21#wechat_redirect&quot;&gt;《2022=2021+1》&lt;/a&gt;&lt;/li&gt;
@@ -24,65 +30,43 @@
   &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&amp;amp;mid=2247483688&amp;amp;idx=1&amp;amp;sn=29da4edb484e417729a8f40b2ca4af71&amp;amp;chksm=fc740861cb038177acdbcdfa091c1e4caf13f9025e6733781c4f95e8e7c8e672917bc67dfc6a&amp;amp;scene=21#wechat_redirect&quot;&gt;《写码十年》&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;hr /&gt;
+&lt;p&gt;刚刚吃过晚饭，25年的年终总结是这么多年以来写的最晚的，代码也是从年初写到了年尾最后一天。&lt;/p&gt;
 
-&lt;h3 id=&quot;产品技术&quot;&gt;产品&amp;amp;技术&lt;/h3&gt;
+&lt;h4 id=&quot;产品技术&quot;&gt;产品&amp;amp;技术&lt;/h4&gt;
 
-&lt;p&gt;今年&lt;a href=&quot;https://zhpmatrix.github.io/2024/04/16/ending/&quot;&gt;离开&lt;/a&gt;了工作三年多的团队，加入到一个新的团队。工作的主线是基于RAG技术做一款垂直财税领域的AI搜索产品（或者说，财税领域版的metaso），作为该产品唯一的算法同学，收获了代码年产量最高的记录，PC端和移动端产品均已上线，并通过开放API的方式支持了其他业务线产品。&lt;/p&gt;
+&lt;p&gt;25年的技术主线是围绕对话系统展开，具体来说是面向财税实务咨询场景下的不同技术路线，含专家系统，DeepResearch(Agent)，知识图谱等，相关方向的技术博客输出8篇。特别是专家系统线，终于圆了笔者的技术版图中的一个重要部分。围绕强推理场景下的专家系统构建的难点在于财税知识的表达和应用，这是价值一个亿的问题。&lt;/p&gt;
 
-&lt;p&gt;基于一套技术架构，做了面向集团的OA产品，集团内部拿到了创新大赛的银奖，同时拿到了2024年昇腾AI创新大赛-浙江赛区的铜奖。&lt;/p&gt;
+&lt;p&gt;非工作主线得益于AI Coding的发展，折腾了很多自己感兴趣的事情，具体见&lt;a href=&quot;http://www.zhpmatrix.site/2025/07/29/project-review/&quot;&gt;《2025年瞎折腾的小产品》&lt;/a&gt;。两个小产品的经营数据分析如下(没有产生实际收入):&lt;/p&gt;
 
-&lt;p&gt;过程中围绕架构设计做了较多的&lt;a href=&quot;https://zhpmatrix.github.io/2024/09/07/ai-tax-search/&quot;&gt;思考&lt;/a&gt;，阅读张刚老师的《软件设计：从专业到卓越》时，对软件工程的基本思想有了进一步的理解。同时，临时决定在最后两个月的时间，备考了系统架构师考试。如果24年的技术成长只有一个关键词，那就是&lt;strong&gt;架构设计&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/souyisou_statistic.jpg&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://www.souyisou.online/&quot;&gt;搜医搜&lt;/a&gt;是24年做的一个比较系统的个人项目。从想法出现，到代码实现，到买机器，买域名，上线推广等，个人solo的过程很值得回忆。和前同事们组队参加了2024年数字医学技术及应用创新大赛-大模型医疗健康项目赛(DiMTAIC)，初赛晋级(350个团队)，遗憾没有进入决赛。整体上，今年继续保持了在医疗业务上的持续投入，和老爸聊天的时候，多次谈到希望家里能有个职业医生，通过持续在医疗业务上的投入，也算是有一些贡献，意义感和使命感确是一件非常重要的事情。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/guard_statistic.jpg&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://aitax.17win.com/#/home?Authorization=Bearer+RKgwsKLnZ3uOoZPjU9nPEPP6H/gjZcVgFlgixoqaWSjeXvjxg9jxTA8yJzNOCd94mm7tSpzOgq0w9Q/3XZuY3MitCACEUV88dDvlWFESem/uZVjdHXvDoxFRxGUJLDByEB1GZSxrWvL9mUxlU5ykT9yDV%2BVNCfQLd6YNf7d%2Bss0=&amp;amp;X-App-Key=cb1e9c178a914a61b4db1bd5735f1036&amp;amp;X-Biz-Code=test&amp;amp;X-User-Id=tester&amp;amp;keyword=%E5%B0%8F%E5%9E%8B%E5%BE%AE%E5%88%A9%E4%BC%81%E4%B8%9A%E6%89%80%E5%BE%97%E7%A8%8E%E4%BC%98%E6%83%A0&quot;&gt;爱搜税&lt;/a&gt;做了部分的投流测试，原计划搜医搜也做一部分引流，但是腾讯广告审批没有通过，加上并非刚需，遂暂时放弃。此外，在年底的时候，给自己写了近十年的个人博客增加了Google的广告，不由得感慨一下，搜索，广告和推荐确实是非常好的业务场景。&lt;/p&gt;
+&lt;p&gt;技术博客全年输出共计17篇，26年也即将迈入个人原创博客的第十年（一转眼）。github今年共计740个follower，相比去年增加22个follower，整体上25年没有在开源项目中有贡献。&lt;/p&gt;
 
-&lt;p&gt;在文章写作上，显著降低了产出量。全年写了8篇文章，其中还有4篇还是关于论文笔记。后续文章写作上的一个主要思路将继续维持&lt;strong&gt;量少但精&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;复习了本科计算机的课程内容，拿到了系统架构分析师的证书。当然，读了很多的书。&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://github.com/zhpmatrix&quot;&gt;github&lt;/a&gt;今年共计718个follower，增加31个follower。整体贡献量主要来自离职前后这段时间做了nlp-swift项目（目前暂不开源），已经应用于目前在开发的产品中。对比23年，在github上的表现基本一致。&lt;/p&gt;
+&lt;h4 id=&quot;生活个人&quot;&gt;生活&amp;amp;个人&lt;/h4&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/github24.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;跨入已婚男士的行列，圆满完成新房装修任务。上半年夏天带岳父岳母重游了杭州，夏天之后周六日基本泡在装修上，滨江和余杭两边跑，忙里抽闲去了良渚，爬了西湖群山等，整体出游量显著降低。&lt;/p&gt;
 
-&lt;p&gt;产品侧重点读了《精益产品开发》等关于精益实践的书，临近年尾，花了好长一段时间嗑完了白鸦总的《SaaS工作手册-2.0》，获益良多。&lt;/p&gt;
+&lt;p&gt;收房维权中收获了守卫家园的🏆（没错，我嗓门挺大的）。咸鱼二手交易平台和卖家争论了两周，无数次举证，终于拿下了胜诉。装修延期和解也顺利达成。这些事情都是自己的一种改变，脱下孔乙己的长衫，和光同尘，活得自洽。&lt;/p&gt;
 
-&lt;h3 id=&quot;团队管理&quot;&gt;团队&amp;amp;管理&lt;/h3&gt;
+&lt;h4 id=&quot;反思希望&quot;&gt;反思&amp;amp;希望&lt;/h4&gt;
 
-&lt;p&gt;刚加入新团队，过去一段时间一直是以IC的身份在Coding，产研团队整体比较扁平，沟通比较顺畅。24年继续德老爷子的书，包括《创新与企业家精神》和《管理的实践》两本书。&lt;/p&gt;
+&lt;p&gt;Claude Code,Nano Banana Pro在25年都给读者带来了极大的震撼，25年打了Agent的基础，26年的技术主题词会围绕Agent展开。多年前定下的目标:&lt;/p&gt;
 
-&lt;p&gt;产品研发过程中，会议非常少，坚持每天的晨会(站会)确实是非常有效率的事情，这样可以把时间投入到实际的产出中。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;能够有机会参与到一个产品的从0到1，以至于业界知名。&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;此外，近两年比较好奇数字游民的生活，一直在找机会到杭州数字游民圣地-良渚那边，结识相关村民。&lt;/p&gt;
+&lt;p&gt;这个目标希望在26年完成。&lt;/p&gt;
 
-&lt;h3 id=&quot;生活个人&quot;&gt;生活&amp;amp;个人&lt;/h3&gt;
+&lt;p&gt;过滤噪音，识别真正的价值的能力要持续提升，同时保持hands on的手感。少决定做什么，多决定不做什么。&lt;/p&gt;
 
-&lt;p&gt;整体上今年的主线围绕工作，分为换工作前和换工作后，加上家有考生，生活整体上比较平静。&lt;/p&gt;
-
-&lt;p&gt;考试间隙，收到父母搬进了新房子的消息，也算是一件大喜事。老姐，外甥和老弟利用假期时间来杭州玩了几天，特种兵式旅游，太累了。办理了去香港的签证，一直没找到合适的时间。迎着台风天气去了余华的家乡海盐一趟，我喜欢这种混黄的感觉。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/haiyan.jpg?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;肉又多了。写这篇总结时，24年最后一个要完成的目标，进行中。&lt;/p&gt;
-
-&lt;p&gt;读了一些有意思的书，宁高宁的《三生万物》，刘震云的《一地鸡毛》和《一句顶一万句》，《硅谷钢铁侠》，赫拉利的新书《智人之上》，《我们生活在巨大的差距中》等。买了《耶路撒冷三千年》大部头，好久没打开了。微信读书，全年读书208小时，读过46本书，读完28本(有些读完的没有标记，微信读书的这个细节体验可以提升)，阅读217天，笔记320条，日均阅读35分钟，相比去年提升31%。&lt;/p&gt;
-
-&lt;p&gt;时常换好了一身装备去球场打球，结果找不到人组队，以至于尝试换一个运动项目，比如打羽毛球和跳绳，甚至钓鱼这种活动。&lt;/p&gt;
-
-&lt;h3 id=&quot;反思希望&quot;&gt;反思&amp;amp;希望&lt;/h3&gt;
-
-&lt;p&gt;两年前定下一个目标，能够有机会参与到一个产品的从0到1，以至于业界知名。虽然在24年分别做了两个产品的从0到1，但是业界知名还有很长的路要走。两年后，相信可遇不可求，反而有点喜欢&lt;a href=&quot;https://mp.weixin.qq.com/s/ugCmRMVenBcDPLUZmCsEqA?poc_token=HHx4UWejxwodzfOli3lRdRr2PacVZs3Gc48lOttb&quot;&gt;flomo少楠学长的一些想法&lt;/a&gt;，自己受到斯多葛主义的影响间接来自少楠的某个采访。&lt;/p&gt;
-
-&lt;p&gt;相比之前，今年的内耗明显降低了很多。自身实践比较有效的一个方法是：专注自身的目标。目标越清晰，内耗越低。与之相关的是对于网络上的信息的FOMO感越来越弱，信息带来的价值感持续降低，有些时候会产生一种生理性厌恶，相反在微信读书上的时间投入越来越长，花大时间，做高密度信息摄入。对于即时信息的摄入，基本转换为播客这种单一的形式。退出了积攒了很多年的各种所谓技术交流群。&lt;/p&gt;
-
-&lt;p&gt;逐渐步入中年，大抵孤独是常态，要学会享受孤独。多数情况下，其实很难遇到一个能够深入聊天的人，人与人之间其实很难做到感同身受。当然，孤独未必是一件坏事，通过读书和运动来化解，有足够的时间独处和思考，反而降低了孤独时的各种莫名空虚感。&lt;/p&gt;
-
-&lt;p&gt;2025年即将开始，如果用一个词来定下整体的基调，我选择:&lt;strong&gt;拿结果&lt;/strong&gt;。少做事情多思考(看五年，想三年，扎扎实实做一年)，但是决定要做的事情，一定要做到极致。越来越喜欢自己的微信签名：读万卷书，行万里路，见万种人，做一件事。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://zhpmatrix.github.io/about/&quot;&gt;扫码加笔者好友&lt;/a&gt;，茶已备好，等你来聊~&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://www.zhpmatrix.site/about/&quot;&gt;扫码加笔者好友&lt;/a&gt;，茶已备好，等你来聊~&lt;/strong&gt;&lt;/p&gt;
 </description>
-        <pubDate>Tue, 31 Dec 2024 19:40:00 +0800</pubDate>
-        <link>http://localhost:4000/2024/12/31/summary/</link>
-        <guid isPermaLink="true">http://localhost:4000/2024/12/31/summary/</guid>
+        <pubDate>Wed, 31 Dec 2025 18:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2025/12/31/summary/</link>
+        <guid isPermaLink="true">http://localhost:4000/2025/12/31/summary/</guid>
         
         <category>生活杂谈</category>
         
@@ -90,779 +74,1782 @@
       </item>
     
       <item>
-        <title>《Exploring the Impact of Table-to-Text Methods on Augmenting LLM-based Question Answering with Domain Hybrid Data》</title>
-        <description>&lt;h4 id=&quot;基本信息&quot;&gt;基本信息&lt;/h4&gt;
+        <title>How to Build a Verifier: A Short Survey</title>
+        <description>&lt;h2 id=&quot;目录&quot;&gt;目录&lt;/h2&gt;
 
-&lt;p&gt;主题：	表格问答/大模型微调/RAG&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#preface&quot;&gt;Preface&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#industry&quot;&gt;Industry&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#baichuan-m2-scaling-medical-capability-with-large-verifier-system&quot;&gt;Baichuan-M2&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#quarkmed-medical-foundation-model-technical-report&quot;&gt;QuarkMed&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#academia&quot;&gt;Academia&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#compass-verifier-a-unified-and-robust-verifier-for-llms-evaluation-and-outcome-reward&quot;&gt;Compass Verifier&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#xverify-efficient-answer-verifier-for-reasoning-model-evaluations&quot;&gt;xVerify&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#compassjudger-2-towards-generalist-judge-model-via-verifiable-rewards&quot;&gt;CompassJudger-2&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#easyjudge-an-easy-to-use-tool-for-comprehensive-response-evaluation-of-llms&quot;&gt;EasyJudge&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#generative-judge-for-evaluating-alignment&quot;&gt;Generative Judge&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#generative-verifiers-reward-modeling-as-next-token-prediction-iclr-2025&quot;&gt;Generative Verifiers&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#judgelm-fine-tuned-large-language-models-are-scalable-judges&quot;&gt;JudgeLM&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#m-prometheus-a-suite-of-open-multilingual-llm-judges&quot;&gt;M-Prometheus&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#pandalm-an-automatic-evaluation-benchmark-for-llm-instruction-tuning-optimization&quot;&gt;PandaLM&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#related-materials&quot;&gt;Related Materials&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;作者:	东南大学，曼彻斯特大学，华为&lt;/p&gt;
+&lt;h4 id=&quot;preface&quot;&gt;Preface&lt;/h4&gt;
 
-&lt;p&gt;会议：	NAACL2024&lt;/p&gt;
+&lt;p&gt;As is well known, verifiers play a crucial role in at least two scenarios. First, in agent architectures, a stop condition is required to exit the loop. Second, in RLVR (Reinforcement Learning with Verifiable Rewards) architectures, a verifier is needed to determine rewards within the RL environment.&lt;/p&gt;
 
-&lt;h4 id=&quot;motivation&quot;&gt;Motivation&lt;/h4&gt;
+&lt;p&gt;Thus, in this blog post, I present a survey of verifiers in the LLM era.&lt;/p&gt;
 
-&lt;p&gt;表格-文本生成技术已经在NLP领域被广泛研究，围绕大模型增强的问答系统，融合文本和半结构化的表格数据是一个趋势，但是不同的表格-文本生成技术是如何影响QA系统的，并没有相对系统的对比分析。通过对不同的表格-文本生成技术的实验对比和理论分析，可以形成一些有价值的技术选型建议。&lt;/p&gt;
-
-&lt;h4 id=&quot;主要贡献&quot;&gt;主要贡献&lt;/h4&gt;
+&lt;h4 id=&quot;industry&quot;&gt;Industry&lt;/h4&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;通过实验证明，不同的表格-文本生成技术会显著的影响问答系统的效果。其中，人类评估的RSD（Relative Score Difference）的范围从2.8%到9.0%，GPT-4的评估范围从4.8%到16%&lt;/p&gt;
+    &lt;h5 id=&quot;baichuan-m2-scaling-medical-capability-with-large-verifier-system&quot;&gt;&lt;strong&gt;&lt;a href=&quot;https://www.baichuan-ai.com/blog/baichuan-M2&quot;&gt;Baichuan-M2: Scaling Medical Capability with Large Verifier System&lt;/a&gt;&lt;/strong&gt;&lt;/h5&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The overall process is illustrated below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/baichuan_verifier_system_framework.png&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The most interesting component is the &lt;strong&gt;Clinical Rubrics Generator&lt;/strong&gt;, which consists of three parts:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Prompt Collection and Processing&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;This work constructs prompts from three major sources: medical record-driven prompts, knowledge base-driven prompts, and synthetic scenario prompts.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;对于领域微调范式，基于LLM和传统预训练语言模型的方法在各种模型设定下，显著优于其他方法。在RAG范式下，虽然基于LLM的方法依然表现优秀，但是基于markdown的方法也表现出超出预期的有效&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;Rubric Collection&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;Based on the aforementioned prompts, LLMs are utilized for rubric construction to derive actionable quantitative metrics.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;不同方法产生的领域术语和动词的频率的不同，以及在文本切片的语义表征中的质量不同，是不同方法在两类系统存在效果差异的首要因素&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;Training of Rubrics Generator&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;After training, the Rubrics Generator can produce dynamic evaluation standards in real-time, providing AI physicians with continuous, reliable feedback while effectively managing computational costs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;h5 id=&quot;quarkmed-medical-foundation-model-technical-report&quot;&gt;&lt;strong&gt;&lt;a href=&quot;https://www.53ai.com/news/LargeLanguageModel/2025072324137.html&quot;&gt;QuarkMed Medical Foundation Model Technical Report&lt;/a&gt;&lt;/strong&gt;&lt;/h5&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;主要过程&quot;&gt;主要过程&lt;/h4&gt;
+&lt;p&gt;In this work, a &lt;strong&gt;General Verifier&lt;/strong&gt; is trained as an instruction-following model. By providing it with explicit evaluation principles, the model can score responses based on their adherence to these rules.&lt;/p&gt;
 
-&lt;h5 id=&quot;qa系统的两种实现方法&quot;&gt;QA系统的两种实现方法&lt;/h5&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;基于领域模型微调的QA系统&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/12051.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;academia&quot;&gt;Academia&lt;/h4&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;基于RAG的QA系统&lt;/li&gt;
+  &lt;li&gt;
+    &lt;h5 id=&quot;compass-verifier-a-unified-and-robust-verifier-for-llms-evaluation-and-outcome-reward&quot;&gt;&lt;strong&gt;Compass Verifier: A Unified and Robust Verifier for LLMs Evaluation and Outcome Reward&lt;/strong&gt;&lt;/h5&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/12052.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;The contributions of this paper are two-fold: VerifierBench (a benchmark) and CompassVerifier (a learnable model).&lt;/p&gt;
 
-&lt;h5 id=&quot;四种表格-文本生成技术&quot;&gt;四种表格-文本生成技术&lt;/h5&gt;
+&lt;p&gt;The VerifierBench pipeline consists of three stages:&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Markdown&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Stage 1: Multi-expert voting&lt;/li&gt;
+  &lt;li&gt;Stage 2: Multi-prompt voting&lt;/li&gt;
+  &lt;li&gt;Stage 3: Annotation and analysis&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;直接将表格表示为markdown格式，不需要模型训练，可以利用脚本在无需人工参与的条件下快速完成转换&lt;/p&gt;
+&lt;p&gt;To obtain the model, CompassVerifier employs three data augmentation methods, including complex formula augmentation and error-driven adversarial augmentation. Furthermore, generalizability augmentation is applied to enhance data diversity. A training sample is structured as follows:&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Template&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;[Question, Response, GT]&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;使用一系列提前设计好的适配表格特征的模版做表格的文本化。比采用markdown的方式能够实现更好的多样性，但是需要人工提前设计多种模版。&lt;/p&gt;
+&lt;p&gt;This model is compared with xVerify. Both methods suggest that &lt;strong&gt;a learnable verifier is plausible&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;TPLM-based&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h5 id=&quot;xverify-efficient-answer-verifier-for-reasoning-model-evaluations&quot;&gt;&lt;strong&gt;xVerify: Efficient Answer Verifier for Reasoning Model Evaluations&lt;/strong&gt;&lt;/h5&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;利用传统的预训练语言模型，比如T5和BART等，通过在跨领域的表格-文本生成数据集做微调。这种方法能够提供更高的灵活性和领域适配性，但是也要求更多的计算资源。&lt;/p&gt;
+&lt;p&gt;This work is similar to the one above, sharing the emphasis on the importance of data augmentation. Ultimately, this method yields a 0.5B model that outperforms other methods.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;LLM-based&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h5 id=&quot;compassjudger-2-towards-generalist-judge-model-via-verifiable-rewards&quot;&gt;&lt;strong&gt;CompassJudger-2: Towards Generalist Judge Model via Verifiable Rewards&lt;/strong&gt;&lt;/h5&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;GPT-*系列模型的效果多数情况下优于表现最好的微调的模型，和TPLM-based方法相比，这种方法能够通过in-context learning实现自定义的裁剪，但是同时也存在领域数据泄漏的风险。&lt;/p&gt;
+&lt;p&gt;This work follows a similar paradigm to the aforementioned studies.&lt;/p&gt;
 
-&lt;h5 id=&quot;实验分析&quot;&gt;实验分析&lt;/h5&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h5 id=&quot;easyjudge-an-easy-to-use-tool-for-comprehensive-response-evaluation-of-llms&quot;&gt;&lt;strong&gt;EasyJudge: An Easy-to-use Tool for Comprehensive Response Evaluation of LLMs&lt;/strong&gt;&lt;/h5&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;h6 id=&quot;数据集&quot;&gt;数据集&lt;/h6&gt;
+&lt;p&gt;This work is based on pointwise and pairwise evaluation methods.&lt;/p&gt;
 
-&lt;p&gt;ICT-DATA：170个信息与通信技术领域的英文技术文档，每个文档都是由文本和表格组成，其中表格数据约占总数据的18%。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h5 id=&quot;generative-judge-for-evaluating-alignment&quot;&gt;&lt;strong&gt;Generative Judge For Evaluating Alignment&lt;/strong&gt;&lt;/h5&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;ICTQA：从QA平台收集9000个答案较长的关于ICT产品的问答对，其中答案均是由专家根据产品文档书写的。选择500个问题做测试集，对应的答案需要同时从表格和文本中提取，剩下的问答对用于领域模型微调。&lt;/p&gt;
+&lt;p&gt;Similar to the works above, this paper focuses on generality, flexibility, and interpretability.&lt;/p&gt;
 
-&lt;h6 id=&quot;评估指标&quot;&gt;评估指标&lt;/h6&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h5 id=&quot;generative-verifiers-reward-modeling-as-next-token-prediction-iclr-2025&quot;&gt;&lt;strong&gt;Generative Verifiers: Reward Modeling As Next-Token Prediction (ICLR 2025)&lt;/strong&gt;&lt;/h5&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;自动评估指标：利用GPT-4作为评估器，基于生成的答案和参考答案的相似性打分，分值范围为[0-5]，其中0表示生成的答案如”I don’t know the answer.”，1代表最小的相似度，5代表完全准确的生成答案。&lt;/p&gt;
+&lt;p&gt;This paper differs from other works. While LLM-based verifiers are typically trained as discriminative classifiers, this paper trains a generative model with a next-token prediction objective.&lt;/p&gt;
 
-&lt;p&gt;人工评估指标：评分准则同上，利用三个领域专家进行打分。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/generative_verifier.png&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
 
-&lt;h6 id=&quot;实验设置&quot;&gt;实验设置&lt;/h6&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h5 id=&quot;judgelm-fine-tuned-large-language-models-are-scalable-judges&quot;&gt;&lt;strong&gt;JudgeLM: Fine-Tuned Large Language Models Are Scalable Judges&lt;/strong&gt;&lt;/h5&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;用于领域微调的基座模型为Meta’s OPT(1.3B-13B)和Llama-2-base（7B,13B），采用QLora用于持续预训练和指令微调。RAG系统使用的生成模型为Llama2-chat（7B，13B和70B）以及GPT-3.5-turbo。采用文本切片切分语料，每个切片长度不高于3000个char，采用BGE向量模型做表征，利用FAISS存储向量。每个问题检索出最相似的3个切片，基于LangChain实现整体流程。&lt;/p&gt;
+&lt;p&gt;This work follows a similar paradigm.&lt;/p&gt;
 
-&lt;h6 id=&quot;实验结果&quot;&gt;实验结果&lt;/h6&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h5 id=&quot;m-prometheus-a-suite-of-open-multilingual-llm-judges&quot;&gt;&lt;strong&gt;M-Prometheus: A Suite of Open Multilingual LLM Judges&lt;/strong&gt;&lt;/h5&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/12053.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;As a branch of “LLM-as-a-Judge,” this paper trains a multilingual model using a learning paradigm similar to the works mentioned above.&lt;/p&gt;
 
-&lt;p&gt;其中，加粗表示最佳结果，下划线表示次佳结果。基于领域模型微调的方法中，无论是基于人类的评估结果还是GPT-4的评估结果，LLM-based的方法在绝大多数设定下取得最优结果。而在RAG系统中，两种评估方法中，均存在基于Markdown的表示方法取得最优结果的设定。其中RSD(Relative Score Difference)=(Highest Score - Lowest Score)/5。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/m_prometheus.png&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;领域微调系统中，为什么TPLM-based的方法和LLM-based的方法分别取得次优和最优结果？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This paper is related to &lt;strong&gt;“PROMETHEUS: INDUCING FINE-GRAINED EVALUATION CAPABILITY IN LANGUAGE MODELS.”&lt;/strong&gt; The interesting part is “score rubric mining,” a method similar to one found in Baichuan-M2.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/12054.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h5 id=&quot;pandalm-an-automatic-evaluation-benchmark-for-llm-instruction-tuning-optimization&quot;&gt;&lt;strong&gt;PandaLM: An Automatic Evaluation Benchmark for LLM Instruction Tuning Optimization&lt;/strong&gt;&lt;/h5&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;上表给出了不同方法生成的语料中，领域术语和动词频率分布情况。可以看出LLM-based的方法能够得到的领域术语和动词最多，其次是TPLM-based的方法。&lt;/p&gt;
+&lt;p&gt;Similar to the above, a training example for PandaLM is as follows:&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;RAG系统中，为什么Markdown的方法和LLM-based的方法分别取得次优和最优结果？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/train_example_of_pandalm.png&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/12055.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;The prompt used for training PandaLM is as follows:&lt;/p&gt;
 
-&lt;p&gt;采用t-SNE方法做了切片向量的聚类可视化，对于给定Query会发现LLM-based的方法和Markdown-based的方法得到的切片，在语义空间中距离Query相比其他更加地接近。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/prompt_for_train_pandalm.png&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;思考应用&quot;&gt;思考&amp;amp;应用&lt;/h4&gt;
+&lt;h4 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h4&gt;
 
-&lt;p&gt;（1）在做表格-文本生成的时候，无论是否利用模型微调，基于大模型的方法多数情况下是最佳实践。但是RAG系统中，也可以考虑采用Markdown的方法&lt;/p&gt;
+&lt;p&gt;Finally, we need to consider the following idea: Can we build a general evaluator? Is an evaluation rubric necessary in the evaluation process?&lt;/p&gt;
 
-&lt;p&gt;（2）基于表格的问答应用中，将表格（600*25）格按照行转换为json格式（字段名称采用中文表示），检索效果也不错&lt;/p&gt;
+&lt;h4 id=&quot;related-materials&quot;&gt;Related Materials&lt;/h4&gt;
 
-&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://zhpmatrix.github.io/about/&quot;&gt;扫码加笔者好友&lt;/a&gt;，茶已备好，等你来聊~&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2511.03772&quot;&gt;VERIF: Verification Engineering for Reinforcement Learning in Instruction Following&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2511.02500&quot;&gt;Variation in Verification: Understanding Verification Dynamics in Large Language Models&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2510.07660&quot;&gt;Trust, But Verify: A Self-Verification Approach to Reinforcement Learning with Verifiable Rewards&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://sebastianraschka.com/blog/2025/technical-deepseek.html&quot;&gt;From DeepSeek V3 to V3.2: Architecture, Sparse Attention, and RL Updates&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;this blog talked more about verifier in DeepSeekMath, certainly including meta-verfier.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://www.zhpmatrix.site/about/&quot;&gt;扫码加笔者好友&lt;/a&gt;，茶已备好，等你来聊~&lt;/strong&gt;&lt;/p&gt;
 </description>
-        <pubDate>Thu, 05 Dec 2024 18:35:00 +0800</pubDate>
-        <link>http://localhost:4000/2024/12/05/paper-reading/</link>
-        <guid isPermaLink="true">http://localhost:4000/2024/12/05/paper-reading/</guid>
+        <pubDate>Wed, 03 Dec 2025 18:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2025/12/03/verifier-survey/</link>
+        <guid isPermaLink="true">http://localhost:4000/2025/12/03/verifier-survey/</guid>
         
-        <category>论文笔记</category>
+        <category>Agent</category>
         
         
       </item>
     
       <item>
-        <title>读粱宁的《真需求》</title>
-        <description>&lt;p&gt;花了周五一个晚上和周六一个下午的时间，读完了粱宁老师的《真需求》，这是一篇读书笔记。第一次知道梁老师是几年前读《产品思维30讲》的时候，对于一个菜鸡🐔而言颇有启发。题图是书中附带的一张画，上联是“赚到钱才是真需求”，下联是“真需求才能赚到钱”。&lt;/p&gt;
+        <title>再议agent中的memory</title>
+        <description>&lt;p&gt;&lt;em&gt;前言：在前一篇博客，&lt;a href=&quot;http://www.zhpmatrix.site/agent/%E5%AF%B9%E8%AF%9D%E7%B3%BB%E7%BB%9F/2025/09/14/memory/&quot;&gt;《AI记忆系统的技术演进与设计哲学》&lt;/a&gt;中，笔者梳理了chatgpt，claude和manus等大产品中的memory工程设计并进行了部分对比，整体的粒度较粗，这篇博客中笔者从更细的粒度中梳理近期围绕agent的memory工程相关的工作。&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;粱老师定义的真需求是两个商业闭环的交集，分别是&lt;strong&gt;价值-共识-模式闭环&lt;/strong&gt;和&lt;strong&gt;生态位-因果链-定价权闭环&lt;/strong&gt;，前者是产品思维，用于回应用户需求，后者是产业思维，用于回应环境需求，只不过在这本书中只讲了前者。&lt;/p&gt;
+&lt;h4 id=&quot;memory的概念体系&quot;&gt;Memory的概念体系&lt;/h4&gt;
 
-&lt;p&gt;&lt;strong&gt;做出有价值的东西和做出有商业价值的东西，是两回事。&lt;/strong&gt;能够在市场中变现，用户愿意付费获得的，才叫商业价值。从笔者狭隘的视角来看，这种矛盾无处不在且时常发生。比如llya和altman的故事，实验室成果和商业产品之间的关系，发明人和企业家等。部分创始人纠结的一个地方在于认为自己做的产品非常有价值，但是为什么卖的不好？是因为有价值但是没有商业价值。&lt;/p&gt;
+&lt;p&gt;围绕memory的认知模型早在1983年就由三位大佬提出，在今天讨论memory的时候，并没有脱离具体的认知模型，但是具体的实现方式发生了变化。整体框架如下所示:&lt;/p&gt;
 
-&lt;p&gt;为此要摆脱自己的主观感受和愿望，站到交易对手那一侧来审视手上的一切。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/deepseek_mermaid_20251125_5b6faa.png&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;书中提到《情绪价值》的作者蔡钰提出的产品价值公式：&lt;/p&gt;
+&lt;p&gt;结合大模型的技术体系，笔者根据多个学术和工业界的工作，梳理了更加具体的memory的概念体系，具体如下：&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;产品价值 = 功能价值+情绪价值+资产价值&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/DeepResearch-MemoryConcept.drawio.png&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;其中功能价值包含四种不同模型，分别是原材料/劳动力模型，专利IP（知识产权）模型，平台/供应链模型，基础设施模型。经典死法是匪兵甲，也就是自己看自己有模有样，但与主角一比，立刻被结构性碾压。&lt;/p&gt;
+&lt;p&gt;在技术实现这个维度上，通过memory的方式，建立针对memory的encode，storage和retrieval(&lt;a href=&quot;https://arxiv.org/abs/2505.00675&quot;&gt;《Rethinking Memory in AI: Taxonomy, Operations, Topics, and Future Directions》&lt;/a&gt;中提供了更多的关于memory的操作)，将agent从stateless变为stateful，其实并没有脱离更好的context engineering这个范畴。&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;情绪价值=生理唤起+认知标记+心理账户&lt;/strong&gt;。巧克力味的屎和屎味的巧克力，对于婴儿来说并无区别，但是对于成年人就不同了，因为成年人有了认知标记。生理唤起和认知标记决定了情绪的产生，心理账户决定了用户是否会付费以及愿意付多少。酒是最古老，最普遍的情绪商品。“貂丁”是情绪价值的经典死法。郭德刚老师在相声中有云：&lt;/p&gt;
+&lt;p&gt;在《From Human Memory to AI Memory-A Survey on Memory Mechanisms in the Era of LLMs》中进行AI和人类记忆的对比的时候，增加了sensory memory类型。&lt;/p&gt;
 
-&lt;p&gt;“大户人家啊，不光吃的讲究，穿的也讲究。夏天穿一条丁字裤，冬天穿一条丁字棉裤，去东北这种极冷的地方还要穿貂丁。什么是貂丁？就是貂皮做的丁字裤，不是大户人家出身的想必没见过。”&lt;/p&gt;
+&lt;h4 id=&quot;重点工作梳理&quot;&gt;重点工作梳理&lt;/h4&gt;
 
-&lt;p&gt;可持续变现就有资产价值。可持续变现需要两个条件如下：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://arxiv.org/abs/2507.07957&quot;&gt;MIRIX: Multi-Agent Memory System for LLM-Based Agents&lt;/a&gt;&lt;/strong&gt;，该工作中首先对记忆进行了分模块，同时提出了一个架构方式（偏工程体系搭建），最后基于一套算法和工程体系构建了&lt;a href=&quot;https://mirix.io/&quot;&gt;应用&lt;/a&gt;,宣称世界上最强的用于agent的记忆系统。具体的模块划分方式如下所示：&lt;/p&gt;
 
-&lt;p&gt;(1)有一个可供它持续变现的专门市场/二手市场及配套服务&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/mirix_memory.png&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;(2)它在专门市场/二手市场的价值与价格依赖于某个共识&lt;/p&gt;
+&lt;p&gt;围绕memory的认知架构是基于soar，技术架构是multi-agent的，针对memory的agent是通过提示词的方案来实现的，具体见&lt;a href=&quot;https://github.com/Mirix-AI/MIRIX/tree/main/mirix/prompts&quot;&gt;代码&lt;/a&gt;,类似的实现见&lt;a href=&quot;https://github.com/databyjp/weekend_projects/tree/main/mem_demo&quot;&gt;这里&lt;/a&gt;,提供了一个非常简单的POC。使用方式如下:&lt;/p&gt;
 
-&lt;p&gt;《瓦尔登湖》中梭罗的房子因为没有产权证，无法满足条件（1），因此虽然具备功能价值和情绪价值，但是不具备资产价值。由于艺术品市场的共识，梵高的画很贵。&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;c1&quot;&gt;# Original code:
+# response = agent.query(message)
+&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mirix&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MemoryClient&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MemoryClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;local&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-&lt;p&gt;共识是如何形成的？共识和非共识，以及创新的关系是什么？又是一个非常有意思的问题。&lt;/p&gt;
+&lt;span class=&quot;c1&quot;&gt;# 1. Inject relevant context into the prompt
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;wrap_message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;agent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-&lt;p&gt;产品创新是指创造新功能，新情绪和新资产。过去百年商品的演化，具有功能价值的商品一直在整合，情绪价值的商品一直在分化。而今天家庭的价值，很大一部分是这个家庭的成员做共建的情绪价值​和资产价值。&lt;/p&gt;
-
-&lt;p&gt;在讲中国手机30年的时候，书中写到一段话，“所以，经济下滑时，产品卖不出去，如果简单地归因于用户没钱了，那肯定是错的。当年更没钱，但真需要的东西，还是要买。是因为你提供的东西，今天的用户没那么需要了。”&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;商业创新者的核心能力，其实就两条​：创造价值的能力和领导共识的能力​。&lt;/strong&gt;所有的创新，起始都是​“非共识”。最容易达成的共识​是“你的长项和特性，正好是对方的期望属性。”&lt;/p&gt;
-
-&lt;p&gt;如何界定产品和服务？产品的本质就是服务，二者都要​为用户解决问题。&lt;/p&gt;
-
-&lt;p&gt;创新不赚钱​。创新是一路花钱，花时间​，交各种学费。赚到钱的人，要么是变现自己已经轻车熟路的能力，要么是准备了充足的学费，一直撑到自己轻车熟路的那一天​。而绝大多数创业失败的人，都是做着自己并不熟悉，不清楚深浅的事，一边干，一边交学费​，走到半路，学费不够了。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;​什么是商业模式？模式设计主要包含三大模块，分别是能力系统，变现逻辑和​分配机制。&lt;/strong&gt;权力的核心是分配权，评估一个人​有三个要点：技能点，资源盘和影响力​。你能连接的人，不是你的人脉​；你能帮到的人，才是你的人脉。人只能​对自己有需求的人建立关系。&lt;/p&gt;
-
-&lt;p&gt;规划思维中，人会很清楚什么是对的​。完成计划的方向​，就是对的方向。演化思维的特点则是，没有计划，只有一个大概的方向和大概的原则，根据世界的真实反馈进行调整​和迭代。​&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://zhpmatrix.github.io/about/&quot;&gt;扫码加笔者好友&lt;/a&gt;，茶已备好，等你来聊~&lt;/strong&gt;&lt;/p&gt;
-</description>
-        <pubDate>Sat, 02 Nov 2024 18:35:00 +0800</pubDate>
-        <link>http://localhost:4000/2024/11/02/real-requirements-reading/</link>
-        <guid isPermaLink="true">http://localhost:4000/2024/11/02/real-requirements-reading/</guid>
-        
-        <category>读书笔记</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>再议规则引擎</title>
-        <description>&lt;h3 id=&quot;前言&quot;&gt;前言&lt;/h3&gt;
-
-&lt;p&gt;既上一篇讨论规则引擎的文章&lt;a href=&quot;https://zhpmatrix.github.io/2020/10/21/rule-is-all-you-need/&quot;&gt;兜底哲学:规则引擎方法论&lt;/a&gt;，转眼已经过去了四年。这篇文章是笔者最近围绕规则引擎的实践和思考。&lt;/p&gt;
-
-&lt;h3 id=&quot;业务场景&quot;&gt;业务场景&lt;/h3&gt;
-
-&lt;p&gt;在围绕知识中台构建知识资产时，需要对知识文书打标签，由于需要实现的标签非常多，每个标签的代码实现类似如下:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  if check_words_exist(attachment_content,
-                [&quot;未开具发票&quot;,&quot;不列收入&quot;,&quot;少列收入&quot;,&quot;少计销售收入&quot;,&quot;少计销售货物收入&quot;,&quot;未入账收入&quot;,&quot;未入账含税收入&quot;,&quot;少申报收入&quot;,&quot;收入未列&quot;,&quot;未申报确认收入&quot;,&quot;未作视同销售处理&quot;,&quot;账外收入&quot;]) or \
-                check_two_words_exist(attachment_content,
-                                    &quot;销售货物&quot;,
-                                    &quot;未申报&quot;,
-                                    20) or \
-                check_two_words_exist(attachment_content,
-                                    &quot;少计&quot;,
-                                    &quot;收入&quot;,
-                                    20) or \
-                check_two_words_exist(attachment_content,
-                                    &quot;少记&quot;,
-                                    &quot;收入&quot;,
-                                    20) or \
-                check_two_words_exist(attachment_content,
-                                    &quot;收入&quot;,
-                                    &quot;未列&quot;,
-                                    20) or \
-                check_two_words_exist(attachment_content,
-                                    &quot;收入&quot;,
-                                    &quot;未入&quot;,
-                                    20) or \
-                check_three_words_exist(attachment_content,[&quot;未&quot;,&quot;申报&quot;,&quot;收入&quot;],[20,20]) or \
-                check_three_words_exist(attachment_content,[&quot;未&quot;,&quot;确认&quot;,&quot;收入&quot;],[20,20]) or \
-                check_three_words_exist(attachment_content,[&quot;收入&quot;,&quot;未&quot;,&quot;申报&quot;],[20,20]):
-                label_mapping[&quot;隐瞒收入&quot;] = True
-            if check_words_exist(attachment_content,
-                [&quot;私账&quot;,&quot;个人银行帐号&quot;,&quot;个人银行账户&quot;,&quot;微信&quot;,&quot;信用卡&quot;,&quot;私人账户&quot;,&quot;账外收入&quot;]             
-                                 ):
-                label_mapping[&quot;公转私/个人卡&quot;]=True
-            if check_words_exist(attachment_content,[&quot;个人所得税&quot;]):
-                label_mapping[&quot;未缴或少缴个人所得税&quot;] = True
-            if (doc_type == &quot;重大税收违法失信主体通知书&quot; and check_two_words_exist(case_fea_paragraph,&quot;虚开&quot;,&quot;抵扣&quot;,50)) or \
-                (doc_type != &quot;重大税收违法失信主体通知书&quot; and check_two_words_exist(attachment_content,&quot;虚开&quot;,&quot;抵扣&quot;,50)) or \
-                (doc_type != &quot;重大税收违法失信主体通知书&quot; and check_words_exist(attachment_content,[&quot;让他人为自己开具&quot;,&quot;向你公司开具&quot;,&quot;开具给你公司&quot;,&quot;取得他人虚开&quot;])) or \
-                (doc_type != &quot;重大税收违法失信主体通知书&quot; and check_three_words_exist(attachment_content,[&quot;取得&quot;,&quot;开具&quot;,&quot;发票&quot;],[20,20])) or \
-                (doc_type != &quot;重大税收违法失信主体通知书&quot; and check_three_words_exist(attachment_content,[&quot;接受&quot;,&quot;开具&quot;,&quot;发票&quot;],[20,20])) or \
-                (doc_type != &quot;重大税收违法失信主体通知书&quot; and check_three_words_exist(attachment_content,[&quot;接受&quot;,&quot;虚开&quot;,&quot;发票&quot;],[20,20])):
-                label_mapping[&quot;虚开发票-申报抵扣&quot;] = True
-            if check_two_words_exist(attachment_content,&quot;开具与实际经营业务情况不符&quot;,&quot;发票&quot;,50) or \
-               check_two_words_exist(attachment_content,&quot;代开与实际经营业务情况不符&quot;,&quot;发票&quot;,50) or \
-               check_words_exist(attachment_content,[&quot;对外虚开&quot;,&quot;对外开具&quot;]) or \
-               check_two_words_exist(attachment_content,&quot;你公司向&quot;,&quot;开具&quot;,50) or \
-               check_two_words_exist(attachment_content,&quot;开具给&quot;,&quot;发票&quot;,50) or \
-               custom_check_type(attachment_content,&quot;你公司&quot;,&quot;开具&quot;,&quot;发票&quot;) or \
-               custom_check_type(attachment_content,&quot;你单位&quot;,&quot;开具&quot;,&quot;发票&quot;) or \
-               (check_two_words_exist(attachment_content,&quot;虚开&quot;,&quot;发票&quot;,50) and label_mapping[&quot;虚开发票-申报抵扣&quot;] == False):
-                label_mapping[&quot;虚开发票-对外虚开&quot;] = True
-            if (doc_type == &quot;重大税收违法失信主体通知书&quot; and check_words_exist(case_fea_paragraph,[&quot;骗取出口退税&quot;])) or \
-                (doc_type == &quot;重大税收违法失信主体通知书&quot; and check_words_exist(illfact_paragraph,[&quot;骗取出口退税&quot;])) or \
-                (doc_type != &quot;重大税收违法失信主体通知书&quot; and check_words_exist(attachment_content,[&quot;出口&quot;])) or \
-                (doc_type != &quot;重大税收违法失信主体通知书&quot; and check_two_words_exist(attachment_content,&quot;虚开发票&quot;,&quot;申报出口退税&quot;,50))  or \
-                  (doc_type != &quot;重大税收违法失信主体通知书&quot; and check_two_words_exist(attachment_content,&quot;骗取&quot;,&quot;出口退税&quot;,50)): 
-                label_mapping[&quot;骗取出口退税&quot;] = True
-            if (doc_type == &quot;重大税收违法失信主体通知书&quot; and check_words_exist(case_fea_paragraph,[&quot;少缴&quot;,&quot;未缴&quot;,&quot;逃避缴纳&quot;,&quot;偷税&quot;,&quot;逃避追缴欠税&quot;])) or \
-                (doc_type == &quot;重大税收违法失信主体通知书&quot; and check_words_exist(illfact_paragraph,[&quot;少缴&quot;,&quot;未缴&quot;,&quot;逃避缴纳&quot;,&quot;偷税&quot;,&quot;逃避追缴欠税&quot;])) or \
-                (doc_type != &quot;重大税收违法失信主体通知书&quot; and check_words_exist(attachment_content,[&quot;少缴&quot;,&quot;未缴&quot;,&quot;逃避缴纳&quot;])):
-                label_mapping[&quot;少缴应纳税款&quot;] = True
-            if doc_type == &quot;催告书&quot;:label_mapping[&quot;强制执行&quot;] = True
+&lt;span class=&quot;c1&quot;&gt;# 2. Save the interaction
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;messages&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;role&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}]},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;role&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;assistant&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}]}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;每个标签的实现都需要开发者和业务方共同参与，经过多轮的口径调整和实现调整，直到标签的实现在召回率和精确率上达到预期水平。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://arxiv.org/abs/2507.03724&quot;&gt;MemOS: A Memory OS for AI System&lt;/a&gt;&lt;/strong&gt;，这篇的工作同上基本类似，也做了一个&lt;a href=&quot;https://memos-docs.openmem.net/cn/overview/introduction/&quot;&gt;应用&lt;/a&gt;。从工程侧包括对记忆生产，记忆调度和记忆召回以及记忆生命周期管理。其中记忆类型可划分为以下:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;KV Cache记忆-适合常见问题以及特定领域知识，和先前的对话历史&lt;/li&gt;
+  &lt;li&gt;明文记忆
+    &lt;ul&gt;
+      &lt;li&gt;通用明文记忆-通过向量检索等方式进行搜索&lt;/li&gt;
+      &lt;li&gt;树形明文记忆-基于图的记忆管理
+        &lt;ul&gt;
+          &lt;li&gt;Neo4j图数据库&lt;/li&gt;
+          &lt;li&gt;Nebula图数据库&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;参数记忆-模型训练参数（预训练权重和模块化的权重组件，如LoRA适配器和专家模块），实现记忆的动态加载和卸载&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;因此，笔者就会思考问题如下：&lt;/p&gt;
+&lt;p&gt;这个工作中对于memory的定义比sora更加广泛，比如认为kv cache和model parameter均是记忆的一种类型，同时在范式上抽象了MemCube，以及MOS（Memory Operating System），MAG（Memory Augmented Generation）等概念，比如MOS的使用方式如下所示:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;memos.configs.mem_os&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MOSConfig&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;memos.mem_os.main&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MOS&lt;/span&gt;
+
+
+&lt;span class=&quot;c1&quot;&gt;# init MOS
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mos_config&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MOSConfig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;from_json_file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;examples/data/config/simple_memos_config.json&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;memory&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MOS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mos_config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# create user
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;b41a34d5-5cae-4b46-8c49-d03794d206f5&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;memory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;create_user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# register cube for user
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;memory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;register_mem_cube&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;examples/data/mem_cube_2&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# add memory for user
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;memory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;messages&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;role&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;I like playing football.&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;role&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;assistant&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;I like playing football too.&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Later, when you want to retrieve memory for user
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;retrieved_memories&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;memory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;What do you like?&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# output text_memories: I like playing football, act_memories, para_memories
+&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sa&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;text_memories: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;retrieved_memories&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;text_mem&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://www.leoniemonigatti.com/blog/from-rag-to-agent-memory.html&quot;&gt;The Evolution from RAG to Agentic RAG to Agent&lt;/a&gt;&lt;/strong&gt;,
+这篇博客对RAG系统的演进历史进行了梳理，RAG(Read-Only, One-Shot)-&amp;gt;Agentic RAG(Smart Read-Only)-&amp;gt;Agent Memory(Read-Write Operations)。同时和其他工作类型，对记忆进行了类型划分：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;procedural. For example, use emojis&lt;/li&gt;
+  &lt;li&gt;episodic. For example, use mentioned trip on Oct 30&lt;/li&gt;
+  &lt;li&gt;semantic. For example, Eiffel Tower is 330m tall&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;具体对比如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/memory_cmp.png&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;简单而言，针对记忆的处理，需要有write的能力。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://arxiv.org/pdf/2310.08560&quot;&gt;《MemGPT: Towards LLMs as Operating Systems》&lt;/a&gt;&lt;/strong&gt;,在&lt;a href=&quot;https://www.leoniemonigatti.com/papers/memgpt.html#self-editing-memory-via-tool-calls&quot;&gt;letta&lt;/a&gt;（也是一家关于memory的创业公司）的blog中针对该工作进行了实现，该工作的核心是两个部分分别如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;一个两层memory架构。main context(in-context)+external context(out-of-context)&lt;/li&gt;
+  &lt;li&gt;self-editing memory capabilities through tool use,MIRIX中也是通过function call的能力进行memory的管理&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/memgpt.png&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在letta的工作中，做了LLM OS和传统OS的一个对比，结果如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/letta_llm_vs_os.png&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;具体实现依然是基于prompt的艺术，代码见&lt;a href=&quot;https://github.com/letta-ai/letta/tree/main/letta/prompts&quot;&gt;这里&lt;/a&gt;,&lt;strong&gt;竟然发现MIRIX的prompts和letta的prompts几乎是一模一样&lt;/strong&gt;，没有仔细看协议，也许是允许的。使用体验上和上述差不多。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://arxiv.org/pdf/2309.02427&quot;&gt;《Cognitive Architectures for Language Agents》&lt;/a&gt;&lt;/strong&gt;,这篇文章在一个较高的抽象层次讨论了language agent的认知架构设计，对于理解agent的整体架构有较大的启发。其中这篇文章也是从soar的认知架构开始讲的，不过是在agent这个方向上比较早的来讲这个事情的工作。具体架构如下:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/coala.png&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://huggingface.co/blog/Kseniase/memory&quot;&gt;《Does AI Remember? The Role of Memory in Agentic Workflows》&lt;/a&gt;&lt;/strong&gt;,这篇blog中很好的总结了agent中的memory定义。&lt;/p&gt;
+
+&lt;p&gt;整体上的行文思路也是类似一个考古之作，整体收获非常多。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;《Dingtalk-DeepResearch: A Unified Multi-Agent Framework for Adaptive Intelligence in Enterprise Environments》&lt;/strong&gt;,文章中提到: “Unlike static architectures, it enables agents to evolve via an entropy-guided, memory-aware online learning mechanism, retrieving high-value prior cases from an episodic memory bank and exploring diverse historical contexts.”&lt;/p&gt;
+
+&lt;p&gt;简单而言，在Dingtalk这个工作中，相比其他deepresearch的工作，增加了对于情景记忆的利用能力。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/GibsonAI/Memori&quot;&gt;Memori&lt;/a&gt;&lt;/strong&gt;,Open-Source Memory Engine for LLMs, AI Agents &amp;amp; Multi-Agent Systems，也是一个star较多的开源工作。从&lt;a href=&quot;https://memorilabs.ai/docs/&quot;&gt;技术文档&lt;/a&gt;中可以看到，整体的实现思路和其他工业级工作是类似的。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://leoniemonigatti.com/blog/memory-in-ai-agents.html&quot;&gt;Making Sense of Memory in AI Agents&lt;/a&gt;&lt;/strong&gt;,非常全面的总结了关于memory的types以及相关的实现。这篇blog中做了一个非常有意思的类比如下(deeplearning.ai的course中也看到采用了基本相同的类比):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/agent_memory_cmp.png&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://mem0.ai/&quot;&gt;Mem0&lt;/a&gt;&lt;/strong&gt; 是一个agent memory方向相对成熟度较高的公司，学术上的相关论文多次提到，《Mem0: Building Production-Ready AI Agents with Scalable Long-Term Memory》，相比其他而言，memory的架构设计也是相对清晰简单的。&lt;strong&gt;&lt;a href=&quot;https://www.getzep.com/&quot;&gt;zep&lt;/a&gt;&lt;/strong&gt; 的成熟度也相对高一些，亮点在于graph相关的memory构建，比如graphrag工作的支持等。&lt;strong&gt;&lt;a href=&quot;https://www.cognee.ai/&quot;&gt;cognee&lt;/a&gt;&lt;/strong&gt; 整体上和zep比较类似。&lt;/p&gt;
+
+&lt;p&gt;国内的公司比如 &lt;strong&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s/o0eVo4tA9JMrQreFDhzbbw&quot;&gt;AI 记忆革命：EverMemOS 如何让机器拥有真正的”灵魂”&lt;/a&gt;,&lt;a href=&quot;https://github.com/EverMind-AI/EverMemOS/&quot;&gt;github&lt;/a&gt;&lt;/strong&gt; ,盛大团队关于记忆的工作，在该工作中提出了一些新的概念体系，但是技术本质上是和国外的公司是类似的。&lt;a href=&quot;https://memos-docs.openmem.net/cn/overview/introduction/&quot;&gt;MemOS&lt;/a&gt;也是国内的学术团体做的一个项目，相关方向为OpenMeM。&lt;a href=&quot;https://hub.baai.ac.cn/view/47705&quot;&gt;MIRIX&lt;/a&gt;是国外的华人学术团队做的公司(哦，这波AI热潮中，华人为主)。&lt;strong&gt;&lt;a href=&quot;https://memu.pro/&quot;&gt;memu.pro&lt;/a&gt;&lt;/strong&gt; 也是国内的公司，2B的业务和开源并举进行推进。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://memories.ai/&quot;&gt;memories.ai&lt;/a&gt;是做视觉memory的，算是这个方向中相对较新的方向了，founder也是华人。&lt;/p&gt;
+
+&lt;h4 id=&quot;相关资料&quot;&gt;相关资料&lt;/h4&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;这是否是一个可以通过规则引擎实现口径开发和代码开发解耦的场景？&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;https://snap-research.github.io/locomo/&quot;&gt;《Evaluating Very Long-Term Conversational Memory of LLM Agents》&lt;/a&gt;，学术上针对长记忆能力的评测方法和评测集LOCOMO&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;能否利用LLM的能力实现打标签？（规则引擎只有一个operator，就是llm）&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/1973003147833274960&quot;&gt;Agent近期记忆技术及落地实践整理&lt;/a&gt;,这篇文章讨论了比较多很具体的工作，作者自身也做了较多的实践。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://docs.langchain.com/oss/python/concepts/memory&quot;&gt;Memory Overview&lt;/a&gt;,LangChain中的memory机制&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/langchain-ai/memory-template?tab=readme-ov-file&quot;&gt;memory-template&lt;/a&gt;,LangChain中针对memory的具体template设计，&lt;a href=&quot;https://docs.langchain.com/oss/python/langgraph/add-memory&quot;&gt;Memory的具体使用使用方式&lt;/a&gt;,multi-agent之&lt;a href=&quot;https://docs.langchain.com/oss/python/langchain/supervisor&quot;&gt;supervisor agent&lt;/a&gt;的实现方式，针对multi-agent，LangChain中提供了两种实现方式，分别是中心式的tool calling和去中心式的handoffs，&lt;a href=&quot;https://langchain-ai.github.io/langmem/&quot;&gt;LangMem&lt;/a&gt;是LangChain中的一种具体实现（面向semantic memory和episodic memory两种）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;《Context Engineering:Sessions, Memory》,Google&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/1940091301249909899&quot;&gt;万字解析Agent Memory实现&lt;/a&gt;,这篇文章中对记忆的划分提出了更多的视角，同时写作的内容和这篇blog比较类似&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://learn.deeplearning.ai/courses/long-term-agentic-memory-with-langgraph/lesson/ovv0p/introduction&quot;&gt;Long-Term Agentic Memory With LangGraph&lt;/a&gt;,DeepLearning.ai的课程，LangChain的同学主讲，有&lt;a href=&quot;https://github.com/sushant1827/Long-Term-Memory-Agent/blob/main/Email_Assistant_Semantic_Episodic_Procedural_Memory.ipynb&quot;&gt;Code&lt;/a&gt;,LangChain官方的&lt;a href=&quot;https://github.com/langchain-ai/agents-from-scratch/tree/main/src/email_assistant&quot;&gt;Code&lt;/a&gt;,和前边的Repo不太一样，但是基本相同&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://learn.deeplearning.ai/courses/llms-as-operating-systems-agent-memory/lesson/nfkqk/introduction&quot;&gt;letta在learn.deeplearning.ai上开的课程&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s/4RjmWR4qCM3KHBLW_hTkbw&quot;&gt;OpenAI Build Hour: Agent Memory Patterns 中文全文&lt;/a&gt;, OpenAI团队中对于Memory机制的思考&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://macaron.im/mindlab/research&quot;&gt;MindLab&lt;/a&gt;，国外的一家关于memory的创业公司，思路上构建了memory diffusion的方案，团队认为围绕memory，重要的不是记忆，而是遗忘。通过在size非常大的模型上进行LoRA微调，将memory注入到模型中，从而形成个性化的记忆类型。最近有感于纳排的思维逻辑应用，比如相比纳入，排除也是重要的。比如如果无法区分哪些是好的，能否区分哪些是坏的？比如记忆和遗忘的关系，比如降低成本和增加收入的trade off等。&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;实现过程&quot;&gt;实现过程&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://www.zhpmatrix.site/about/&quot;&gt;扫码加笔者好友&lt;/a&gt;，茶已备好，等你来聊~&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;首先，需要一个笔者能够handle的规则引擎，要求基于python实现，整个开源社区基于python的规则引擎比较少，幸运的是找到了&lt;strong&gt;business_rule&lt;/strong&gt;，一个多年前的基于python的规则引擎，虽然star不多，不过完美满足自己的需求，能够在支持condition和action创建，定义operator，通过all和any实现chain，同时带有一个异常简陋的交互式UI。通过增加llm作为operator，实现了面向业务的快速适配。实现效果如下：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/tag_factory_v0.gif?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;上述工作称为tag
-_factory_v0，仍然属于传统规则引擎。&lt;a href=&quot;https://knowledge-table-demo.whyhow.ai/&quot;&gt;knowledge_table&lt;/a&gt;是近期的一个工作，通过结合llm和rule做dataframe的处理，在交互设计上非常具有启发性。比如通过定义@作为对dataframe的列的引用，一定程度上可以解决标签开发过程中的标签依赖问题。knowledge_table也采用了Python作为后端开发语言，整体代码的质量非常高，但是直接用于笔者的场景，又显得过重。因此笔者基于gradio通过不同的方式实现了类似knowledge_table的交互效果，实用性显著提升，记为tag_factory_v1，实现效果如下所示：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/tag_factory.gif?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;进一步地，回到更加灵活的规则引擎方向上，通过拖拽的方式快速拖出来一个DAG是一个极其重要的模块，称为引擎前端。解析DAG并调度运行+运维?是引擎后端。单独两块工作分别拉出来都有不错的开源的工作，但是合并在一起的工作并不多。&lt;/p&gt;
-
-&lt;p&gt;滴滴开源的LogicFlow可以作为一个引擎前端，Dagu作为引擎前端，可以实现DAG和Yaml的双向映射，Yaml是Python开发者的福音。开源版n8n作为前端，对于operator的支持更加的丰富，包括HTTP请求，函数，外部服务，任务等，效果如下：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/n8n.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;其中HTTP Request的编辑逻辑如下：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/n8n_http.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;apache-airflow作为引擎后端，能够将Python代码转化为DAG，同时实现DAG的调度和监控，但是没有搭配一个好的前端。DophinScheduler作为为数不多的同时拥有前端和后端的可以作为理想规则引擎的框架，但是近期看到mlflow把DS的前端拆出来，融合实现ML工作流的编排和调度，毕竟mlflow在机器学习任务的编排上比DS要做的更好（定位不同）。&lt;/p&gt;
-
-&lt;p&gt;因此，如果有tag_factory_v2的话，整体上可行的思路如下：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;和v1类似，独立开发一套适配业务的框架（operator定义清晰的话，ROI也很高）&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;采用DS。强化版可以采用类似mlflow+DS的组合&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;前端和后端分离。比如n8n+airflow的组合&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;后记&quot;&gt;后记&lt;/h3&gt;
-
-&lt;p&gt;在调研和实现过程中发现的一个认知问题是：在过去的一些年，过于关注开源产品了。客观角度上看，闭源产品的产品力和技术力应该更好才对，比如这里的n8n。&lt;/p&gt;
-
-&lt;p&gt;在玄难的&lt;a href=&quot;https://www.jiqizhixin.com/articles/2018-12-12-5&quot;&gt;面向不确定性的软件设计几点思考&lt;/a&gt;中提到，整体的演化方向是从“确定性边界向内归纳抽象找相同”转化为“确定性内核向外生长演化”，而对于规则引擎而言同时包含两个特点。&lt;/p&gt;
-
-&lt;h3 id=&quot;参考资料&quot;&gt;参考资料&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://blog.n8n.io/how-to-scrape-data-from-a-website/&quot;&gt;How to scrape data from a website&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://datathrillz.com/considerations-for-building-a-rules-engine-in-python/&quot;&gt;Considerations for building a rules engine in Python&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://zhpmatrix.github.io/about/&quot;&gt;扫码加笔者好友&lt;/a&gt;，茶已备好，等你来聊~&lt;/strong&gt;&lt;/p&gt;
 </description>
-        <pubDate>Wed, 30 Oct 2024 18:35:00 +0800</pubDate>
-        <link>http://localhost:4000/2024/10/30/rule-engine-v2/</link>
-        <guid isPermaLink="true">http://localhost:4000/2024/10/30/rule-engine-v2/</guid>
+        <pubDate>Tue, 25 Nov 2025 18:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2025/11/25/memory-concept/</link>
+        <guid isPermaLink="true">http://localhost:4000/2025/11/25/memory-concept/</guid>
         
-        <category>Python</category>
+        <category>Agent</category>
+        
+        <category>对话系统</category>
         
         
       </item>
     
       <item>
-        <title>搜医搜-从0到1的故事</title>
-        <description>&lt;p&gt;搜医搜是一款基于默沙东诊疗手册的AI搜索产品。通过把默沙东诊疗手册作为主要的的搜索内容库，融合医疗知识图谱和外部搜索引擎结果，在返回搜索结果的同时，给出基于搜索结果的答案。通过搜索结果可以实现答案溯源，在答案质量不佳时，退化为一款标准搜索引擎产品。&lt;/p&gt;
+        <title>算法工程师视角的AI相关的问题思考</title>
+        <description>&lt;h2 id=&quot;目录&quot;&gt;目录&lt;/h2&gt;
 
-&lt;p&gt;这篇文章讨论搜医搜从想法到变现的0→1的全流程，是一次“一人公司”的路径可行性探索。专注于讲故事，不讲技术。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#这波ai泡沫什么时候破裂&quot;&gt;这波AI泡沫什么时候破裂？&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#ai-native-vs-agent&quot;&gt;ai native v.s. agent&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#个人内容创作&quot;&gt;个人内容创作&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#科技自媒体&quot;&gt;科技自媒体&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#供给需求的天平倾斜&quot;&gt;供给&amp;amp;需求的天平倾斜&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#知识工作者的下一步&quot;&gt;知识工作者的下一步&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;文章通过Notion完成，可以直接发布为网页形式。在此就不把内容搬运到博客上了，可以点击&lt;a href=&quot;https://zhpmatrix.notion.site/0-1-11d68ac27add803ba683cfbd4e5ca25c&quot;&gt;《搜医搜-从0到1的故事》&lt;/a&gt;满足好奇心。&lt;/p&gt;
+&lt;h4 id=&quot;这波ai泡沫什么时候破裂&quot;&gt;这波AI泡沫什么时候破裂？&lt;/h4&gt;
 
-&lt;p&gt;过程中得到了许多朋友们的各种反馈和建议，谢谢你们～🫰&lt;/p&gt;
+&lt;p&gt;这个问题其实包含很多子问题。有AI泡沫吗？如果有，怎么定义AI泡沫？是否存在云泡沫，区块链泡沫等？如何定义破裂？即使有泡沫，一定会破裂吗？&lt;strong&gt;发现哪个问题都不太容易讨论清楚&lt;/strong&gt;。&lt;/p&gt;
 
-&lt;p&gt;接下来是一段招募内容：&lt;/p&gt;
+&lt;p&gt;在笔者23年6月的文章&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&amp;amp;mid=2247484703&amp;amp;idx=1&amp;amp;sn=3a6aa2436bb9ca65d9988412df4f674d&amp;amp;chksm=fc740c56cb0385400cceefaa1e0a89de9c1717e49a7011e11e09691c71e8d795040fb65350e3&amp;amp;token=1969671355&amp;amp;lang=zh_CN#rd&quot;&gt;《中文医疗大模型的2W1H分析》&lt;/a&gt;中讨论过一个问题“那么，这波热潮会以什么方式结束？”，当时做了一个大胆的趋势预测如下:&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-if you.meet(&quot;对持续发布一个完整的东西感兴趣&quot;) and (
-   you.meet(&quot;网页前端开发&quot;) or
-   you.meet(&quot;小程序开发&quot;) or
-   you.meet(&quot;浏览器插件开发&quot;) or
-   you.meet(&quot;CPU很多&quot;) or
-   you.meet(&quot;GPU很多&quot;)
-   ) :
-   see_below()
-else:
-    print(&quot;you&apos;re the best!&quot;)
+&lt;p&gt;&lt;img src=&quot;/images/1123_01.png&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;25年的近期，AI泡沫破裂这个话题的热度又烧了起来。回过头来看，这张图似乎适合各种新技术的发展趋势，同时AI的发展史就是一路伴随兴起-破裂的节奏，但是每次破裂都能让下一次兴起的起点更高。此外，本轮兴起的标志性事件是22年11月30日的ChatGPT的发布，但是破裂的标志似乎并不容易形成共识。既然如此，&lt;strong&gt;享受当下大抵是一个正确的选择&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;h4 id=&quot;ai-native-vs-agent&quot;&gt;ai native v.s. agent&lt;/h4&gt;
+
+&lt;p&gt;对于这两个概念的理解，大抵分为技术视角和非技术视角，以至于agent是什么，agent和workflow的区别在过去几个月都经历过较长时间的讨论。笔者认同的一个观点是&lt;strong&gt;一个事情如果没有ai，那么这个事情不成立，由此可以说这个事情是ai native的&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;从笔者个人比较关心的产品类型上看，真正意义上比较棒的产品不多。分别如下:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;LLM驱动的对话入口级应用。代表性样本包括ChatGPT，豆包等。其中并非以单纯LLM作为服务能力，而是整合了多模态，search等组件&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;AI Coding。代表性产品包括Cursor/Claude Code/Gemini2.5/3 Pro等&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Nano Banana Pro。通过整合google search，gemini3 pro等的基础能力，使得nano banana pro的生图能力取得了显著的提升&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;nano banana pro是近期笔者基于做计算机视觉那几年的技术认知新增的一类产品，至于3d视频类，audio类等的产品，没有关心很多也不予置评。manus，lovable等可能有较好的arr，但是可能还需要时间来观察。&lt;/p&gt;
+
+&lt;p&gt;在&lt;a href=&quot;http://www.zhpmatrix.site/2025/11/01/tax-agent/&quot;&gt;《财税版DeepResearch的构建实践》&lt;/a&gt;中讨论了agent的架构设计，在技术上关于agent还是能够形成多数的共识。如果非说自己基于workflow的产品也是agent，那么祝您马到成功～&lt;/p&gt;
+
+&lt;p&gt;从技术实现角度，对于workflow，不同query享用同样的处理步骤；但是不同query是否存在不同的处理步骤？通过agent的灵活编排能力可实现。二者是不同的出发点，同时存在范式级的不同。从学术角度，agent是一等公民，但是从实际落地角度，workflow和agent既然是不同的范式，自然有其各自的优缺点。从笔者最近在做的agent的memory模块设计来看，做一个实际能用的agent产品也并不是很容易。但是agent充满了想象力，故事性很足。比如multi-agent，比如agent去train一个agent，比如直接结果交付而非决策信息交付等叙事逻辑。在技术上，融合了算法，工程和数据，需要良好的架构设计，总之这是一个无比性感且同时极具挑战性的方向。&lt;/p&gt;
+
+&lt;h4 id=&quot;个人内容创作&quot;&gt;个人内容创作&lt;/h4&gt;
+
+&lt;p&gt;ai写的文章，从笔者之前能够一眼看出来到现在有时读到最后才发现署名是ai，也就几个月的时间而已，当然今天ai做的页面，还是能够一眼看出，但是距离看不出来的时刻，相信没有多久了。&lt;/p&gt;
+
+&lt;p&gt;笔者的&lt;a href=&quot;http://www.zhpmatrix.site/agent/%E5%AF%B9%E8%AF%9D%E7%B3%BB%E7%BB%9F/2025/09/14/memory/&quot;&gt;《AI记忆系统的技术演进与设计哲学》&lt;/a&gt;中，前半部分是ai辅助完成的，后半部分是笔者自己码字的，区别其实很明显。&lt;/p&gt;
+
+&lt;p&gt;这样的话，个人内容创作的意义在哪里？没有ai写的快，更没有ai写的好。但是可以比ai更有温度。&lt;/p&gt;
+
+&lt;p&gt;这件事要回归到一个基本的问题：你为什么还在写文字？笔者自身写blog的过程，其实是一种辅助思考的过程，一种学习的过程，一种传达个人观点的过程。收益主体首先是写作者自身，其次才是他人。因此可能ai写的比笔者要好，但是没了目的本身，手段是没有任何意义的。同时自己去码字，可以回归到人之所以为人这个问题。人机协作中，要看谁的weight更大。&lt;/p&gt;
+
+&lt;p&gt;在今天打开电商应用，电商平台的宝贝图片，小红书的笔记，公众号的文章等可能已经充斥了大量的ai创作的内容。从供需视角来看，这种范式还是旧有模式，知识分为离线生产和在线消费。实际上ai作为生产力工具，生产和消费的距离被大大地缩短了，可以实现内容的个性化即时生产和消费。这种改变不仅会影响seo到geo的变化，同时在其他方面有影响，带来各种“生成式XXX”。&lt;/p&gt;
+
+&lt;p&gt;从内容创新到使用创新工具带来内容生产，从直接生产到间接生产，用户付费的是内容，并不为生产工具付费，这个基本面并没有发生改变。笔者有些许担忧，但是新的内容生产闭环并没有大规模跑通，利弊尚不清晰。电脑写出来的诗是不是并不如毛笔写的千古绝唱？&lt;/p&gt;
+
+&lt;h4 id=&quot;科技自媒体&quot;&gt;科技自媒体&lt;/h4&gt;
+
+&lt;p&gt;本轮ai的潮流中，科技自媒体，KOL等对于信息的分发发挥着重要的作用。linkloud沙龙中提到科技自媒体的报价都是平常的3倍之多。在上一波ai潮流中，机器之心/量子位/新智元作为三位头部，在本轮中依然保持这个态势，不过本轮的竞争者显然更多，B站/公众号/X/小红书上活跃着太多的科技自媒体。&lt;/p&gt;
+
+&lt;p&gt;一会儿这个产品牛逼，一会儿那个模型火了。KOL的传播似乎对于产品的影响力扩展越来越重要，什么是流行，什么是火？如果某个火的KOL带了这个货，那么这个就是火的。冷启动有各种方式，但是最终行不行还是要回归到留存上。2025年的今天，不要arr，要留存。&lt;/p&gt;
+
+&lt;h4 id=&quot;供给需求的天平倾斜&quot;&gt;供给&amp;amp;需求的天平倾斜&lt;/h4&gt;
+
+&lt;p&gt;因为相信，所以看见。这句话在构建基于LLM能力的产品时的含金量还在上升。如果足够的相信LLM的能力，那么就会在构建过程中持续迭代，否则可能就浅尝辄止。写提示词并不是一件很容易的事情，除非要解决的问题本身就很简单，如果要解决的问题本身就很简单，不需要LLM大概率也能搞定。笔者在过去几个月的实践中，无数次被证明“不是模型不行，是我不行”的事实。&lt;/p&gt;
+
+&lt;p&gt;nano banana pro的推出进一步证明大模型生图能力的显著提升。&lt;/p&gt;
+
+&lt;p&gt;所以，无论是sonnet 4.5/deepseek-v3.2等，还是其他基础模型，笔者认为已经到了真正ready的状态，也就是说供给侧已经足够给力，锤子足够的好用。接下来的问题是如何更好地使用锤子解决真实的需求？&lt;/p&gt;
+
+&lt;p&gt;经济下行趋势下，新的突破口在哪里？哪里有真实的需求？这些问题的求解似乎也正在变得更加困难。生成白板图，写一个还算好笑的笑话，自动做一些小的app等，还不足以发挥锤子更大的严肃价值。医生问诊，财税咨询这些严肃场景下的需求是真实存在的，但是还需要一段时间的死磕。在追求PMF的同时，技术和需求的匹配也是一个重要的问题。否则容易陷入一种什么都可以做的想象中，或者做一些并不需要的app，写一些并没有什么意义的文字，画一些并不有趣的图等。&lt;/p&gt;
+
+&lt;h4 id=&quot;知识工作者的下一步&quot;&gt;知识工作者的下一步&lt;/h4&gt;
+
+&lt;p&gt;ai似乎做了并不是人类最开始想让他们做的事情，反而在创意，知识密集型方向做的越来越好～
+税务咨询师，码农，设计师等是否没有未来了？这个问题太复杂了，以至于只能给一个直觉性的问答，也许并不是。&lt;/p&gt;
+
+&lt;p&gt;ai是生产力工具，提升的是生产效率，包括速度和质量。从为结果付费的角度，只有速度只会加剧对效率的追求，也就是更卷而已。如果同时能够兼具质量，如果质量等同人类，那么会依然朝着卷的方向去。如果质量优于人类，只会更卷。&lt;/p&gt;
+
+&lt;p&gt;职能的边界会越来越模糊。产品能够从PRD到demo开发一条龙完成，算法也能够去开发前后端，胆战心惊的前端并不需要担忧gemini超牛的前端开发能力，因为你可以利用gemini做后端的工作了。这个时候真正的挑战是，能否从职能受限的视角跳出来，做一些不一样的事情。&lt;/p&gt;
+
+&lt;p&gt;低端的设计开发工作，确实已经通过ai coding类的工具很好的完成，对于这部分职能的需求是肉眼可见的减少。由于ai coding类工具的乘法效应，导致研发职能两端的两极分化会越来越严重。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://www.zhpmatrix.site/about/&quot;&gt;扫码加笔者好友&lt;/a&gt;，茶已备好，等你来聊~&lt;/strong&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 23 Nov 2025 19:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2025/11/23/thoughts-about-ai/</link>
+        <guid isPermaLink="true">http://localhost:4000/2025/11/23/thoughts-about-ai/</guid>
+        
+        <category>技术杂文</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>追忆系统架构设计师考试历程</title>
+        <description>&lt;p&gt;踏出考场大门，天空阴沉沉的，淅淅沥沥地下着雨。&lt;/p&gt;
+
+&lt;p&gt;这是第二次参加系统架构师考试了，第一次考试匆匆忙忙参加，以论文差三分结束，系统架构师的通过率也通常只在10%～15%之间，而且在逐年增加难度。这次考试，案例题比较难，能否通过大概率由案例题决定。&lt;/p&gt;
+
+&lt;p&gt;借此回顾一下笔者作为算法工程师的系统架构师考试历程。系统架构师的考试内容分为三个部分，分别是综合知识，案例分析和论文。其中综合知识基本是计算机本科专业的内容基础上，强化软件工程中软件架构部分的内容，包括操作系统，计算机组成原理和体系结构，网络，安全，数据库设计，软件工程等。案例分析主要包括软件质量属性，WEB，嵌入式，数据库等，论文主要是根据一个自己的项目，阐述一个具体的软件架构知识点是如何应用的。&lt;/p&gt;
+
+&lt;p&gt;笔者处于自己的兴趣，想借此机会系统梳理软件架构的相关知识，但是经历整个过程下来，发现对于自己实际架构水平的提升帮助非常有限，但是还是收获了一些有价值的认知。&lt;/p&gt;
+
+&lt;p&gt;在架构设计实践知识中，讨论了信息系统架构，层次式架构，云原生，SOA，通信系统，安全和大数据架构等具体的架构设计理论和实践。作为一个算法工程师，层次式，云原生和大数据架构都是非常有用的。&lt;/p&gt;
+
+&lt;p&gt;比如算法服务的部署，通常基于k8s架构进行分布式容器化的部署，在本次考试的论文题中，笔者就结合自己的项目重点阐述了这个知识点的内容。大数据架构中的lambda和kappa架构，同时也是现在多数公司大数据平台的底层架构模式。&lt;/p&gt;
+
+&lt;p&gt;由于笔者对全栈能力比较关注，围绕WEB相关的设计也比较有意思。比如在后端架构设计中，经常讨论的话题是&lt;a href=&quot;https://haobin.work/2021/10/18/%E6%9E%B6%E6%9E%84%E6%BA%90%E7%A0%81/MySQL%E4%B8%8E%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98/&quot;&gt;MySQL和Redis在多线程场景下的数据一致性问题&lt;/a&gt;,大部分情况下，只要使用了缓存，就必然会有不一致的情况出现，只是说这个不一致的时间窗口是否能做到足够的小。有些不合理的设计可能会导致数据持续不一致，这是我们需要改善设计去避免的。一个比较经典的WEB系统架构如下所示:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/web.png&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;其中包括一个WEB系统设计的经典组件，包括负载均衡，缓存，主从库，读写分类等。在笔者本次的考试中，论文的题目是针对一个“秒杀”系统，设计限流，缓存，动静，扩容等技术。&lt;/p&gt;
+
+&lt;p&gt;围绕软件架构，质量属性效用树，七种软件架构风格（数据流/调用-返回/独立构件/虚拟机/仓库/闭环/C2），设计模式，UML图都是相对比较实用的技术。在实际的考察过程中，也会考到面向领域建模，领域分析等内容，考试中的“限界上下文”实际上并不知道什么意思，所以DDD的哲学也在系统架构考察的范畴中。&lt;/p&gt;
+
+&lt;p&gt;我的论文模版如下，但是在本次考试中实际并没有用到，现场考试是针对自己负责的一个财税咨询对话项目进行讨论的。&lt;/p&gt;
+
+&lt;p&gt;摘要:2023年3月，&lt;strong&gt;我主持&lt;/strong&gt;了上海某头部三甲医院感染科的面向发热病人的大模型增强的辅助问诊项目，并担任项目的系统架构设计师，负责系统架构设计工作。该系统主要包括&lt;strong&gt;询问推荐，诊疗建议&lt;/strong&gt;和&lt;strong&gt;病历生成&lt;/strong&gt;三个主要功能模块，问诊过程中通过实时分析医生和患者的对话，给出医生下一个要询问的问题，同时给出诊疗建议，包含检查检验和用药等，问诊结束后自动生成门诊病历。该项目总投入300万人民币，历时9个月，于2023年12月正式交付运行至今，受到了客户的一致好评。&lt;strong&gt;本文结合我的实际工作经验就该项目的&lt;/strong&gt;&lt;strong&gt;__&lt;/strong&gt;_（根据不同论文题目去概括本文内容，说明本文结构）。（时间+项目+项目简介+投入+历时+成功交付客户好评+结合具体项目说明本文结构）&lt;/p&gt;
+
+&lt;p&gt;背景:发热病人的疾病诱因非常多，在问诊过程中由于&lt;strong&gt;低年资&lt;/strong&gt;的医生医学水平尚不够成熟，因此存在&lt;strong&gt;漏诊和误诊&lt;/strong&gt;的问题。同时我国&lt;strong&gt;高水平&lt;/strong&gt;医生资源紧张，通过辅助问诊的方式降低对高年资医生的依赖，同时提升医生问诊的效率就成为一个迫切需要解决的问题。&lt;strong&gt;大模型&lt;/strong&gt;的发展为辅助问诊的真正落地提供了强大的技术加持。为此，上海某头部三甲医院感染科牵头拟&lt;strong&gt;联合高校和企业&lt;/strong&gt;共同推动该问题的解决。（为什么要做这个项目？）&lt;/p&gt;
+
+&lt;p&gt;我所在的公司在公开招标中成功中标，并于2023年3月份正式启动该项目的建设工作，我被任命为该项目的系统架构设计师，负责系统架构设计工作。该项目总投入300万人民币，建设周期从2023年的3月份到2023年的12月份，历时9个月。项目的主要建设内容包括三大模块：第一，询问推荐。通过将医生和患者的对话语音转化为文本，并对对话文本做结构化分析，提取对话过程中的疾病和症状等信息，融合&lt;strong&gt;医疗知识图谱的推理内容&lt;/strong&gt;，利用大模型通过精巧的提示词设计产生询问推荐；第二，诊疗建议。基于对话内容分析，利用&lt;strong&gt;内部检索到的发热相关知识文本&lt;/strong&gt;以及&lt;strong&gt;外部检索得到的网页结果&lt;/strong&gt;，利用大模型整合上述文本产生包含鉴别诊断，检查检验，用药等诊疗建议，用于辅助决策支持。第三，门诊病历生成。在对话结束之后，利用整个对话过程中的对话结构化分析结果，以及最后一轮的诊疗建议结果，直接利用大模型按照科室模版生成对应的门诊病历。（项目功能和技术介绍）&lt;/p&gt;
+
+&lt;p&gt;过渡:&lt;strong&gt;__&lt;/strong&gt;&lt;strong&gt;__&lt;/strong&gt;&lt;strong&gt;__&lt;/strong&gt;&lt;strong&gt;__&lt;/strong&gt;（过渡段，需要回应子题目并引出正文）&lt;/p&gt;
+
+&lt;p&gt;正文:正面回答题目内容，总分结构，逻辑性。（&lt;strong&gt;举出具体的例子进行分析&lt;/strong&gt;）&lt;/p&gt;
+
+&lt;p&gt;收尾:经过9个月的项目开发，该项目顺利在科室上线并投入使用，运行至今客户反馈良好。该项目&lt;strong&gt;由于性能要求高，技术实现难度高，涉及角色多&lt;/strong&gt;等原因，建设过程中困难重重。但由于笔者以及项目成员十分重视项目建设过程中_______(回应具体论文题目)，最终保证了该项目能够按时保质保量交付。当然，在本项目中还有一些不足之处，比如：&lt;strong&gt;__&lt;/strong&gt;(小问题，不要大问题)，&lt;strong&gt;不过经过我后期的纠偏，并没有对项目产生什么影响&lt;/strong&gt;。在后续的学习和工作中，我将不断的充电学习，和同行进行交流，提升自己的专业技术水平，更好的完成系统架构设计的工作。&lt;/p&gt;
+
+&lt;p&gt;强调项目顺利交付且运行良好+自己的收获或者不足之处+心得体会）&lt;/p&gt;
+
+&lt;p&gt;整体上如果想要通过系统架构师考试提升自己的架构水平，可能效果会比较有限，具体能力的提升还是需要在实战中不断地思考和积累。但是通过系统架构师考试，一方面可以巩固和复习计算机专业的基础知识，另一方面建立一个系统架构的整体思维框架，保证在遇到具体的架构问题时，都能在这个思维地图中找到问题所在的位置。&lt;/p&gt;
+
+&lt;p&gt;另外一方面，在笔者去年写的&lt;a href=&quot;http://www.zhpmatrix.site/2024/09/07/ai-tax-search/&quot;&gt;一次面向垂域搜索系统的实践与思考
+&lt;/a&gt;和&lt;a href=&quot;http://www.zhpmatrix.site/2025/04/21/taskbot-tech-design/&quot;&gt;财税咨询系统的架构思考&lt;/a&gt;中提到，好的架构一定是和业务高度适配的，并且是演化出来的，因为业务自身也在进化。系统架构的知识体系中的架构知识提供的是一个宏观视角，具体习得要在实战中沉淀和积累。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://www.zhpmatrix.site/about/&quot;&gt;扫码加笔者好友&lt;/a&gt;，茶已备好，等你来聊~&lt;/strong&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 08 Nov 2025 19:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2025/11/08/system-arch/</link>
+        <guid isPermaLink="true">http://localhost:4000/2025/11/08/system-arch/</guid>
+        
+        <category>架构设计</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>财税垂域模型微调的数据合成方法预研</title>
+        <description>&lt;h4 id=&quot;前言&quot;&gt;前言&lt;/h4&gt;
+
+&lt;p&gt;在《On LLMs-Driven Synthetic Data Generation, Curation, and Evaluation: A Survey》中，将数据合成分为三个阶段，分别是Generation-&amp;gt;Curation-&amp;gt;Evaluation。笔者最近参与一个模型微调的事情，故在这里梳理一下可能的数据合成方法。&lt;/p&gt;
+
+&lt;p&gt;由于财税是一个垂直专业领域，同时是强知识依赖的，所以knowledge grounded是一件非常重要的事情。其中knowledge的形式可以是非结构化的文本，也可以是结构化的知识图谱等。&lt;/p&gt;
+
+&lt;h4 id=&quot;fin-r1-a-large-language-model-for-financial-reasoning-through-reinforcement-learning&quot;&gt;《Fin-R1: A Large Language Model for Financial Reasoning through Reinforcement Learning》&lt;/h4&gt;
+
+&lt;p&gt;该工作是上海财经大学和财跃星辰共同完成，&lt;a href=&quot;https://github.com/SUFE-AIFLM-Lab/Fin-R1&quot;&gt;Fin-R1&lt;/a&gt;的数据构建思路是基于学术多项选择题，采用蒸馏DeepSeek-R1，对生成的思考过程和答案进行双重校验。&lt;/p&gt;
+
+&lt;p&gt;基于构建的数据, 经过sft+rl的7B的模型在效果上优于70B的模型，不过最终效果还是距离DeepSeek-R1有较远的距离。具体实验结果如下所示:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/fin_r1.png&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;reasonmed-a-370k-multi-agent-generated-dataset-for-advancing-medical-reasoning&quot;&gt;《ReasonMed-A 370K Multi-Agent Generated Dataset for Advancing Medical Reasoning》&lt;/h4&gt;
+
+&lt;p&gt;这篇文章是EMNLP2025的高分文章，主要内容是构建了一个ReasonMed的大规模数据集。相比上边的工作，ReasonMed的数据集的构建流程更加地细致，也就是数据curation的过程更加地精细。&lt;/p&gt;
+
+&lt;p&gt;基于7B模型的sft的微调，效果优于70B的模型，并没有rl的过程。&lt;/p&gt;
+
+&lt;h4 id=&quot;夸克健康大模型&quot;&gt;&lt;a href=&quot;https://arxiv.org/abs/2508.11894&quot;&gt;夸克健康大模型&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;夸克健康大模型的数据处理流程如下所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/kuake_sft.png&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;主要分为以下几个阶段，分别如下：&lt;/p&gt;
+
+&lt;p&gt;(1) 数据采样阶段。采集线上搜索日志中的query。&lt;/p&gt;
+
+&lt;p&gt;(2) 医疗知识grounded生成。根据采样的query，获取搜索引擎返回的相关搜索结果。&lt;/p&gt;
+
+&lt;p&gt;(3) 候选答案生成。&lt;/p&gt;
+
+&lt;p&gt;(4) 人类专家的数据验证。&lt;/p&gt;
+
+&lt;p&gt;(5) 基于规则的数据标注。对于人类专家的结果，利用规则进行验证。&lt;/p&gt;
+
+&lt;h4 id=&quot;baichuan-m2&quot;&gt;Baichuan-M2&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.baichuan-ai.com/blog/baichuan-M2&quot;&gt;Baichuan-M2&lt;/a&gt;的整体训练流程分为三个阶段，分别是mid-training,supervised fine-tuning和reinforcement learning, 具体如下所示:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/baichuan_m2.png&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;亮点在于verifier系统的构建，如下:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/baichuan_m2_verifier.png&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;通过患者模拟器，可以动态持续地生成对话数据，通过clinical rubrics generator，可以动态持续地对对话进行打分形成reward，由此形成了一个闭环系统。&lt;/p&gt;
+
+&lt;p&gt;在财税咨询对话系统中，如果只用海量的真实咨询对话数据去构建类似的系统，是否可以work？答案也许是否定的。财税对话系统中存在知识依赖和推理依赖，如果没有将二者以显性的方式告诉模型，除非模型自身具备垂直知识和相关推理能力（无法验证），否则模型大概率无法学到正确的咨询能力。&lt;/p&gt;
+
+&lt;p&gt;但是通过将对话生产的过程实现自主可控，就可以在构建对话的时候，实现知识和能力的即时注入。&lt;/p&gt;
+
+&lt;p&gt;在&lt;a href=&quot;https://mp.weixin.qq.com/s/_-iS3sUeWu1hrgHnpzwYtw?version=4.1.31.99548&amp;amp;platform=mac&quot;&gt;Baichuan-M2 plus&lt;/a&gt;中，提出知识侧的“六源”，自底向上分别是研究(事实是否存在？)，综述（结论是否一致？），指南（行业如何规范？），实践（医生如何决策？），教育（患者如何理解？）和反馈（是否存在新的风险？）。检索侧采用PICO框架，在“六源”中进行分层检索。最后利用模型的能力实现循证推理，特色能力包括如下:&lt;/p&gt;
+
+&lt;p&gt;(1) 奖励引用，惩罚臆测&lt;/p&gt;
+
+&lt;p&gt;(2) 内置证据评估器，嵌入在推理链中&lt;/p&gt;
+
+&lt;p&gt;(3) 句句有据，可回溯，可验证&lt;/p&gt;
+
+&lt;p&gt;基于Baichuan-M2，plus的到底是什么？笔者理解包括如下：&lt;/p&gt;
+
+&lt;p&gt;（1）六源知识体系的搭建。无论是模型还是应用都会有所依赖&lt;/p&gt;
+
+&lt;p&gt;（2）RL阶段引入上述（2）和（3）特性的reward&lt;/p&gt;
+
+&lt;p&gt;（3）PICO以及检索的引入&lt;/p&gt;
+
+&lt;h4 id=&quot;tongyi-deepresearch的数据合成方法&quot;&gt;tongyi-deepresearch的数据合成方法&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/training_pipeline_of_tongyi_deepresearch.png&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;mid training的两个重要操作：&lt;/p&gt;
+
+&lt;p&gt;（1）32K-&amp;gt;128K的两阶段训练。通过这种方式可以强化模型的coherent，long-horizon reasoning和action的能力&lt;/p&gt;
+
+&lt;p&gt;（2）训练时增加小比例的通用预训练数据，保证模型在获取专用的agentic能力的同时，不牺牲基础通用能力&lt;/p&gt;
+
+&lt;p&gt;该阶段的数据合成流程如下:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/large_scale_agent_behavior_data_synthesis.png&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;post training阶段主要包括数据合成，监督微调用于冷启动，agentic RL。&lt;/p&gt;
+
+&lt;p&gt;其中数据合成的方法依赖如下:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The process begins by constructing a highly
+interconnected knowledge graph via random walks, leveraging web search to acquire relevant knowledge,
+and isomorphic tables from real-world websites, ensuring a realistic information structure.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;完整的agentic RL框架如下所示:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/an_overview_of_rl_framework.png&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;这个图大概率是一个工程能力挺好的同学画的。😊&lt;/em&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;个人思考&quot;&gt;个人思考&lt;/h4&gt;
+
+&lt;p&gt;监督学习场景下，模型训练的过程是引入bias的过程，而数据是bias的来源。在knowledge grounded场景中，由于knowledge的来源和种类非常多，因此如何利用knowledge进行数据合成就是一个重要的问题。&lt;/p&gt;
+
+&lt;p&gt;知识密集型垂域，几乎所有的挑战都会收敛到：&lt;strong&gt;需要知识吗？知识是什么？知识怎么组织？知识怎么利用？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;sft范式下，data决定了模型的上限；rl的范式下，似乎有更大的想象力空间。&lt;/p&gt;
+
+&lt;p&gt;笔者问DeepSeek，“从控制论和信息论角度解释数据合成的必要性？”，DeepSeek给出的回答如下，以飨读者。&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;将两者结合，我们可以得到一个统一的图景：从“知”（信息论）的角度，数据合成是为了对抗信息熵，用先验知识填补认知空白，为模型提供更丰富、更纯净的信息源，使其能够学习到数据本质的、泛化的规律，从而降低在未知世界中的不确定性。从“行”（控制论）的角度，数据合成是为了主动构建一个具有足够多样性的训练环境，使模型（控制器）能够具备应对真实世界复杂性和长尾案例的必要能力，并能够在安全、高效的环境中通过模拟和预测来优化其行为策略。因此，数据合成远非简单的数据扩充技巧，而是在信息受限和环境复杂的双重约束下，使人工智能系统能够有效“认知”和“行动”的核心工程哲学与必要技术手段。&lt;/em&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;相关资料&quot;&gt;相关资料&lt;/h4&gt;
+
+&lt;p&gt;(1)&lt;a href=&quot;https://arxiv.org/pdf/2510.24701&quot;&gt;《Tongyi DeepResearch Technical Report》&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;(2)&lt;a href=&quot;https://arxiv.org/abs/2406.15126&quot;&gt;《On LLMs-Driven Synthetic Data Generation, Curation, and Evaluation: A Survey》&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://www.zhpmatrix.site/about/&quot;&gt;扫码加笔者好友&lt;/a&gt;，茶已备好，等你来聊~&lt;/strong&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 06 Nov 2025 19:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2025/11/06/data-synthetic/</link>
+        <guid isPermaLink="true">http://localhost:4000/2025/11/06/data-synthetic/</guid>
+        
+        <category>LLM</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>财税版DeepResearch的构建实践</title>
+        <description>&lt;h4 id=&quot;前言&quot;&gt;前言&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/horse_car.webp&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;马拉火车做为开篇大图，以启发读者和笔者的思考。&lt;/p&gt;
+
+&lt;h4 id=&quot;agent架构设计&quot;&gt;Agent架构设计&lt;/h4&gt;
+
+&lt;p&gt;在过去的一段时间，业界对于agent几乎从未形成一个定义。从技术实现的角度来看，Agent是LLM is in a loop.虽然如此，从Lilian Weng的blog中的这张图开始，多数情况下还是能够形成些许共识。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://lilianweng.github.io/posts/2023-06-23-agent/agent-overview.png&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;agent设计模式&quot;&gt;Agent设计模式&lt;/h4&gt;
+
+&lt;p&gt;Antonio Gulli(Google Cloud, CTO)的新书&lt;a href=&quot;https://github.com/ginobefun/agentic-design-patterns-cn&quot;&gt;《Agentic Design Patterns: A Hands-On Guide to Building Intelligent Systems》&lt;/a&gt;中对智能体设计模式做了整体梳理，如下所示。&lt;/p&gt;
+
+&lt;h5 id=&quot;提示链&quot;&gt;提示链&lt;/h5&gt;
+
+&lt;p&gt;提示链是通过提示词构建一个pipeline进行任务处理。本质上是workflow的范畴，不过在pipeline的各个环节是通过提示词实现的。优点是可控，独立优化和部署，缺点是存在错误传递的可能。也是比较常用的一种设计模式。&lt;/p&gt;
+
+&lt;h5 id=&quot;路由&quot;&gt;路由&lt;/h5&gt;
+
+&lt;p&gt;通过路由层实现意图分发，分发至子智能体，工具链，人工(追问&amp;amp;拒识)。具体的实现方式可以是大模型，向量，规则和传统机器学习模型。&lt;/p&gt;
+
+&lt;h5 id=&quot;并行&quot;&gt;并行&lt;/h5&gt;
+
+&lt;p&gt;通过异步通信，多线程和多进程的方式，将构建的agent进行架构调优，实现并行化，减少总体等待时间。&lt;/p&gt;
+
+&lt;h5 id=&quot;反思&quot;&gt;反思&lt;/h5&gt;
+
+&lt;p&gt;引入反思模式可以构建包含反馈循环的智能体工作流。实现方式包括通过单个智能体，或者两个智能体。通常后者通过职责分离模式，能够产生更稳健，更客观的结果。&lt;/p&gt;
+
+&lt;h5 id=&quot;工具使用&quot;&gt;工具使用&lt;/h5&gt;
+
+&lt;p&gt;function calling的能力是连接大模型的推理能力和外部工具的技术桥梁。通过需要工具定义，工具调度，工具执行，工具结果获取和反馈。其中工具的类型包括外部API，数据库访问，服务交互，代码执行，搜索工具等。&lt;/p&gt;
+
+&lt;p&gt;常用的工具包括命令执行(含Python执行)，文件读写，搜索，浏览器，已经能够覆盖绝大多数场景，网传Manus的工具有29种。&lt;/p&gt;
+
+&lt;h5 id=&quot;规划&quot;&gt;规划&lt;/h5&gt;
+
+&lt;p&gt;规划是指在完成一个目标的时候，根据目标进行执行步骤的拆解，形成一个执行计划。比如大模型的Think模式，显式的任务安排(旅行计划)，DeepResearch，Claude Code的执行计划，Manus作为通用智能体的TODO设计等。&lt;/p&gt;
+
+&lt;p&gt;通过规划，可以实现大模型推理过程的显性化，必要的时候可以引入人类参与的干预。同时也提供了一种模型完成任务时的工作流拆解方式，且这种拆解是模型自发的行为。因此，对模型和人，都是一个比较好的设计模式。&lt;/p&gt;
+
+&lt;h5 id=&quot;多智能体协作&quot;&gt;多智能体协作&lt;/h5&gt;
+
+&lt;p&gt;多智能体是一种通用的设计模式，基于任务分解原则，可以将高层目标拆解为多个子问题，每个子问题可以有各自的智能体进行问题解决。本质是一种群体智能的实现方式，相比单体架构，在模块化，可扩展性和鲁棒性上表现的更好。&lt;/p&gt;
+
+&lt;p&gt;协作的方式包括但不限于顺序交接，并行处理，辩论和共识，层级结构(类比管理结构)，专家团队和评审者模式。&lt;/p&gt;
+
+&lt;h5 id=&quot;记忆&quot;&gt;记忆&lt;/h5&gt;
+
+&lt;p&gt;记忆分为短期记忆和长期记忆。在&lt;a href=&quot;https://zhpmatrix.github.io/%E5%AF%B9%E8%AF%9D%E7%B3%BB%E7%BB%9F/2025/09/14/memory/&quot;&gt;AI记忆系统的技术演进与设计哲学&lt;/a&gt;中有更详细的描述。&lt;/p&gt;
+
+&lt;h5 id=&quot;mcp&quot;&gt;MCP&lt;/h5&gt;
+
+&lt;p&gt;一种通用连接机制，建立大模型和周围环境的标准通信协议。可以认为是工具函数调用能力的进一步标准化。&lt;/p&gt;
+
+&lt;h5 id=&quot;目标设定和监控&quot;&gt;目标设定和监控&lt;/h5&gt;
+
+&lt;p&gt;针对目标实现过程的监控，并根据监控进行反馈的模式。&lt;/p&gt;
+
+&lt;h5 id=&quot;人机协同&quot;&gt;人机协同&lt;/h5&gt;
+
+&lt;p&gt;必要的时候，决策交给人类。&lt;/p&gt;
+
+&lt;h5 id=&quot;rag&quot;&gt;RAG&lt;/h5&gt;
+
+&lt;p&gt;获取实时，可验证的数据上。&lt;/p&gt;
+
+&lt;h5 id=&quot;a2a&quot;&gt;A2A&lt;/h5&gt;
+
+&lt;p&gt;MCP侧重于智能体和外部数据以及工具的交互，A2A侧重于智能体之间的协调和通信。涉及的交互机制包括同步请求/响应，异步轮询，流式更新和推送通知。&lt;/p&gt;
+
+&lt;h5 id=&quot;资源感知优化&quot;&gt;资源感知优化&lt;/h5&gt;
+
+&lt;p&gt;系统在设计过程中关注计算，时间和财务资源。比如大小模型的融合，超过资源预算自动终止，时间优先或者效果优先等&lt;/p&gt;
+
+&lt;h5 id=&quot;推理技术&quot;&gt;推理技术&lt;/h5&gt;
+
+&lt;p&gt;包括CoT，ReAct，DeepResearch等。在&lt;a href=&quot;https://github.com/ginobefun/agentic-design-patterns-cn/blob/main/23-Chapter-17-Reasoning-Techniques.md&quot;&gt;书中的第17章&lt;/a&gt;给了相对全面的描述。&lt;/p&gt;
+
+&lt;h5 id=&quot;评估和监控&quot;&gt;评估和监控&lt;/h5&gt;
+
+&lt;p&gt;智能体系统的可观测性实现。&lt;/p&gt;
+
+&lt;h5 id=&quot;优先级排序&quot;&gt;优先级排序&lt;/h5&gt;
+
+&lt;p&gt;包括智能体运行过程中的目标排序，动作排序等。&lt;/p&gt;
+
+&lt;h5 id=&quot;探索和发现&quot;&gt;探索和发现&lt;/h5&gt;
+
+&lt;p&gt;并非所有的解决方案都是可以预定义的，该模式允许智能体系统能够主动寻找新的信息，发现新的可能性。典型的应用场景如科学研究。在OpenAI定义的5层AI水平分类中，居于Agent之上的层次。&lt;/p&gt;
+
+&lt;h4 id=&quot;财税版deepresearch&quot;&gt;财税版DeepResearch&lt;/h4&gt;
+
+&lt;h5 id=&quot;技术方案&quot;&gt;技术方案&lt;/h5&gt;
+
+&lt;p&gt;针对财税实务咨询中的问题，也许可以参考法律中的三段论思想进行解决，相关工作在法律领域已经有诸多的实践。恰逢做这个工作的时候，tongyi-deep-research模型发布，文章中称效果比OpenAI的deepresearch要好。&lt;/p&gt;
+
+&lt;p&gt;deepresearch的架构包含四种，分别是中心式的架构，pipeline的架构，multi-agent的架构以及混合架构。tongyi-deep-research是基于一个中心化的agentic模型实现全流程的自主运行。基于财税领域的具体问题适配之后的架构如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/DeepResearch-TaxDeepResearch-V0.2.drawio.png&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;考虑到可控性，在快速尝试了上述实现方式之后，构建了一个pipeline的架构，如下:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/DeepResearch-TaxDeepResearch-V0.1.drawio.png&quot; width=&quot;500&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;实测后者的效果显著优于前者。&lt;/p&gt;
+
+&lt;h5 id=&quot;反思-1&quot;&gt;反思&lt;/h5&gt;
+
+&lt;p&gt;现实的构建途径如下：&lt;/p&gt;
+
+&lt;p&gt;（1）agentic model&lt;/p&gt;
+
+&lt;p&gt;（2）基于ReAct的多个提示词&lt;/p&gt;
+
+&lt;p&gt;（3）考虑multi-agent。将裁判器做为一个独立的agent&lt;/p&gt;
+
+&lt;p&gt;（4）不考虑微调&lt;/p&gt;
+
+&lt;p&gt;理想的构建途径如下：&lt;/p&gt;
+
+&lt;p&gt;（1）单个提示词执行三段论&lt;/p&gt;
+
+&lt;p&gt;（2）基于ReAct的多个提示词&lt;/p&gt;
+
+&lt;p&gt;（3）multi-agent&lt;/p&gt;
+
+&lt;p&gt;（4）&lt;a href=&quot;https://mp.weixin.qq.com/s/l0KZ-BdR20zWnEyaXPIvWw&quot;&gt;部分环节对应模块的微调&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;经验总结&quot;&gt;经验总结&lt;/h4&gt;
+
+&lt;p&gt;结合&lt;a href=&quot;https://mp.weixin.qq.com/s/u6F93L0sCfR-rjqBSJi3lQ&quot;&gt;《如何让Agent更符合预期？》&lt;/a&gt;以及自身构建Agent的经验进行讨论如下。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;预期清晰化&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;没有清晰的预期，写不出清晰的指令，更没有清晰的衡量标准。其中的难点是在财税垂直领域，存在有些预期是无法准确并清晰化的描述的，同时需要清晰化描述的概念过多。一种解决方案是能够描述的尽可能描述，另外一种方案是通过搜索的方案绕过需要描述的情况。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;上下文精准化&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;只给模型需要的上下文，不能少给，也不能多给。其中的问题在于：部分情况下，是无法知道模型需要什么样的上下文。如果少给，会寄希望于模型内部能够补全缺失的上下文；如果多给，寄希望于模型能够通过自动化的筛选，选择必要的上下文内容。&lt;/p&gt;
+
+&lt;p&gt;精准化的本质是通过人类完成对上下文的预处理。这里有较多非常实用的技术：context offloading/reducing context(可逆的压缩和不可逆的总结)/retrieving context/context isolation/caching context等&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;三方角色不清晰导致模型错乱&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;避免轻易删除或者篡改模型完整的探索历史，包括未被采纳的错误常识。在AI Coding工具的产品设计中，会保留一个对话的tag作为模型的记忆，记忆的问题在笔者的关于&lt;a href=&quot;https://zhpmatrix.github.io/2025/06/23/taskbot-last-question/&quot;&gt;最后一句抽取的文章&lt;/a&gt;中也有探讨，并非轻易作出选择。如果可能的话，尽可能保留完整对话上下文，同时对角色有所清晰的区分和标识。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;采用形式化的表达逻辑&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在提示词中，采用形式化的表达逻辑，更加严密且适合模型去理解。比如用json形式表达一个流程步骤的处理逻辑。在要素抽取这个任务中，提示词中描述了很多if…then…的逻辑，相比采用自然语言的表达方式，直接采用if…then…的表达效果更好。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;自定义工具协议&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在作者的实践中，发现自定义的工具协议效果优于标准协议，给了一个基本的猜测如下:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;模型在为通用协议进行训练时，其思考和调用逻辑相对收到了训练数据的影响和固化。当你的领域化需求遇上它的内在逻辑时，它会默认按照训练语料中的方式去理解和调用，所以不会完全遵循你的指令。&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;成也few-shot，败也few-shot&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;单任务中善用few-shot，灵活的任务中慎用few-shot。在财税垂直领域的对话系统构建中，由于场景的灵活性，few-shot多数情况下没有发挥对应的价值。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;记忆管理避免模型遗忘&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;典型的方式包括重点信息增强提示，上下文压缩和外存。在笔者遇到的一个录音对话数据挖掘中，单个录音对话2个小时左右，大几万字的文本数据，在进行对话挖掘的时候，势必要进行长文本的处理。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;multi-agent实现可控性和灵活性&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;主agent进行调度决策，子agent进行固定，复杂流程的workflow的执行（比如规则引擎或者单个LLM）。类比，在大模型对话中，通过think进行planning，调用工具执行确定的动作，比如search等。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;人机结合&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;没有人是万万不行的。&lt;/p&gt;
+
+&lt;h4 id=&quot;个人思考&quot;&gt;个人思考&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;智能体系统的构建需要在算法，工程和数据之间进行良好的架构设计(关注架构)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;算法侧关心效果和速度，且效果&amp;gt;速度；工程侧关心任务完成率，要容错性高，稳定性好，同时吞吐能力强；针对系统运行过程中的数据，必要时具备海量数据处理的能力（Manus的海量数据处理场景）。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;为什么一定要做Agent？&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;提供了一种更加抽象和通用的系统构建方式，是生产工具的飞跃，带来了生产力的巨大提升。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;重组&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在前老板写的文章&lt;a href=&quot;https://mp.weixin.qq.com/s/498u66qtoww4r-LYpSBaAg&quot;&gt;《基于多Agent架构的新一代智能助理：重塑医疗信息化的“超级大脑”》&lt;/a&gt;中，可以看到AI如何和传统的业务中台和数据中台进行多方联动。在LLM之前，虽然我们也在讨论同样的问题，但是LLM之后，通过重组使得理想越来越接近现实。&lt;/p&gt;
+
+&lt;h4 id=&quot;相关资料&quot;&gt;相关资料&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzIzOTU0NTQ0MA==&amp;amp;mid=2247548559&amp;amp;idx=1&amp;amp;sn=d24620926ed3708125668a57ba4da06b&amp;amp;scene=21&amp;amp;poc_token=HMCxCWmjjOE7TAQ_QhnueIvM0cj4fPJue5Gx45yI&quot;&gt;为什么一定要做Agent？&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;文章中作者的思想是马拉火车是暂时的，火车最终还是会自己跑，同样长途走路，只是我们不再需要马车，而是火车。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzIzOTU0NTQ0MA==&amp;amp;mid=2247547559&amp;amp;idx=1&amp;amp;sn=e45051ae227c8356096cdef863465a24&amp;amp;scene=21&amp;amp;poc_token=HDa7CWmjH9goOievOy6BwNEeYwllPB_lBOtbzJQ7&quot;&gt;Manus的复现&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2402.01030&quot;&gt;《Executable Code Actions Elicit Better LLM Agents》&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;和claude code的产品设计哲学有一致之处，cli+code是天作之合。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://lilianweng.github.io/posts/2023-06-23-agent/&quot;&gt;LLM Powered Autonomous Agents&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s/tewBKHgbyrjxUjAOmkXI7A?s_channel=4&amp;amp;s_trans=4yOOhmCD9ZuFEQ7eIpqxrg%3D%3D_s&quot;&gt;从ChatGPT到AI Agent，一文讲透Agent的底层逻辑&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Manus团队的前同学写的文章，描绘了一个比较大的Agent逻辑。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s/_LlK7hK7vjKYxKJQPn6t8w&quot;&gt;LangChain联合Manus季逸超最新分享！也许当前最好的「上下文工程」讲解&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;给了很多关于context管理的具体技术建议。比较印象深刻的结论：相信模型的能力，不要过度的工程化。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;http://www.zhpmatrix.site/about/&quot;&gt;扫码加笔者好友&lt;/a&gt;，茶已备好，等你来聊~&lt;/strong&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 01 Nov 2025 19:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2025/11/01/tax-agent/</link>
+        <guid isPermaLink="true">http://localhost:4000/2025/11/01/tax-agent/</guid>
+        
+        <category>Agent</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>AI记忆系统的技术演进与设计哲学</title>
+        <description>&lt;h1 id=&quot;ai记忆系统的技术演进与设计哲学&quot;&gt;AI记忆系统的技术演进与设计哲学&lt;/h1&gt;
+
+&lt;p&gt;随着大语言模型在实际应用中的广泛部署，如何为AI助手构建有效的长期记忆系统已成为业界关注的核心议题。本文将深入分析当前主流AI记忆系统的技术架构、设计理念以及实现方案，探讨AI记忆技术的发展趋势。&lt;/p&gt;
+
+&lt;h2 id=&quot;chatgpt记忆系统苦涩教训的再次验证&quot;&gt;ChatGPT记忆系统：苦涩教训的再次验证&lt;/h2&gt;
+
+&lt;p&gt;ChatGPT的记忆系统体现了OpenAI的”苦涩教训”哲学——相信更强大的模型加上更多计算资源将淘汰复杂的工程技巧。&lt;/p&gt;
+
+&lt;h3 id=&quot;系统架构剖析&quot;&gt;系统架构剖析&lt;/h3&gt;
+
+&lt;p&gt;ChatGPT的记忆系统包含四个核心组件：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. 交互元数据（Interaction Metadata）&lt;/strong&gt;
+系统自动收集用户活动数据，包括设备信息（屏幕尺寸、像素比、浏览器/操作系统详情、明暗模式偏好）和使用模式（话题偏好、消息长度、对话深度、模型使用习惯、最近活动水平）。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2. 近期对话内容（Recent Conversation Content）&lt;/strong&gt;
+存储最近40次对话的历史记录，有趣的是只保存用户消息而不包含助手回复，可能是为了管理token限制和提高上下文相关性。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3. 模型设定上下文（Model Set Context）&lt;/strong&gt;
+用户可直接控制的显式记忆项，如过敏信息、偏好设置等。当记忆模块冲突时，该组件具有最高优先级。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4. 用户知识记忆（User Knowledge Memories）&lt;/strong&gt;
+最核心的创新组件——AI生成的密集摘要，将数百次对话压缩成详细的知识块。这些记忆既不在设置中可见，也不能直接编辑。&lt;/p&gt;
+
+&lt;h3 id=&quot;技术特点分析&quot;&gt;技术特点分析&lt;/h3&gt;
+
+&lt;p&gt;ChatGPT采用了”全包含”策略：每次对话都包含所有记忆组件，不使用检索系统、向量数据库或知识图谱。这种做法基于两个关键假设：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;模型智能足够处理无关上下文&lt;/strong&gt; - 当询问Python调试问题时，ChatGPT能自动忽略旅行计划等无关信息&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;上下文窗口成本将持续下降&lt;/strong&gt; - 包含所有记忆组件在今天看来昂贵，但随着成本下降将变得微不足道&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;技术优势：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;简化的架构设计，降低系统复杂度&lt;/li&gt;
+  &lt;li&gt;无需维护复杂的检索和索引系统&lt;/li&gt;
+  &lt;li&gt;利用大模型的推理能力实现智能过滤&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;潜在挑战：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Token使用量随记忆增长呈线性增加&lt;/li&gt;
+  &lt;li&gt;上下文噪声可能影响回复质量&lt;/li&gt;
+  &lt;li&gt;记忆冲突时的优先级处理机制有待完善&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;claude记忆系统工具化的设计哲学&quot;&gt;Claude记忆系统：工具化的设计哲学&lt;/h2&gt;
+
+&lt;p&gt;与ChatGPT截然不同，Claude采用了完全透明的工具化方法。&lt;/p&gt;
+
+&lt;h3 id=&quot;核心特征&quot;&gt;核心特征&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;1. 显式激活机制&lt;/strong&gt;
+Claude每次对话都从空白状态开始，只有在用户明确调用时才激活记忆功能。通过”我们之前讨论过什么”、”继续之前的话题”等短语触发。&lt;/p&gt;
+
+&lt;p&gt;Cursor的Memory机制设计中，采用Tool Calls的方式实现被动的记忆创建和存储。当然也提供了一种Sidecar Observation的方式，实现主动的记忆创建方式，只有在保存的时候会征求用户的同意。产品设计中可以通过显式的Rules&amp;amp;Memories模块进行记忆功能配置。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2. 原始对话搜索&lt;/strong&gt;
+不使用AI生成的摘要或压缩档案，直接实时搜索原始对话历史。&lt;/p&gt;
+
+&lt;h3 id=&quot;技术实现&quot;&gt;技术实现&lt;/h3&gt;
+
+&lt;p&gt;Claude提供两个可见的工具：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;conversation_search工具&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;支持关键词和话题搜索&lt;/li&gt;
+  &lt;li&gt;可处理多个搜索查询&lt;/li&gt;
+  &lt;li&gt;返回相关对话并提供直接链接&lt;/li&gt;
+  &lt;li&gt;基于语义匹配的智能检索&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;recent_chats工具&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;基于时间的对话检索&lt;/li&gt;
+  &lt;li&gt;支持时间范围查询&lt;/li&gt;
+  &lt;li&gt;可定制排序和分页&lt;/li&gt;
+  &lt;li&gt;保持对话上下文的完整性&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;架构特点：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;实时检索&lt;/strong&gt;：避免预处理带来的信息丢失&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;用户控制&lt;/strong&gt;：记忆激活完全由用户决定&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;透明性&lt;/strong&gt;：所有操作对用户可见可控&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;隐私友好&lt;/strong&gt;：不构建持久化用户画像&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;manus记忆系统文件系统作为外部记忆&quot;&gt;Manus记忆系统：文件系统作为外部记忆&lt;/h2&gt;
+
+&lt;p&gt;Manus作为AI Agent领域的创新者，提出了一种全新的记忆系统设计理念：&lt;strong&gt;将文件系统视为终极上下文&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;h3 id=&quot;核心设计理念&quot;&gt;核心设计理念&lt;/h3&gt;
+
+&lt;p&gt;在面对现代LLM的上下文窗口限制时，Manus采取了一个激进的解决方案：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“将文件系统视为终极上下文：容量无限、天然持久，并且代理可直接操作。模型学会按需读写文件——把文件系统不仅当作存储，更当作结构化、外化的记忆。”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;关键特征：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;无限容量&lt;/strong&gt;：突破了传统上下文窗口的物理限制&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;持久化存储&lt;/strong&gt;：信息不会因上下文截断而丢失&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;直接操作&lt;/strong&gt;：模型可主动管理和组织记忆内容&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;结构化记忆&lt;/strong&gt;：通过文件系统层次结构实现记忆分类&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;技术实现策略&quot;&gt;技术实现策略&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;1. 可逆压缩机制&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 可逆压缩示例
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ReversibleCompression&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;compress_web_content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# 保留URL，移除内容
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;web_reference&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;summary&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;extract_summary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+            &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;retrievable&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;compress_document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# 保留路径，内容外部化
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;file_reference&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+            &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;accessible&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;2. 注意力操控机制&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Manus通过创建和维护&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;todo.md&lt;/code&gt;文件来操控模型注意力：&lt;/p&gt;
+
+&lt;div class=&quot;language-markdown highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gh&quot;&gt;# Task Progress&lt;/span&gt;
+
+&lt;span class=&quot;gu&quot;&gt;## Completed&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; [x] 分析系统架构
+&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; [x] 识别性能瓶颈
+
+&lt;span class=&quot;gu&quot;&gt;## In Progress  &lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; [ ] 优化数据库查询
+&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; [ ] 实现缓存机制
+
+&lt;span class=&quot;gu&quot;&gt;## Pending&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; [ ] 部署生产环境
+&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; [ ] 性能测试
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;这种方式将全局目标“背诵”到上下文的末尾，避免了在长上下文中的“中间丢失”问题。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3. 错误保留学习&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;与传统系统清理错误不同，Manus刻意保留错误内容：&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ErrorLearning&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;handle_action_failure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# 保留错误信息而非清理
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;error_record&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;timestamp&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
+            &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;failed_action&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;error_details&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;context_state&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;learning_signal&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        
+        &lt;span class=&quot;c1&quot;&gt;# 追加到上下文而非移除
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;error_record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        
+        &lt;span class=&quot;c1&quot;&gt;# 模型从失败中学习，更新内部信念
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;adapt_behavior&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;error_record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;技术优势&quot;&gt;技术优势&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;相比传统方法：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;可扩展性&lt;/strong&gt;：突破了上下文窗口的物理限制&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;持久性&lt;/strong&gt;：记忆不会因会话结束而消失&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;结构化&lt;/strong&gt;：通过文件系统层次实现记忆分类&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;可操作性&lt;/strong&gt;：模型可主动管理和更新记忆&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;mem0生产级ai-agent的可扩展记忆&quot;&gt;Mem0：生产级AI Agent的可扩展记忆&lt;/h2&gt;
+
+&lt;p&gt;Mem0代表了AI记忆系统的最新研究成果，专注于生产环境中的长期记忆管理。&lt;/p&gt;
+
+&lt;h3 id=&quot;技术架构&quot;&gt;技术架构&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;双阶段管道设计&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;提取阶段&lt;/strong&gt;：整合最新交互、滚动摘要和近期消息，通过LLM提取候选记忆&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;更新阶段&lt;/strong&gt;：确保只存储和检索最相关的事实&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;具体流程如下所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/mem_1.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;图增强变体&lt;/strong&gt;
+利用图结构表示捕获对话元素之间的复杂关系结构。具体流程如下所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/mem_0.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;性能表现&quot;&gt;性能表现&lt;/h3&gt;
+
+&lt;p&gt;在LOCOMO基准测试中，Mem0展现了显著的性能优势：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;指标&lt;/th&gt;
+      &lt;th&gt;Mem0基础版&lt;/th&gt;
+      &lt;th&gt;Mem0图增强版&lt;/th&gt;
+      &lt;th&gt;OpenAI实现&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;准确率&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;66.9%&lt;/td&gt;
+      &lt;td&gt;68.4%&lt;/td&gt;
+      &lt;td&gt;53.1%&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;响应时间&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;0.71s&lt;/td&gt;
+      &lt;td&gt;1.09s&lt;/td&gt;
+      &lt;td&gt;8.2s&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Token使用&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;-90%&lt;/td&gt;
+      &lt;td&gt;-88%&lt;/td&gt;
+      &lt;td&gt;基线&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;成本优势&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;显著&lt;/td&gt;
+      &lt;td&gt;中等&lt;/td&gt;
+      &lt;td&gt;高&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;技术优势分析：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;相对改进&lt;/strong&gt;：相比OpenAI实现26%的性能提升&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;性能优化&lt;/strong&gt;：延迟降低91%，显著提升用户体验&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;成本控制&lt;/strong&gt;：Token节省90%，显著降低运营成本&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;架构效率：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;基础版本适用于大部分生产场景&lt;/li&gt;
+  &lt;li&gt;图增强版本适用于复杂关系建模需求&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;kv-cache优化ai-agent性能的关键&quot;&gt;KV-Cache优化：AI Agent性能的关键&lt;/h2&gt;
+
+&lt;p&gt;基于Manus的实践经验，KV缓存优化已成为AI Agent性能调优的核心要素。&lt;/p&gt;
+
+&lt;h3 id=&quot;成本影响分析&quot;&gt;成本影响分析&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;价格对比示例（Claude Sonnet）：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;缓存token：0.30美元/百万token&lt;/li&gt;
+  &lt;li&gt;非缓存token：3.00美元/百万token&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;成本差异：10倍&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;对于平均输入输出比例100:1的Agent系统，缓存优化能带来数量级的成本降低。&lt;/p&gt;
+
+&lt;h3 id=&quot;实现最佳实践&quot;&gt;实现最佳实践&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;1. 稳定性保障&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CacheOptimizer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;system_prompt_template&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;
+        # 避免动态时间戳
+        Current date: {date}  # 只到日，不到秒
+        System capabilities: {capabilities}
+        &lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;
+        
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ensure_deterministic_serialization&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# 使用排序键确保一致性
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;dumps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sort_keys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ensure_ascii&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;2. 上下文管理&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ContextManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;append_interaction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;observation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# 保持追加式，避免修改历史
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+            &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;action&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;observation&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;observation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;timestamp&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get_cache_friendly_time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+        
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_cache_friendly_time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# 使用粗粒度时间戳提高缓存命中率
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;datetime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;strftime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;%Y-%m-%d %H:%M&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 分钟精度
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;3. 缓存断点管理&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;set_cache_breakpoints&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;breakpoints&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+        &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;system_prompt_end&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;user_input_start&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+        &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;tool_definitions_end&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;breakpoint&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;breakpoints&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;mark_cache_boundary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;breakpoint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;设计理念的分歧&quot;&gt;设计理念的分歧&lt;/h2&gt;
+
+&lt;p&gt;四种AI记忆系统体现了截然不同的产品理念和技术路线：&lt;/p&gt;
+
+&lt;h3 id=&quot;openai消费者导向的自动化&quot;&gt;OpenAI：消费者导向的自动化&lt;/h3&gt;
+
+&lt;p&gt;ChatGPT的设计反映了大众消费市场的需求：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;即时个性化&lt;/strong&gt;：零等待时间的自动记忆加载&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;用户画像构建&lt;/strong&gt;：详细的使用模式分析和偏好学习&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;粘性机制&lt;/strong&gt;：每次对话都增加服务价值和用户锁定&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;技术路线&lt;/strong&gt;：相信更强模型能处理复杂度&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;anthropic专业工具的精准控制&quot;&gt;Anthropic：专业工具的精准控制&lt;/h3&gt;
+
+&lt;p&gt;Claude的设计迎合技术用户的专业需求：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;显式控制&lt;/strong&gt;：用户完全掌控记忆激活时机&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;透明操作&lt;/strong&gt;：所有记忆操作都可见和可预测&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;隐私保护&lt;/strong&gt;：不构建详细用户画像&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;工具哲学&lt;/strong&gt;：将AI功能作为可控工具提供&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;manus上下文工程的极致实用&quot;&gt;Manus：上下文工程的极致实用&lt;/h3&gt;
+
+&lt;p&gt;Manus代表了AI Agent在实际应用中的工程化思维：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;性能导向&lt;/strong&gt;：以KV缓存命中率为核心指标&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;系统思维&lt;/strong&gt;：将文件系统作为外部记忆的创新&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;学习机制&lt;/strong&gt;：通过保留错误实现系统自适应&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;工程精度&lt;/strong&gt;：从“随机梯度下降”中提取最佳实践&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;mem0企业级的可扩展解决方案&quot;&gt;Mem0：企业级的可扩展解决方案&lt;/h3&gt;
+
+&lt;p&gt;Mem0代表了生产环境的工程化思维：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;性能优先&lt;/strong&gt;：优化延迟和成本控制&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;系统可扩展性&lt;/strong&gt;：适用于大规模部署&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;工程精度&lt;/strong&gt;：精细的模块化设计&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;灵活适配&lt;/strong&gt;：同时支持简单和复杂场景&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;技术趋势与展望&quot;&gt;技术趋势与展望&lt;/h2&gt;
+
+&lt;h3 id=&quot;记忆更新频率优化&quot;&gt;记忆更新频率优化&lt;/h3&gt;
+
+&lt;p&gt;随着计算成本下降，我们将看到更频繁的记忆更新。ChatGPT当前相对静态的用户知识记忆将向连续或近连续更新演进。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;实际应用示例：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 自适应记忆更新策略
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AdaptiveMemoryUpdater&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cost_threshold&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.01&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cost_threshold&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cost_threshold&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;update_frequency&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;static&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# static -&amp;gt; dynamic -&amp;gt; real-time
+&lt;/span&gt;    
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;should_update_memory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;interaction_importance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cost_per_token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cost_per_token&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cost_threshold&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;real-time&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 即时更新
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;interaction_importance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;high-priority&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 高优先级更新
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;batch&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 批量延迟更新
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;产品级挑战&quot;&gt;产品级挑战&lt;/h3&gt;
+
+&lt;p&gt;技术实现之外的核心挑战包括：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. 事实时效性检测&lt;/strong&gt;
+如何识别过时信息，特别是在快速变化的领域（如技术栈、政策法规）&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 时效性检测示例
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TemporalValidityChecker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;check_memory_freshness&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;memory_item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;domain&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;classify_domain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;memory_item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;decay_rate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get_decay_rate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;domain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        
+        &lt;span class=&quot;c1&quot;&gt;# 技术信息衰减得更快
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;domain&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;technology&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;validity_threshold&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.3&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 30%阴值
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;domain&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;personal_preference&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;validity_threshold&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.8&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 80%阴值
+&lt;/span&gt;        
+        &lt;span class=&quot;n&quot;&gt;current_validity&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;calculate_validity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;memory_item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;timestamp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;decay_rate&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;current_validity&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validity_threshold&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;2. 记忆验证机制&lt;/strong&gt;
+如何对照现实验证记忆内容，处理矛盾和不一致性&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3. 生活覆盖范围&lt;/strong&gt;
+如何理解用户不常讨论的生活方面，避免偏见和片面性&lt;/p&gt;
+
+&lt;h3 id=&quot;企业级功能扩展&quot;&gt;企业级功能扩展&lt;/h3&gt;
+
+&lt;p&gt;Anthropic已为团队和企业用户推出更接近ChatGPT模式的记忆功能，支持项目级别的独立记忆管理，确保不同工作场景的信息隔离。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;企业部署示例：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 企业记忆配置示例&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;enterprise_memory_config&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;projects&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;product_development&quot;&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;memory_scope&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;isolated&quot;&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;retention_policy&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;long_term&quot;&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;sharing_rules&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;team&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;engineering&quot;&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;access_level&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;read_write&quot;&lt;/span&gt;
+        &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;team&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;design&quot;&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;access_level&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;read_only&quot;&lt;/span&gt;
+    
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;customer_support&quot;&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;memory_scope&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;shared&quot;&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;retention_policy&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;compliance_based&quot;&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;data_classification&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;sensitive&quot;&lt;/span&gt;
+      
+  &lt;span class=&quot;na&quot;&gt;compliance&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;gdpr_enabled&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;data_residency&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;eu-west-1&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;audit_logging&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;高级特性：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;项目隔离&lt;/strong&gt;：不同业务线的记忆互不干扰&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;权限控制&lt;/strong&gt;：精细化的访问权限管理&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;合规支持&lt;/strong&gt;：满足GDPR等数据保护法规&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;结语&quot;&gt;结语&lt;/h2&gt;
+
+&lt;p&gt;AI记忆系统的设计空间远比想象的广阔，没有标准答案或通用解决方案。四种不同的设计理念各有千秋：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;ChatGPT&lt;/strong&gt;的”苦涩教训”方法体现了对模型智能的绝对信任&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Claude&lt;/strong&gt;的工具化哲学强调用户主导权和透明度&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Manus&lt;/strong&gt;的上下文工程实践将文件系统创新性地作为外部记忆&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Mem0&lt;/strong&gt;的生产级解决方案关注性能优化和可扩展性&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;未来走向&quot;&gt;未来走向&lt;/h3&gt;
+
+&lt;p&gt;随着AI系统在人们生活中扮演越来越重要的角色，记忆系统的设计将深刻影响人机交互的未来形态。我们可以预见的几个关键趋势：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. 混合架构的兴起&lt;/strong&gt;
+未来的AI记忆系统很可能不会坚持单一哲学，而是根据不同场景采用混合策略：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;日常交互采用ChatGPT式的自动加载&lt;/li&gt;
+  &lt;li&gt;专业任务采用Claude式的显式控制&lt;/li&gt;
+  &lt;li&gt;长期任务采用Manus式的文件系统记忆&lt;/li&gt;
+  &lt;li&gt;高频场景采用Mem0式的性能优化&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;2. 个性化与隐私的平衡&lt;/strong&gt;
+随着数据隐私意识的增强，未来的记忆系统将需要在个性化服务和用户隐私之间找到精妙平衡。联邦学习和差分隐私等技术将可能成为关键。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3. 多模态记忆融合&lt;/strong&gt;
+不仅仅是文本，未来的AI记忆系统将融合语音、图像、视频等多种模态信息，构建更全面、立体的用户记忆。&lt;/p&gt;
+
+&lt;h3 id=&quot;最终反思&quot;&gt;最终反思&lt;/h3&gt;
+
+&lt;p&gt;技术实现只是起点，真正的挑战在于如何平衡功能性、隐私性和用户体验，构建真正服务于人类需求的AI记忆系统。在这个过程中，每一种设计理念都为我们提供了宝贵的参考和启发。&lt;/p&gt;
+
+&lt;p&gt;那么，通用的记忆能力是模型厂在模型层面实现的，类似于目前LLM对于tool的使用能力，还是可能存在其他选择？&lt;/p&gt;
+
+&lt;h2 id=&quot;相关资料&quot;&gt;相关资料&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.shloked.com/writing/chatgpt-memory-bitter-lesson&quot;&gt;ChatGPT Memory and Bitter Lesson&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.shloked.com/writing/claude-memory&quot;&gt;Claude Memory:A Different Philosophy&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;《Mem0: Building Production-Ready AI Agents with Scalable Long-Term Memory》&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://manus.im/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus&quot;&gt;如何构建 AI Agent 的上下文工程？&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://docs.cursor.com/en/context/memories&quot;&gt;Cursor Memories&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://zhpmatrix.github.io/about/&quot;&gt;扫码加笔者好友&lt;/a&gt;，茶已备好，等你来聊~&lt;/strong&gt;&lt;/p&gt;
 </description>
-        <pubDate>Sat, 12 Oct 2024 18:35:00 +0800</pubDate>
-        <link>http://localhost:4000/2024/10/12/souyisou/</link>
-        <guid isPermaLink="true">http://localhost:4000/2024/10/12/souyisou/</guid>
+        <pubDate>Sun, 14 Sep 2025 18:00:00 +0800</pubDate>
+        <link>http://localhost:4000/%E5%AF%B9%E8%AF%9D%E7%B3%BB%E7%BB%9F/2025/09/14/memory/</link>
+        <guid isPermaLink="true">http://localhost:4000/%E5%AF%B9%E8%AF%9D%E7%B3%BB%E7%BB%9F/2025/09/14/memory/</guid>
+        
+        
+        <category>对话系统</category>
+        
+      </item>
+    
+      <item>
+        <title>垂域对话系统中的知识视角</title>
+        <description>&lt;h4 id=&quot;前言&quot;&gt;前言&lt;/h4&gt;
+
+&lt;p&gt;在笔者做医疗NLP算法的时期，经常讨论的问题也是医疗知识。不过当时对于医疗知识的探讨并不深入，25年做财税垂直对话系统，由于笔者负责的技术线更偏向于专家系统，故对于构建一个以财税知识为核心的符号体系就是一个关键问题。文章中有相当的观点是在与合作伙伴的日常讨论中得出的。&lt;/p&gt;
+
+&lt;h4 id=&quot;一个例子&quot;&gt;一个例子&lt;/h4&gt;
+
+&lt;p&gt;在笔者之前讨论的&lt;a href=&quot;https://zhpmatrix.github.io/2025/06/24/taskbot-entity-extractor/&quot;&gt;要素抽取之我见&lt;/a&gt;中提到了要素抽取任务，该任务是强依赖知识的任务。一个经典的例子如下(合作伙伴提供):&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;访客：我们公司购入农产品豆腐用于食堂，这些普票的进项能否进行认证抵扣？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;该例子中存在两处知识冲突的问题，分别如下:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;访客认知与财税专业知识的分歧&lt;/strong&gt;。访客基于日常认知将豆腐归类为”农产品”，但根据增值税相关规定，豆腐并不属于税法意义上的”农业产品”范畴。这种认知差异反映了普通用户的生活常识与专业财税知识体系之间的本质区别。为确保大模型能够准确识别并纠正此类概念混淆，我们必须构建完善的”财税领域知识库”，避免模型被用户的非专业表述所误导。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;通用认知与业务场景知识的差异&lt;/strong&gt;。通过5位专家和Deepseek的一致判断，”用于食堂”通常被理解为”单位内部食堂”，进而归属于集体福利范畴。然而，在实际业务场景中，坐席人员基于丰富的实操经验，会进一步细分”食堂”概念——区分”单位内部食堂”与”同时对外营业的食堂”。虽然这种细致的区分在外人看来可能过于严苛，但它源于真实的工作场景需求，是解决具体业务问题的关键要素。因此，我们需要构建”用户场景知识库”，补充大模型在特定业务情境下的认知盲区。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;围绕我们需要构建哪些知识，基于该样本的一个基本设想如下：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;领域知识。大模型虽有强大的知识能力，但其内置的知识是隐性的，且时效性较差。同时有研究表明，大模型能够表达出来的知识与其拥有的知识相差40%左右。因此，作为一个可信赖的智能对话系统，我们必须拥有一个可维护的领域知识库，来对大模型的内置知识进行修正。就像一位谨慎的人类专家，不能仅凭他自身的经验来回答客户问题一样。在面对访客提出的财税问题时，他也需要去查阅威科的知识库，并结合自己的理解给出答案。财税领域知识至少有两种：&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;政策法规。包括法律法规、系统操作、执行口径等官方发布的一切权威知识。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;行业实践。包括行业共识的、官方默认的，但是尚未被官方明文认可的知识。行业实践是必须的。因为政策法规中存在很多模糊的地带，需要行业最佳实践作为补充。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;2.用户知识。用户知识的本质是用户的经验沉淀。当用户是一个群体时，用户知识就是该群体的知识。构建用户知识可能需要考虑与领域知识重叠的问题。&lt;/p&gt;
+
+&lt;h4 id=&quot;知识类别划分&quot;&gt;知识类别划分&lt;/h4&gt;
+
+&lt;p&gt;从DIKW模型开始，也就是“数据-信息-知识-智慧”模型，知识所处的位置如下所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/k4.webp?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;从上述给出的例子可以看出，要素抽取任务中是需要依赖不同类型的知识的。那么围绕知识要思考的问题如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;知识是否存在一个划分？&lt;/li&gt;
+  &lt;li&gt;如果知识存在一个划分，那么应该怎样划分？如何评估划分的合理性？&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;类似思考也会出现在构建针对财税咨询对话的标签体系中，似乎并不存在一个客观合理的标签体系，任何一个构建出来的标签体系，均带有某种业务偏置，服务于特定业务目标。&lt;/p&gt;
+
+&lt;p&gt;不过在教育方向上，围绕知识管理，有一个针对知识的划分体系，称为布鲁姆教育知识分类，知识分为四个类别，分别如下:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;事实性知识&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;该类知识的两个亚类是术语知识和具体细节和要素的知识。在要素抽取任务中，有三类待抽取要素均为事实类要素，也就是访客问题中存在的事实性描述。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;概念性知识&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;概念性知识的亚类包括分类和类别的知识，原理和通则的知识，以及理论，模型和结构的知识。比如物理学的基本定律，化学原理知识等。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;程序性知识&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;程序性知识的亚类包括具体学科的技能，算法，技术和方法的知识。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;元认知知识&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;元认知是关于一般认知的知识。比如关于建立阅读目标等计划策略的知识等。&lt;/p&gt;
+
+&lt;p&gt;四种类别的知识类型的关系如下所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/k0.webp?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;进一步地关系描述如下所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/k1.webp?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;实际上，对比在上一章节中讨论的例子中需要的知识，这种知识的划分颗粒度过粗。英籍犹太裔物理化学家和哲学家迈克尔.波兰尼，曾说过一句名言&lt;strong&gt;“我们知道的往往比能说出的多”&lt;/strong&gt;（在笔者之前的文章中提到相关论文指出，LLM表现出来的知识和实际知道的知识可能有40%的差距），他首次提出隐性知识的概念。根据知识存在的形态，实际在要素抽取任务中，更细粒度的针对知识的划分如下:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;显性知识&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;以文字、符号、图形等方式表达的知识，如书籍、论文、公式、视频课程等。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;隐性知识&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;存在于人的大脑中，未以文字、符号、图形等方式表达的知识，不可言传，如隐喻、直觉、思维模式等。针对这类知识，部分是可以数字化沉淀的，部分可能短期内无法找到有效的方式进行表达。&lt;/p&gt;
+
+&lt;p&gt;另外一个细粒度知识划分视角是根据知识的变化状态，将知识分为如下两类:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;静态知识&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;是相对固定不变的知识，通常是由前人总结的结果、具有一定的规律性、经过学习可以掌握的。如一加一等于二、一年分为春夏秋冬等。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;动态知识&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;是不断更新和变化的知识，包括各种不断更新的信息、技能和经验等，也包括未来可能出现的趋势和变化等。&lt;/p&gt;
+
+&lt;p&gt;知识全生命周期包括知识生产侧（如识别、创造、开发、加工、萃取、分析、表达等）、知识流通侧（如共享、分享、转移、传播等）以及知识消费侧（如购买、获取、理解、学习、内化、吸收、应用、使用、复用等）。&lt;/p&gt;
+
+&lt;p&gt;在基于LLM构建财税咨询对话系统过程中，更关注知识的加工和消费，多数时候的架构决策要依赖知识构建和知识应用的二元视角，缺一不可。虽然从技术实现角度，二者的解耦是一种更理想的方式，但是为了保证系统效果的最大化，多数情况下二者是紧耦合的。针对要素抽取任务，一种观察视角如下所示:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/k5.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;从知识角度理解构建垂域对话系统的难度&quot;&gt;从知识角度理解构建垂域对话系统的难度&lt;/h4&gt;
+
+&lt;p&gt;针对抽象知识和场景知识的区别如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;生产场景知识方便应用，不便维护&lt;/li&gt;
+  &lt;li&gt;生产抽象知识方便维护，难以应用&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;但是针对领域知识是否存在一个划分？如果存在一个划分，就需要一个对应的划分的能力，以及针对划分后空间的解决方案。&lt;/p&gt;
+
+&lt;p&gt;对于知识的利用，一定要保留原始的知识，新的知识密度不能低于原始保留的知识密度，否则会一直陷入到丢知识，知识颗粒度对不齐的问题中。&lt;/p&gt;
+
+&lt;p&gt;采用符号系统构建对话系统的知识视角的难点在于：广义的知识无法实现无损规则化，除非规则化是用于知识索引，而非知识表示。&lt;/p&gt;
+
+&lt;h4 id=&quot;相关资料&quot;&gt;相关资料&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s/nKnw0mp1BXZbTJf-NMDMow&quot;&gt;知识的分类——布鲁姆的知识维度&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;2014年发布了国家标准GB/T 23703.7-2014《知识管理 第七部分：知识分类通用要求》&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://zhpmatrix.github.io/about/&quot;&gt;扫码加笔者好友&lt;/a&gt;，茶已备好，等你来聊~&lt;/strong&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 07 Sep 2025 19:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2025/09/07/what-is-knowledge/</link>
+        <guid isPermaLink="true">http://localhost:4000/2025/09/07/what-is-knowledge/</guid>
+        
+        <category>对话系统</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>2025年瞎折腾的小产品</title>
+        <description>&lt;h4 id=&quot;前言&quot;&gt;前言&lt;/h4&gt;
+
+&lt;p&gt;在AI Coding之前，对于一个算法而言，做完整的东西总是觉得缺少前后端。但是在25年，Claude Sonnet的能力在逐步提升，刚好一个合适的时间点，自己能够把一些想法独立落地。&lt;/p&gt;
+
+&lt;p&gt;在去年做搜医搜的时候，虽然也有Cursor，但是使用深度不够，能够帮忙写的代码也是通过对话框输入需求，产出一段代码，然后合并进自己的项目中。显然这并不是一个很棒的工作流。&lt;/p&gt;
+
+&lt;p&gt;25年的今天，从Cursor到Claude Code，做独立产品的体验越来越好，完成度也越来越高。对笔者而言，真的是一件太棒的事情。&lt;/p&gt;
+
+&lt;h4 id=&quot;个人技术博客改版&quot;&gt;个人技术博客改版&lt;/h4&gt;
+
+&lt;p&gt;明年就是个人技术博客写作的第十年了，恰好年初开始对AI Coding类工具比较感兴趣，就想着能否基于Cursor搞一个相对完整的项目，于是作为技术试验场的常客，个人技术博客就成了最佳实验对象。&lt;/p&gt;
+
+&lt;p&gt;过程中修改了博客UI，交互，增加了标签搜索和日期搜索，以及访客统计等，以及进入博客文章内容页，标题下出现的标签，日期和阅读次数等。&lt;/p&gt;
+
+&lt;p&gt;作为第一次基于Cursor做的相对完整的小项目，整体体验良好。有AI Coding高频使用的同学反馈，Claude Sonnet对于常见开发语言，比如HTML/CSS/JS等的表现良好，但是对于Rust/C++更新的版本等，表现的比较糟糕。&lt;/p&gt;
+
+&lt;h4 id=&quot;搜医搜的mcp服务&quot;&gt;搜医搜的MCP服务&lt;/h4&gt;
+
+&lt;p&gt;25年MCP讨论比较热烈的时候，有朋友讨论能否在百炼平台等上线一个财税领域的MCP占坑？为了验证MCP能否走通，本地搭建了一个&lt;a href=&quot;http://www.souyisou.online/&quot;&gt;搜医搜&lt;/a&gt;的MCP服务，当在Cursor中能够成功调用的时候，还是开心了一秒钟。由于有FastMCP的存在，导致搭建这个MCP服务其实是一件比较容易的事情。具体代码如下:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;from mcp.server.fastmcp import FastMCP
+mcp = FastMCP(&quot;medical_knowledge_search_tool&quot;)
+
+import re
+import requests
+import json
+
+def remove_html_tags(text):
+	pattern = &apos;&amp;lt;[^&amp;gt;]+&amp;gt;&apos;
+	return re.sub(pattern, &apos;&apos;, text)
+
+def get_search_results(keyword: str):
+	url = &quot;&quot;
+	headers = {
+  		&apos;Content-Type&apos;: &apos;application/json&apos;
+	}
+	response = requests.request(&quot;GET&quot;, url, headers=headers)
+	messages = response.json()[&quot;message&quot;]
+	
+	return [remove_html_tags(each) for each in messages]
+
+
+@mcp.tool()
+def medical_knowledge_search(keyword: str):
+	return get_search_results(keyword)
+
+if __name__ == &quot;__main__&quot;:
+    mcp.run(transport=&quot;sse&quot;)
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;之后兴起了很多MCP平台，包括A2A的概念等，包括有认识的创业者围绕MCP做了一个平台。因为实在想不清楚商业模式是什么导致从一开始，对于MCP就没有很多感觉。&lt;/p&gt;
+
+&lt;h4 id=&quot;对账机器人&quot;&gt;对账机器人&lt;/h4&gt;
+
+&lt;p&gt;笔者媳妇儿的亲戚在杭州开一个很大的超市，由于进货渠道多且杂导致每天的对账非常耗时且繁琐，因此考虑是否能够开发一个小程序用于对账提效，如果效果不错，可以进一步推广到其他超市。&lt;/p&gt;
+
+&lt;p&gt;在进行多次需求沟通之后，需求收敛到一个具体的记账应用。记账应用其实非常多，比如25年的咔皮记账等。虽然笔者有朋友基于Coze+iPhone+Notion搭建过一个记账机器人，但是并不适合该场景，在该场景中需要对转账记录截图进行识别提取。对方作为超市老板，也已经在豆包中尝试过识别效果，好像还可以。&lt;/p&gt;
+
+&lt;p&gt;在进一步调研了微信小程序的开发流程之后，综合考虑，推荐对方能够自己从市场上已经有的应用中找到适合自己的一个应用来使用。&lt;/p&gt;
+
+&lt;h4 id=&quot;开票agent&quot;&gt;开票Agent&lt;/h4&gt;
+
+&lt;p&gt;25年也是媒体意义上的Agent元年，和一个朋友聊到是否可以做一个开票Agent。因为有积累的代账公司的咨询对话数据，开票是一个高频且有SOP的场景。&lt;/p&gt;
+
+&lt;p&gt;但是笔者其实没有想到这个场景Agent化之后到底有什么具体的价值？比如今天多数情况下，开发票的逻辑是开票方抛一个信息收集的入口，购买方填写相关信息之后，就可以开出一张电子发票并自动发送到购买方的邮箱中。&lt;/p&gt;
+
+&lt;p&gt;在咨询对话中，通过追问的方式可以获取所有需要的信息。整体流程上的自动化似乎价值非常有限。于是在经过进一步的对话分析之后，放弃了该想法。&lt;/p&gt;
+
+&lt;p&gt;从朋友专业的角度，开发一个会计机器人，能够解决一个会计的大多数问题才是财税AI方向的终极问题。&lt;/p&gt;
+
+&lt;h4 id=&quot;企业微信侧边栏应用&quot;&gt;企业微信侧边栏应用&lt;/h4&gt;
+
+&lt;p&gt;在知道企微侧边栏可以接应用的时候很兴奋，于是研究怎么将搜医搜接入到企业微信侧边栏。整体流程比想象的简单一些，效果如下:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E4%BE%A7%E8%BE%B9%E6%A0%8F.gif?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;其实这类应用更有价值的地方在于在企业微信的对话场景中，提供相关的辅助咨询服务能力。为此，在应用出口侧打开了新的想象力空间，包括网页端，桌面端，浏览器插件(24年做搜医搜的时候，提供了该出口)，微信小程序，企业微信侧边栏等。&lt;/p&gt;
+
+&lt;h4 id=&quot;中国版arcade&quot;&gt;中国版Arcade&lt;/h4&gt;
+
+&lt;p&gt;Arcade主打利用AI的能力实现柔性制造，在国内的类似产品包括网易团队做的&lt;a href=&quot;https://zaohaowu.com/&quot;&gt;造好物&lt;/a&gt;，不过这个产品主要关注首饰类的设计和供应链打通。&lt;/p&gt;
+
+&lt;p&gt;笔者承担的角色是其中所有关于AI的能力供给，过程中调研了国内外的各种文+图-&amp;gt;图的能力。这是一个很有想象力的双边平台，但是既然是平台，就必然会遇到平台开发会遇到的问题。目前还在进展中，笔者也没有想的比较清晰。&lt;/p&gt;
+
+&lt;h4 id=&quot;rex&quot;&gt;ReX&lt;/h4&gt;
+
+&lt;p&gt;这是一个图片和视频文件重命名工具。具体效果如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/ReX_recording.gif?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这个小工具来自一个真实的需求。在笔者周期性将手机中积赞的上千张照片和多个视频进行云盘备份的时候，由于文件名通常都是一个无意义的字符串编码，因此考虑能否在文件上传的时候自动生成一个有意义的文件名。&lt;/p&gt;
+
+&lt;p&gt;基本的思路是：对视频进行切片之后，针对切片的图片进行描述抽取和打标签。在做的过程中，第一次体验到做工具型产品的不同之处：&lt;/p&gt;
+
+&lt;p&gt;（1）工具型产品提供了一个SOP。意味着用户基于工具进行的操作在任何环节都可能多次反复
+（2）数据安全性。在刚开始准备做这个小工具的时候，比较纠结选择网页端还是客户端，综合数据安全和数据传输速度问题，最终选择了本地客户端的开发方式
+（3）对于视频文件的处理是耗时的。耗时的问题可能无法在短期内处理，甚至可能在某些场景下长期也无法得到处理。比如我们无法做一个工具去支撑离线批处理任务，那么也许工具定位和产品交互就需要有好的想法？&lt;/p&gt;
+
+&lt;p&gt;为了做一个本地客户端工具，笔者做了一些调研，包括Electron等，能够采用HTML/CSS/JS构建跨平台的桌面端应用，最终选择了PyQT作为开发框架，主要的考虑是Python作为后台开发语言，相对熟悉一些。此外读本科的时候，基于MFC做过一些客户端工具，但是一直没有找到实践QT的机会。&lt;/p&gt;
+
+&lt;p&gt;过程中，Cursor几乎写了所有核心的PyQT的代码。这也是继个人博客改版之后基于Cursor完成的第二个相对完整的项目。&lt;/p&gt;
+
+&lt;h4 id=&quot;星际安保官计划&quot;&gt;星际安保官计划&lt;/h4&gt;
+
+&lt;p&gt;笔者其实一直想做一个内容型产品，比如类似flomo之类的笔记软件。刚好跟着媳妇儿考保安证时有了一个临时起意的想法。&lt;/p&gt;
+
+&lt;p&gt;起因是因为在备考过程中，笔者刷题都是基于微信文章中列举的2000题，包含单选题，多选题，判断题等，刷题的过程中时常忘记刷到哪里以及对于错题也无法进行有效标记。因此考虑能否做一个刷题小工具。&lt;/p&gt;
+
+&lt;p&gt;于是有了&lt;a href=&quot;http://49.232.197.68:5005/login&quot;&gt;星际安保官计划&lt;/a&gt;，宣传海报见&lt;a href=&quot;http://49.232.197.68:5005/poster&quot;&gt;这里&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;开发故事如下👇：&lt;/p&gt;
+
+&lt;p&gt;从有想法到应用上线历时约3个小时，具体工作包括我出想法，我搞Claude Code账号，我开始Push Claude Code干活…&lt;/p&gt;
+
+&lt;p&gt;Claude Code开发了18449行代码（来自VS Code Counter，仅供参考），Claude Code做了宣传海报，Claude Code写了四个版本的朋友圈宣传文案…&lt;/p&gt;
+
+&lt;p&gt;Claude Code花钱，其中应用开发花了13.36美刀，做海报花了大概10美刀。其中为了做宇宙粒子效果，预期花了至少10美刀&lt;/p&gt;
+
+&lt;p&gt;其中，答案解析时的题号和做题的题号总是对不齐，footer和body的宽度总是对不齐。其他情况下，我自己几乎没写一行代码，除去部分小的文案调整。整个过程还录制了开发过程视频～&lt;/p&gt;
+
+&lt;p&gt;Anthropic的估值已经1500亿美刀了。&lt;/p&gt;
+
+&lt;p&gt;哦，笔者已经是一名国家认证的保安了。&lt;/p&gt;
+
+&lt;p&gt;当然，上半年的主业是针对财税实务咨询构建一个基于LLM的对话系统，具体文章见博客。&lt;/p&gt;
+
+&lt;h4 id=&quot;后记&quot;&gt;后记&lt;/h4&gt;
+
+&lt;p&gt;在AI Coding成熟度提升的今天，好像人人都能做一些东西，但是大部分这些东西都没有什么价值。虽然确实如此，但是通过自己利用工具的能力独立解决自己发现的问题，这不正是人类能够持续不断进步的方式吗？&lt;/p&gt;
+
+&lt;p&gt;似乎一方面大模型在内容生产上的高效使得自己不断地丧失表达欲，但是另外一方面，在工具使用上又不断地扩展着笔者自己的能力体系。&lt;/p&gt;
+
+&lt;p&gt;嗯，感恩这个操蛋的年代吧！&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://zhpmatrix.github.io/about/&quot;&gt;扫码加笔者好友&lt;/a&gt;，茶已备好，等你来聊~&lt;/strong&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 29 Jul 2025 19:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2025/07/29/project-review/</link>
+        <guid isPermaLink="true">http://localhost:4000/2025/07/29/project-review/</guid>
         
         <category>产品设计</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>《Enhancing Asymmetric Web Search through Question-Answer Generation and Ranking》</title>
-        <description>&lt;h4 id=&quot;基本信息&quot;&gt;基本信息&lt;/h4&gt;
-
-&lt;p&gt;主题：通过问答对生成的方式强化非对称网页搜索&lt;/p&gt;
-
-&lt;p&gt;作者：Tencent PCG&lt;/p&gt;
-
-&lt;p&gt;会议：KDD2024&lt;/p&gt;
-
-&lt;h4 id=&quot;motivation&quot;&gt;Motivation&lt;/h4&gt;
-
-&lt;p&gt;网页搜索中，通常建模为一个Query和网页内容的非对称文本匹配问题，而非对称文本匹配由于语义空间的不一致，解决的难度高。因此，可以通过问答对生成的方式将一个非对称文本匹配问题转化为对称文本匹配从而降低问题解决的难度，提升网页搜索的效果。&lt;/p&gt;
-
-&lt;h4 id=&quot;主要贡献&quot;&gt;主要贡献&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;提出了QAGeneration模块，可以利用大模型的能力离线生成高质量的QA对&lt;/li&gt;
-  &lt;li&gt;提出了QARanking模块，可以无缝集成全文匹配得分和QQ匹配得分，同时不增加在线时延&lt;/li&gt;
-  &lt;li&gt;对比SOTA，提出的QAGR方法，取得了8.7%的离线相关性提升和8.5%的在线参与收益提升&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;主要过程&quot;&gt;主要过程&lt;/h4&gt;
-
-&lt;p&gt;QAGR方法由两个模块组成，分别是离线条件下的QAGeneration模块和在线条件下的QARanking模块。离线模块用于给每个doc生成高质量的QA对，在线模块利用这些QA对用于下游检索任务。具体如下图所示：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/qagr_0.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;h5 id=&quot;qageneration&quot;&gt;QAGeneration&lt;/h5&gt;
-
-&lt;p&gt;离线QA对的构建主要分为三个步骤，分别如下：&lt;/p&gt;
-
-&lt;p&gt;（1）核心段落抽取&lt;/p&gt;
-
-&lt;p&gt;该阶段的目标主要是两个，分别是消除冗余信息以提升生成问题的质量，同时减少下游模型的输入。通过标注5000个样本，训练一个T5模型用于核心段落抽取。实际中使用这个模型做了百亿文档的核心段落抽取。&lt;/p&gt;
-
-&lt;p&gt;（2）Human in the Loop&lt;/p&gt;
-
-&lt;p&gt;针对抽取的核心段落，利用LLM通过提示词调优的方式抽取QA对，但是存在生成的格式和质量不满足要求的问题。通过instruct-tuning，显著提升了模型在垂域内的生成效果。&lt;/p&gt;
-
-&lt;p&gt;（3）问答验证&lt;/p&gt;
-
-&lt;p&gt;虽然通过第二步显著提升了生成的质量，但是仍然有可能生成无效的问题，比如给定生成的问题，在网页内容中找不到答案，以及生成的问题和答案并没有对齐。为了解决这个问题，文章训练了一个QA有效性判别的模型同时辅助人工规则用于过滤生成的问答对。&lt;/p&gt;
-
-&lt;p&gt;其中模型基于T5，输入包含问题，答案以及文档，人工的标注结果中通过的QA对作为正样本，不通过的做为负样本。&lt;/p&gt;
-
-&lt;p&gt;整体流程如下图所示：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/qagr_1.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;h5 id=&quot;qaranking&quot;&gt;QARanking&lt;/h5&gt;
-
-&lt;p&gt;Ranking分为两个步骤，分别是预排序和排序。&lt;/p&gt;
-
-&lt;p&gt;（1）预排序。计算Query和Question的terms covered，排序之后返回topN个Question。该阶段利用比较轻量的方法减少了不相关的问题用于流入下游检索阶段。&lt;/p&gt;
-
-&lt;p&gt;（2）排序。&lt;/p&gt;
-
-&lt;p&gt;用于排序的模型设计主要围绕对称孪生BERT展开，主体架构是Q-T-S&amp;amp;Q-Q双塔（共享参数），并融合意图特征，最后通过MLP把三路特征作融合。其中Q-T-S指Query-Title-Summary作为BERT的输入，Q-Q是指Query-Question作为BERT的输入，意图分为“基于关键词”和“基于自然语言”。如果是“基于关键词”，则希望得分更多来自Q-T-S，如果是“基于自然语言”，则希望得分更多来自QQ。整体流程如下：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/qagr_4.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;模型的复杂度从O(LH(S+S’)^2)降低至O(LH(S)^2)，其中L是BERT的层数，H是隐藏层的维度，S是Query+Titlte+Summary的长度，S’是Query+Question的长度。实际中S‘«S且由于是双塔结构，在计算的时候可以并行。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/qagr_3.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;为了训练这个模型，人工标注了query-document的相关性评级，从0到4共有5个级别。为了保证可解释性和稳定性，采用了pairwise和pointwise两种损失函数，其中前者是margin loss，后者是regression loss，回归损失的目的是希望模型能够学到绝对的ranking信息，使得模型具备一定的物理含义。对于只使用margin loss的模型，输出到得分只有在比较的时候才是有用的。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/qagr_2.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;实验结果&quot;&gt;实验结果&lt;/h4&gt;
-
-&lt;p&gt;针对该工作，作者分别做了离线评估和在线A/B，具体结果如下所示：由于实验条件较多，这里暂不列举，具体可以参照文章。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/qagr_5.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/qagr_6.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;从离线评估来看，基于学术界和工业界的多个数据集，在多个评估量化指标上，对比其他多个方法，该工作均取得了最好的结果。在线实验也进一步证明了该方法的有效性。&lt;/p&gt;
-
-&lt;h4 id=&quot;思考&quot;&gt;思考&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;和大模型微调中，基于self-instruct的方式将非结构化的文本转化为可以微调的数据具有一致性&lt;/li&gt;
-  &lt;li&gt;核心段落抽取也可以利用LLM来尝试完成&lt;/li&gt;
-  &lt;li&gt;QA对本质上是对非结构化文档的一个索引。从搜索内容角度看，搜索对象可以直接是QA库，也可以是非结构化文档，同时可以是基于QA对作为索引的非结构化文档。此外，未必采用本文的方法，也可以结合自己的场景，采用类似实验中的基线方法。类似方法包含&lt;a href=&quot;https://www.anthropic.com/news/contextual-retrieval&quot;&gt;anthropicai最近的contexual retrieval&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;QARanking不是很优雅。是不是可以直接路由？统一建模的效果？&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Wed, 25 Sep 2024 00:35:00 +0800</pubDate>
-        <link>http://localhost:4000/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/2024/09/25/enhancing-asymmetric-web-search-through-question-answer-generation-and-ranking/</link>
-        <guid isPermaLink="true">http://localhost:4000/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/2024/09/25/enhancing-asymmetric-web-search-through-question-answer-generation-and-ranking/</guid>
-        
-        <category>搜索</category>
-        
-        
-        <category>论文笔记</category>
-        
-      </item>
-    
-      <item>
-        <title>一次面向垂域搜索系统的实践与思考</title>
-        <description>&lt;p&gt;好久没有写文章了，过去几个月时间在solo一个文档搜索产品，随着2.0版本的全流量上线，终于可以喘一口气做一个回顾和复盘。&lt;/p&gt;
-
-&lt;p&gt;产品一方面要直接满足500万B端用户的专业领域知识搜索需求，另一方面作为基础能力间接满足咨询客服等业务场景。通俗意义上，前者的用户体验，接近于从BingChat开始的各类AI搜索类产品，技术范式接近于RAG(Retrieval Augmented Generation)，而无论是AI搜索还是RAG，在过去的很长一段时间，都有大量的文章在讨论，比如笔者的&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&amp;amp;mid=2247484869&amp;amp;idx=1&amp;amp;sn=4bf5c85a58fa2e5ee477442752d2a832&amp;amp;chksm=fc740c8ccb03859afd52c4294626eb7b9014533cb4615343f4102708a46128db8fe70afa8407&amp;amp;token=1535827598&amp;amp;lang=zh_CN#rd&quot;&gt;RAG在若干医疗场景的实践和思考&lt;/a&gt;。&lt;/p&gt;
-
-&lt;p&gt;RAG的关键在R而非G，因为G侧对于大多数目标落地的团队而言空间非常有限，因此能把R做好的团队，RAG的应用大概率做的也不差。围绕R的误解颇多，比如R是个老问题了，现在做没啥意义了；百度和Bing投入那么多人和时间，要追吗？比如花两天时间就能搞定了吧……(hhh)。anyway，这篇文章结合笔者的实践讨论一些自己的理解。&lt;/p&gt;
-
-&lt;p&gt;R分解之后的核心对象（还有重要但非核心的对象）包括Query，搜索服务和文档库，通过搜索服务建立Query和文档库的联系。其中，Query的特点是开放不确定，长尾性以及弱上下文等，文档库的特点是非结构化，强领域特征以及标签化程度低等，搜索服务要解决的问题包括但不限于一对多，非对称，在线，相关性，时效性，多样性等。搜索交付的价值不仅是一个服务，更是一个数据，工程，算法和策略的结合体，一个易用，可理解，可持续演进的系统。&lt;/p&gt;
-
-&lt;p&gt;为了构建这样的一个系统，首先搭建了一套评测体系，体系设计原则在之前的文章中也反复提及，包括人工和机器相结合，低成本自动化可量化以及分层&amp;amp;多粒度。具体包含评测目标，评测指标，评测方式以及评测依赖四部分内容。整个评测体系也并非从刚开始就全部搭建完成，而是和不同阶段的目标做适配以及持续迭代，以能否支撑搜索服务的演化为唯一目的，实际上截止2.0上线，整个评测体系在代码和机制上才比较接近最初设计的整个体系。&lt;/p&gt;
-
-&lt;p&gt;整个搜索架构在经历四个版本的演进之后，实现了对以BingSearch为代表的第三方搜索服务的替代，最终满足单链路多模块，单模块多方法的特点，能够支持多知识库配置以及搜索实例的配置化。&lt;/p&gt;
-
-&lt;p&gt;BingSearch在POC阶段，有助于实现想法的快速验证。但是随着迭代的深入，BingSearch的引入对于服务演进的阻力逐渐加大，比如过滤只能后置，比如为了实现能力兼容需要做较多的比较痛苦的架构上的trade-off，其中也经历了BingSearch大面积宕机的问题，刚开始还以为是自己的服务挂掉了，直到现在服务稳定性尚存在问题。结合成本考量以及自研进度的跟上，最终实现了对BingSearch的替代。每个外部组件的引入，要做得失考虑，希望metaso能够扛得住！&lt;/p&gt;
-
-&lt;p&gt;从1.0到2.0的持续迭代过程中，比较接近于“开着飞机换轮子”。其中推动了基于ES8的混搜方案，多视角知识加工和应用的标准化，建立围绕RAG为核心的应用开发范式等，离线配套工具的构建以及在线流量复制和A/B等也显著提升了迭代效率和研发效能。&lt;/p&gt;
-
-&lt;p&gt;其中，一站式搜索查因工具作为自底向上推动的工作，承载了较多的功能。主要面向非算法背景的同学，比如产品经理，运营同学，前后端开发等，支持搜索服务的全链路追踪，GSB评估等，同时附加功能包含基础能力分析，Prompt调优，DEMO演示等，轻量级的知识运营模块也包含在内。随着工具的发展，除了服务于搜索产品的演进，也逐步以直接或者间接的方式用于其他产品的迭代和项目验收的支持等，早已超出了搜索服务的支持工具属性。&lt;/p&gt;
-
-&lt;p&gt;随着应用研发的展开，多条线的技术范式基本类似，但是每条线都有自己独特的业务属性，因此需要一个框架抽象，通过模块解耦等，实现进行中应用的能力复用，以及支持新增应用的快速开发。整体上这是一个易用，可理解和可演进的框架，具体要求包括：&lt;/p&gt;
-
-&lt;p&gt;（1） 框架和应用分离，应用和应用隔离&lt;/p&gt;
-
-&lt;p&gt;（2）区分能力和内容&lt;/p&gt;
-
-&lt;p&gt;（3）支持各个环节的个性化实现&lt;/p&gt;
-
-&lt;p&gt;早期采用应用和框架协同演进的思路，能够实现进行中应用的能力复用，实际上这也是不得已为之。通过具体应用的开发为抽象提供具体案例，框架侧多走一步后，在具体应用侧验证框架能力。整体上目前依然处于这个阶段，在三个具体应用的反哺下稳步迭代。同时对于复杂度低的应用开发，框架已经基本能够满足快速开发的要求。&lt;/p&gt;
-
-&lt;p&gt;具体来说，在一个开发界面下，通过整合能力和内容，区分具体业务和通用框架能力，实现具体应用的开发。&lt;/p&gt;
-
-&lt;p&gt;内容侧，应用开发者只需要提供搜索数据（MySQL），mapping和用于表征的服务地址，即可在较短的时间内获得一个index，同时支持搜索数据的T+1更新。对于原始搜索数据的加工链路，针对不同的用户群体，分为不同的策略。如果来自业务侧的数据，需要用户侧完成增量链路的搭建，如果是中台数据，则由中台团队完成，也即该配置化模块的开发方自行完成。整体的流程通过一个统一的配置化界面完成，实现了多视角知识加工和应用的标准化。&lt;/p&gt;
-
-&lt;p&gt;能力侧，框架整合了算法中台已有的基础算法服务能力，沉淀的可复用的用于搜索的各个模块的可通用能力，配套周边能力含日志，异常等。&lt;/p&gt;
-
-&lt;p&gt;以上基本讨论完了主要做的工作。围绕之后的计划，搜索产品侧会推进能力和内容侧的持续优化，支持产品侧的体验提升，同时实现更多的业务接入；一站式搜索查因工具的主要目标是两个，分别是易用性提升以加强对搜索产品服务迭代的支撑力度，沉淀标准组件提升可复用性；框架侧通过和具体应用的交互，实现持续框架演化，同时推动框架在更多应用场景的使用。&lt;/p&gt;
-
-&lt;p&gt;这里不谈搜索主链之外的包含AutoSuggestion，相关搜索，分页，人工运营等，搜索产品在用户交互侧是简单的，一个输入框，返回一个搜索列表。在搜索主链稳定的前提下，似乎做的工作都是单点扭螺丝，ROI有限，不是很清楚现有成熟搜索团队的状态是否是这样？但是搜索主链的从0到1，是一个非常复杂的任务，需要良好的架构设计。过去的几个月其实每天都在谈的，不是算法模型训练，不是评估标准设计，而是架构设计。&lt;/p&gt;
-
-&lt;p&gt;所谓架构，就是有什么和没什么，什么与什么之间的关系是什么？是对一个领域的认知的体现，其中关键的是要看到问题的本质。引用玄难大师的观点，一个牛的人是对领域有一个稳定的认知。所以这势必是一件有挑战的事情。&lt;/p&gt;
-
-&lt;p&gt;搜索是一项融合了数据，工程，算法和策略的系统，并非只是交付一个无状态的独立的算法服务。举一个例子，相同搜索Query，在不同的时刻搜索结果列表可能是不一致的，分析原因是什么？可能原因如下：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;搜索内容是T+1更新的&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;HNSW导航图使用了近似KNN算法（使用暴力搜索，虽然不会引入随机性，但是大规模场景下不适用）&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;混搜时引入了高斯时间衰减（时效性提升特别好的一个性质）&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;大模型自身生成结果的随机性&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;其他的可能因素含：硬件的差异性等，绝对意义的一摸一样，比较难实现。整体上看，搜索系统是内容和能力的混合体，两者都是要能够可演进，但又不是所有的组件都能够正交设计，这样势必会带来一些复杂性。&lt;/p&gt;
-
-&lt;p&gt;在单链路多模块的cascade模式下，一个优化动作具体在哪个环节实现是最佳选择？在&lt;a href=&quot;https://zhuanlan.zhihu.com/p/398041971&quot;&gt;阿里妈妈朱小强的文章&lt;/a&gt;中提到两种设计哲学，分别是城邦自治模式和一盘棋模式，“召回、粗排、精排等每个模块都按照自己对于全局一致性逻辑的理解，在平衡好集合规模、算力消耗、系统性能等约束的情况下独立迭代”，因此这里一定会存在一个在哪个城邦实现治理的问题。实际上，一盘棋模式在其他的应用中已经有用到，把路径做短，单个模块做宽。面向具体目标，精排也许并非必要？这种模式更加敏捷，不过对于单模块的能力要求更高，因为在特定阶段要完成更多的目标优化任务。这也是笔者自身的一个架构演化方向。&lt;/p&gt;
-
-&lt;p&gt;给很多朋友安利过的张刚老师的&lt;a href=&quot;https://book.douban.com/subject/35966115/&quot;&gt;《软件设计：从专业到卓越》&lt;/a&gt;中谈到契约式设计。所谓契约式设计，就是权利和责任，边界问题也是权责问题。跳出来，不带偏见的思考，哪些是我该干的，哪些不是我该干的，拥有上帝视角。“做多”场景包括通过Query扩展增加用于搜索的Query数（多Query），通过增加知识库扩大搜索内容（多知识库）,通过增加召回通道实现召回结果的多样性（多召回通道）等。&lt;/p&gt;
-
-&lt;p&gt;针对多召回通道，一种设计是，固定召回文档数量，随着召回通道数增加，每个召回通道平摊文档量。优点是排序成本不增加的条件下，增加了多样性；缺点是假设召回文档数量等于召回通道数，那么每个召回通道只能分到一个文档，如果前者大于后者呢？这里存在一个显然的bottleneck。因此另外一种设计是，不要限制召回文档数量，在排序阶段通过算力并行实现对召回文档的排序，以算力换多样性。召回的责任之一是提升召回文档的多样性，为下游实现充分的供给，因此有权通过增加召回通道数实现这一目标，且不能因为会增加下游排序的成本而不去选择。因为增加下游排序成本的问题，可以在下游通过算力消耗解决。&lt;/p&gt;
-
-&lt;p&gt;在早期，如果允许召回文档数量较多的条件下，采用第一种设计也可以但是存在潜在的设计瓶颈。因此在该问题中也可以看到，除了数据，算法，策略和工程，算力也是一个部分条件下需要考虑的因素。&lt;/p&gt;
-
-&lt;p&gt;除此之外，还有一些有价值的问题需要思考。在多Query+多知识库+多召回通道的条件下，搜索的最小颗粒度是什么？怎么保证在元素从1扩展到N的时候，架构调整的最小化？能力和内容一定是强耦合的吗？&lt;/p&gt;
-
-&lt;p&gt;接下来的基本方向包括如下：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;通过一份相同训练数据，按照不同的训练策略得到三个模型分别用于搜索主链的三个关键环节以期全链路的效果提升&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;搜索内容侧的粒度升级，通过更细粒度的知识管理，提升搜索的精细化以及摘要生成的上下文获取简化&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;融合结构化和非结构化信息的搜索架构3.0&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;online learning，融合在线点击feedback信号到搜索主链中（实时数据工程），以及考虑专业搜索用户profile，实现搜索服务的个性化能力提升。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;如果顺利地话，产品本月能够和C端用户见面。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://zhpmatrix.github.io/about/&quot;&gt;扫码加笔者好友&lt;/a&gt;，茶已备好，等你来聊~&lt;/strong&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Sat, 07 Sep 2024 18:35:00 +0800</pubDate>
-        <link>http://localhost:4000/2024/09/07/ai-tax-search/</link>
-        <guid isPermaLink="true">http://localhost:4000/2024/09/07/ai-tax-search/</guid>
-        
-        <category>搜索</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>《A Surprisingly Simple yet Effective Multi-Query Rewriting Method for Conversational Passage Retrieval》</title>
-        <description>&lt;h4 id=&quot;一-基本信息&quot;&gt;一. 基本信息&lt;/h4&gt;
-&lt;p&gt;会议信息：SIGIR2024&lt;/p&gt;
-
-&lt;p&gt;关键词：对话式文本检索，Query改写&lt;/p&gt;
-
-&lt;h4 id=&quot;二-动机和贡献&quot;&gt;二. 动机和贡献&lt;/h4&gt;
-
-&lt;p&gt;对话式文本检索中存在的一个挑战是，由于在会话历史中，存在指代，遗漏和话题转换等问题，容易导致检索出不相关的文本。通常的一个解法是根据会话历史，通过Query改写，获取一个非情景化（de-contextualized）的Query用于下游检索。但是这种解法在部分场景下可能捕捉到不正确的意图，从而导致无法检索出正确的答案，根本原因在于Query改写是一个离散生成过程，可能无法准确的捕捉到潜在概率分布和词权重。&lt;/p&gt;
-
-&lt;p&gt;在一些工作中已经表明，对于相同的Query，通过整合多个改写后的Query能够进一步提升检索的效果，而beam search可以在没有任何附加成本的条件下，通过在每个生成步骤中考虑最佳的K个句子，而不是用贪心的模式选择最高概率的句子，天然生成多个改写后的Query且同时建模了词权重，方法简单有效且没有过多的计算成本。&lt;/p&gt;
-
-&lt;p&gt;该工作的主要贡献如下：&lt;/p&gt;
-
-&lt;p&gt;（1）比起当前主流的神经QR方法，能够以没有增加额外计算成本的前提下，产生多个Query&lt;/p&gt;
-
-&lt;p&gt;（2）能够以一种非常有效的方式将产生的Query用于sparse和dense检索中
-（3）提出的方法在QReCC数据集中拿到了SOTA的结果&lt;/p&gt;
-
-&lt;h4 id=&quot;三-主要方法&quot;&gt;三. 主要方法&lt;/h4&gt;
-
-&lt;h5 id=&quot;1-query改写&quot;&gt;(1) Query改写&lt;/h5&gt;
-
-&lt;p&gt;通过微调一个生成式语言模型在每个轮次根据beam search的得分生成TopN个改写Query，每个改写的Query有一个改写得分如下：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/cmqr_1.png?raw=true&quot; alt=&quot;1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;其中，t1,…,tl是预测的token，q(i,j)的&lt;strong&gt;绝对值符号&lt;/strong&gt;是第i个轮次，第j个改写Query的长度，H是会话历史。考虑到RS是句子序列中词概率的乘积，改写得分会增加长度正则避免改写器产生非常短的改写结果。&lt;/p&gt;
-
-&lt;h5 id=&quot;2-sparse检索&quot;&gt;(2) Sparse检索&lt;/h5&gt;
-
-&lt;p&gt;sparse检索依赖bow文本表示，相关性的计算方式通常如下：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/cmqr_2.png?raw=true&quot; alt=&quot;2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;其中w(t,q)表示与query相关的词权重，w(t,d)表示与document相关的词权重。改写的Query用于sparse检索时，主要关注w(t,q)。经典的做法是w(t,q)=c(t,q)，其中c表示频数统计。在该工作中，可以从n个改写的query中构建一个加权bow表示的query。具体分为两个步骤：&lt;/p&gt;
-
-&lt;p&gt;（1）每个改写query中的词权重，可以用beam search的得分来表示&lt;/p&gt;
-
-&lt;p&gt;（2）对于词集合中的每个词，词的权重可以通过对n个改写query中对应的词的权重进行求和取平均
-本质上，上述方法通过n个query改写的结果，实现了query扩展和词权重的重估计。&lt;/p&gt;
-
-&lt;h5 id=&quot;3-dense检索&quot;&gt;(3) Dense检索&lt;/h5&gt;
-
-&lt;p&gt;dense检索依赖向量表示，相关性的计算方法通常如下：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/cmqr_3.png?raw=true&quot; alt=&quot;3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;其中h(q)表示query的向量表示，h(d)表示document的向量表示。针对第i轮的n个query，向量表示方式如下：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/cmqr_4.png?raw=true&quot; alt=&quot;4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;最终的query的表示是n个query的加权，比之单个query，一定程度上增加了鲁棒性。&lt;/p&gt;
-
-&lt;h4 id=&quot;四-实验结果&quot;&gt;四. 实验结果&lt;/h4&gt;
-
-&lt;p&gt;采用QReCC数据集，共14k个对话，包含80k个问答对，数据集分割之后，得到测试实例8209个。采用的评估指标为MAP，MRR和Recall@10。采用的微调模型为t5-base，beam width为10，sparse检索的实现基于pyserini， dense embedding模型采用GTR(t5-based)。对比的baseline分别如下：&lt;/p&gt;
-
-&lt;p&gt;（1）manual rewrite。数据集中提供，人工改写的query&lt;/p&gt;
-
-&lt;p&gt;（2）T5QR(Manual)。一个比较强的基于t5的query改写模型&lt;/p&gt;
-
-&lt;p&gt;（3）Con-QRR。一个基于t5的利用强化学习优化检索性能之后的模型&lt;/p&gt;
-
-&lt;p&gt;（4）ConvGQR。利用两个t5模型，第一个进行query改写；第二个针对改写之后的query产生answer&lt;/p&gt;
-
-&lt;p&gt;（5）LLM(adhoc)。基于ChatGPT做query改写&lt;/p&gt;
-
-&lt;p&gt;（6）T5QR(LLM)。整体策略同（4），不同点在于基于10k的样本做了蒸馏。&lt;/p&gt;
-
-&lt;p&gt;具体实验结果如下，星号（*）表示最佳结果，下划线表示第二好的结果。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/cmqr_5.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;对比分析得到：&lt;/p&gt;
-
-&lt;p&gt;（1）该方法在sparse和dense两类检索中，各个数据集上都比对比的方法要好（除人工），这意味着该方法对于检索有效果上的提升。&lt;/p&gt;
-
-&lt;p&gt;（2）该方法取得了在QReCC数据集上的SOTA。&lt;/p&gt;
-
-&lt;p&gt;（3）虽然人工改写在TREC-CAsT数据集上取得了最好的结果，但是在QReCC数据集上，自动化的方法还是优于人工改写。&lt;/p&gt;
-
-&lt;h4 id=&quot;五-结论和启发&quot;&gt;五. 结论和启发&lt;/h4&gt;
-
-&lt;p&gt;（1）提出了一种不增加额外代价的query改写方法，可以以一种比较简单的方式集成在sparse和dense的检索pipeline中带来效果的提升&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;如何得到一个query改写模型？&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;蒸馏LLM的结果/利用线上搜索日志等&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;ES混搜架构中，如何利用这种改写方法？&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;dense检索相对直接，对于sparse检索来说，w(t,q)和w(t,d)是ES的内置操作。或者退化为一种计算关键词权重的逻辑用于召回&lt;/p&gt;
-
-&lt;p&gt;（2）两个需进一步探索的想法&lt;/p&gt;
-
-&lt;p&gt;（2.1）探索多query改写在精排阶段的用法&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;对于n个改写query，每个query和document计算相关性，按照RS加权得到最终的相关性得分&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;（2.2）改写query个数的自动化选择&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;目标和反馈的确定&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;改写后：&lt;/p&gt;
-
-&lt;p&gt;目标: 计算RS的平均分&amp;gt;=平均分阈值&lt;/p&gt;
-
-&lt;p&gt;反馈：K依次递增，判断是否满足条件。如果满足则退出，否则增加K的值，直到满足条件或者等于最大的K
-改写中，根据logit来实现自动化等&lt;/p&gt;
-
-</description>
-        <pubDate>Mon, 26 Aug 2024 18:35:00 +0800</pubDate>
-        <link>http://localhost:4000/2024/08/26/query-rewrite/</link>
-        <guid isPermaLink="true">http://localhost:4000/2024/08/26/query-rewrite/</guid>
-        
-        <category>搜索</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>《FIRST: Faster Improved Listwise Reranking with Single Token Decoding》</title>
-        <description>&lt;h4 id=&quot;基本信息&quot;&gt;基本信息&lt;/h4&gt;
-
-&lt;p&gt;主题：LLM用于重排序&lt;/p&gt;
-
-&lt;p&gt;作者：Heng Ji etc.&lt;/p&gt;
-
-&lt;p&gt;机构：UIUC, IBM etc.&lt;/p&gt;
-
-&lt;p&gt;代码：https://github.com/gangiswag/llm-reranker&lt;/p&gt;
-
-&lt;h4 id=&quot;主要贡献&quot;&gt;主要贡献&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;提出一种新的方法能够单独利用LLM生成的第一个标识符的logit来做排序&lt;/li&gt;
-  &lt;li&gt;监督微调模型中增加learning to rank的损失函数，在提升rank效果的同时，降低推理时延&lt;/li&gt;
-  &lt;li&gt;比cross-encoder更好的排序效果&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;之前的方法有哪些？&lt;/p&gt;
-
-&lt;p&gt;（1）《Improving Passage Retrieval with Zero-Shot Question Generation》，EMNLP2022&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/image.png?raw=true&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;该方式比较符合直觉。针对每个返回的passage，用LLM生成一个问题question，然后利用LLM计算PPL作为question和Question的相关性表示。&lt;/p&gt;
-
-&lt;p&gt;（2）《Holistic Evaluation of Language Models》，Percy Liang，TMLR&lt;/p&gt;
-
-&lt;p&gt;给定Query和Passage，输出Yes或者No&lt;/p&gt;
-
-&lt;p&gt;（3）《Is ChatGPT Good at Search? Investigating Large Language Models as Re-Ranking Agents》，EMNLP2022&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/image2.png?raw=true&quot; alt=&quot;image2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/image7.png?raw=true&quot; alt=&quot;image7&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;主要思路是通过滑窗的方式，从底部向上进行排序，其中window的大小是要返回的topk个搜索结果。本质上是通过端到端的方式
-直接输出最终的排序结果。&lt;/p&gt;
-
-&lt;h4 id=&quot;该工作怎么做的&quot;&gt;该工作怎么做的？&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/image3.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;(1）利用LLM生成的第一个标识符的logit来做排序&lt;/p&gt;
-
-&lt;p&gt;（2）加入LTR损失函数的模型微调&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/image4.png?raw=true&quot; alt=&quot;image4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/image5.png?raw=true&quot; alt=&quot;image5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;整体上的损失函数是语言模型和LTR损失的加权。这里，LTR的损失函数的weighting方案，提升了排序序号较前的样本的logit的权重。其中，i和j是真实排序序列中的排序序号，si和sj是第一个token的logit分布中对应的标识符的logit。相关的损失函数在度量学习中有更多一些。&lt;/p&gt;
-
-&lt;h4 id=&quot;排序效果怎样&quot;&gt;排序效果怎样？&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/imag6.png?raw=true&quot; width=&quot;400&quot; align=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;最上一行是通过LM直接生成的效果，从上表可以看出，基于各个任务的平均指标，LM+weighting RankNet的效果最佳，同时去掉LM和去掉weighting均会使得排序效果变差。&lt;/p&gt;
-
-&lt;h4 id=&quot;思考延伸&quot;&gt;思考延伸&lt;/h4&gt;
-
-&lt;p&gt;（1）标识符采用A-Z，限制了window的大小&lt;/p&gt;
-
-</description>
-        <pubDate>Wed, 26 Jun 2024 00:35:00 +0800</pubDate>
-        <link>http://localhost:4000/2024/06/26/reranker-based-on-llm/</link>
-        <guid isPermaLink="true">http://localhost:4000/2024/06/26/reranker-based-on-llm/</guid>
-        
-        <category>搜索</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>结束</title>
-        <description>&lt;p&gt;文章从笔者自己的公众号《KBQA沉思录》转发而来，文章主要围绕以下内容展开：&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&amp;amp;mid=2247484884&amp;amp;idx=1&amp;amp;sn=ab696993ec6c0c4daca14f8649074854&amp;amp;chksm=fc740c9dcb03858ba41add43d6a36f5dd5b5d0a8825142cf357d5cbd7aff04f81f8decb0b7f1&amp;amp;token=1169779643&amp;amp;lang=zh_CN#rd&quot;&gt;Finally，再见&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Tue, 16 Apr 2024 17:14:00 +0800</pubDate>
-        <link>http://localhost:4000/2024/04/16/ending/</link>
-        <guid isPermaLink="true">http://localhost:4000/2024/04/16/ending/</guid>
-        
-        <category>生活杂谈</category>
         
         
       </item>

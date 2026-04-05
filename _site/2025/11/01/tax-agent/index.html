@@ -1,0 +1,476 @@
+<DOCTYPE html>
+<html>
+  <head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9534180453883710"
+     crossorigin="anonymous"></script>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ohcryzf6h1");
+</script>
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4LG9G3BTNP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4LG9G3BTNP');
+</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>财税版DeepResearch的构建实践</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="致力于算法，数据和工程的全链路打通">
+    <link rel="canonical" href="http://localhost:4000/2025/11/01/tax-agent/">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Personal visit times -->
+    <script>
+	var _hmt = _hmt || [];
+	(function() {
+  		var hm = document.createElement("script");
+  		hm.src = "//hm.baidu.com/hm.js?39e5930446e371d66d738fef008c3ce2";
+  		var s = document.getElementsByTagName("script")[0]; 
+  		s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+ </head>
+
+
+    <body>
+    <header class="site-header">
+
+  <div class="wrap">
+
+    <div style="float:floate; margin-top:10px; margin-right:50px;"></div>
+    <a class="site-title" href="/">ZHPMATRIX blog</a>
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 18 15" enable-background="new 0 0 18 15" xml:space="preserve">
+          <path fill="#505050" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0
+            h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#505050" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484
+            h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#505050" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0
+            c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+</a>
+      <div class="trigger">
+ 	<font color="yellow"><a class="page-link" href="https://aitax.17win.com/#/home?Authorization=Bearer+RKgwsKLnZ3uOoZPjU9nPEPP6H/gjZcVgFlgixoqaWSjeXvjxg9jxTA8yJzNOCd94mm7tSpzOgq0w9Q/3XZuY3MitCACEUV88dDvlWFESem/uZVjdHXvDoxFRxGUJLDByEB1GZSxrWvL9mUxlU5ykT9yDV%2BVNCfQLd6YNf7d%2Bss0=&X-App-Key=cb1e9c178a914a61b4db1bd5735f1036&X-Biz-Code=test&X-User-Id=tester&keyword=%E5%B0%8F%E5%9E%8B%E5%BE%AE%E5%88%A9%E4%BC%81%E4%B8%9A%E6%89%80%E5%BE%97%E7%A8%8E%E4%BC%98%E6%83%A0">AI搜税</a></font>
+        
+          <font color="yellow"><a class="page-link" href="/about/">about</a></font>
+        
+          
+        
+          
+        
+          <font color="yellow"><a class="page-link" href="/project/">project</a></font>
+        
+	
+      </div>
+    </nav>
+  </div>
+  <!-- Personal visit times -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?77e6dc2a588a3d798d2b6287b25441cb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  <style>
+	body{background-color:#84bf97}
+  </style>
+ </header>
+
+
+    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
+    <div class="page-content">
+      <div class="wrap">
+      <div class="post">
+
+  <header class="post-header">
+    <h1>财税版DeepResearch的构建实践</h1>
+    <p class="meta">
+      Nov 1, 2025
+      
+      • 
+      <span class="meta-tags">
+        
+          <span class="tag">Agent</span>
+        
+      </span>
+      
+      • <span id="busuanzi_container_page_pv">阅读量：<span id="busuanzi_value_page_pv"></span>次</span>
+    </p>
+  </header>
+
+  <article class="post-content">
+  <h4 id="前言">前言</h4>
+
+<p><img src="/images/horse_car.webp" width="500" align="center" /></p>
+
+<p>马拉火车做为开篇大图，以启发读者和笔者的思考。</p>
+
+<h4 id="agent架构设计">Agent架构设计</h4>
+
+<p>在过去的一段时间，业界对于agent几乎从未形成一个定义。从技术实现的角度来看，Agent是LLM is in a loop.虽然如此，从Lilian Weng的blog中的这张图开始，多数情况下还是能够形成些许共识。</p>
+
+<p><img src="https://lilianweng.github.io/posts/2023-06-23-agent/agent-overview.png" width="500" align="center" /></p>
+
+<h4 id="agent设计模式">Agent设计模式</h4>
+
+<p>Antonio Gulli(Google Cloud, CTO)的新书<a href="https://github.com/ginobefun/agentic-design-patterns-cn">《Agentic Design Patterns: A Hands-On Guide to Building Intelligent Systems》</a>中对智能体设计模式做了整体梳理，如下所示。</p>
+
+<h5 id="提示链">提示链</h5>
+
+<p>提示链是通过提示词构建一个pipeline进行任务处理。本质上是workflow的范畴，不过在pipeline的各个环节是通过提示词实现的。优点是可控，独立优化和部署，缺点是存在错误传递的可能。也是比较常用的一种设计模式。</p>
+
+<h5 id="路由">路由</h5>
+
+<p>通过路由层实现意图分发，分发至子智能体，工具链，人工(追问&amp;拒识)。具体的实现方式可以是大模型，向量，规则和传统机器学习模型。</p>
+
+<h5 id="并行">并行</h5>
+
+<p>通过异步通信，多线程和多进程的方式，将构建的agent进行架构调优，实现并行化，减少总体等待时间。</p>
+
+<h5 id="反思">反思</h5>
+
+<p>引入反思模式可以构建包含反馈循环的智能体工作流。实现方式包括通过单个智能体，或者两个智能体。通常后者通过职责分离模式，能够产生更稳健，更客观的结果。</p>
+
+<h5 id="工具使用">工具使用</h5>
+
+<p>function calling的能力是连接大模型的推理能力和外部工具的技术桥梁。通过需要工具定义，工具调度，工具执行，工具结果获取和反馈。其中工具的类型包括外部API，数据库访问，服务交互，代码执行，搜索工具等。</p>
+
+<p>常用的工具包括命令执行(含Python执行)，文件读写，搜索，浏览器，已经能够覆盖绝大多数场景，网传Manus的工具有29种。</p>
+
+<h5 id="规划">规划</h5>
+
+<p>规划是指在完成一个目标的时候，根据目标进行执行步骤的拆解，形成一个执行计划。比如大模型的Think模式，显式的任务安排(旅行计划)，DeepResearch，Claude Code的执行计划，Manus作为通用智能体的TODO设计等。</p>
+
+<p>通过规划，可以实现大模型推理过程的显性化，必要的时候可以引入人类参与的干预。同时也提供了一种模型完成任务时的工作流拆解方式，且这种拆解是模型自发的行为。因此，对模型和人，都是一个比较好的设计模式。</p>
+
+<h5 id="多智能体协作">多智能体协作</h5>
+
+<p>多智能体是一种通用的设计模式，基于任务分解原则，可以将高层目标拆解为多个子问题，每个子问题可以有各自的智能体进行问题解决。本质是一种群体智能的实现方式，相比单体架构，在模块化，可扩展性和鲁棒性上表现的更好。</p>
+
+<p>协作的方式包括但不限于顺序交接，并行处理，辩论和共识，层级结构(类比管理结构)，专家团队和评审者模式。</p>
+
+<h5 id="记忆">记忆</h5>
+
+<p>记忆分为短期记忆和长期记忆。在<a href="https://zhpmatrix.github.io/%E5%AF%B9%E8%AF%9D%E7%B3%BB%E7%BB%9F/2025/09/14/memory/">AI记忆系统的技术演进与设计哲学</a>中有更详细的描述。</p>
+
+<h5 id="mcp">MCP</h5>
+
+<p>一种通用连接机制，建立大模型和周围环境的标准通信协议。可以认为是工具函数调用能力的进一步标准化。</p>
+
+<h5 id="目标设定和监控">目标设定和监控</h5>
+
+<p>针对目标实现过程的监控，并根据监控进行反馈的模式。</p>
+
+<h5 id="人机协同">人机协同</h5>
+
+<p>必要的时候，决策交给人类。</p>
+
+<h5 id="rag">RAG</h5>
+
+<p>获取实时，可验证的数据上。</p>
+
+<h5 id="a2a">A2A</h5>
+
+<p>MCP侧重于智能体和外部数据以及工具的交互，A2A侧重于智能体之间的协调和通信。涉及的交互机制包括同步请求/响应，异步轮询，流式更新和推送通知。</p>
+
+<h5 id="资源感知优化">资源感知优化</h5>
+
+<p>系统在设计过程中关注计算，时间和财务资源。比如大小模型的融合，超过资源预算自动终止，时间优先或者效果优先等</p>
+
+<h5 id="推理技术">推理技术</h5>
+
+<p>包括CoT，ReAct，DeepResearch等。在<a href="https://github.com/ginobefun/agentic-design-patterns-cn/blob/main/23-Chapter-17-Reasoning-Techniques.md">书中的第17章</a>给了相对全面的描述。</p>
+
+<h5 id="评估和监控">评估和监控</h5>
+
+<p>智能体系统的可观测性实现。</p>
+
+<h5 id="优先级排序">优先级排序</h5>
+
+<p>包括智能体运行过程中的目标排序，动作排序等。</p>
+
+<h5 id="探索和发现">探索和发现</h5>
+
+<p>并非所有的解决方案都是可以预定义的，该模式允许智能体系统能够主动寻找新的信息，发现新的可能性。典型的应用场景如科学研究。在OpenAI定义的5层AI水平分类中，居于Agent之上的层次。</p>
+
+<h4 id="财税版deepresearch">财税版DeepResearch</h4>
+
+<h5 id="技术方案">技术方案</h5>
+
+<p>针对财税实务咨询中的问题，也许可以参考法律中的三段论思想进行解决，相关工作在法律领域已经有诸多的实践。恰逢做这个工作的时候，tongyi-deep-research模型发布，文章中称效果比OpenAI的deepresearch要好。</p>
+
+<p>deepresearch的架构包含四种，分别是中心式的架构，pipeline的架构，multi-agent的架构以及混合架构。tongyi-deep-research是基于一个中心化的agentic模型实现全流程的自主运行。基于财税领域的具体问题适配之后的架构如下：</p>
+
+<p><img src="/images/DeepResearch-TaxDeepResearch-V0.2.drawio.png" width="500" align="center" /></p>
+
+<p>考虑到可控性，在快速尝试了上述实现方式之后，构建了一个pipeline的架构，如下:</p>
+
+<p><img src="/images/DeepResearch-TaxDeepResearch-V0.1.drawio.png" width="500" align="center" /></p>
+
+<p>实测后者的效果显著优于前者。</p>
+
+<h5 id="反思-1">反思</h5>
+
+<p>现实的构建途径如下：</p>
+
+<p>（1）agentic model</p>
+
+<p>（2）基于ReAct的多个提示词</p>
+
+<p>（3）考虑multi-agent。将裁判器做为一个独立的agent</p>
+
+<p>（4）不考虑微调</p>
+
+<p>理想的构建途径如下：</p>
+
+<p>（1）单个提示词执行三段论</p>
+
+<p>（2）基于ReAct的多个提示词</p>
+
+<p>（3）multi-agent</p>
+
+<p>（4）<a href="https://mp.weixin.qq.com/s/l0KZ-BdR20zWnEyaXPIvWw">部分环节对应模块的微调</a></p>
+
+<h4 id="经验总结">经验总结</h4>
+
+<p>结合<a href="https://mp.weixin.qq.com/s/u6F93L0sCfR-rjqBSJi3lQ">《如何让Agent更符合预期？》</a>以及自身构建Agent的经验进行讨论如下。</p>
+
+<ul>
+  <li>预期清晰化</li>
+</ul>
+
+<p>没有清晰的预期，写不出清晰的指令，更没有清晰的衡量标准。其中的难点是在财税垂直领域，存在有些预期是无法准确并清晰化的描述的，同时需要清晰化描述的概念过多。一种解决方案是能够描述的尽可能描述，另外一种方案是通过搜索的方案绕过需要描述的情况。</p>
+
+<ul>
+  <li>上下文精准化</li>
+</ul>
+
+<p>只给模型需要的上下文，不能少给，也不能多给。其中的问题在于：部分情况下，是无法知道模型需要什么样的上下文。如果少给，会寄希望于模型内部能够补全缺失的上下文；如果多给，寄希望于模型能够通过自动化的筛选，选择必要的上下文内容。</p>
+
+<p>精准化的本质是通过人类完成对上下文的预处理。这里有较多非常实用的技术：context offloading/reducing context(可逆的压缩和不可逆的总结)/retrieving context/context isolation/caching context等</p>
+
+<ul>
+  <li>三方角色不清晰导致模型错乱</li>
+</ul>
+
+<p>避免轻易删除或者篡改模型完整的探索历史，包括未被采纳的错误常识。在AI Coding工具的产品设计中，会保留一个对话的tag作为模型的记忆，记忆的问题在笔者的关于<a href="https://zhpmatrix.github.io/2025/06/23/taskbot-last-question/">最后一句抽取的文章</a>中也有探讨，并非轻易作出选择。如果可能的话，尽可能保留完整对话上下文，同时对角色有所清晰的区分和标识。</p>
+
+<ul>
+  <li>采用形式化的表达逻辑</li>
+</ul>
+
+<p>在提示词中，采用形式化的表达逻辑，更加严密且适合模型去理解。比如用json形式表达一个流程步骤的处理逻辑。在要素抽取这个任务中，提示词中描述了很多if…then…的逻辑，相比采用自然语言的表达方式，直接采用if…then…的表达效果更好。</p>
+
+<ul>
+  <li>自定义工具协议</li>
+</ul>
+
+<p>在作者的实践中，发现自定义的工具协议效果优于标准协议，给了一个基本的猜测如下:</p>
+
+<p><em>模型在为通用协议进行训练时，其思考和调用逻辑相对收到了训练数据的影响和固化。当你的领域化需求遇上它的内在逻辑时，它会默认按照训练语料中的方式去理解和调用，所以不会完全遵循你的指令。</em></p>
+
+<ul>
+  <li>成也few-shot，败也few-shot</li>
+</ul>
+
+<p>单任务中善用few-shot，灵活的任务中慎用few-shot。在财税垂直领域的对话系统构建中，由于场景的灵活性，few-shot多数情况下没有发挥对应的价值。</p>
+
+<ul>
+  <li>记忆管理避免模型遗忘</li>
+</ul>
+
+<p>典型的方式包括重点信息增强提示，上下文压缩和外存。在笔者遇到的一个录音对话数据挖掘中，单个录音对话2个小时左右，大几万字的文本数据，在进行对话挖掘的时候，势必要进行长文本的处理。</p>
+
+<ul>
+  <li>multi-agent实现可控性和灵活性</li>
+</ul>
+
+<p>主agent进行调度决策，子agent进行固定，复杂流程的workflow的执行（比如规则引擎或者单个LLM）。类比，在大模型对话中，通过think进行planning，调用工具执行确定的动作，比如search等。</p>
+
+<ul>
+  <li>人机结合</li>
+</ul>
+
+<p>没有人是万万不行的。</p>
+
+<h4 id="个人思考">个人思考</h4>
+
+<ul>
+  <li>智能体系统的构建需要在算法，工程和数据之间进行良好的架构设计(关注架构)</li>
+</ul>
+
+<p>算法侧关心效果和速度，且效果&gt;速度；工程侧关心任务完成率，要容错性高，稳定性好，同时吞吐能力强；针对系统运行过程中的数据，必要时具备海量数据处理的能力（Manus的海量数据处理场景）。</p>
+
+<ul>
+  <li>为什么一定要做Agent？</li>
+</ul>
+
+<p>提供了一种更加抽象和通用的系统构建方式，是生产工具的飞跃，带来了生产力的巨大提升。</p>
+
+<ul>
+  <li>重组</li>
+</ul>
+
+<p>在前老板写的文章<a href="https://mp.weixin.qq.com/s/498u66qtoww4r-LYpSBaAg">《基于多Agent架构的新一代智能助理：重塑医疗信息化的“超级大脑”》</a>中，可以看到AI如何和传统的业务中台和数据中台进行多方联动。在LLM之前，虽然我们也在讨论同样的问题，但是LLM之后，通过重组使得理想越来越接近现实。</p>
+
+<h4 id="相关资料">相关资料</h4>
+
+<ul>
+  <li><a href="https://mp.weixin.qq.com/s?__biz=MzIzOTU0NTQ0MA==&amp;mid=2247548559&amp;idx=1&amp;sn=d24620926ed3708125668a57ba4da06b&amp;scene=21&amp;poc_token=HMCxCWmjjOE7TAQ_QhnueIvM0cj4fPJue5Gx45yI">为什么一定要做Agent？</a></li>
+</ul>
+
+<p>文章中作者的思想是马拉火车是暂时的，火车最终还是会自己跑，同样长途走路，只是我们不再需要马车，而是火车。</p>
+
+<ul>
+  <li>
+    <p><a href="https://mp.weixin.qq.com/s?__biz=MzIzOTU0NTQ0MA==&amp;mid=2247547559&amp;idx=1&amp;sn=e45051ae227c8356096cdef863465a24&amp;scene=21&amp;poc_token=HDa7CWmjH9goOievOy6BwNEeYwllPB_lBOtbzJQ7">Manus的复现</a></p>
+  </li>
+  <li>
+    <p><a href="https://arxiv.org/abs/2402.01030">《Executable Code Actions Elicit Better LLM Agents》</a></p>
+  </li>
+</ul>
+
+<p>和claude code的产品设计哲学有一致之处，cli+code是天作之合。</p>
+
+<ul>
+  <li>
+    <p><a href="https://lilianweng.github.io/posts/2023-06-23-agent/">LLM Powered Autonomous Agents</a></p>
+  </li>
+  <li>
+    <p><a href="https://mp.weixin.qq.com/s/tewBKHgbyrjxUjAOmkXI7A?s_channel=4&amp;s_trans=4yOOhmCD9ZuFEQ7eIpqxrg%3D%3D_s">从ChatGPT到AI Agent，一文讲透Agent的底层逻辑</a></p>
+  </li>
+</ul>
+
+<p>Manus团队的前同学写的文章，描绘了一个比较大的Agent逻辑。</p>
+
+<ul>
+  <li><a href="https://mp.weixin.qq.com/s/_LlK7hK7vjKYxKJQPn6t8w">LangChain联合Manus季逸超最新分享！也许当前最好的「上下文工程」讲解</a></li>
+</ul>
+
+<p>给了很多关于context管理的具体技术建议。比较印象深刻的结论：相信模型的能力，不要过度的工程化。</p>
+
+<p><strong><a href="http://www.zhpmatrix.site/about/">扫码加笔者好友</a>，茶已备好，等你来聊~</strong></p>
+
+  </article>
+
+  <!-- mathjax -->
+  
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+  <!-- 不蒜子统计 -->
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = 'https://arvinx.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<script src="https://unpkg.com/mermaid@8.9.3/dist/mermaid.min.js"></script>
+<script>
+  $(document).ready(function () {
+    mermaid.initialize({
+      startOnLoad:true,
+      theme: "default",
+    });
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+  });
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrap">
+
+    <h2 class="footer-heading">ZHPMATRIX blog</h2>
+
+    <div class="footer-col-1 column">
+      <ul>
+	 <li><a href="https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484598&idx=1&sn=ffbf5407ffd399a591930023639b2560&chksm=fc740dffcb0384e9f8fd98446fb0279fff5d4660fa78aed349b2ae15b2192b037900f9d3943f&token=1310413677&lang=zh_CN#rd">微信公众号《KBQA沉思录》</a></li>
+        <li><a href="mailto:zhpmatrix@gmail.com">Gmail邮箱</a></li> 
+        <li><a href="https://weibo.com/u/2879902091">微博</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer-col-2 column">
+      <ul>
+        <li>
+          <a href="https://github.com/zhpmatrix">
+            <span class="icon github">
+              <svg version="1.1" class="github-icon-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+              </svg>
+            </span>
+            <span class="username">zhpmatrix</span>
+          </a>
+        </li>
+       </ul>
+    </div>
+
+    <div class="footer-col-3 column">
+      <p class="text">致力于算法，数据和工程的全链路打通</p>
+    </div>
+
+  </div>
+  
+</footer>
+
+<script src="https://unpkg.com/mermaid@8.9.3/dist/mermaid.min.js"></script>
+<script>
+  $(document).ready(function () {
+    mermaid.initialize({
+      startOnLoad:true,
+      theme: "default",
+    });
+    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+  });
+</script>
+
+
+    </body>
+</html>
