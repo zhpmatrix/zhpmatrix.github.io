@@ -13,8 +13,10 @@ permalink: /project/
 [![zhpmatrix's GitHub stats](https://github-readme-stats-sigma-five.vercel.app/api?username=zhpmatrix&show_icons=truet&include_all_commits=True&hide=contribs)](https://github.com/anuraghazra/github-readme-stats)
 
 
-**社会活动**
+**参与活动**
 
+- Linkloud沙龙:硅谷观察，AI初创如何重新定义"卷"和"快"?，杭州，2025.11
+- AI茶话会，杭州，2025.11
 - 红杉中国成员公司大模型闭门研讨会-大模型新范式变革下的机遇+挑战，中国上海，2024.3
 - 《海外独角兽》组织的Huggingface&ML茶话会
 - 中国卫生杂志-[《ChatGPT能给医疗行业带来什么》](https://mp.weixin.qq.com/s/15z3AL2UQvARW1Sfh7yMQA)，获该杂志2023年4月份最高分重点稿件
