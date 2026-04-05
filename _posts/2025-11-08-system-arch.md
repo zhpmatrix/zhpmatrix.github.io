@@ -21,7 +21,7 @@ date: 2025-11-08 11:00:00
 
 由于笔者对全栈能力比较关注，围绕WEB相关的设计也比较有意思。比如在后端架构设计中，经常讨论的话题是[MySQL和Redis在多线程场景下的数据一致性问题](https://haobin.work/2021/10/18/%E6%9E%B6%E6%9E%84%E6%BA%90%E7%A0%81/MySQL%E4%B8%8E%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98/),大部分情况下，只要使用了缓存，就必然会有不一致的情况出现，只是说这个不一致的时间窗口是否能做到足够的小。有些不合理的设计可能会导致数据持续不一致，这是我们需要改善设计去避免的。一个比较经典的WEB系统架构如下所示:
 
-<img src="/images/web.png" width="500" align="center"/>
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/web.png?raw=true" width="500" align="center"/>
 
 其中包括一个WEB系统设计的经典组件，包括负载均衡，缓存，主从库，读写分类等。在笔者本次的考试中，论文的题目是针对一个“秒杀”系统，设计限流，缓存，动静，扩容等技术。
 

@@ -19,7 +19,7 @@ date: 2025-11-06 11:00:00
 
 基于构建的数据, 经过sft+rl的7B的模型在效果上优于70B的模型，不过最终效果还是距离DeepSeek-R1有较远的距离。具体实验结果如下所示:
 
-<img src="/images/fin_r1.png" width="500" align="center"/>
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/fin_r1.png?raw=true" width="500" align="center"/>
 
 
 #### 《ReasonMed-A 370K Multi-Agent Generated Dataset for Advancing Medical Reasoning》
@@ -32,7 +32,7 @@ date: 2025-11-06 11:00:00
 
 夸克健康大模型的数据处理流程如下所示：
 
-<img src="/images/kuake_sft.png" width="500" align="center"/>
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/kuake_sft.png?raw=true" width="500" align="center"/>
 
 主要分为以下几个阶段，分别如下：
 
@@ -51,11 +51,11 @@ date: 2025-11-06 11:00:00
 
 [Baichuan-M2](https://www.baichuan-ai.com/blog/baichuan-M2)的整体训练流程分为三个阶段，分别是mid-training,supervised fine-tuning和reinforcement learning, 具体如下所示:
 
-<img src="/images/baichuan_m2.png" width="500" align="center"/>
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/baichuan_m2.png?raw=true" width="500" align="center"/>
 
 亮点在于verifier系统的构建，如下:
 
-<img src="/images/baichuan_m2_verifier.png" width="500" align="center"/>
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/baichuan_m2_verifier.png?raw=true" width="500" align="center"/>
 
 通过患者模拟器，可以动态持续地生成对话数据，通过clinical rubrics generator，可以动态持续地对对话进行打分形成reward，由此形成了一个闭环系统。
 
@@ -82,7 +82,7 @@ date: 2025-11-06 11:00:00
 #### tongyi-deepresearch的数据合成方法
 
 
-<img src="/images/training_pipeline_of_tongyi_deepresearch.png" width="500" align="center"/>
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/training_pipeline_of_tongyi_deepresearch.png?raw=true" width="500" align="center"/>
 
 mid training的两个重要操作：
 
@@ -93,7 +93,7 @@ mid training的两个重要操作：
 该阶段的数据合成流程如下:
 
 
-<img src="/images/large_scale_agent_behavior_data_synthesis.png" width="500" align="center"/>
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/large_scale_agent_behavior_data_synthesis.png?raw=true" width="500" align="center"/>
 
 post training阶段主要包括数据合成，监督微调用于冷启动，agentic RL。
 
@@ -105,7 +105,7 @@ and isomorphic tables from real-world websites, ensuring a realistic information
 
 完整的agentic RL框架如下所示:
 
-<img src="/images/an_overview_of_rl_framework.png" width="500" align="center"/>
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/an_overview_of_rl_framework.png?raw=true" width="500" align="center"/>
 
 _这个图大概率是一个工程能力挺好的同学画的。😊_
 

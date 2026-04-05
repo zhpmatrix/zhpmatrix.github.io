@@ -39,7 +39,7 @@ Thus, in this blog post, I present a survey of verifiers in the LLM era.
 
 The overall process is illustrated below:
 
-<img src="/images/baichuan_verifier_system_framework.png" width="500" align="center" />
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/baichuan_verifier_system_framework.png?raw=true" width="500" align="center" />
 
 The most interesting component is the **Clinical Rubrics Generator**, which consists of three parts:
 + **Prompt Collection and Processing**
@@ -97,7 +97,7 @@ Similar to the works above, this paper focuses on generality, flexibility, and i
 
 This paper differs from other works. While LLM-based verifiers are typically trained as discriminative classifiers, this paper trains a generative model with a next-token prediction objective.
 
-<img src="/images/generative_verifier.png" width="500" align="center"/>
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/generative_verifier.png?raw=true" width="500" align="center"/>
 
 + ##### **JudgeLM: Fine-Tuned Large Language Models Are Scalable Judges**
 
@@ -107,7 +107,7 @@ This work follows a similar paradigm.
 
 As a branch of "LLM-as-a-Judge," this paper trains a multilingual model using a learning paradigm similar to the works mentioned above.
 
-<img src="/images/m_prometheus.png" width="500" align="center"/>
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/m_prometheus.png?raw=true" width="500" align="center"/>
 
 This paper is related to **"PROMETHEUS: INDUCING FINE-GRAINED EVALUATION CAPABILITY IN LANGUAGE MODELS."** The interesting part is "score rubric mining," a method similar to one found in Baichuan-M2.
 
@@ -115,11 +115,11 @@ This paper is related to **"PROMETHEUS: INDUCING FINE-GRAINED EVALUATION CAPABIL
 
 Similar to the above, a training example for PandaLM is as follows:
 
-<img src="/images/train_example_of_pandalm.png" width="500" align="center"/>
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/train_example_of_pandalm.png?raw=true" width="500" align="center"/>
 
 The prompt used for training PandaLM is as follows:
 
-<img src="/images/prompt_for_train_pandalm.png" width="500" align="center"/>
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/prompt_for_train_pandalm.png?raw=true" width="500" align="center"/>
 
 #### Conclusion
 

@@ -22,7 +22,7 @@ date: 2025-11-23 11:00:00
 
 在笔者23年6月的文章[《中文医疗大模型的2W1H分析》](https://mp.weixin.qq.com/s?__biz=MzU2MTY2ODEzNA==&mid=2247484703&idx=1&sn=3a6aa2436bb9ca65d9988412df4f674d&chksm=fc740c56cb0385400cceefaa1e0a89de9c1717e49a7011e11e09691c71e8d795040fb65350e3&token=1969671355&lang=zh_CN#rd)中讨论过一个问题“那么，这波热潮会以什么方式结束？”，当时做了一个大胆的趋势预测如下:
 
-<img src="/images/1123_01.png" width="500" align="center"/>
+<img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/1123_01.png?raw=true" width="500" align="center"/>
 
 25年的近期，AI泡沫破裂这个话题的热度又烧了起来。回过头来看，这张图似乎适合各种新技术的发展趋势，同时AI的发展史就是一路伴随兴起-破裂的节奏，但是每次破裂都能让下一次兴起的起点更高。此外，本轮兴起的标志性事件是22年11月30日的ChatGPT的发布，但是破裂的标志似乎并不容易形成共识。既然如此，**享受当下大抵是一个正确的选择**。
 
