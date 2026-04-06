@@ -13,14 +13,14 @@ body {
   font-size: 16px;
   line-height: 1.5;
   font-weight: 300;
-  background-color: #fff;
+  background-color: #fafbfc;
 }
 
 h1, h2, h3, h4, h5, h6 { font-size: 100%; font-weight: 400; }
 
-a         { color: #2a7ae2; text-decoration: none; }
-a:hover   { color: #000; text-decoration: underline; }
-a:visited { color: #205caa; }
+a         { color: #4a90e2; text-decoration: none; }
+a:hover   { color: #357abd; text-decoration: underline; }
+a:visited { color: #357abd; }
 
 /* Utility */
 
@@ -41,11 +41,11 @@ a:visited { color: #205caa; }
 /* Site header */
 
 .site-header {
-  border-top: 5px solid #333;
+  border-top: 5px solid #4a90e2;
   border-bottom: 1px solid #e8e8e8;
   min-height: 56px;
-  background-color: #f8f9fa;  /* Light gray background color */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);  /* Subtle shadow for depth */
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
 .site-title,
@@ -138,12 +138,12 @@ a:visited { color: #205caa; }
 
 .page-content {
   padding: 30px 0;
-  background-color: #fff;
-  background-image: 
-    linear-gradient(45deg, #f8f9fa 25%, transparent 25%),
-    linear-gradient(-45deg, #f8f9fa 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, #f8f9fa 75%),
-    linear-gradient(-45deg, transparent 75%, #f8f9fa 75%);
+  background-color: #fafbfc;
+  background-image:
+    linear-gradient(45deg, #f0f4f8 25%, transparent 25%),
+    linear-gradient(-45deg, #f0f4f8 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #f0f4f8 75%),
+    linear-gradient(-45deg, transparent 75%, #f0f4f8 75%);
   background-size: 20px 20px;
   background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
   background-attachment: fixed;
@@ -155,28 +155,28 @@ a:visited { color: #205caa; }
 
 .home h1 { margin-bottom: 25px; }
 
-.posts { 
+.posts {
   list-style-type: none;
   border: 1px solid #e8e8e8;
   border-radius: 8px;
-  padding: 30px;
-  background-color: #fff;
-  background-image: 
+  padding: 15px;
+  background-color: #ffffff;
+  background-image:
     linear-gradient(45deg, #f8f9fa 25%, transparent 25%),
     linear-gradient(-45deg, #f8f9fa 25%, transparent 25%),
     linear-gradient(45deg, transparent 75%, #f8f9fa 75%),
     linear-gradient(-45deg, transparent 75%, #f8f9fa 75%);
   background-size: 20px 20px;
   background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   margin-bottom: 40px;
 }
 
-.posts li { 
-  margin-bottom: 30px;
-  padding: 25px;
+.posts li {
+  margin-bottom: 12px;
+  padding: 12px 15px;
   background-color: #fff;
-  border-radius: 8px;
+  border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   transition: all 0.3s ease;
   border: 1px solid #e8e8e8;
@@ -196,32 +196,32 @@ a:visited { color: #205caa; }
   left: 0;
   width: 4px;
   height: 100%;
-  background: linear-gradient(to bottom, #2a7ae2, #1a5cb0);
+  background: linear-gradient(to bottom, #4a90e2, #357abd);
   border-radius: 2px;
 }
 
 .posts .post-link {
-  font-size: 22px;
+  font-size: 18px;
   letter-spacing: -0.5px;
-  line-height: 1.4;
-  margin-bottom: 12px;
+  line-height: 1.3;
+  margin-bottom: 6px;
   color: #333;
   font-weight: 600;
-  padding-left: 15px;
+  padding-left: 12px;
   position: relative;
 }
 
 .posts .post-date {
   display: block;
-  font-size: 14px;
+  font-size: 12px;
   color: #666;
-  margin-bottom: 12px;
-  padding-left: 15px;
+  margin-bottom: 8px;
+  padding-left: 12px;
 }
 
 .posts .post-tags {
-  margin-top: 15px;
-  padding: 12px 15px;
+  margin-top: 8px;
+  padding: 8px 12px;
   background-color: #f8f9fa;
   border-radius: 6px;
   border: 1px solid #e8e8e8;
@@ -234,12 +234,12 @@ a:visited { color: #205caa; }
 
 .posts .post-tags .tag {
   display: inline-block;
-  padding: 4px 10px;
-  margin: 4px 6px;
-  font-size: 12px;
-  color: #2a7ae2;
-  background-color: #f8f9fa;
-  border: 1px solid #e8e8e8;
+  padding: 2px 8px;
+  margin: 2px 4px;
+  font-size: 11px;
+  color: #4a90e2;
+  background-color: #f0f7ff;
+  border: 1px solid #d0e3f5;
   border-radius: 4px;
   transition: all 0.2s ease;
   position: relative;
@@ -251,10 +251,10 @@ a:visited { color: #205caa; }
 }
 
 .posts .post-tags .tag:hover {
-  background-color: #2a7ae2;
+  background-color: #4a90e2;
   color: #fff;
   transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(42, 122, 226, 0.2);
+  box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
 }
 
 
@@ -298,9 +298,9 @@ a:visited { color: #205caa; }
   padding: 0 8px;
   margin: 0 4px;
   font-size: 12px;
-  color: #2a7ae2;
-  background-color: #f8f9fa;
-  border: 1px solid #e8e8e8;
+  color: #4a90e2;
+  background-color: #f0f7ff;
+  border: 1px solid #d0e3f5;
   border-radius: 4px;
   line-height: 1.6;
   text-transform: uppercase;
@@ -311,10 +311,10 @@ a:visited { color: #205caa; }
 }
 
 .post-header .meta .tag:hover {
-  background-color: #2a7ae2;
+  background-color: #4a90e2;
   color: #fff;
   transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(42, 122, 226, 0.2);
+  box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
 }
 
 .post-header .meta #busuanzi_container_page_pv {
@@ -331,7 +331,7 @@ a:visited { color: #205caa; }
 }
 
 .post-header .meta #busuanzi_value_page_pv {
-  color: #2a7ae2;
+  color: #4a90e2;
   font-weight: 600;
   margin: 0 2px;
 }
@@ -419,14 +419,14 @@ a:visited { color: #205caa; }
 }
 
 .post-content blockquote {
-  border-left: 4px solid #2a7ae2;
+  border-left: 4px solid #4a90e2;
   padding: 15px 20px;
   font-size: 18px;
   color: #666;
   letter-spacing: -0.5px;
   font-style: italic;
   margin: 30px 0;
-  background-color: #f8f9fa;
+  background-color: #f0f7ff;
   border-radius: 0 8px 8px 0;
 }
 
@@ -686,8 +686,8 @@ a:visited { color: #205caa; }
 }
 
 .search-input:focus {
-  border-color: #2a7ae2;
-  box-shadow: 0 0 0 3px rgba(42, 122, 226, 0.1);
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
   outline: none;
 }
 
@@ -743,7 +743,7 @@ a:visited { color: #205caa; }
 
 .search-result-tag {
   background: #f0f7ff;
-  color: #2a7ae2;
+  color: #4a90e2;
   padding: 4px 12px;
   border-radius: 20px;
   font-size: 13px;
@@ -753,7 +753,7 @@ a:visited { color: #205caa; }
 }
 
 .search-result-tag:hover {
-  background: #2a7ae2;
+  background: #4a90e2;
   color: #fff;
   transform: translateY(-1px);
 }
@@ -786,12 +786,12 @@ a:visited { color: #205caa; }
 
 .posts .post-tags .tag {
   display: inline-block;
-  padding: 4px 10px;
-  margin: 4px 6px;
-  font-size: 12px;
-  color: #2a7ae2;
-  background-color: #f8f9fa;
-  border: 1px solid #e8e8e8;
+  padding: 2px 8px;
+  margin: 2px 4px;
+  font-size: 11px;
+  color: #4a90e2;
+  background-color: #f0f7ff;
+  border: 1px solid #d0e3f5;
   border-radius: 4px;
   transition: all 0.2s ease;
   position: relative;
@@ -804,7 +804,7 @@ a:visited { color: #205caa; }
 
 .search-result-tag {
   background: #f0f7ff;
-  color: #2a7ae2;
+  color: #4a90e2;
   padding: 4px 12px;
   border-radius: 20px;
   font-size: 13px;
