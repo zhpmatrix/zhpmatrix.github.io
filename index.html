@@ -77,6 +77,11 @@ layout: default
       position: sticky;
       top: 20px;
       align-self: flex-start;
+      padding: 1.2em;
+      background: #fffef5;
+      border: 3px double #8b4513;
+      border-radius: 4px;
+      box-shadow: 3px 3px 0 rgba(139, 69, 19, 0.15);
     }
     .right-column {
       flex: 1;
@@ -129,9 +134,11 @@ layout: default
     }
     .tags-section h2, .dates-section h2 {
       font-size: 1.1em;
-      color: #357abd;
+      color: #8b4513;
       margin-bottom: 0.8em;
       font-weight: 600;
+      border-bottom: 2px solid #d4a574;
+      padding-bottom: 0.3em;
     }
     .tag-cloud, .date-cloud {
       margin-bottom: 1em;
@@ -139,22 +146,28 @@ layout: default
     }
     .tag-link, .date-link {
       display: inline-block;
-      padding: 0.25em 0.7em;
-      margin: 0.15em;
-      background: #f0f7ff;
-      border-radius: 2px;
+      padding: 0.3em 0.8em;
+      margin: 0.2em;
+      background: #fffef5;
+      border: 2px solid #d4a574;
+      border-radius: 3px;
       text-decoration: none;
-      color: #4a90e2;
+      color: #5d4037;
       font-size: 0.85em;
       transition: all 0.2s ease;
     }
     .tag-link:hover, .date-link:hover {
-      background: #d0e3f5;
-      color: #357abd;
+      background: #8b4513;
+      color: #fff;
+      border-color: #8b4513;
+      transform: translate(-1px, -1px);
+      box-shadow: 2px 2px 0 rgba(139, 69, 19, 0.2);
     }
     .tag-link.active, .date-link.active {
-      background: #4a90e2;
-      color: white;
+      background: #8b4513;
+      color: #fff;
+      border-color: #3e2723;
+      box-shadow: 2px 2px 0 rgba(139, 69, 19, 0.3);
     }
     /* 访客统计相关样式 */
     .visitor-stats {
@@ -162,17 +175,21 @@ layout: default
     }
     .visitor-stats h2 {
       font-size: 1.1em;
-      color: #357abd;
+      color: #8b4513;
       margin-bottom: 0.8em;
       font-weight: 600;
+      border-bottom: 2px solid #d4a574;
+      padding-bottom: 0.3em;
     }
     .stats-container {
-      background: #f0f7ff;
-      padding: 0.8em;
+      background: #fffef5;
+      padding: 1em;
       border-radius: 4px;
       font-size: 0.85em;
-      color: #4a90e2;
+      color: #5d4037;
       line-height: 1.6;
+      border: 2px solid #d4a574;
+      box-shadow: 2px 2px 0 rgba(139, 69, 19, 0.1);
     }
     .stats-container span {
       display: block;
