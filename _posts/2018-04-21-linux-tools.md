@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Linux常用工具整理"
-tags: [工程架构]
+tags: [架构设计]
 excerpt: "系统梳理了自己在日常学习和工作中常用的Linux工具"
 date: 2018-04-21 13:28:00
 mathjax: true

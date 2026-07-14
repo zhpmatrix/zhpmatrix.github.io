@@ -21,21 +21,8 @@ layout: default
           </div>
         </div>
 
-        <!-- 访客统计模块 -->
-        <div class="visitor-stats">
-          <h2>访客统计</h2>
-          <div class="stats-container">
-            <span id="busuanzi_container_site_pv">
-              总访问量: <span id="busuanzi_value_site_pv"></span>
-            </span>
-            <br>
-            <span id="busuanzi_container_site_uv">
-              总访客数: <span id="busuanzi_value_site_uv"></span>
-            </span>
-          </div>
-        </div>
       </div>
-      <div class="right-column">
+      <div class="center-column">
         <div class="posts-container">
           <ul class="posts">
             {% for post in site.posts %}
@@ -53,12 +40,28 @@ layout: default
           </ul>
         </div>
       </div>
+      <div class="right-column">
+        <div class="visitor-stats">
+          <h2>访客统计</h2>
+          <span id="busuanzi_container_site_pv">
+            访问 <span id="busuanzi_value_site_pv"></span>
+          </span>
+          <span id="busuanzi_container_site_uv">
+            访客 <span id="busuanzi_value_site_uv"></span>
+          </span>
+        </div>
+        <div class="recommend-links">
+          <h2>推荐链接</h2>
+          <a href="https://hugozhu.site/" target="_blank">钉钉CTO朱鸿的博客</a>
+          <a href="https://pmframe.works/" target="_blank">100个产品设计框架</a>
+        </div>
+      </div>
     </div>
   </div>
 
   <style>
     .content-wrapper {
-      max-width: 2070px;
+      max-width: 1000px;
       margin: 0 auto;
       padding: 0 1em;
     }
@@ -66,9 +69,10 @@ layout: default
       display: flex;
       gap: 2em;
       margin-top: 2em;
+      justify-content: center;
     }
     .left-column {
-      flex: 0 0 220px;
+      flex: 0 0 180px;
       position: sticky;
       top: 20px;
       align-self: flex-start;
@@ -77,9 +81,55 @@ layout: default
       border: 1px solid #eee;
       border-radius: 4px;
     }
+    .center-column {
+      flex: 0 0 500px;
+    }
     .right-column {
-      flex: 1;
-      min-width: 0;
+      flex: 0 0 200px;
+      position: sticky;
+      top: 20px;
+      align-self: flex-start;
+      padding: 1.2em;
+      background: #fafafa;
+      border: 1px solid #eee;
+      border-radius: 4px;
+    }
+    .visitor-stats {
+      margin-bottom: 1.5em;
+      font-size: 13px;
+      color: #888;
+    }
+    .visitor-stats h2, .recommend-links h2 {
+      font-size: 13px;
+      color: #999;
+      margin-bottom: 0.6em;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 0.4em;
+    }
+    .visitor-stats span {
+      display: block;
+      line-height: 1.8;
+      color: #888;
+    }
+    .recommend-links {
+      font-size: 13px;
+      color: #888;
+    }
+    .recommend-links a {
+      display: block;
+      padding: 6px 8px;
+      color: #5b9bd5;
+      text-decoration: none;
+      font-size: 13px;
+      border-radius: 3px;
+      transition: all 0.15s ease;
+    }
+    .recommend-links a:hover {
+      background: #f0f6fb;
+      color: #3d7db5;
     }
     .posts-container {
       margin-top: 0;
@@ -122,7 +172,7 @@ layout: default
     .tags-section, .dates-section {
       margin-bottom: 1.5em;
     }
-    .tags-section h2, .dates-section h2, .visitor-stats h2 {
+    .tags-section h2, .dates-section h2 {
       font-size: 13px;
       color: #999;
       margin-bottom: 0.8em;
@@ -171,32 +221,18 @@ layout: default
     .date-link:hover .count {
       color: #aaa;
     }
-    .visitor-stats {
-      margin-bottom: 1.5em;
-    }
-    .stats-container {
-      background: #fff;
-      padding: 0.8em;
-      border-radius: 4px;
-      font-size: 0.82em;
-      color: #888;
-      line-height: 1.8;
-      border: 1px solid #eee;
-    }
-    .stats-container span {
-      display: block;
-    }
     @media (max-width: 768px) {
       .two-column-layout {
         flex-direction: column;
       }
-      .left-column {
+      .left-column, .right-column {
         flex: none;
         position: static;
         width: 100%;
       }
-      .right-column {
+      .center-column {
         flex: none;
+        width: 100%;
       }
       .content-wrapper {
         padding: 0 0.8em;

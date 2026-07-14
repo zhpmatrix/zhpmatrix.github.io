@@ -51,16 +51,22 @@ a:hover {
 /* Site header */
 
 .site-header {
-  border-bottom: 1px solid #eee;
+  border-top: 3px solid #5b9bd5;
+  border-bottom: 1px solid #e8e8e8;
   min-height: 56px;
   background-color: #fff;
+}
+
+.site-header .wrap,
+.site-footer .wrap {
+  max-width: 1000px;
 }
 
 .site-title,
 .site-title:hover,
 .site-title:visited {
   display: block;
-  color: #222;
+  color: #333;
   font-size: 20px;
   font-weight: 600;
   float: left;
@@ -82,22 +88,23 @@ a:hover {
   letter-spacing: -0.3px;
 }
 .site-nav .page-link:hover {
-  color: #222;
+  color: #333;
 }
 
 /* Site footer */
 
 .site-footer {
-  border-top: 1px solid #eee;
+  border-top: 1px solid #e8e8e8;
   padding: 40px 0;
   margin-top: 60px;
+  background-color: #f9f9f9;
 }
 
 .footer-heading {
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 12px;
-  color: #222;
+  color: #555;
 }
 
 .site-footer .column { float: left; margin-bottom: 15px; }
@@ -122,14 +129,14 @@ a:hover {
 .site-footer li,
 .site-footer p {
   font-size: 14px;
-  color: #888;
+  color: #999;
   line-height: 1.8;
 }
 .site-footer a {
-  color: #888;
+  color: #999;
 }
 .site-footer a:hover {
-  color: #333;
+  color: #555;
 }
 
 .github-icon-svg,
@@ -528,9 +535,9 @@ a:hover {
     position: fixed;
     z-index: 10;
     top: 14px; right: 8px;
-    background-color: white;
+    background-color: #fff;
     border-radius: 5px;
-    border: 1px solid #eee;
+    border: 1px solid #e8e8e8;
   }
 
   .site-nav .menu-icon {

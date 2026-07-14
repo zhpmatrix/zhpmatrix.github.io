@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "对话系统思考"
-tags: [技术杂文]
+tags: [技术杂谈]
 excerpt: "这篇博客主要讨论对话系统的一些技术思考。"
 date: 2020-06-13 15:09:00
 mathjax: true

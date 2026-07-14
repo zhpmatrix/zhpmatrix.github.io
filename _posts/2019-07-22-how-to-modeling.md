@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "如何建模"
-tags: [机器学习&数据挖掘]
+tags: [ML&DM]
 excerpt: "2019之江杯全球人工智能大赛的电商评论观点挖掘任务为例，讨论一下对如何建模的思考。"
 date: 2019-07-22 15:48:00
 mathjax: true

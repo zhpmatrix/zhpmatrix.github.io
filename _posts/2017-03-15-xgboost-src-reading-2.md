@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "xgboost源码阅读-启动过程"
-tags: [工程架构]
+tags: [架构设计]
 excerpt: "这篇短文聊聊xgboost的启动过程，其中包括对rabit的介绍，启动流程等，rabit在之前的文章中也有提到过。"
 date: 2017-03-15 14:27:00
 ---

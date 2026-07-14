@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "NLP人误闯医疗界"
-tags: [技术杂文]
+tags: [技术杂谈]
 excerpt: "结果，他疯了？"
 date: 2021-03-10 11:40:00
 mathjax: true

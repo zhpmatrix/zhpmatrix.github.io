@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "源码阅读:目录结构和部分重点参数讨论"
-tags: [工程架构]
+tags: [架构设计]
 excerpt: "去年对比opennmt-py和tensor2tensor，但是只是写了opennmt-py的源码结构，并没有梳理tensor2tensor的结构，最近刚好重启一个大实验，组里同学也在做相关的事情，因此借此机会重新梳理一些关于tensor2tensor的内容。"
 date: 2019-04-23 18:43:00
 mathjax: true

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "2020年终总结"
-tags: [技术杂文]
+tags: [技术杂谈]
 excerpt: "这篇博客主要讨论2020年的一些技术总结。"
 date: 2021-01-01 15:09:00
 mathjax: true

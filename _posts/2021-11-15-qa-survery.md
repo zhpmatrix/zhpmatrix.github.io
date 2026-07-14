@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "QA技术调研"
-tags: [技术杂文]
+tags: [技术杂谈]
 excerpt: "这篇博客主要讨论QA领域的一些技术调研。"
 date: 2021-11-15 15:09:00
 mathjax: true

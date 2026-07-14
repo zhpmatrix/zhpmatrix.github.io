@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "图神经网络的局限性思考"
-tags: [技术杂文]
+tags: [技术杂谈]
 excerpt: "CS224W：《Machine Learning with Graphs》，Limitations of Graph Neural Networks"
 date: 2021-02-05 11:40:00
 mathjax: true

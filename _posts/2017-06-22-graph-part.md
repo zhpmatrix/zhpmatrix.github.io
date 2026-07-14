@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "图划分"
-tags: [技术杂文]
+tags: [技术杂谈]
 excerpt: "嗯，这个事情应该没有人做过滴，因为老板是RDPSO主要发明人呀。本文简要谈RDPSO的加速计算，主要涉及MPI的通信函数梳理和一些基本且重要的概念。"
 date: 2017-06-22 21:30:00
 mathjax: true

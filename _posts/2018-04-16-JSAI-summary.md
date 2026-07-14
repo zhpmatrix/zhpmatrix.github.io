@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "2018-JSAI模式识别专委会学术年会总结"
-tags: [技术杂文]
+tags: [技术杂谈]
 excerpt: "关于JSAI学术报告的总结，反思"
 date: 2018-04-16 18:17:00
 mathjax: true

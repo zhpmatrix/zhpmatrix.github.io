@@ -4,6 +4,10 @@ title: project
 permalink: /project/
 ---
 
+<style>
+  .page-content .wrap { max-width: 1000px; }
+</style>
+
 **工作方向**
 
 - 大模型应用和模型开发，进行中(<font color="red"><u>欢迎合作交流～</u></font>)

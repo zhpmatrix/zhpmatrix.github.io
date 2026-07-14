@@ -2,7 +2,7 @@
 layout: post
 title: "一个NLP人眼中的医疗大数据"
 excerpt: "倒上冰水，泡几颗冰块，小王和李大千做了一场关于李大千眼中的医疗大数据的讨论。"
-tags: [技术杂文]
+tags: [技术杂谈]
 date: 2022-07-16 11:40:00
 mathjax: true
 ---

@@ -4,6 +4,10 @@ title: about
 permalink: /about/
 ---
 
+<style>
+  .page-content .wrap { max-width: 1000px; }
+</style>
+
 ---
 
 卡通少年|生活中的你|**扫码加笔者好友，茶已备好，等你来聊~**|**赚猫粮&买GPU～**💰💰

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "训练模块源码剖析"
-tags: [工程架构]
+tags: [架构设计]
 excerpt: "讨论训练模块的相关设计"
 date: 2018-12-17 18:43:00
 mathjax: true

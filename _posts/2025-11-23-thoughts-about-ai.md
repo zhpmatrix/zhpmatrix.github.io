@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "算法工程师视角的AI相关的问题思考"
-tags: [技术杂文]
+tags: [技术杂谈]
 excerpt: "借着nano banana pro的发布，笔者分享一下积累的一些想法。"
 mathjax: true
 date: 2025-11-23 11:00:00

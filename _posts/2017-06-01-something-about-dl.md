@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "啊哈，CNN!"
-tags: [技术杂文]
+tags: [技术杂谈]
 excerpt: "趁着跑Eve代码的时间，读了一些关于CNN的东西，在这之前，只在组会上听实验室的师兄师姐聊。可能会看到一些关于R(2)NN,LSTM的一丢丢东西。"
 date: 2017-06-01 14:59:00
 mathjax: true

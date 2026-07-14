@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "阿里妈妈CTR预测"
-tags: [机器学习&数据挖掘]
+tags: [ML&DM]
 excerpt: "比赛复盘"
 date: 2018-06-18 12:24:00
 mathjax: true

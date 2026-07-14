@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "医疗算法思考"
-tags: [技术杂文]
+tags: [技术杂谈]
 excerpt: "这篇博客主要讨论医疗算法领域的一些技术思考。"
 date: 2023-03-02 15:09:00
 mathjax: true

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "《Energy-Based Self-supervised Learning》"
-tags: [技术杂文]
+tags: [技术杂谈]
 excerpt: "最近围绕Masked LM做了一些工作，个人对此很是感兴趣。这篇博客以Yann LeCun最近的一次报告为纲，梳理一些个人相对认同的观点和结论。"
 date: 2019-12-30 18:53:00
 mathjax: true
