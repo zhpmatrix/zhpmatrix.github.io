@@ -10,7 +10,7 @@ mathjax: true
 _前言：
 25年开启Agent的元年，26年观察到一些组织在积极推进AI-Native升级，包括组织升级和业务改造等。进入AI大航海时代，拿着旧世界的地图是找不到新世界的大陆的，但是首先得有地图。虽然在持续投入探索，但是在基础概念和方法论上似乎并未形成共识，盲人摸象者众。这篇文章站在笔者自身的角度给出个人的肤浅理解。_
 
-#### 我们要开搞AI-Native
+#### 一. 我们要开搞AI-Native
 
 <u>如何判断一个产品是AI-Native的？</u>**如果这个产品没有了LLM，那么产品的逻辑不成立，也就意味着这个产品是AI-Native的**。因此，豆包客户端是一个AI-Native的应用，Claude Code是一个AI-Native的应用。
 
@@ -23,7 +23,7 @@ _前言：
 
 <u>如何判断一个组织是AI-Native的？</u>一个只有人在干活的组织是非AI-Native的。围绕人和AI的协作方式，一个组织中的活全部由AI干是AI-Native的，AI辅助人干活是非AI-Native的，因为意味着这个活没有AI，只有人也能干。这样的组织有适配的一系列的AI-Native的协作工具，如multica和paperclip等。
 
-#### Agent有一万种解释？
+#### 二. Agent有一万种解释？
 
 对Agent的理解从一开始到现在都没有发生过改变。在[lilianweng的blog](https://lilianweng.github.io/posts/2023-06-23-agent/)中给出了Agent的overview:
 ![1784020205264-image](https://obsidian-images-1329890864.cos.ap-guangzhou.myqcloud.com/images/1784020205264-image.png)
@@ -37,7 +37,7 @@ _前言：
 回归到本质上，如果没有LLM和loop，那么大概率不是一个Agent。可以基于workflow做一个在行为上类似Agent的东西，但是大概率在某些条件下会发现也只是类似而已。
 
 在实现侧，虽然有诸多类似LangGraph，AutoGen和CrewAI等开源框架，但是在技术原理上非常接近，因此采用Claude Code也可以完成较多非Coding类的任务，<u>Claude Code本质上也是一个通用的Agent框架</u>。
-#### 记录一切
+#### 三. 记录一切
 
 随着基模能力的不断提升，context会成为瓶颈。除了context rot等问题，<u>如何获取context会成为那个更重要的问题</u>。
 
@@ -61,7 +61,7 @@ Obsidian/flomo等产品，同样是希望用户以简单的方式去记录文字
 思考过程能否显性化？人物情感能否被量化表达？
 
 进入26年在LLM成熟度已经非常高的环境下，数字化这件事情依然有极大的挖掘空间。这是一件苦活儿，累活儿，没人愿意干的活儿，但是极具价值的一个活儿。
-#### AI Coding是救世主
+#### 四. AI Coding是救世主
 
 AI Coding为什么成为兵家必争之地，有至少以下两个主要原因：
 
