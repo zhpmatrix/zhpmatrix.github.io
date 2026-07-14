@@ -2,7 +2,7 @@
 layout: post
 title: 26年7月，关于AI的碎碎念～
 excerpt: AI的发展既快也慢，快在表面，慢在底层逻辑。
-date: 2025-12-31 10:00:00
+date: 2026-07-14 10:00:00
 tags:
 mathjax: true
 ---
@@ -28,7 +28,9 @@ _前言：
 ![1784020205264-image](https://obsidian-images-1329890864.cos.ap-guangzhou.myqcloud.com/images/1784020205264-image.png)
 
 如果翻一翻AI的发展史会发现，人工智能的先驱们对于智能体已经思考的比较清楚。26年的工业界有一些不同的表达方式，如下：
+
 <u>Agent = LLM in the loop。</u>这个loop中完成的就是上图中的虚线所示部分，因此衍生出Loop Engineering等。
+
 <u>Agent= LLM + Harness。</u>其中的Harness可以理解为在loop中做的具体的动作，因此衍生出Harness Engineering等。
 
 回归到本质上，如果没有LLM和loop，那么大概率不是一个Agent。可以基于workflow做一个在行为上类似Agent的东西，但是大概率在某些条件下会发现也只是类似而已。

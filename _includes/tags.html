@@ -4,16 +4,37 @@
     {% assign total_posts = site.posts | size %}
     <a href="#" class="tag-link active" data-tag="all">全部文章<span class="count">{{ total_posts }}</span></a>
 
-    {% assign tags = site.posts | map: 'tags' | join: ',' | split: ',' | uniq | sort %}
-    {% for tag in tags %}
-      {% if tag != nil and tag != '' %}
+    {% assign all_tags = site.posts | map: 'tags' | join: ',' | split: ',' | uniq %}
+    {% assign priority_tags = "Agent&LLM,对话系统,知识图谱,深度学习" | split: "," %}
+
+    {% comment %}Render priority tags first{% endcomment %}
+    {% for ptag in priority_tags %}
+      {% assign ptag_clean = ptag | strip %}
+      {% if all_tags contains ptag_clean %}
         {% assign count = 0 %}
         {% for post in site.posts %}
-          {% if post.tags contains tag %}
+          {% if post.tags contains ptag_clean %}
             {% assign count = count | plus: 1 %}
           {% endif %}
         {% endfor %}
-        <a href="#" class="tag-link" data-tag="{{ tag | strip }}">{{ tag | strip }}<span class="count">{{ count }}</span></a>
+        <a href="#" class="tag-link" data-tag="{{ ptag_clean }}">{{ ptag_clean }}<span class="count">{{ count }}</span></a>
+      {% endif %}
+    {% endfor %}
+
+    {% comment %}Render remaining tags alphabetically{% endcomment %}
+    {% assign remaining = all_tags | sort %}
+    {% for tag in remaining %}
+      {% assign tag_clean = tag | strip %}
+      {% if tag_clean != '' and tag_clean != nil %}
+        {% unless priority_tags contains tag_clean %}
+          {% assign count = 0 %}
+          {% for post in site.posts %}
+            {% if post.tags contains tag_clean %}
+              {% assign count = count | plus: 1 %}
+            {% endif %}
+          {% endfor %}
+          <a href="#" class="tag-link" data-tag="{{ tag_clean }}">{{ tag_clean }}<span class="count">{{ count }}</span></a>
+        {% endunless %}
       {% endif %}
     {% endfor %}
   </div>
