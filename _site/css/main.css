@@ -310,6 +310,14 @@ a:hover {
   border-bottom-color: #2a7ae2;
 }
 
+.post-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 20px auto;
+  border-radius: 3px;
+}
+
 .post-content > * {
   margin: 20px 0;
   max-width: 100%;
