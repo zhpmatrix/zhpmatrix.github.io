@@ -3,7 +3,7 @@ layout: post
 title: "How to Build a Verifier: A Short Survey"
 excerpt: "A comprehensive survey on verifier construction in the era of Large Language Models."
 date: 2025-12-03 10:00:00
-tags: [Agent]
+tags: [Agent&LLM]
 mathjax: true
 ---
 

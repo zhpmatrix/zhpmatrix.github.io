@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "财税垂域模型微调的数据合成方法预研"
-tags: [LLM]
+tags: [Agent&LLM]
 excerpt: "在垂直领域，能否微调一个size较小的模型在推理效果上比DeepSeek-R1好？"
 mathjax: true
 date: 2025-11-06 11:00:00

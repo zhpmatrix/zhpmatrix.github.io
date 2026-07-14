@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "sklearn分类报告"
-tags: [机器学习]
+tags: [机器学习&数据挖掘]
 excerpt: "sklearn.metrics中提供了多个计算classification相关任务的评估指标，一些函数功能类似，例如f1\_score，precison\_recall\_fscore\_support和classification\_report等。此外，版本不一致情况下，函数的计算输出也不一定相同。"
 date: 2019-06-29 11:14:00
 mathjax: true

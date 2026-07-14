@@ -24,7 +24,7 @@
     <title>再议agent中的memory</title>
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="致力于算法，数据和工程的全链路打通">
-    <link rel="canonical" href="http://localhost:4000/2025/11/25/memory-concept/">
+    <link rel="canonical" href="http://zhpmatrix.github.io/2025/11/25/memory-concept/">
     <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ZHPMATRIX blog posts" />
 
     <!-- Custom CSS -->
@@ -62,15 +62,14 @@
         </svg>
 </a>
       <div class="trigger">
- 	<font color="yellow"><a class="page-link" href="https://aitax.17win.com/#/home?Authorization=Bearer+RKgwsKLnZ3uOoZPjU9nPEPP6H/gjZcVgFlgixoqaWSjeXvjxg9jxTA8yJzNOCd94mm7tSpzOgq0w9Q/3XZuY3MitCACEUV88dDvlWFESem/uZVjdHXvDoxFRxGUJLDByEB1GZSxrWvL9mUxlU5ykT9yDV%2BVNCfQLd6YNf7d%2Bss0=&X-App-Key=cb1e9c178a914a61b4db1bd5735f1036&X-Biz-Code=test&X-User-Id=tester&keyword=%E5%B0%8F%E5%9E%8B%E5%BE%AE%E5%88%A9%E4%BC%81%E4%B8%9A%E6%89%80%E5%BE%97%E7%A8%8E%E4%BC%98%E6%83%A0">AI搜税</a></font>
         
-          <font color="yellow"><a class="page-link" href="/about/">about</a></font>
-        
-          
+          <a class="page-link" href="/about/">about</a>
         
           
         
-          <font color="yellow"><a class="page-link" href="/project/">project</a></font>
+          
+        
+          <a class="page-link" href="/project/">project</a>
         
 	
       </div>
@@ -86,9 +85,6 @@
       s.parentNode.insertBefore(hm, s);
   })();
   </script>
-  <style>
-	body{background-color:#84bf97}
-  </style>
  </header>
 
 
@@ -105,7 +101,7 @@
       • 
       <span class="meta-tags">
         
-          <span class="tag">Agent</span>
+          <span class="tag">Agent&LLM</span>
         
           <span class="tag">对话系统</span>
         
@@ -122,11 +118,11 @@
 
 <p>围绕memory的认知模型早在1983年就由三位大佬提出，在今天讨论memory的时候，并没有脱离具体的认知模型，但是具体的实现方式发生了变化。整体框架如下所示:</p>
 
-<p><img src="/images/deepseek_mermaid_20251125_5b6faa.png" width="500" align="center" /></p>
+<p><img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/deepseek_mermaid_20251125_5b6faa.png?raw=true" width="500" align="center" /></p>
 
 <p>结合大模型的技术体系，笔者根据多个学术和工业界的工作，梳理了更加具体的memory的概念体系，具体如下：</p>
 
-<p><img src="/images/DeepResearch-MemoryConcept.drawio.png" width="500" align="center" /></p>
+<p><img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/DeepResearch-MemoryConcept.drawio.png?raw=true" width="500" align="center" /></p>
 
 <p>在技术实现这个维度上，通过memory的方式，建立针对memory的encode，storage和retrieval(<a href="https://arxiv.org/abs/2505.00675">《Rethinking Memory in AI: Taxonomy, Operations, Topics, and Future Directions》</a>中提供了更多的关于memory的操作)，将agent从stateless变为stateful，其实并没有脱离更好的context engineering这个范畴。</p>
 
@@ -136,7 +132,7 @@
 
 <p><strong><a href="https://arxiv.org/abs/2507.07957">MIRIX: Multi-Agent Memory System for LLM-Based Agents</a></strong>，该工作中首先对记忆进行了分模块，同时提出了一个架构方式（偏工程体系搭建），最后基于一套算法和工程体系构建了<a href="https://mirix.io/">应用</a>,宣称世界上最强的用于agent的记忆系统。具体的模块划分方式如下所示：</p>
 
-<p><img src="/images/mirix_memory.png" width="400" align="center" /></p>
+<p><img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/mirix_memory.png?raw=true" width="400" align="center" /></p>
 
 <p>围绕memory的认知架构是基于soar，技术架构是multi-agent的，针对memory的agent是通过提示词的方案来实现的，具体见<a href="https://github.com/Mirix-AI/MIRIX/tree/main/mirix/prompts">代码</a>,类似的实现见<a href="https://github.com/databyjp/weekend_projects/tree/main/mem_demo">这里</a>,提供了一个非常简单的POC。使用方式如下:</p>
 
@@ -219,7 +215,7 @@
 
 <p>具体对比如下：</p>
 
-<p><img src="/images/memory_cmp.png" width="400" align="center" /></p>
+<p><img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/memory_cmp.png?raw=true" width="400" align="center" /></p>
 
 <p>简单而言，针对记忆的处理，需要有write的能力。</p>
 
@@ -230,17 +226,17 @@
   <li>self-editing memory capabilities through tool use,MIRIX中也是通过function call的能力进行memory的管理</li>
 </ul>
 
-<p><img src="/images/memgpt.png" width="400" align="center" /></p>
+<p><img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/memgpt.png?raw=true" width="400" align="center" /></p>
 
 <p>在letta的工作中，做了LLM OS和传统OS的一个对比，结果如下：</p>
 
-<p><img src="/images/letta_llm_vs_os.png" width="400" align="center" /></p>
+<p><img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/letta_llm_vs_os.png?raw=true" width="400" align="center" /></p>
 
 <p>具体实现依然是基于prompt的艺术，代码见<a href="https://github.com/letta-ai/letta/tree/main/letta/prompts">这里</a>,<strong>竟然发现MIRIX的prompts和letta的prompts几乎是一模一样</strong>，没有仔细看协议，也许是允许的。使用体验上和上述差不多。</p>
 
 <p><strong><a href="https://arxiv.org/pdf/2309.02427">《Cognitive Architectures for Language Agents》</a></strong>,这篇文章在一个较高的抽象层次讨论了language agent的认知架构设计，对于理解agent的整体架构有较大的启发。其中这篇文章也是从soar的认知架构开始讲的，不过是在agent这个方向上比较早的来讲这个事情的工作。具体架构如下:</p>
 
-<p><img src="/images/coala.png" width="500" align="center" /></p>
+<p><img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/coala.png?raw=true" width="500" align="center" /></p>
 
 <p><strong><a href="https://huggingface.co/blog/Kseniase/memory">《Does AI Remember? The Role of Memory in Agentic Workflows》</a></strong>,这篇blog中很好的总结了agent中的memory定义。</p>
 
@@ -254,7 +250,7 @@
 
 <p><strong><a href="https://leoniemonigatti.com/blog/memory-in-ai-agents.html">Making Sense of Memory in AI Agents</a></strong>,非常全面的总结了关于memory的types以及相关的实现。这篇blog中做了一个非常有意思的类比如下(deeplearning.ai的course中也看到采用了基本相同的类比):</p>
 
-<p><img src="/images/agent_memory_cmp.png" width="500" align="center" /></p>
+<p><img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/agent_memory_cmp.png?raw=true" width="500" align="center" /></p>
 
 <p><strong><a href="https://mem0.ai/">Mem0</a></strong> 是一个agent memory方向相对成熟度较高的公司，学术上的相关论文多次提到，《Mem0: Building Production-Ready AI Agents with Scalable Long-Term Memory》，相比其他而言，memory的架构设计也是相对清晰简单的。<strong><a href="https://www.getzep.com/">zep</a></strong> 的成熟度也相对高一些，亮点在于graph相关的memory构建，比如graphrag工作的支持等。<strong><a href="https://www.cognee.ai/">cognee</a></strong> 整体上和zep比较类似。</p>
 

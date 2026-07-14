@@ -14,9 +14,9 @@ layout: default
           <div class="date-cloud">
             {% assign dates = site.posts | group_by_exp:"post", "post.date | date: '%Y'" %}
             {% assign dates = dates | sort: 'name' | reverse %}
-            <a href="#" class="date-link" data-date="all">全部年份({{ site.posts | size }})</a>
+            <a href="#" class="date-link active" data-date="all">全部年份<span class="count">{{ site.posts | size }}</span></a>
             {% for date in dates %}
-              <a href="#" class="date-link" data-date="{{ date.name }}">{{ date.name }}({{ date.items | size }})</a>
+              <a href="#" class="date-link" data-date="{{ date.name }}">{{ date.name }}<span class="count">{{ date.items | size }}</span></a>
             {% endfor %}
           </div>
         </div>
@@ -57,13 +57,8 @@ layout: default
   </div>
 
   <style>
-    /* 全局字体设置 */
-    body {
-      font-family: Consolas, monospace;
-    }
-    
     .content-wrapper {
-      max-width: 1200px;
+      max-width: 2070px;
       margin: 0 auto;
       padding: 0 1em;
     }
@@ -73,15 +68,14 @@ layout: default
       margin-top: 2em;
     }
     .left-column {
-      flex: 0 0 250px;
+      flex: 0 0 220px;
       position: sticky;
       top: 20px;
       align-self: flex-start;
       padding: 1.2em;
-      background: #fffef5;
-      border: 3px double #8b4513;
+      background: #fafafa;
+      border: 1px solid #eee;
       border-radius: 4px;
-      box-shadow: 3px 3px 0 rgba(139, 69, 19, 0.15);
     }
     .right-column {
       flex: 1;
@@ -96,100 +90,98 @@ layout: default
       margin: 0;
     }
     .post-item {
-      margin-bottom: 1em;
-      padding-bottom: 1em;
-      border-bottom: 1px solid #eee;
+      margin-bottom: 0;
+      padding: 16px 0;
+      border-bottom: 1px solid #f0f0f0;
     }
     .post-header {
       margin-bottom: 0.3em;
     }
     .post-date {
-      color: #7f8c8d;
-      font-size: 0.75em;
+      color: #bbb;
+      font-size: 0.78em;
       margin-right: 0.8em;
-      font-family: Consolas, monospace;
+      white-space: nowrap;
     }
     .post-link {
-      color: #2c3e50;
+      color: #333;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 500;
       font-size: 1em;
-      font-family: Consolas, monospace;
     }
     .post-link:hover {
-      color: #4a90e2;
+      color: #000;
     }
     .post-excerpt {
-      color: #444;
+      color: #888;
       font-size: 0.85em;
-      line-height: 1.4;
-      margin-left: 0.8em;
-      padding-left: 0.8em;
-      border-left: 2px solid #eee;
-      font-family: Consolas, monospace;
+      line-height: 1.5;
+      margin-top: 4px;
+      padding-left: 0;
     }
-    /* 标签和日期搜索相关样式 */
     .tags-section, .dates-section {
       margin-bottom: 1.5em;
     }
-    .tags-section h2, .dates-section h2 {
-      font-size: 1.1em;
-      color: #8b4513;
+    .tags-section h2, .dates-section h2, .visitor-stats h2 {
+      font-size: 13px;
+      color: #999;
       margin-bottom: 0.8em;
       font-weight: 600;
-      border-bottom: 2px solid #d4a574;
-      padding-bottom: 0.3em;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 0.4em;
     }
-    .tag-cloud, .date-cloud {
-      margin-bottom: 1em;
-      line-height: 1.6;
+    .date-cloud {
+      margin-bottom: 0.8em;
     }
-    .tag-link, .date-link {
-      display: inline-block;
-      padding: 0.3em 0.8em;
-      margin: 0.2em;
-      background: #fffef5;
-      border: 2px solid #d4a574;
-      border-radius: 3px;
+    .date-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 8px;
       text-decoration: none;
-      color: #5d4037;
-      font-size: 0.85em;
-      transition: all 0.2s ease;
+      color: #666;
+      font-size: 13px;
+      border-radius: 3px;
+      transition: all 0.15s ease;
+      border-left: 2px solid transparent;
     }
-    .tag-link:hover, .date-link:hover {
-      background: #8b4513;
-      color: #fff;
-      border-color: #8b4513;
-      transform: translate(-1px, -1px);
-      box-shadow: 2px 2px 0 rgba(139, 69, 19, 0.2);
+    .date-link:hover {
+      background: #f7f7f7;
+      color: #333;
+      border-left-color: #ddd;
     }
-    .tag-link.active, .date-link.active {
-      background: #8b4513;
-      color: #fff;
-      border-color: #3e2723;
-      box-shadow: 2px 2px 0 rgba(139, 69, 19, 0.3);
+    .date-link.active {
+      background: #f2f2f2;
+      color: #222;
+      font-weight: 600;
+      border-left-color: #555;
     }
-    /* 访客统计相关样式 */
+    .date-link .count {
+      font-size: 11px;
+      color: #bbb;
+      font-weight: 400;
+      min-width: 24px;
+      text-align: right;
+    }
+    .date-link.active .count {
+      color: #999;
+    }
+    .date-link:hover .count {
+      color: #aaa;
+    }
     .visitor-stats {
       margin-bottom: 1.5em;
     }
-    .visitor-stats h2 {
-      font-size: 1.1em;
-      color: #8b4513;
-      margin-bottom: 0.8em;
-      font-weight: 600;
-      border-bottom: 2px solid #d4a574;
-      padding-bottom: 0.3em;
-    }
     .stats-container {
-      background: #fffef5;
-      padding: 1em;
+      background: #fff;
+      padding: 0.8em;
       border-radius: 4px;
-      font-size: 0.85em;
-      color: #5d4037;
-      line-height: 1.6;
-      border: 2px solid #d4a574;
-      box-shadow: 2px 2px 0 rgba(139, 69, 19, 0.1);
+      font-size: 0.82em;
+      color: #888;
+      line-height: 1.8;
+      border: 1px solid #eee;
     }
     .stats-container span {
       display: block;
@@ -208,10 +200,6 @@ layout: default
       }
       .content-wrapper {
         padding: 0 0.8em;
-      }
-      .post-excerpt {
-        margin-left: 0.5em;
-        padding-left: 0.5em;
       }
     }
   </style>

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "RAG在若干医疗场景的实践和思考"
-tags: [LLM]
+tags: [Agent&LLM]
 excerpt: "RAG是一种下限无限低，上限无限高的技术"
 date: 2024-02-25 09:14:00
 ---

@@ -3,7 +3,7 @@ layout: post
 title: "再议agent中的memory"
 excerpt: "这篇blog讨论了memory的概念体系以及相关的创业公司和开源项目"
 date: 2025-11-25 10:00:00
-tags: [Agent,对话系统]
+tags: [Agent&LLM,对话系统]
 mathjax: true
 ---
 
