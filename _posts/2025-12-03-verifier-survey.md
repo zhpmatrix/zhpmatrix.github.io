@@ -135,7 +135,7 @@ Finally, we need to consider the following idea: Can we build a general evaluato
 
 + [From DeepSeek V3 to V3.2: Architecture, Sparse Attention, and RL Updates](https://sebastianraschka.com/blog/2025/technical-deepseek.html)
 
-this blog talked more about verifier in DeepSeekMath, certainly including meta-verfier.
+this blog talked more about verifier in DeepSeekMath, certainly including meta-verifier.
 
 
 **[扫码加笔者好友](http://www.zhpmatrix.site/about/)，茶已备好，等你来聊~**

@@ -68,7 +68,7 @@ date: 2025-09-07 11:00:00
 
 <img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/k0.webp?raw=true" width="400" align="center"/>
 
-进一步地关系描述如下所示：
+进一步的关系描述如下所示：
 
 <img src="https://github.com/zhpmatrix/zhpmatrix.github.io/blob/master/images/k1.webp?raw=true" width="400" align="center"/>
 

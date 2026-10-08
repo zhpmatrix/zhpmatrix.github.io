@@ -62,7 +62,7 @@ client.add(messages=[
         + Nebula图数据库
 + 参数记忆-模型训练参数（预训练权重和模块化的权重组件，如LoRA适配器和专家模块），实现记忆的动态加载和卸载
 
-这个工作中对于memory的定义比sora更加广泛，比如认为kv cache和model parameter均是记忆的一种类型，同时在范式上抽象了MemCube，以及MOS（Memory Operating System），MAG（Memory Augmented Generation）等概念，比如MOS的使用方式如下所示:
+这个工作中对于memory的定义比soar更加广泛，比如认为kv cache和model parameter均是记忆的一种类型，同时在范式上抽象了MemCube，以及MOS（Memory Operating System），MAG（Memory Augmented Generation）等概念，比如MOS的使用方式如下所示:
 
 ```python
 from memos.configs.mem_os import MOSConfig
@@ -157,7 +157,7 @@ print(f"text_memories: {retrieved_memories['text_mem']}")
 
 + [Memory Overview](https://docs.langchain.com/oss/python/concepts/memory),LangChain中的memory机制
 
-+ [memory-template](https://github.com/langchain-ai/memory-template?tab=readme-ov-file),LangChain中针对memory的具体template设计，[Memory的具体使用使用方式](https://docs.langchain.com/oss/python/langgraph/add-memory),multi-agent之[supervisor agent](https://docs.langchain.com/oss/python/langchain/supervisor)的实现方式，针对multi-agent，LangChain中提供了两种实现方式，分别是中心式的tool calling和去中心式的handoffs，[LangMem](https://langchain-ai.github.io/langmem/)是LangChain中的一种具体实现（面向semantic memory和episodic memory两种）
++ [memory-template](https://github.com/langchain-ai/memory-template?tab=readme-ov-file),LangChain中针对memory的具体template设计，[Memory的具体使用方式](https://docs.langchain.com/oss/python/langgraph/add-memory),multi-agent之[supervisor agent](https://docs.langchain.com/oss/python/langchain/supervisor)的实现方式，针对multi-agent，LangChain中提供了两种实现方式，分别是中心式的tool calling和去中心式的handoffs，[LangMem](https://langchain-ai.github.io/langmem/)是LangChain中的一种具体实现（面向semantic memory和episodic memory两种）
 
 + 《Context Engineering:Sessions, Memory》,Google
 

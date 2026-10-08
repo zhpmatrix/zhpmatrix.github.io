@@ -47,7 +47,7 @@ _前言：
 
 为什么LLM/Agent做的不好？因为context不全。未必是事实，但是应当是主观的第一选择。因为在无法改变环境的条件下，能够改变的只有自己，只有自己的context。
 
-[从超级个体到超级组织：1688数据中心Multi-Agent研发小队实录](https://mp.weixin.qq.com/s/ClAbgCHuocfChSuEDdtdeg)中提到“<u>知识回流，必须建立在所有人在同一平台上</u>“。
+[从超级个体到超级组织：1688数据中心Multi-Agent研发小队实录](https://mp.weixin.qq.com/s/ClAbgCHuocfChSuEDdtdeg)中提到“<u>知识回流，必须建立在所有人在同一平台上</u>”。
 
 Plaud作为一个现象级的硬件产品，所做的事情也只不过是录音并总结。
 
