@@ -1,6 +1,7 @@
 ---
 layout: page
 title: project
+description: "ZHPMATRIX 的项目与技术方向，涉及大模型应用、知识图谱、问答系统和搜索。"
 permalink: /project/
 ---
 

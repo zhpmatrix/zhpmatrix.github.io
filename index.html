@@ -28,8 +28,7 @@ layout: default
             {% for post in site.posts %}
               <li class="post-item" 
                   data-tags="{% for tag in post.tags %}{% if tag != '' %}{{ tag | strip }},{% endif %}{% endfor %}"
-                  data-date="{{ post.date | date: '%Y' }}"
-                  style="display: none;">
+                  data-date="{{ post.date | date: '%Y' }}">
                 <div class="post-header">
                   <span class="post-date">{{ post.date | date: "%b %-d, %Y" }}</span>
                   <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>

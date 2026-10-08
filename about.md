@@ -1,6 +1,7 @@
 ---
 layout: page
 title: about
+description: "关于 ZHPMATRIX：个人介绍、联系方式和博客写作记录。"
 permalink: /about/
 ---
 

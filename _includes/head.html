@@ -19,11 +19,26 @@
 </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+    {% assign seo_description = page.description | default: page.excerpt | default: site.description | strip_html | strip_newlines | truncate: 160 %}
+    {% assign canonical_url = page.url | absolute_url %}
+    <title>{% if page.title %}{{ page.title | escape }} | {% endif %}{{ site.title | escape }}</title>
     <meta name="viewport" content="width=device-width">
-    <meta name="description" content="{{ site.description }}">
-    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
-    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="{{ site.title }} posts" />
+    <meta name="description" content="{{ seo_description | escape }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link href="{{ '/feed.xml' | relative_url }}" type="application/rss+xml" rel="alternate" title="{{ site.title | escape }} posts" />
+    {% if page.layout == 'post' %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": {{ page.title | jsonify }},
+      "description": {{ seo_description | jsonify }},
+      "url": {{ canonical_url | jsonify }},
+      "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
+      "author": {"@type": "Person", "name": {{ page.author | default: site.author | jsonify }}}
+    }
+    </script>
+    {% endif %}
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">

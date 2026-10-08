@@ -6,7 +6,8 @@ weibo: 微博
 description: "致力于算法，数据和工程的全链路打通"
 baseurl: ""
 
-url: "http://zhpmatrix.github.io"
+url: "https://zhpmatrix.github.io"
+author: zhpmatrix
 github_username:  zhpmatrix
 
 # Build settings
