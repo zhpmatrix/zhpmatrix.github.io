@@ -1,15 +1,38 @@
 ---
 layout: page
-title: project
+title: 项目与实践
 description: "ZHPMATRIX 的项目与技术方向，涉及大模型应用、知识图谱、问答系统和搜索。"
 permalink: /project/
 ---
 
-<style>
-  .page-content .wrap { max-width: 1000px; }
-</style>
+我关注大模型、知识图谱、问答与搜索，尝试打通数据、算法和工程，让技术选择服务于真实的业务问题。
 
-**工作方向**
+## 代表性实践
+
+### 财税咨询与对话系统
+
+围绕财税实务咨询，探索专家系统、知识表达、要素抽取与 Agent 等技术路线。文章记录了架构选择和强知识依赖场景中的具体难点。
+
+- [从系统问题开始读]({{ '/topics/' | relative_url }}#dialogue)
+- [财税版 DeepResearch 的构建实践]({% post_url 2025-11-01-tax-agent %})
+
+### 医疗 NLP 与大模型应用
+
+围绕医疗文本结构化、中文医疗大模型与 RAG，记录模型能力和临床业务之间的取舍，也探索患者模拟等应用。
+
+- [RAG 的医疗场景实践]({% post_url 2024-02-25-rag-app-thoughts %})
+- [患者模拟]({% post_url 2023-07-03-cmllm-patient-simulater %})
+
+### 独立产品探索
+
+搜医搜与其他小产品的构建记录：从想法、技术实现到产品经营，保留过程中的尝试与反思。
+
+- [搜医搜：从 0 到 1]({% post_url 2024-10-13-souyisou %})
+- [2025 年的小产品复盘]({% post_url 2025-07-29-project-review %})
+
+---
+
+## 工作方向
 
 - 大模型应用和模型开发，进行中(<font color="red"><u>欢迎合作交流～</u></font>)
 - 知识图谱，问答系统，中文大模型，搜索
@@ -18,7 +41,7 @@ permalink: /project/
 [![zhpmatrix's GitHub stats](https://github-readme-stats-sigma-five.vercel.app/api?username=zhpmatrix&show_icons=truet&include_all_commits=True&hide=contribs)](https://github.com/anuraghazra/github-readme-stats)
 
 
-**参与活动**
+## 参与活动
 
 - Linkloud沙龙:硅谷观察，AI初创如何重新定义"卷"和"快"?，杭州，2025.11
 - AI茶话会，杭州，2025.11
@@ -27,7 +50,7 @@ permalink: /project/
 - 中国卫生杂志-[《ChatGPT能给医疗行业带来什么》](https://mp.weixin.qq.com/s/15z3AL2UQvARW1Sfh7yMQA)，获该杂志2023年4月份最高分重点稿件
 - HIT Webinar,[《"生理时序数据"和"中文医疗大模型"双主题分享》](https://mp.weixin.qq.com/s/hGgsAHkorzHuzNN57YxclA)
 
-**比赛经历**
+## 比赛经历
 
 - [2024 年昇腾AI创新大赛浙江赛区-企业知识管理系统-铜奖](https://news.qq.com/rain/a/20241011A08LNB00) 
 - 2024 年数字医学技术及应用创新大赛-大模型医疗健康项目赛([DiMTAIC](https://tianchi.aliyun.com/competition/entrance/532264/customize528))-初赛晋级(350个团队)
@@ -40,20 +63,20 @@ permalink: /project/
 - 2018 年“之江杯”大赛-视频识别和问答，Rank=1/934 
 - 2017 年“英特尔杯”-金融营销活动情感分析，人工智能组银奖
 
-**期刊文章**
+## 期刊文章
 
 - **《基于采样理论的机器学习方法研究》**<br>**张海鹏**<br>硕士论文<br>[paper](https://cdmd.cnki.com.cn/Article/CDMD-10295-1019228269.htm)
 - **《基于Lévy分布的柔软自适应演化采样算法》**<br>**ZHANG haipeng**, ZHANG Yangfan, SUN Jun<br>《计算机应用研究》<br>[paper](http://www.cqvip.com/qk/93231x/20197/7002312489.html)
 
 - **Lévy-Based Oversampling Technique for Imbalanced Datasets**<br>ZHANG Yangfan, **ZHANG Haipeng**, SUN Jun<br>Computer Engineering and Applications, 2019<br>[paper](http://cea.ceaj.org/EN/10.3778/j.issn.1002-8331.1804-0218#1)
 
-**会议文章**
+## 会议文章
 - **Estimating Difficulty Score of Visual Search in Images for Semi-supervised Object Detection**<br>Dongliang Ma, **Haipeng Zhang**, Hao Wu, Tao Zhang, Jun Sun<br>Pacific Rim Knowledge Acquisition Workshop(PKAW 2019)<br>[paper](https://link.springer.com/chapter/10.1007/978-3-030-30639-7_1)
 
 - **VisDrone-DET2018: The Vision Meets Drone Object Detection in Image Challenge Results**<br>Pengfei Zhu,Longyin Wen, ..., **Haipeng Zhang**,etc<br>European Conference on Computer Vision Workshop(ECCV 2018 Workshop)<br>[paper](https://openaccess.thecvf.com/content_ECCVW_2018/papers/11133/Zhu_VisDrone-DET2018_The_Vision_Meets_Drone_Object_Detection_in_Image_Challenge_ECCVW_2018_paper.pdf),[code](https://github.com/zhpmatrix/VisDrone2018)
 
 
-**发明专利**
+## 发明专利
 
 - **《一种细粒度各场景通用的医疗文本结构化信息抽取方法》**<br>**张海鹏**;詹威;郭立超<br>专利号:ZL202310113159.3
 

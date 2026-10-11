@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
   {% include head.html %}
 
-    <body>
+    <body class="{{ page.page_class }}{% if page.layout == 'post' %} article-page{% endif %}">
+    <a class="skip-link" href="#main-content">跳到正文</a>
     {% include header.html %}
 
-    <!--<div class="page-content" style="background-color:#F8F8FF;">-->
-    <div class="page-content">
+    <main class="page-content" id="main-content">
       <div class="wrap">
       {{ content }}
       </div>
-    </div>
+    </main>
 
     {% include footer.html %}
 

@@ -1,301 +1,39 @@
 ---
 layout: default
+page_class: home-page
 ---
-
 <div class="home">
-  <div class="content-wrapper">
-    <div class="two-column-layout">
-      <div class="left-column">
-        {% include tags.html %}
-        
-        <!-- 日期搜索模块 -->
-        <div class="dates-section">
-          <h2>日期搜索</h2>
-          <div class="date-cloud">
-            {% assign dates = site.posts | group_by_exp:"post", "post.date | date: '%Y'" %}
-            {% assign dates = dates | sort: 'name' | reverse %}
-            <a href="#" class="date-link active" data-date="all">全部年份<span class="count">{{ site.posts | size }}</span></a>
-            {% for date in dates %}
-              <a href="#" class="date-link" data-date="{{ date.name }}">{{ date.name }}<span class="count">{{ date.items | size }}</span></a>
-            {% endfor %}
-          </div>
-        </div>
+  <section class="author-intro" aria-labelledby="intro-title">
+    <p class="eyebrow">算法 · 知识 · 产品 · 生活</p>
+    <h1 id="intro-title">记录 AI 从算法到产品的实践。</h1>
+    <p>我是 zhpmatrix，关注垂直领域的对话系统、Agent 与知识组织，也写阅读、生活和一路上的思考。</p>
+    <a class="text-link" href="{{ '/about/' | relative_url }}">认识作者 <span aria-hidden="true">↗</span></a>
+  </section>
 
-      </div>
-      <div class="center-column">
-        <div class="posts-container">
-          <ul class="posts">
-            {% for post in site.posts %}
-              <li class="post-item" 
-                  data-tags="{% for tag in post.tags %}{% if tag != '' %}{{ tag | strip }},{% endif %}{% endfor %}"
-                  data-date="{{ post.date | date: '%Y' }}">
-                <div class="post-header">
-                  <span class="post-date">{{ post.date | date: "%b %-d, %Y" }}</span>
-                  <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-                </div>
-                <div class="post-excerpt">{{ post.excerpt }}</div>
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
-      <div class="right-column">
-        <div class="visitor-stats">
-          <h2>访客统计</h2>
-          <span id="busuanzi_container_site_pv">
-            访问 <span id="busuanzi_value_site_pv"></span>
-          </span>
-          <span id="busuanzi_container_site_uv">
-            访客 <span id="busuanzi_value_site_uv"></span>
-          </span>
-        </div>
-        <div class="recommend-links">
-          <h2>推荐链接</h2>
-          <a href="https://hugozhu.site/" target="_blank">钉钉CTO朱鸿的博客</a>
-          <a href="https://pmframe.works/" target="_blank">100个产品设计框架</a>
-          <a href="https://mp.weixin.qq.com/s/ZloR4kbXacxpcEkIEv3oUQ" target="_blank">言午的微信公众号</a>
-          <a href="https://01.me/" target="_blank">Bojie Li</a>
-          <a href="https://mungermodels.com/" target="_blank">查理芒格的思维模型</a>
-        </div>
-      </div>
+  <section class="home-section" aria-labelledby="featured-title">
+    <div class="section-heading"><h2 id="featured-title">从这里开始</h2><span>三篇代表作</span></div>
+    <ul class="reading-list featured-list">
+      {% for post_path in site.data.reading.featured %}
+        {% assign selected_post = site.posts | where: 'path', post_path | first %}
+        {% if selected_post %}{% include reading-item.html post=selected_post %}{% endif %}
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section class="home-section" aria-labelledby="topics-title">
+    <div class="section-heading"><h2 id="topics-title">沿着主题阅读</h2><a href="{{ '/topics/' | relative_url }}">全部专题 ↗</a></div>
+    <div class="topic-links">
+      {% for topic in site.data.reading.topics %}
+      <a href="{{ '/topics/' | relative_url }}#{{ topic.id }}"><strong>{{ topic.title }}</strong><span>{{ topic.description }}</span></a>
+      {% endfor %}
     </div>
-  </div>
+  </section>
 
-  <style>
-    .content-wrapper {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 1em;
-    }
-    .two-column-layout {
-      display: flex;
-      gap: 2em;
-      margin-top: 2em;
-      justify-content: center;
-    }
-    .left-column {
-      flex: 0 0 180px;
-      position: sticky;
-      top: 20px;
-      align-self: flex-start;
-      padding: 1.2em;
-      background: #fafafa;
-      border: 1px solid #eee;
-      border-radius: 4px;
-    }
-    .center-column {
-      flex: 0 0 500px;
-    }
-    .right-column {
-      flex: 0 0 200px;
-      position: sticky;
-      top: 20px;
-      align-self: flex-start;
-      padding: 1.2em;
-      background: #fafafa;
-      border: 1px solid #eee;
-      border-radius: 4px;
-    }
-    .visitor-stats {
-      margin-bottom: 1.5em;
-      font-size: 13px;
-      color: #888;
-    }
-    .visitor-stats h2, .recommend-links h2 {
-      font-size: 13px;
-      color: #999;
-      margin-bottom: 0.6em;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 0.4em;
-    }
-    .visitor-stats span {
-      display: block;
-      line-height: 1.8;
-      color: #888;
-    }
-    .recommend-links {
-      font-size: 13px;
-      color: #888;
-    }
-    .recommend-links a {
-      display: block;
-      padding: 6px 8px;
-      color: #5b9bd5;
-      text-decoration: none;
-      font-size: 13px;
-      border-radius: 3px;
-      transition: all 0.15s ease;
-    }
-    .recommend-links a:hover {
-      background: #f0f6fb;
-      color: #3d7db5;
-    }
-    .posts-container {
-      margin-top: 0;
-    }
-    .posts {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .post-item {
-      margin-bottom: 0;
-      padding: 16px 0;
-      border-bottom: 1px solid #f0f0f0;
-    }
-    .post-header {
-      margin-bottom: 0.3em;
-    }
-    .post-date {
-      color: #bbb;
-      font-size: 0.78em;
-      margin-right: 0.8em;
-      white-space: nowrap;
-    }
-    .post-link {
-      color: #333;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 1em;
-    }
-    .post-link:hover {
-      color: #000;
-    }
-    .post-excerpt {
-      color: #888;
-      font-size: 0.85em;
-      line-height: 1.5;
-      margin-top: 4px;
-      padding-left: 0;
-    }
-    .tags-section, .dates-section {
-      margin-bottom: 1.5em;
-    }
-    .tags-section h2, .dates-section h2 {
-      font-size: 13px;
-      color: #999;
-      margin-bottom: 0.8em;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 0.4em;
-    }
-    .date-cloud {
-      margin-bottom: 0.8em;
-    }
-    .date-link {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 5px 8px;
-      text-decoration: none;
-      color: #666;
-      font-size: 13px;
-      border-radius: 3px;
-      transition: all 0.15s ease;
-      border-left: 2px solid transparent;
-    }
-    .date-link:hover {
-      background: #f7f7f7;
-      color: #333;
-      border-left-color: #ddd;
-    }
-    .date-link.active {
-      background: #f2f2f2;
-      color: #222;
-      font-weight: 600;
-      border-left-color: #555;
-    }
-    .date-link .count {
-      font-size: 11px;
-      color: #bbb;
-      font-weight: 400;
-      min-width: 24px;
-      text-align: right;
-    }
-    .date-link.active .count {
-      color: #999;
-    }
-    .date-link:hover .count {
-      color: #aaa;
-    }
-    @media (max-width: 768px) {
-      .two-column-layout {
-        flex-direction: column;
-      }
-      .left-column, .right-column {
-        flex: none;
-        position: static;
-        width: 100%;
-      }
-      .center-column {
-        flex: none;
-        width: 100%;
-      }
-      .content-wrapper {
-        padding: 0 0.8em;
-      }
-    }
-  </style>
-
-  <!-- 不蒜子统计 -->
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const tagLinks = document.querySelectorAll('.tag-link');
-      const dateLinks = document.querySelectorAll('.date-link');
-      const postItems = document.querySelectorAll('.post-item');
-      let currentTag = 'all';
-      let currentDate = 'all';
-
-      // 默认显示"全部文章"
-      const allPostsTag = document.querySelector('.tag-link[data-tag="all"]');
-      const allDatesLink = document.querySelector('.date-link[data-date="all"]');
-      allPostsTag.classList.add('active');
-      allDatesLink.classList.add('active');
-      filterPosts();
-
-      tagLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          tagLinks.forEach(t => t.classList.remove('active'));
-          this.classList.add('active');
-          currentTag = this.getAttribute('data-tag');
-          filterPosts();
-        });
-      });
-
-      dateLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          dateLinks.forEach(d => d.classList.remove('active'));
-          this.classList.add('active');
-          currentDate = this.getAttribute('data-date');
-          filterPosts();
-        });
-      });
-
-      function filterPosts() {
-        postItems.forEach(item => {
-          const tagsAttr = item.getAttribute('data-tags') || '';
-          const tags = tagsAttr.split(',').filter(tag => tag.trim() !== '');
-          const date = item.getAttribute('data-date');
-          
-          const showByTag = currentTag === 'all' || tags.some(tag => tag.trim() === currentTag.trim());
-          const showByDate = currentDate === 'all' || date === currentDate;
-          
-          if (showByTag && showByDate) {
-            item.style.display = 'block';
-          } else {
-            item.style.display = 'none';
-          }
-        });
-      }
-    });
-  </script>
+  <section class="home-section" aria-labelledby="recent-title">
+    <div class="section-heading"><h2 id="recent-title">最近更新</h2><a href="{{ '/archive/' | relative_url }}">全部 {{ site.posts.size }} 篇 ↗</a></div>
+    <ul class="reading-list">
+      {% for post in site.posts limit: 10 %}{% include reading-item.html post=post %}{% endfor %}
+    </ul>
+    <a class="text-link archive-entry" href="{{ '/archive/' | relative_url }}">进入文章归档 <span aria-hidden="true">→</span></a>
+  </section>
 </div>

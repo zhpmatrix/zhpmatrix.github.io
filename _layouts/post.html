@@ -6,7 +6,7 @@ layout: default
   <header class="post-header">
     <h1>{{ page.title }}</h1>
     <p class="meta">
-      {{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}
+      {{ page.date | date: "%Y.%m.%d" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}
       {% if page.tags %}
       • 
       <span class="meta-tags">
@@ -19,17 +19,20 @@ layout: default
     </p>
   </header>
 
-  <article class="post-content">
+  <div class="article-layout">
+    {% include toc.html %}
+  <article class="post-content" id="article-body">
   {{ content }}
   </article>
+  </div>
+  <script src="{{ '/js/article.js' | relative_url }}" defer></script>
+  {% include related.html %}
 
   <!-- mathjax -->
   {% if page.mathjax %}
   <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   {% endif %}
 
-  <!-- 不蒜子统计 -->
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 <div id="disqus_thread"></div>
 <script>
@@ -54,7 +57,7 @@ layout: default
 </script>
 <script src="https://unpkg.com/mermaid@8.9.3/dist/mermaid.min.js"></script>
 <script>
-  $(document).ready(function () {
+  document.addEventListener('DOMContentLoaded', function () {
     mermaid.initialize({
       startOnLoad:true,
       theme: "default",

@@ -1,0 +1,30 @@
+featured:
+  - _posts/2025-11-01-tax-agent.md
+  - _posts/2025-06-24-taskbot-why-hard.md
+  - _posts/2024-10-13-souyisou.md
+topics:
+  - id: dialogue
+    title: 垂直领域对话系统
+    description: 从业务问题出发，走过系统架构、要素抽取与知识推理。
+    posts:
+      - _posts/2025-04-20-taskbot-start.md
+      - _posts/2025-06-24-taskbot-why-hard.md
+      - _posts/2025-04-21-taskbot-tech-design.md
+      - _posts/2025-06-24-taskbot-entity-extractor.md
+      - _posts/2025-05-29-taskbot-inference-tree.md
+  - id: agent
+    title: Agent 的知识、记忆与验证
+    description: 理解知识如何进入系统，记忆如何组织，结果如何验证。
+    posts:
+      - _posts/2025-09-14-memory.md
+      - _posts/2025-11-25-memory-concept.md
+      - _posts/2025-11-01-tax-agent.md
+      - _posts/2025-12-03-verifier-survey.md
+  - id: product
+    title: 从算法到产品
+    description: 医疗与财税场景中的技术取舍，以及独立产品的探索与复盘。
+    posts:
+      - _posts/2024-02-25-rag-app-thoughts.md
+      - _posts/2024-09-08-ai-tax-search.md
+      - _posts/2024-10-13-souyisou.md
+      - _posts/2025-07-29-project-review.md

@@ -40,17 +40,22 @@
       <p class="text">{{ site.description }}</p>
     </div>
 
+    <div class="footer-reading">
+      <a href="{{ '/feed.xml' | relative_url }}">订阅 RSS</a>
+      <details class="recommend-links">
+        <summary>推荐链接</summary>
+        <ul>
+          <li><a href="https://hugozhu.site/" target="_blank" rel="noopener noreferrer">钉钉CTO朱鸿的博客</a></li>
+          <li><a href="https://pmframe.works/" target="_blank" rel="noopener noreferrer">100个产品设计框架</a></li>
+          <li><a href="https://mp.weixin.qq.com/s/ZloR4kbXacxpcEkIEv3oUQ" target="_blank" rel="noopener noreferrer">言午的微信公众号</a></li>
+          <li><a href="https://01.me/" target="_blank" rel="noopener noreferrer">Bojie Li</a></li>
+          <li><a href="https://mungermodels.com/" target="_blank" rel="noopener noreferrer">查理芒格的思维模型</a></li>
+        </ul>
+      </details>
+      <div class="visitor-stats"><span id="busuanzi_container_site_pv">访问 <span id="busuanzi_value_site_pv"></span></span> · <span id="busuanzi_container_site_uv">访客 <span id="busuanzi_value_site_uv"></span></span></div>
+    </div>
   </div>
   
 </footer>
 
-<script src="https://unpkg.com/mermaid@8.9.3/dist/mermaid.min.js"></script>
-<script>
-  $(document).ready(function () {
-    mermaid.initialize({
-      startOnLoad:true,
-      theme: "default",
-    });
-    window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
-  });
-</script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

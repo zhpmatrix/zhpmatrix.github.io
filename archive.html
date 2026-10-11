@@ -1,0 +1,26 @@
+---
+layout: page
+title: 文章归档
+permalink: /archive/
+description: 按关键词、主题和年份浏览 ZHPMATRIX 的全部文章。
+page_class: archive-page
+---
+<p class="page-intro">从 2016 年开始的技术、阅读与生活记录。</p>
+<form class="archive-filters" role="search" hidden>
+  <label class="archive-search">关键词<input type="search" id="archive-query" placeholder="搜索标题或摘要" autocomplete="off"></label>
+  <label>主题<select id="archive-tag"><option value="">全部主题</option>{% assign tags = site.tags | sort %}{% for tag in tags %}<option value="{{ tag[0] | escape }}">{{ tag[0] | escape }}</option>{% endfor %}</select></label>
+  <label>年份<select id="archive-year"><option value="">全部年份</option>{% assign years = site.posts | group_by_exp: 'post', "post.date | date: '%Y'" %}{% for year in years %}<option value="{{ year.name }}">{{ year.name }}</option>{% endfor %}</select></label>
+  <button type="reset">重置</button>
+</form>
+<p class="archive-status" id="archive-status" role="status">共 {{ site.posts.size }} 篇文章</p>
+<ul class="reading-list archive-list">
+  {% for post in site.posts %}
+  <li class="reading-item" data-year="{{ post.date | date: '%Y' }}" data-tags="{{ post.tags | jsonify | escape }}">
+    <h3><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
+    <p class="reading-summary">{{ post.excerpt | strip_html | strip_newlines | escape }}</p>
+    <p class="reading-meta"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y.%m.%d' }}</time>{% if post.tags.size > 0 %} · {{ post.tags | join: ' / ' | escape }}{% endif %}</p>
+  </li>
+  {% endfor %}
+</ul>
+<p id="archive-empty" hidden>没有找到匹配文章。试试其他关键词，或重置筛选。</p>
+<script src="{{ '/js/archive.js' | relative_url }}" defer></script>

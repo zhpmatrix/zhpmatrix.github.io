@@ -1,0 +1,5 @@
+<li class="reading-item">
+  <h3><a href="{{ include.post.url | relative_url }}">{{ include.post.title | escape }}</a></h3>
+  <p class="reading-summary">{{ include.post.excerpt | strip_html | strip_newlines | escape }}</p>
+  <p class="reading-meta"><time datetime="{{ include.post.date | date_to_xmlschema }}">{{ include.post.date | date: '%Y.%m.%d' }}</time>{% if include.post.tags.size > 0 %} · {{ include.post.tags | join: ' / ' | escape }}{% endif %}</p>
+</li>

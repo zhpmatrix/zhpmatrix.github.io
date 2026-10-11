@@ -1,0 +1,29 @@
+{% assign reading_topic = nil %}
+{% for topic in site.data.reading.topics %}
+  {% if topic.posts contains page.path %}{% assign reading_topic = topic %}{% break %}{% endif %}
+{% endfor %}
+{% assign related_count = 0 %}
+{% capture related_items %}
+  {% if reading_topic %}
+    {% for post_path in reading_topic.posts %}
+      {% if post_path != page.path and related_count < 3 %}
+        {% assign related_post = site.posts | where: 'path', post_path | first %}
+        {% if related_post %}{% include reading-item.html post=related_post %}{% assign related_count = related_count | plus: 1 %}{% endif %}
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    {% for candidate in site.posts %}
+      {% if candidate.url != page.url and related_count < 3 %}
+        {% assign shared_tag = false %}
+        {% for tag in page.tags %}{% if candidate.tags contains tag %}{% assign shared_tag = true %}{% break %}{% endif %}{% endfor %}
+        {% if shared_tag %}{% include reading-item.html post=candidate %}{% assign related_count = related_count | plus: 1 %}{% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endcapture %}
+{% if related_count > 0 %}
+<section class="related-reading" aria-labelledby="related-title">
+  <div class="section-heading"><h2 id="related-title">继续阅读</h2>{% if reading_topic %}<a href="{{ '/topics/' | relative_url }}#{{ reading_topic.id }}">进入本专题 →</a>{% endif %}</div>
+  <ul class="reading-list">{{ related_items }}</ul>
+</section>
+{% endif %}

@@ -1,0 +1,20 @@
+---
+layout: page
+title: 专题
+permalink: /topics/
+description: 从垂域对话系统、Agent 的知识与记忆，到算法与产品实践的主题阅读路径。
+page_class: topics-page
+---
+<p class="page-intro">把零散的文章连起来，沿着一个问题往下读。每个专题按照理解问题、设计方案与实践复盘的顺序编排。</p>
+<nav class="topic-nav" aria-label="专题导航">{% for topic in site.data.reading.topics %}<a href="#{{ topic.id }}">{{ topic.title }}</a>{% endfor %}</nav>
+{% for topic in site.data.reading.topics %}
+<section class="topic-section" id="{{ topic.id }}">
+  <h2>{{ topic.title }}</h2><p>{{ topic.description }}</p>
+  <ol class="reading-list topic-reading-list">
+    {% for post_path in topic.posts %}
+      {% assign selected_post = site.posts | where: 'path', post_path | first %}
+      {% if selected_post %}{% include reading-item.html post=selected_post %}{% endif %}
+    {% endfor %}
+  </ol>
+</section>
+{% endfor %}
