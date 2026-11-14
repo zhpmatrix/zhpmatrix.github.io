@@ -138,4 +138,4 @@ Finally, we need to consider the following idea: Can we build a general evaluato
 this blog talked more about verifier in DeepSeekMath, certainly including meta-verifier.
 
 
-**[扫码加笔者好友](http://www.zhpmatrix.site/about/)，茶已备好，等你来聊~**
+**[扫码加笔者好友](https://zhpmatrix.github.io/about/)，茶已备好，等你来聊~**

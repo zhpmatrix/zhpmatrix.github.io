@@ -172,5 +172,5 @@ print(f"text_memories: {retrieved_memories['text_mem']}")
 + [MindLab](https://macaron.im/mindlab/research)，国外的一家关于memory的创业公司，思路上构建了memory diffusion的方案，团队认为围绕memory，重要的不是记忆，而是遗忘。通过在size非常大的模型上进行LoRA微调，将memory注入到模型中，从而形成个性化的记忆类型。最近有感于纳排的思维逻辑应用，比如相比纳入，排除也是重要的。比如如果无法区分哪些是好的，能否区分哪些是坏的？比如记忆和遗忘的关系，比如降低成本和增加收入的trade off等。
 
 
-**[扫码加笔者好友](http://www.zhpmatrix.site/about/)，茶已备好，等你来聊~**
+**[扫码加笔者好友](https://zhpmatrix.github.io/about/)，茶已备好，等你来聊~**
 

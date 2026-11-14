@@ -130,4 +130,4 @@ _将两者结合，我们可以得到一个统一的图景：从“知”（信�
 (2)[《On LLMs-Driven Synthetic Data Generation, Curation, and Evaluation: A Survey》](https://arxiv.org/abs/2406.15126)
 
 
-**[扫码加笔者好友](http://www.zhpmatrix.site/about/)，茶已备好，等你来聊~**
+**[扫码加笔者好友](https://zhpmatrix.github.io/about/)，茶已备好，等你来聊~**

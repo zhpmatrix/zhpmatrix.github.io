@@ -48,5 +48,5 @@ date: 2025-11-08 11:00:00
 另外一方面，在笔者去年写的[一次面向垂域搜索系统的实践与思考
 ](http://www.zhpmatrix.site/2024/09/07/ai-tax-search/)和[财税咨询系统的架构思考](http://www.zhpmatrix.site/2025/04/21/taskbot-tech-design/)中提到，好的架构一定是和业务高度适配的，并且是演化出来的，因为业务自身也在进化。系统架构的知识体系中的架构知识提供的是一个宏观视角，具体习得要在实战中沉淀和积累。
 
-**[扫码加笔者好友](http://www.zhpmatrix.site/about/)，茶已备好，等你来聊~**
+**[扫码加笔者好友](https://zhpmatrix.github.io/about/)，茶已备好，等你来聊~**
 
