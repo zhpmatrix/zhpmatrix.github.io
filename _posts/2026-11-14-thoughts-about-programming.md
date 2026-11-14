@@ -4,6 +4,7 @@ title: 软工死于2026年吗？
 excerpt: 从coding agent第一次带来aha moment的时刻，也许软工结束就开始了倒计时
 date: 2026-11-14 6:00:00
 tags:
+  - 技术杂谈
 mathjax: true
 ---
 ### 第一章：4万字的PRD

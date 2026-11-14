@@ -4,6 +4,7 @@ title: 26年7月，关于AI的碎碎念～
 excerpt: AI的发展既快也慢，快在表面，慢在底层逻辑。
 date: 2026-07-14 6:00:00
 tags:
+  - 技术杂谈
 mathjax: true
 ---
 
