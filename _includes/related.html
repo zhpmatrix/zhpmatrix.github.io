@@ -23,7 +23,7 @@
 {% endcapture %}
 {% if related_count > 0 %}
 <section class="related-reading" aria-labelledby="related-title">
-  <div class="section-heading"><h2 id="related-title">继续阅读</h2>{% if reading_topic %}<a href="{{ '/topics/' | relative_url }}#{{ reading_topic.id }}">进入本专题 →</a>{% endif %}</div>
+  <div class="section-heading"><h2 id="related-title">继续阅读</h2></div>
   <ul class="reading-list">{{ related_items }}</ul>
 </section>
 {% endif %}

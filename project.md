@@ -13,7 +13,6 @@ permalink: /project/
 
 围绕财税实务咨询，探索专家系统、知识表达、要素抽取与 Agent 等技术路线。文章记录了架构选择和强知识依赖场景中的具体难点。
 
-- [从系统问题开始读]({{ '/topics/' | relative_url }}#dialogue)
 - [财税版 DeepResearch 的构建实践]({% post_url 2025-11-01-tax-agent %})
 
 ### 医疗 NLP 与大模型应用
